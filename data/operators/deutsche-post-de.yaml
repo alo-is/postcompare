@@ -37,6 +37,11 @@ letters:
 
 parcels:
   domestic:
+    - name: "DHL Päckchen XS"
+      max_weight_kg: 0.5
+      price_eur: 2.99
+      delivery_days: [1, 2]
+      tracking: false
     - name: "DHL Päckchen S"
       max_weight_kg: 2
       price_eur: 3.99
@@ -62,6 +67,11 @@ parcels:
       - name: "EU"
         countries: ["FR", "ES", "IT", "BE", "NL", "PT", "AT", "IE", "LU", "SE", "DK", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT"]
         rates:
+          - name: "DHL Päckchen International"
+            max_weight_kg: 0.5
+            price_eur: 5.49
+            delivery_days: [3, 7]
+            tracking: false
           - name: "DHL Paket International"
             max_weight_kg: 5
             price_eur: 13.99

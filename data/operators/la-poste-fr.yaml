@@ -42,6 +42,16 @@ letters:
 parcels:
   domestic:
     - name: "Colissimo"
+      max_weight_kg: 0.25
+      price_eur: 4.95
+      delivery_days: [2, 3]
+      tracking: true
+    - name: "Colissimo"
+      max_weight_kg: 0.5
+      price_eur: 5.65
+      delivery_days: [2, 3]
+      tracking: true
+    - name: "Colissimo"
       max_weight_kg: 1
       price_eur: 6.40
       delivery_days: [2, 3]
@@ -71,6 +81,11 @@ parcels:
       - name: "Europe"
         countries: ["DE", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
+          - name: "Colissimo International"
+            max_weight_kg: 0.5
+            price_eur: 7.80
+            delivery_days: [3, 5]
+            tracking: true
           - name: "Colissimo International"
             max_weight_kg: 1
             price_eur: 9.50

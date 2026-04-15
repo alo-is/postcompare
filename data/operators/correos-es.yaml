@@ -46,6 +46,11 @@ letters:
 parcels:
   domestic:
     - name: "Paquete Estándar"
+      max_weight_kg: 0.5
+      price_eur: 3.50
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Paquete Estándar"
       max_weight_kg: 2
       price_eur: 4.95
       delivery_days: [2, 4]
@@ -70,6 +75,11 @@ parcels:
       - name: "Europe"
         countries: ["FR", "DE", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
+          - name: "Paquete Internacional Económico"
+            max_weight_kg: 0.5
+            price_eur: 7.50
+            delivery_days: [5, 10]
+            tracking: true
           - name: "Paquete Internacional Económico"
             max_weight_kg: 2
             price_eur: 10.50

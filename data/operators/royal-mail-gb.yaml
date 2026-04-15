@@ -45,6 +45,11 @@ letters:
 
 parcels:
   domestic:
+    - name: "Royal Mail Small Parcel 48"
+      max_weight_kg: 0.5
+      price_eur: 3.35
+      delivery_days: [2, 3]
+      tracking: true
     - name: "Royal Mail 48"
       max_weight_kg: 1
       price_eur: 3.95
@@ -75,6 +80,11 @@ parcels:
       - name: "Europe"
         countries: ["FR", "DE", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
+          - name: "International Tracked"
+            max_weight_kg: 0.5
+            price_eur: 8.90
+            delivery_days: [5, 10]
+            tracking: true
           - name: "International Tracked"
             max_weight_kg: 2
             price_eur: 12.50
