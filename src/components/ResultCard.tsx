@@ -6,9 +6,10 @@ interface ResultCardProps {
   result: ComparisonResult;
   countries: Country[];
   lang: Lang;
+  variant?: 'default' | 'muted';
 }
 
-export default function ResultCard({ result, countries, lang }: ResultCardProps) {
+export default function ResultCard({ result, countries, lang, variant = 'default' }: ResultCardProps) {
   const getCountry = (code: string): Country | undefined =>
     countries.find((c) => c.code === code);
 
@@ -25,8 +26,8 @@ export default function ResultCard({ result, countries, lang }: ResultCardProps)
     : `${originCountry?.flag ?? ''} ${countryName(originCountry)} \u2192 ${destCountry?.flag ?? ''} ${countryName(destCountry)}`;
 
   return (
-    <div className={`result-card ${result.isBestPrice ? 'result-card--best' : ''}`}>
-      {result.isBestPrice && (
+    <div className={`result-card ${result.isBestPrice && variant !== 'muted' ? 'result-card--best' : ''} ${variant === 'muted' ? 'result-card--muted' : ''}`}>
+      {result.isBestPrice && variant !== 'muted' && (
         <span className="result-card__badge">{t(lang, 'results.best_price')}</span>
       )}
 

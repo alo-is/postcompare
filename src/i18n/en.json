@@ -34,6 +34,7 @@
     "tracking_no": "No",
     "results_count": "{count} result(s)",
     "price": "Price",
+    "reverse_route": "Reverse route",
     "see_details": "View rates",
     "domestic_route": "Domestic",
     "from": "From",

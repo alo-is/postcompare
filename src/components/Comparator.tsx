@@ -41,6 +41,7 @@ export default function Comparator({ operators, countries, lang, initialParams }
     : undefined;
 
   const [results, setResults] = useState<ComparisonResult[]>([]);
+  const [reverseResults, setReverseResults] = useState<ComparisonResult[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [currentParams, setCurrentParams] = useState<SearchParams | null>(urlSearchParams ?? null);
   const [mobileFormOpen, setMobileFormOpen] = useState(false);
@@ -52,6 +53,22 @@ export default function Comparator({ operators, countries, lang, initialParams }
       setHasSearched(true);
       setCurrentParams(params);
       setMobileFormOpen(false);
+
+      // Compute reverse route if applicable
+      if (
+        params.origin !== 'all' &&
+        params.destination !== 'domestic' &&
+        params.origin !== params.destination
+      ) {
+        const reverseParams: SearchParams = {
+          ...params,
+          origin: params.destination,
+          destination: params.origin,
+        };
+        setReverseResults(compare(operators, reverseParams));
+      } else {
+        setReverseResults([]);
+      }
     },
     [operators],
   );
@@ -117,6 +134,9 @@ export default function Comparator({ operators, countries, lang, initialParams }
             countries={countries}
             lang={lang}
             hasSearched={hasSearched}
+            reverseResults={reverseResults.length > 0 ? reverseResults : undefined}
+            reverseOrigin={currentParams?.destination !== 'domestic' ? currentParams?.destination : undefined}
+            reverseDestination={currentParams?.origin !== 'all' ? currentParams?.origin : undefined}
           />
         </main>
       </div>

@@ -8,6 +8,9 @@ interface ResultsListProps {
   countries: Country[];
   lang: Lang;
   hasSearched: boolean;
+  reverseResults?: ComparisonResult[];
+  reverseOrigin?: string;
+  reverseDestination?: string;
 }
 
 export default function ResultsList({
@@ -15,7 +18,19 @@ export default function ResultsList({
   countries,
   lang,
   hasSearched,
+  reverseResults,
+  reverseOrigin,
+  reverseDestination,
 }: ResultsListProps) {
+  const getCountryName = (code: string): string => {
+    const country = countries.find((c) => c.code === code);
+    if (!country) return code;
+    return country[`name_${lang}` as keyof Country] as string;
+  };
+
+  const getCountryFlag = (code: string): string => {
+    return countries.find((c) => c.code === code)?.flag ?? '';
+  };
   if (!hasSearched) {
     return null;
   }
@@ -46,6 +61,28 @@ export default function ResultsList({
           lang={lang}
         />
       ))}
+
+      {reverseResults && reverseResults.length > 0 && reverseOrigin && reverseDestination && (
+        <div className="reverse-results">
+          <div className="results-header">
+            <h2>
+              {t(lang, 'results.reverse_route')} : {getCountryFlag(reverseOrigin)} {getCountryName(reverseOrigin)} {'\u2192'} {getCountryFlag(reverseDestination)} {getCountryName(reverseDestination)}
+            </h2>
+            <span className="results-count">
+              {t(lang, 'results.results_count', { count: reverseResults.length })}
+            </span>
+          </div>
+          {reverseResults.map((result, index) => (
+            <ResultCard
+              key={`reverse-${result.operator.id}-${result.route.origin}-${index}`}
+              result={result}
+              countries={countries}
+              lang={lang}
+              variant="muted"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

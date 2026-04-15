@@ -369,6 +369,26 @@ a:hover {
   margin-top: var(--space-xs);
 }
 
+/* ===== Muted Result Cards (reverse route) ===== */
+.result-card--muted {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.result-card--muted .result-card__price {
+  color: var(--color-text-secondary);
+}
+
+.result-card--muted:hover {
+  opacity: 0.8;
+}
+
+.reverse-results {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: var(--border-dashed);
+}
+
 /* ===== Mobile Summary Pills ===== */
 .mobile-summary {
   display: none;
