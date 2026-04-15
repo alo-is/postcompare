@@ -1,0 +1,130 @@
+operator:
+  id: "ctt-pt"
+  name: "CTT"
+  country: "PT"
+  currency: "EUR"
+  website: "https://www.ctt.pt"
+  logo: "ctt-pt.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Correio Normal"
+      max_weight_g: 20
+      price_eur: 0.80
+      delivery_days: [2, 4]
+      options:
+        - name: "Registo"
+          price_eur: 2.45
+        - name: "Aviso de receção"
+          price_eur: 1.20
+    - name: "Correio Normal"
+      max_weight_g: 50
+      price_eur: 0.80
+      delivery_days: [2, 4]
+      options:
+        - name: "Registo"
+          price_eur: 2.45
+    - name: "Correio Normal"
+      max_weight_g: 100
+      price_eur: 1.20
+      delivery_days: [2, 4]
+      options:
+        - name: "Registo"
+          price_eur: 2.45
+    - name: "Correio Normal"
+      max_weight_g: 500
+      price_eur: 2.10
+      delivery_days: [2, 4]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Correio Internacional"
+            max_weight_g: 20
+            price_eur: 1.10
+            delivery_days: [3, 7]
+            options:
+              - name: "Registo internacional"
+                price_eur: 3.40
+          - name: "Correio Internacional"
+            max_weight_g: 100
+            price_eur: 2.20
+            delivery_days: [3, 7]
+          - name: "Correio Internacional"
+            max_weight_g: 500
+            price_eur: 4.80
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Encomenda Normal"
+      max_weight_kg: 0.5
+      price_eur: 3.65
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Seguro até 500 EUR"
+          price_eur: 2.20
+        - name: "Assinatura"
+          price_eur: 0.95
+    - name: "Encomenda Normal"
+      max_weight_kg: 1
+      price_eur: 4.50
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Seguro até 500 EUR"
+          price_eur: 2.20
+        - name: "Assinatura"
+          price_eur: 0.95
+    - name: "Encomenda Normal"
+      max_weight_kg: 5
+      price_eur: 6.70
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Seguro até 500 EUR"
+          price_eur: 2.20
+    - name: "Encomenda Normal"
+      max_weight_kg: 10
+      price_eur: 8.90
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Seguro até 500 EUR"
+          price_eur: 2.20
+    - name: "Encomenda Normal"
+      max_weight_kg: 20
+      price_eur: 11.50
+      delivery_days: [2, 4]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "EMS Internacional"
+            max_weight_kg: 0.5
+            price_eur: 12.00
+            delivery_days: [3, 6]
+            tracking: true
+            options:
+              - name: "Seguro internacional"
+                price_eur: 3.50
+          - name: "EMS Internacional"
+            max_weight_kg: 2
+            price_eur: 17.50
+            delivery_days: [3, 6]
+            tracking: true
+          - name: "EMS Internacional"
+            max_weight_kg: 5
+            price_eur: 24.00
+            delivery_days: [3, 6]
+            tracking: true
+          - name: "EMS Internacional"
+            max_weight_kg: 10
+            price_eur: 35.00
+            delivery_days: [3, 6]
+            tracking: true

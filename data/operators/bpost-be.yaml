@@ -1,0 +1,139 @@
+operator:
+  id: "bpost-be"
+  name: "bpost"
+  country: "BE"
+  currency: "EUR"
+  website: "https://www.bpost.be"
+  logo: "bpost-be.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Non Prior"
+      max_weight_g: 50
+      price_eur: 1.39
+      delivery_days: [2, 3]
+      options:
+        - name: "Recommandé"
+          price_eur: 5.20
+    - name: "Prior"
+      max_weight_g: 50
+      price_eur: 2.29
+      delivery_days: [1, 1]
+      options:
+        - name: "Recommandé"
+          price_eur: 5.20
+    - name: "Non Prior"
+      max_weight_g: 100
+      price_eur: 2.78
+      delivery_days: [2, 3]
+      options:
+        - name: "Recommandé"
+          price_eur: 5.20
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Lettre internationale"
+            max_weight_g: 50
+            price_eur: 2.29
+            delivery_days: [3, 7]
+            options:
+              - name: "Recommandé international"
+                price_eur: 6.50
+          - name: "Lettre internationale"
+            max_weight_g: 100
+            price_eur: 3.45
+            delivery_days: [3, 7]
+          - name: "Lettre internationale"
+            max_weight_g: 350
+            price_eur: 7.50
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "bpack@bpost"
+      max_weight_kg: 0.5
+      price_eur: 4.90
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 3.00
+        - name: "Signature"
+          price_eur: 0.50
+    - name: "bpack@bpost"
+      max_weight_kg: 2
+      price_eur: 6.50
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 3.00
+        - name: "Signature"
+          price_eur: 0.50
+    - name: "bpack@bpost"
+      max_weight_kg: 5
+      price_eur: 7.20
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 3.00
+        - name: "Signature"
+          price_eur: 0.50
+    - name: "bpack@bpost"
+      max_weight_kg: 10
+      price_eur: 8.50
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 3.00
+        - name: "Signature"
+          price_eur: 0.50
+    - name: "bpack@bpost"
+      max_weight_kg: 30
+      price_eur: 10.80
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 3.00
+        - name: "Signature"
+          price_eur: 0.50
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "bpack World"
+            max_weight_kg: 0.5
+            price_eur: 8.40
+            delivery_days: [3, 7]
+            tracking: true
+          - name: "bpack World"
+            max_weight_kg: 2
+            price_eur: 14.10
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Assurance"
+                price_eur: 4.00
+          - name: "bpack World"
+            max_weight_kg: 5
+            price_eur: 19.50
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Assurance"
+                price_eur: 4.00
+          - name: "bpack World"
+            max_weight_kg: 10
+            price_eur: 24.50
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Assurance"
+                price_eur: 4.00

@@ -1,0 +1,134 @@
+operator:
+  id: "postnl-nl"
+  name: "PostNL"
+  country: "NL"
+  currency: "EUR"
+  website: "https://www.postnl.nl"
+  logo: "postnl-nl.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Brief"
+      max_weight_g: 20
+      price_eur: 1.06
+      delivery_days: [1, 2]
+      options:
+        - name: "Aangetekend"
+          price_eur: 4.11
+    - name: "Brief"
+      max_weight_g: 50
+      price_eur: 1.06
+      delivery_days: [1, 2]
+      options:
+        - name: "Aangetekend"
+          price_eur: 4.11
+    - name: "Grote brief"
+      max_weight_g: 100
+      price_eur: 2.12
+      delivery_days: [1, 2]
+      options:
+        - name: "Aangetekend"
+          price_eur: 4.11
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Internationale brief"
+            max_weight_g: 20
+            price_eur: 1.75
+            delivery_days: [3, 7]
+            options:
+              - name: "Aangetekend internationaal"
+                price_eur: 9.60
+          - name: "Internationale brief"
+            max_weight_g: 50
+            price_eur: 1.75
+            delivery_days: [3, 7]
+          - name: "Internationale brief"
+            max_weight_g: 100
+            price_eur: 3.50
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Brievenbuspakje"
+      max_weight_kg: 0.5
+      price_eur: 4.75
+      delivery_days: [1, 2]
+      tracking: true
+    - name: "Pakket"
+      max_weight_kg: 1
+      price_eur: 6.95
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Verzekerd tot 500 EUR"
+          price_eur: 3.50
+        - name: "Handtekening voor ontvangst"
+          price_eur: 0.50
+    - name: "Pakket"
+      max_weight_kg: 5
+      price_eur: 6.95
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Verzekerd tot 500 EUR"
+          price_eur: 3.50
+        - name: "Handtekening voor ontvangst"
+          price_eur: 0.50
+    - name: "Pakket"
+      max_weight_kg: 10
+      price_eur: 6.95
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Verzekerd tot 500 EUR"
+          price_eur: 3.50
+        - name: "Handtekening voor ontvangst"
+          price_eur: 0.50
+    - name: "Pakket"
+      max_weight_kg: 23
+      price_eur: 13.45
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Verzekerd tot 500 EUR"
+          price_eur: 3.50
+        - name: "Handtekening voor ontvangst"
+          price_eur: 0.50
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Pakket naar het buitenland"
+            max_weight_kg: 0.5
+            price_eur: 9.50
+            delivery_days: [3, 7]
+            tracking: true
+          - name: "Pakket naar het buitenland"
+            max_weight_kg: 2
+            price_eur: 13.00
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Verzekerd tot 500 EUR"
+                price_eur: 5.00
+          - name: "Pakket naar het buitenland"
+            max_weight_kg: 5
+            price_eur: 19.50
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Verzekerd tot 500 EUR"
+                price_eur: 5.00
+          - name: "Pakket naar het buitenland"
+            max_weight_kg: 10
+            price_eur: 24.50
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Verzekerd tot 500 EUR"
+                price_eur: 5.00
