@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://postcompare.eu/sitemap-index.xml

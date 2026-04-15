@@ -39,13 +39,56 @@ const countryName = (code: string): string => {
 };
 
 const operatorCountry = getCountry(info.country);
+
+// Build JSON-LD for the operator (Service schema)
+const lowestLetterPrice = operator.letters.domestic.reduce(
+  (min, r) => Math.min(min, r.price_eur), Infinity
+);
+const lowestParcelPrice = operator.parcels.domestic.reduce(
+  (min, r) => Math.min(min, r.price_eur), Infinity
+);
+
+const operatorJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": `${info.name} - Postal Services`,
+  "provider": {
+    "@type": "Organization",
+    "name": info.name,
+    "url": info.website,
+  },
+  "areaServed": info.country,
+  "serviceType": "Postal Service",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Domestic Letter",
+      "priceCurrency": "EUR",
+      "price": lowestLetterPrice.toFixed(2),
+    },
+    {
+      "@type": "Offer",
+      "name": "Domestic Parcel",
+      "priceCurrency": "EUR",
+      "price": lowestParcelPrice.toFixed(2),
+    },
+  ],
+};
+
+const operatorDescriptions: Record<string, string> = {
+  fr: `Tarifs ${info.name} : lettres dès ${lowestLetterPrice.toFixed(2)} EUR, colis dès ${lowestParcelPrice.toFixed(2)} EUR. Comparez avec les autres opérateurs postaux européens.`,
+  en: `${info.name} rates: letters from ${lowestLetterPrice.toFixed(2)} EUR, parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
+  de: `${info.name} Tarife: Briefe ab ${lowestLetterPrice.toFixed(2)} EUR, Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
+};
 ---
 
 <BaseLayout
   title={t(lang, 'operator.title', { name: info.name })}
+  description={operatorDescriptions[lang]}
   lang={lang}
+  jsonLd={operatorJsonLd}
 >
-  <div class="content-page">
+  <article class="content-page" aria-label={info.name}>
     <div class="operator-header">
       <span class="operator-header__flag">{operatorCountry?.flag}</span>
       <div>
@@ -175,7 +218,7 @@ const operatorCountry = getCountry(info.country);
     ))}
 
     <p style="margin-top: var(--space-xl); text-align: center;">
-      <a href={localePath(lang, '/')}>← {t(lang, 'nav.home')}</a>
+      <a href={localePath(lang, '/')} aria-label={t(lang, 'nav.home')}>← {t(lang, 'nav.home')}</a>
     </p>
-  </div>
+  </article>
 </BaseLayout>

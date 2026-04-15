@@ -29,11 +29,17 @@ const initialParams = {
 
 // Only pass initialParams if at least one param is provided
 const hasParams = Object.values(initialParams).some((v) => v !== undefined);
+
+const compareDescriptions: Record<string, string> = {
+  fr: "Comparez les tarifs de La Poste, Deutsche Post, Correos et Royal Mail. Trouvez le meilleur prix pour vos lettres et colis en Europe.",
+  en: "Compare rates from La Poste, Deutsche Post, Correos and Royal Mail. Find the best price for your letters and parcels across Europe.",
+  de: "Vergleichen Sie Tarife von La Poste, Deutsche Post, Correos und Royal Mail. Finden Sie den besten Preis für Ihre Briefe und Pakete in Europa.",
+};
 ---
 
 <BaseLayout
   title={t(lang, 'site.tagline')}
-  description={t(lang, 'site.description')}
+  description={compareDescriptions[lang]}
   lang={lang}
 >
   <Comparator

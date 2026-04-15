@@ -22,12 +22,33 @@ const countryName = (code: string): string => {
   if (!country) return code;
   return country[`name_${lang}` as keyof typeof country] as string;
 };
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PostCompare.eu",
+  "url": "https://postcompare.eu",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "description": t(lang, 'site.description'),
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+  },
+  "featureList": [
+    "Compare postal rates across 32 European countries",
+    "Letter and parcel price comparison",
+    "Domestic and international shipping rates",
+  ],
+};
 ---
 
 <BaseLayout
   title={t(lang, 'site.tagline')}
   description={t(lang, 'site.description')}
   lang={lang}
+  jsonLd={homeJsonLd}
 >
   {/* Hero section */}
   <section class="hero">
@@ -37,20 +58,23 @@ const countryName = (code: string): string => {
   </section>
 
   {/* How it works */}
-  <section class="how-it-works">
+  <section class="how-it-works" aria-label={t(lang, 'how.title')}>
     <h2 class="how-it-works__title">{t(lang, 'how.title')}</h2>
     <div class="how-it-works__grid">
       <div class="how-it-works__step">
+        <span class="how-it-works__icon" aria-hidden="true">{'\u2709\uFE0F'}</span>
         <span class="how-it-works__number">1</span>
         <h3>{t(lang, 'how.step1_title')}</h3>
         <p>{t(lang, 'how.step1_text')}</p>
       </div>
       <div class="how-it-works__step">
+        <span class="how-it-works__icon" aria-hidden="true">{'\uD83D\uDCCA'}</span>
         <span class="how-it-works__number">2</span>
         <h3>{t(lang, 'how.step2_title')}</h3>
         <p>{t(lang, 'how.step2_text')}</p>
       </div>
       <div class="how-it-works__step">
+        <span class="how-it-works__icon" aria-hidden="true">{'\uD83D\uDCB0'}</span>
         <span class="how-it-works__number">3</span>
         <h3>{t(lang, 'how.step3_title')}</h3>
         <p>{t(lang, 'how.step3_text')}</p>
@@ -59,7 +83,7 @@ const countryName = (code: string): string => {
   </section>
 
   {/* Countries covered */}
-  <section class="countries-section">
+  <section class="countries-section" aria-label={t(lang, 'countries_section.title')}>
     <h2 class="countries-section__title">{t(lang, 'countries_section.title')}</h2>
     <div class="countries-grid">
       {countries.map((c) => (
