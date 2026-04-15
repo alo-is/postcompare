@@ -810,86 +810,108 @@ a:hover {
   font-weight: 300;
 }
 
-/* ===== Wizard Form ===== */
-.wizard {
-  max-width: 700px;
+/* ===== Shipping Label Form ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.ship-label {
+  max-width: 640px;
   margin: 0 auto;
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
-  padding: var(--space-xl);
   box-shadow: var(--shadow-lg);
   position: relative;
 }
 
 /* Perforated top edge */
-.wizard::before {
+.ship-label::before {
   content: '';
   position: absolute;
   top: -1px;
   left: -1px;
   right: -1px;
-  height: 14px;
-  background: radial-gradient(
-    circle at center top,
-    var(--color-paper-dark) 5px,
-    transparent 5px
-  );
-  background-size: 18px 14px;
-  background-position: 9px top;
+  height: 12px;
+  background: radial-gradient(circle at center top, var(--color-paper-dark) 4px, transparent 4px);
+  background-size: 16px 12px;
+  background-position: 8px top;
 }
 
 /* Perforated bottom edge */
-.wizard::after {
+.ship-label::after {
   content: '';
   position: absolute;
   bottom: -1px;
   left: -1px;
   right: -1px;
-  height: 14px;
-  background: radial-gradient(
-    circle at center bottom,
-    var(--color-paper-dark) 5px,
-    transparent 5px
-  );
-  background-size: 18px 14px;
-  background-position: 9px bottom;
+  height: 12px;
+  background: radial-gradient(circle at center bottom, var(--color-paper-dark) 4px, transparent 4px);
+  background-size: 16px 12px;
+  background-position: 8px bottom;
 }
 
-.wizard__steps {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg) var(--space-xl);
-}
-
-.wizard__step {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.wizard__step-number {
+.ship-label__header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  border-radius: 50%;
+  gap: var(--space-sm);
+  padding: 10px var(--space-lg);
   background: var(--color-postal-red);
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
-.wizard__step-content {
+.ship-label__header svg {
+  opacity: 0.8;
+}
+
+.ship-label__body {
+  padding: var(--space-lg) var(--space-xl);
+}
+
+.ship-label__row {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-end;
+}
+
+.ship-label__field {
   flex: 1;
 }
 
-.wizard__label {
+.ship-label__field--weight {
+  flex: 0 0 130px;
+}
+
+.ship-label__field--arrow {
+  flex: 0 0 auto;
+  padding-bottom: 10px;
+}
+
+.ship-label__arrow {
+  font-size: 1.2rem;
+  color: var(--color-brass);
+}
+
+.ship-label__divider {
+  border-top: 1px dashed var(--color-border-light);
+  margin: var(--space-md) 0;
+}
+
+.ship-label__lbl {
   display: block;
   font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--color-brass);
   text-transform: uppercase;
@@ -897,26 +919,26 @@ a:hover {
   margin-bottom: 6px;
 }
 
-.wizard__type-toggle {
+.ship-label__toggle {
   display: flex;
   gap: 6px;
 }
 
-.wizard__type-option {
+.ship-label__opt {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: 1px solid var(--color-border-light);
   cursor: pointer;
   font-size: 0.88rem;
   font-family: var(--font-body);
   color: var(--color-ink-secondary);
-  transition: all 0.2s;
+  transition: all 0.15s;
   background: var(--color-paper-light);
 }
 
-.wizard__type-option--active {
+.ship-label__opt--active {
   border-color: var(--color-postal-red);
   color: var(--color-postal-red);
   background: #FFF5F3;
@@ -924,19 +946,13 @@ a:hover {
   box-shadow: inset 0 0 0 1px var(--color-postal-red);
 }
 
-.wizard__type-option svg {
-  width: 17px;
-  height: 17px;
+.ship-label__opt svg {
+  width: 16px;
+  height: 16px;
 }
 
-.wizard__radio {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.wizard__select,
-.wizard__input {
+.ship-label__select,
+.ship-label__input {
   width: 100%;
   padding: 9px 12px;
   border: 1px solid var(--color-border-light);
@@ -947,49 +963,49 @@ a:hover {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.wizard__select:focus,
-.wizard__input:focus {
+.ship-label__select:focus,
+.ship-label__input:focus {
   outline: none;
   border-color: var(--color-brass);
   box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
 }
 
-.wizard__weight-row {
+.ship-label__weight {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
 }
 
-.wizard__input {
+.ship-label__input {
   width: 80px;
 }
 
-.wizard__unit {
+.ship-label__unit {
   font-size: 0.85rem;
   color: var(--color-ink-faded);
   font-weight: 600;
   font-family: var(--font-display);
 }
 
-.wizard__hint {
+.ship-label__hint {
   display: inline-block;
   margin-top: 4px;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--color-postal-red);
-  opacity: 0.7;
+  opacity: 0.65;
   transition: opacity 0.2s;
 }
-.wizard__hint:hover {
+.ship-label__hint:hover {
   opacity: 1;
   text-decoration: underline;
 }
 
-.wizard__submit {
+.ship-label__submit {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-sm);
   width: 100%;
-  margin-top: var(--space-xl);
   padding: 14px var(--space-xl);
   background: var(--color-postal-red);
   color: var(--color-white);
@@ -1002,15 +1018,11 @@ a:hover {
   letter-spacing: 0.03em;
 }
 
-.wizard__submit:hover {
+.ship-label__submit:hover {
   background: var(--color-postal-red-dark);
 }
-.wizard__submit:active {
+.ship-label__submit:active {
   transform: scale(0.98);
-}
-
-.wizard__submit svg {
-  flex-shrink: 0;
 }
 
 /* ===== How It Works ===== */
@@ -1206,12 +1218,11 @@ a:hover {
   .hero__title { font-size: 1.9rem; }
   .hero::before { display: none; }
 
-  .wizard__steps { grid-template-columns: 1fr; }
-  .wizard {
-    padding: var(--space-md);
-    margin: 0 var(--space-sm);
-  }
-  .wizard__input { width: 100%; }
+  .ship-label__row { flex-direction: column; gap: var(--space-md); }
+  .ship-label__field--weight { flex: 1; }
+  .ship-label__field--arrow { display: none; }
+  .ship-label__body { padding: var(--space-md); }
+  .ship-label__input { width: 100%; }
 
   .how-it-works__grid { grid-template-columns: 1fr; }
   .how-it-works__step::after { display: none; }
