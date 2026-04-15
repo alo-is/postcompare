@@ -1146,17 +1146,17 @@ a:hover {
 }
 
 .countries-grid__item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 28px 1fr;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
+  gap: 8px;
+  padding: 10px 12px;
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
   font-family: var(--font-body);
   transition: border-color 0.2s, box-shadow 0.2s;
   text-decoration: none;
   color: var(--color-ink);
-  min-height: 52px;
 }
 
 .countries-grid__item--link:hover {
@@ -1166,10 +1166,9 @@ a:hover {
 }
 
 .countries-grid__flag {
-  font-size: 1.4rem;
-  flex-shrink: 0;
-  width: 24px;
+  font-size: 1.3rem;
   text-align: center;
+  line-height: 1;
 }
 
 .countries-grid__info {
@@ -1181,13 +1180,19 @@ a:hover {
 .countries-grid__name {
   font-size: 0.82rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .countries-grid__operator {
   font-size: 0.7rem;
   color: var(--color-ink-faded);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===== Responsive ===== */
