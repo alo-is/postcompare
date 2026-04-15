@@ -1,0 +1,21 @@
+---
+// src/components/Footer.astro
+import { t } from '../i18n/utils';
+import type { Lang } from '../lib/types';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<footer class="footer">
+  <p>PostCompare.eu — {t(lang, 'footer.tagline')}</p>
+  <p>
+    <a href="https://github.com/postcompare-eu/postcompare" target="_blank" rel="noopener">
+      {t(lang, 'footer.open_source')}
+    </a>
+  </p>
+  <p class="footer__disclaimer">{t(lang, 'footer.disclaimer')}</p>
+</footer>
