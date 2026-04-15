@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
-  <!-- Gold stamp background -->
-  <rect width="36" height="36" rx="4" fill="#c4a35a"/>
-  <!-- Cream envelope body -->
-  <rect x="4" y="8" width="28" height="20" rx="2" fill="#fffef7"/>
-  <!-- Red flap -->
-  <polygon points="4,8 18,19 32,8" fill="#c0392b"/>
-  <!-- Bottom fold lines -->
-  <line x1="4" y1="28" x2="13" y2="20" stroke="#c4a35a" stroke-width="1.2" opacity="0.5"/>
-  <line x1="32" y1="28" x2="23" y2="20" stroke="#c4a35a" stroke-width="1.2" opacity="0.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Envelope body -->
+  <rect x="2" y="7" width="28" height="19" rx="2" fill="#FEFCF3" stroke="#9B2335" stroke-width="1.5"/>
+  <!-- Envelope flap -->
+  <path d="M2 8.5L16 19 30 8.5" fill="none" stroke="#9B2335" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Red fill on flap triangle -->
+  <path d="M3.2 7.5L16 17.5 28.8 7.5" fill="#9B2335" opacity="0.9"/>
+  <!-- Bottom fold accents -->
+  <path d="M2 25l8-7" fill="none" stroke="#9B2335" stroke-width="0.8" opacity="0.3"/>
+  <path d="M30 25l-8-7" fill="none" stroke="#9B2335" stroke-width="0.8" opacity="0.3"/>
 </svg>
