@@ -930,6 +930,7 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 6px;
+  text-align: left;
 }
 
 .ship-label__toggle {
@@ -1155,6 +1156,7 @@ a:hover {
   transition: border-color 0.2s, box-shadow 0.2s;
   text-decoration: none;
   color: var(--color-ink);
+  min-height: 52px;
 }
 
 .countries-grid__item--link:hover {
@@ -1175,19 +1177,15 @@ a:hover {
 }
 
 .countries-grid__name {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
 .countries-grid__operator {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--color-ink-faded);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
 /* ===== Responsive ===== */
