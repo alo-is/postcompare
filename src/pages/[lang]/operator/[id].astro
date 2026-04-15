@@ -1,0 +1,181 @@
+---
+// src/pages/[lang]/operator/[id].astro
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t, localePath } from '../../../i18n/utils';
+import { loadAllOperators, loadCountries, getOperatorIds } from '../../../lib/data-loader';
+import type { Lang, Country } from '../../../lib/types';
+
+export function getStaticPaths() {
+  const langs: Lang[] = ['fr', 'en', 'de'];
+  const ids = getOperatorIds();
+
+  return langs.flatMap((lang) =>
+    ids.map((id) => ({
+      params: { lang, id },
+    })),
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const operatorId = Astro.params.id;
+
+const operators = loadAllOperators();
+const operator = operators.find((op) => op.operator.id === operatorId);
+const countries = loadCountries();
+
+if (!operator) {
+  return Astro.redirect(localePath(lang, '/'));
+}
+
+const info = operator.operator;
+
+const getCountry = (code: string): Country | undefined =>
+  countries.find((c) => c.code === code);
+
+const countryName = (code: string): string => {
+  const c = getCountry(code);
+  if (!c) return code;
+  return c[`name_${lang}` as keyof Country] as string;
+};
+
+const operatorCountry = getCountry(info.country);
+---
+
+<BaseLayout
+  title={t(lang, 'operator.title', { name: info.name })}
+  lang={lang}
+>
+  <div class="content-page">
+    <div class="operator-header">
+      <span class="operator-header__flag">{operatorCountry?.flag}</span>
+      <div>
+        <h1>{info.name}</h1>
+        <div class="operator-header__meta">
+          {countryName(info.country)} —
+          <a href={info.website} target="_blank" rel="noopener">
+            {t(lang, 'operator.website')} ↗
+          </a>
+        </div>
+        <div class="operator-header__meta">
+          {t(lang, 'operator.last_updated')}: {info.last_updated}
+        </div>
+      </div>
+    </div>
+
+    <!-- Domestic Letters -->
+    <h2>{t(lang, 'operator.domestic_letters')}</h2>
+    <table class="rate-table">
+      <thead>
+        <tr>
+          <th>{t(lang, 'operator.product')}</th>
+          <th>{t(lang, 'operator.max_weight')}</th>
+          <th>{t(lang, 'operator.price')}</th>
+          <th>{t(lang, 'operator.delivery')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {operator.letters.domestic.map((rate) => (
+          <tr>
+            <td>{rate.name}</td>
+            <td>{rate.max_weight_g}g</td>
+            <td>{rate.price_eur.toFixed(2)} €</td>
+            <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <!-- International Letters -->
+    <h2>{t(lang, 'operator.international_letters')}</h2>
+    {operator.letters.international.zones.map((zone) => (
+      <div>
+        <h3>{t(lang, 'operator.zone')}: {zone.name}</h3>
+        <p class="operator-header__meta">
+          {t(lang, 'operator.countries')}: {zone.countries.map((c) => `${getCountry(c)?.flag ?? ''} ${countryName(c)}`).join(', ')}
+        </p>
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>{t(lang, 'operator.product')}</th>
+              <th>{t(lang, 'operator.max_weight')}</th>
+              <th>{t(lang, 'operator.price')}</th>
+              <th>{t(lang, 'operator.delivery')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {zone.rates.map((rate) => (
+              <tr>
+                <td>{rate.name}</td>
+                <td>{rate.max_weight_g}g</td>
+                <td>{rate.price_eur.toFixed(2)} €</td>
+                <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ))}
+
+    <!-- Domestic Parcels -->
+    <h2>{t(lang, 'operator.domestic_parcels')}</h2>
+    <table class="rate-table">
+      <thead>
+        <tr>
+          <th>{t(lang, 'operator.product')}</th>
+          <th>{t(lang, 'operator.max_weight')}</th>
+          <th>{t(lang, 'operator.price')}</th>
+          <th>{t(lang, 'operator.delivery')}</th>
+          <th>{t(lang, 'results.tracking')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {operator.parcels.domestic.map((rate) => (
+          <tr>
+            <td>{rate.name}</td>
+            <td>{rate.max_weight_kg}kg</td>
+            <td>{rate.price_eur.toFixed(2)} €</td>
+            <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+            <td>{rate.tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <!-- International Parcels -->
+    <h2>{t(lang, 'operator.international_parcels')}</h2>
+    {operator.parcels.international.zones.map((zone) => (
+      <div>
+        <h3>{t(lang, 'operator.zone')}: {zone.name}</h3>
+        <p class="operator-header__meta">
+          {t(lang, 'operator.countries')}: {zone.countries.map((c) => `${getCountry(c)?.flag ?? ''} ${countryName(c)}`).join(', ')}
+        </p>
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>{t(lang, 'operator.product')}</th>
+              <th>{t(lang, 'operator.max_weight')}</th>
+              <th>{t(lang, 'operator.price')}</th>
+              <th>{t(lang, 'operator.delivery')}</th>
+              <th>{t(lang, 'results.tracking')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {zone.rates.map((rate) => (
+              <tr>
+                <td>{rate.name}</td>
+                <td>{rate.max_weight_kg}kg</td>
+                <td>{rate.price_eur.toFixed(2)} €</td>
+                <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+                <td>{rate.tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ))}
+
+    <p style="margin-top: var(--space-xl); text-align: center;">
+      <a href={localePath(lang, '/')}>← {t(lang, 'nav.home')}</a>
+    </p>
+  </div>
+</BaseLayout>
