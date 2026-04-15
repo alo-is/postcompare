@@ -5,37 +5,60 @@ operator:
   currency: "EUR"
   website: "https://www.laposte.fr"
   logo: "la-poste-fr.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
     - name: "Lettre verte"
       max_weight_g: 20
-      price_eur: 1.29
+      price_eur: 1.52
       delivery_days: [2, 4]
       options:
+        - name: "Lettre suivie"
+          price_eur: 0.50
         - name: "Recommandé R1"
-          price_eur: 2.95
+          price_eur: 3.00
         - name: "Recommandé R2"
-          price_eur: 4.10
+          price_eur: 4.15
     - name: "Lettre verte"
       max_weight_g: 100
-      price_eur: 2.58
+      price_eur: 3.10
       delivery_days: [2, 4]
       options:
+        - name: "Lettre suivie"
+          price_eur: 0.50
         - name: "Recommandé R1"
-          price_eur: 2.95
+          price_eur: 3.00
         - name: "Recommandé R2"
-          price_eur: 4.10
+          price_eur: 4.15
     - name: "Lettre verte"
       max_weight_g: 250
-      price_eur: 4.30
+      price_eur: 5.24
       delivery_days: [2, 4]
       options:
+        - name: "Lettre suivie"
+          price_eur: 0.50
         - name: "Recommandé R1"
-          price_eur: 2.95
+          price_eur: 3.00
         - name: "Recommandé R2"
-          price_eur: 4.10
+          price_eur: 4.15
+    - name: "Lettre verte"
+      max_weight_g: 500
+      price_eur: 7.41
+      delivery_days: [2, 4]
+      options:
+        - name: "Lettre suivie"
+          price_eur: 0.50
+        - name: "Recommandé R1"
+          price_eur: 3.00
+    - name: "Lettre verte"
+      max_weight_g: 1000
+      price_eur: 9.29
+      delivery_days: [2, 4]
+    - name: "Lettre verte"
+      max_weight_g: 2000
+      price_eur: 11.14
+      delivery_days: [2, 4]
   international:
     zones:
       - name: "Europe"
@@ -43,31 +66,35 @@ letters:
         rates:
           - name: "Lettre internationale"
             max_weight_g: 20
-            price_eur: 1.80
+            price_eur: 2.25
             delivery_days: [3, 7]
             options:
               - name: "Recommandé International"
                 price_eur: 5.00
           - name: "Lettre internationale"
             max_weight_g: 100
-            price_eur: 3.60
+            price_eur: 4.85
             delivery_days: [3, 7]
             options:
               - name: "Recommandé International"
                 price_eur: 5.00
           - name: "Lettre internationale"
             max_weight_g: 250
-            price_eur: 5.80
+            price_eur: 11.65
             delivery_days: [3, 7]
             options:
               - name: "Recommandé International"
                 price_eur: 5.00
+          - name: "Lettre internationale"
+            max_weight_g: 500
+            price_eur: 16.60
+            delivery_days: [3, 7]
 
 parcels:
   domestic:
-    - name: "Colissimo"
+    - name: "Colissimo (en ligne)"
       max_weight_kg: 0.25
-      price_eur: 4.95
+      price_eur: 5.49
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -75,9 +102,9 @@ parcels:
           price_eur: 1.50
         - name: "Contre-signature"
           price_eur: 1.00
-    - name: "Colissimo"
+    - name: "Colissimo (en ligne)"
       max_weight_kg: 0.5
-      price_eur: 5.65
+      price_eur: 7.59
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -85,9 +112,19 @@ parcels:
           price_eur: 1.50
         - name: "Contre-signature"
           price_eur: 1.00
-    - name: "Colissimo"
+    - name: "Colissimo (en ligne)"
+      max_weight_kg: 0.75
+      price_eur: 9.29
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Assurance ad valorem"
+          price_eur: 1.50
+        - name: "Contre-signature"
+          price_eur: 1.00
+    - name: "Colissimo (en ligne)"
       max_weight_kg: 1
-      price_eur: 6.40
+      price_eur: 9.59
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -95,9 +132,9 @@ parcels:
           price_eur: 1.50
         - name: "Contre-signature"
           price_eur: 1.00
-    - name: "Colissimo"
-      max_weight_kg: 3
-      price_eur: 7.95
+    - name: "Colissimo (en ligne)"
+      max_weight_kg: 2
+      price_eur: 11.19
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -105,9 +142,9 @@ parcels:
           price_eur: 1.50
         - name: "Contre-signature"
           price_eur: 1.00
-    - name: "Colissimo"
+    - name: "Colissimo (en ligne)"
       max_weight_kg: 5
-      price_eur: 8.95
+      price_eur: 17.39
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -115,9 +152,9 @@ parcels:
           price_eur: 1.50
         - name: "Contre-signature"
           price_eur: 1.00
-    - name: "Colissimo"
+    - name: "Colissimo (en ligne)"
       max_weight_kg: 10
-      price_eur: 13.75
+      price_eur: 25.29
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -125,9 +162,19 @@ parcels:
           price_eur: 1.50
         - name: "Contre-signature"
           price_eur: 1.00
-    - name: "Colissimo"
+    - name: "Colissimo (en ligne)"
+      max_weight_kg: 15
+      price_eur: 31.99
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Assurance ad valorem"
+          price_eur: 1.50
+        - name: "Contre-signature"
+          price_eur: 1.00
+    - name: "Colissimo (en ligne)"
       max_weight_kg: 30
-      price_eur: 17.35
+      price_eur: 39.59
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -138,55 +185,71 @@ parcels:
   international:
     zones:
       - name: "Europe"
-        countries: ["DE", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        countries: ["DE", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
           - name: "Colissimo International"
             max_weight_kg: 0.5
-            price_eur: 7.80
+            price_eur: 14.99
             delivery_days: [3, 5]
             tracking: true
             options:
               - name: "Assurance ad valorem"
                 price_eur: 2.50
-              - name: "Contre-signature"
-                price_eur: 1.50
           - name: "Colissimo International"
             max_weight_kg: 1
-            price_eur: 9.50
+            price_eur: 19.39
             delivery_days: [3, 5]
             tracking: true
             options:
               - name: "Assurance ad valorem"
                 price_eur: 2.50
-              - name: "Contre-signature"
-                price_eur: 1.50
           - name: "Colissimo International"
-            max_weight_kg: 3
-            price_eur: 14.00
+            max_weight_kg: 2
+            price_eur: 22.19
             delivery_days: [3, 5]
             tracking: true
             options:
               - name: "Assurance ad valorem"
                 price_eur: 2.50
-              - name: "Contre-signature"
-                price_eur: 1.50
           - name: "Colissimo International"
             max_weight_kg: 5
-            price_eur: 18.50
+            price_eur: 28.59
             delivery_days: [3, 5]
             tracking: true
             options:
               - name: "Assurance ad valorem"
                 price_eur: 2.50
-              - name: "Contre-signature"
-                price_eur: 1.50
           - name: "Colissimo International"
             max_weight_kg: 10
-            price_eur: 26.50
+            price_eur: 46.99
             delivery_days: [3, 5]
             tracking: true
             options:
               - name: "Assurance ad valorem"
                 price_eur: 2.50
-              - name: "Contre-signature"
-                price_eur: 1.50
+          - name: "Colissimo International"
+            max_weight_kg: 30
+            price_eur: 87.99
+            delivery_days: [3, 5]
+            tracking: true
+            options:
+              - name: "Assurance ad valorem"
+                price_eur: 2.50
+      - name: "Royaume-Uni"
+        countries: ["GB"]
+        rates:
+          - name: "Colissimo International"
+            max_weight_kg: 0.5
+            price_eur: 17.99
+            delivery_days: [4, 7]
+            tracking: true
+          - name: "Colissimo International"
+            max_weight_kg: 1
+            price_eur: 22.39
+            delivery_days: [4, 7]
+            tracking: true
+          - name: "Colissimo International"
+            max_weight_kg: 5
+            price_eur: 31.59
+            delivery_days: [4, 7]
+            tracking: true
