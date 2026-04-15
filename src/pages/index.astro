@@ -1,5 +1,18 @@
 ---
-// src/pages/index.astro
-// Redirect root to default locale
-return Astro.redirect('/fr/');
+// src/pages/index.astro — Instant redirect to user's preferred language
 ---
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0;url=/fr/" />
+    <link rel="canonical" href="/fr/" />
+    <script is:inline>
+      // Redirect to user's preferred language if supported
+      const lang = (navigator.language || '').slice(0, 2).toLowerCase();
+      const supported = { fr: '/fr/', en: '/en/', de: '/de/' };
+      window.location.replace(supported[lang] || '/fr/');
+    </script>
+  </head>
+  <body></body>
+</html>

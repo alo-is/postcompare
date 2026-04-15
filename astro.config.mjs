@@ -19,7 +19,7 @@ export default defineConfig({
     locales: ['fr', 'en', 'de'],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: true,
+      redirectToDefaultLocale: false,
     },
   },
   site: 'https://www.postcompare.eu',

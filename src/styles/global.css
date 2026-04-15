@@ -882,7 +882,7 @@ a:hover {
 .ship-label__row {
   display: flex;
   gap: var(--space-lg);
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .ship-label__field {
@@ -895,7 +895,7 @@ a:hover {
 
 .ship-label__field--arrow {
   flex: 0 0 auto;
-  padding-bottom: 10px;
+  padding-top: 28px;
 }
 
 .ship-label__arrow {

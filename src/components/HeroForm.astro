@@ -84,6 +84,7 @@ const supportedCodes = countries.map((c) => c.code);
             <option value={c.code}>{c.flag} {countryName(c)}</option>
           ))}
         </select>
+        <span class="ship-label__hint" id="dest-hint"></span>
       </div>
     </div>
   </div>
@@ -97,11 +98,8 @@ const supportedCodes = countries.map((c) => c.code);
 </form>
 
 <script define:vars={{ supportedCodes }}>
-  // Detect user's country and show as clickable hint
+  // Detect user's country and show as clickable hint on both selects
   (function() {
-    const originSelect = document.getElementById('hero-origin');
-    const hint = document.getElementById('origin-hint');
-    if (!originSelect || !hint) return;
     const lang = navigator.language || '';
     const parts = lang.split('-');
     let code = '';
@@ -111,17 +109,22 @@ const supportedCodes = countries.map((c) => c.code);
       const map = { 'fr':'FR','de':'DE','es':'ES','it':'IT','nl':'NL','pt':'PT','pl':'PL','ro':'RO','hu':'HU','el':'GR','bg':'BG','hr':'HR','sk':'SK','sl':'SI','lt':'LT','lv':'LV','et':'EE','fi':'FI','sv':'SE','da':'DK','no':'NO','is':'IS','en':'GB' };
       code = map[parts[0].toLowerCase()] || '';
     }
-    if (code && supportedCodes.includes(code)) {
-      const opt = originSelect.querySelector('option[value="' + code + '"]');
+    if (!code || !supportedCodes.includes(code)) return;
+
+    [['hero-origin', 'origin-hint'], ['hero-destination', 'dest-hint']].forEach(function(pair) {
+      const select = document.getElementById(pair[0]);
+      const hint = document.getElementById(pair[1]);
+      if (!select || !hint) return;
+      const opt = select.querySelector('option[value="' + code + '"]');
       if (opt) {
         hint.textContent = opt.textContent.trim() + ' ?';
         hint.style.cursor = 'pointer';
         hint.addEventListener('click', function() {
-          originSelect.value = code;
+          select.value = code;
           hint.style.display = 'none';
         });
       }
-    }
+    });
   })();
 
   // Type toggle
