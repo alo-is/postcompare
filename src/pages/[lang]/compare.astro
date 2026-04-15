@@ -1,0 +1,46 @@
+---
+// src/pages/[lang]/compare.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Comparator from '../../components/Comparator';
+import { t } from '../../i18n/utils';
+import { loadAllOperators, loadCountries } from '../../lib/data-loader';
+import type { Lang } from '../../lib/types';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'fr' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const lang = Astro.params.lang as Lang;
+const operators = loadAllOperators();
+const countries = loadCountries();
+
+// Read URL query params for initial form values
+const url = Astro.url;
+const initialParams = {
+  type: url.searchParams.get('type') || undefined,
+  weight: url.searchParams.get('weight') || undefined,
+  origin: url.searchParams.get('origin') || undefined,
+  destination: url.searchParams.get('destination') || undefined,
+};
+
+// Only pass initialParams if at least one param is provided
+const hasParams = Object.values(initialParams).some((v) => v !== undefined);
+---
+
+<BaseLayout
+  title={t(lang, 'site.tagline')}
+  description={t(lang, 'site.description')}
+  lang={lang}
+>
+  <Comparator
+    client:load
+    operators={operators}
+    countries={countries}
+    lang={lang}
+    initialParams={hasParams ? initialParams : undefined}
+  />
+</BaseLayout>

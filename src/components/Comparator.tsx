@@ -9,19 +9,40 @@ import type {
   Country,
   SearchParams,
   ComparisonResult,
+  ShipmentType,
   Lang,
 } from '../lib/types';
+
+interface InitialParams {
+  type?: string;
+  weight?: string;
+  origin?: string;
+  destination?: string;
+}
 
 interface ComparatorProps {
   operators: OperatorData[];
   countries: Country[];
   lang: Lang;
+  initialParams?: InitialParams;
 }
 
-export default function Comparator({ operators, countries, lang }: ComparatorProps) {
+export default function Comparator({ operators, countries, lang, initialParams }: ComparatorProps) {
+  // Build initial SearchParams from URL query params if provided
+  const urlSearchParams: SearchParams | undefined = initialParams
+    ? {
+        type: (initialParams.type === 'letter' || initialParams.type === 'parcel'
+          ? initialParams.type
+          : 'letter') as ShipmentType,
+        weight: initialParams.weight ? Number(initialParams.weight) : 20,
+        origin: initialParams.origin || 'all',
+        destination: initialParams.destination || 'domestic',
+      }
+    : undefined;
+
   const [results, setResults] = useState<ComparisonResult[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
-  const [currentParams, setCurrentParams] = useState<SearchParams | null>(null);
+  const [currentParams, setCurrentParams] = useState<SearchParams | null>(urlSearchParams ?? null);
   const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   const handleSearch = useCallback(
@@ -85,7 +106,7 @@ export default function Comparator({ operators, countries, lang }: ComparatorPro
             countries={countries}
             lang={lang}
             onSearch={handleSearch}
-            initialParams={currentParams ?? undefined}
+            initialParams={currentParams ?? urlSearchParams ?? undefined}
           />
         </aside>
 
