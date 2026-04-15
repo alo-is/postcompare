@@ -57,7 +57,11 @@ const homeJsonLd = {
 >
   {/* Hero section */}
   <section class="hero">
-    <h1 class="hero__title">{t(lang, 'hero.title')}</h1>
+    <h1 class="hero__title">
+      {lang === 'fr' ? <>Comparez les tarifs postaux<br />de <strong>32 pays européens</strong></> :
+       lang === 'de' ? <>Vergleichen Sie Postgebühren<br />aus <strong>32 europäischen Ländern</strong></> :
+       <>Compare postal rates<br />from <strong>32 European countries</strong></>}
+    </h1>
     <p class="hero__subtitle">{t(lang, 'hero.subtitle')}</p>
     <HeroForm lang={lang} />
   </section>
