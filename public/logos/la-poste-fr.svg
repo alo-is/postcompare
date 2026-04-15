@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="6" fill="#FFCD00"/>
+  <rect x="10" y="14" width="28" height="20" rx="2" fill="#fff"/>
+  <polyline points="10,14 24,26 38,14" fill="none" stroke="#003B82" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="24" y="44" text-anchor="middle" font-size="5" fill="#003B82" font-family="sans-serif">LP</text>
+</svg>
