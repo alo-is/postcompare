@@ -14,34 +14,43 @@ const countries = loadCountries();
 const countryName = (c: Country): string => {
   return c[`name_${lang}` as keyof Country] as string;
 };
+
+// Supported country codes for auto-detection
+const supportedCodes = countries.map((c) => c.code);
 ---
 
-<form class="hero-form" action={localePath(lang, '/compare')} method="get">
+<form class="hero-form" action={localePath(lang, '/compare')} method="get" aria-label={t(lang, 'hero.cta')}>
   <div class="hero-form__field">
     <label class="hero-form__label" for="hero-type">{t(lang, 'form.type')}</label>
-    <select id="hero-type" name="type" class="hero-form__select">
-      <option value="letter">{t(lang, 'form.letter')}</option>
-      <option value="parcel">{t(lang, 'form.parcel')}</option>
+    <select id="hero-type" name="type" class="hero-form__select" aria-label={t(lang, 'form.type')}>
+      <option value="letter">{'\u2709\uFE0F'} {t(lang, 'form.letter')}</option>
+      <option value="parcel">{'\uD83D\uDCE6'} {t(lang, 'form.parcel')}</option>
     </select>
   </div>
 
   <div class="hero-form__field">
-    <label class="hero-form__label" for="hero-weight">{t(lang, 'form.weight')}</label>
-    <input
-      id="hero-weight"
-      name="weight"
-      type="number"
-      class="hero-form__input"
-      value="20"
-      min="1"
-      max="2000"
-      step="1"
-    />
+    <label class="hero-form__label" for="hero-weight">
+      <span id="hero-weight-label">{t(lang, 'form.weight')} (g)</span>
+    </label>
+    <div class="hero-form__input-wrapper">
+      <input
+        id="hero-weight"
+        name="weight"
+        type="number"
+        class="hero-form__input"
+        value="20"
+        min="1"
+        max="2000"
+        step="1"
+        aria-labelledby="hero-weight-label"
+      />
+      <span class="hero-form__unit" id="hero-weight-unit">g</span>
+    </div>
   </div>
 
   <div class="hero-form__field">
-    <label class="hero-form__label" for="hero-origin">{t(lang, 'form.origin')}</label>
-    <select id="hero-origin" name="origin" class="hero-form__select">
+    <label class="hero-form__label" for="hero-origin">{'\uD83D\uDCCD'} {t(lang, 'form.origin')}</label>
+    <select id="hero-origin" name="origin" class="hero-form__select" aria-label={t(lang, 'form.origin')}>
       <option value="all">{t(lang, 'form.all_countries')}</option>
       {countries.map((c) => (
         <option value={c.code}>{c.flag} {countryName(c)}</option>
@@ -50,8 +59,8 @@ const countryName = (c: Country): string => {
   </div>
 
   <div class="hero-form__field">
-    <label class="hero-form__label" for="hero-destination">{t(lang, 'form.destination')}</label>
-    <select id="hero-destination" name="destination" class="hero-form__select">
+    <label class="hero-form__label" for="hero-destination">{'\uD83C\uDFAF'} {t(lang, 'form.destination')}</label>
+    <select id="hero-destination" name="destination" class="hero-form__select" aria-label={t(lang, 'form.destination')}>
       <option value="domestic">{t(lang, 'form.domestic')}</option>
       {countries.map((c) => (
         <option value={c.code}>{c.flag} {countryName(c)}</option>
@@ -60,8 +69,67 @@ const countryName = (c: Country): string => {
   </div>
 
   <div class="hero-form__field hero-form__field--submit">
-    <button type="submit" class="hero-form__submit">
+    <button type="submit" class="hero-form__submit" aria-label={t(lang, 'hero.cta')}>
       {t(lang, 'hero.cta')}
     </button>
   </div>
 </form>
+
+<script define:vars={{ supportedCodes }}>
+  // Auto-detect user's country from browser language
+  (function() {
+    const originSelect = document.getElementById('hero-origin');
+    if (!originSelect || originSelect.value !== 'all') return;
+
+    const lang = navigator.language || navigator.userLanguage || '';
+    // Extract country from locale: "fr-FR" -> "FR", "de-DE" -> "DE", "en-GB" -> "GB"
+    const parts = lang.split('-');
+    let countryCode = '';
+
+    if (parts.length >= 2) {
+      countryCode = parts[1].toUpperCase();
+    } else if (parts[0].length === 2) {
+      // Map language to likely country: "fr" -> "FR", "de" -> "DE"
+      const langToCountry = {
+        'fr': 'FR', 'de': 'DE', 'es': 'ES', 'it': 'IT', 'nl': 'NL',
+        'pt': 'PT', 'pl': 'PL', 'ro': 'RO', 'hu': 'HU', 'el': 'GR',
+        'bg': 'BG', 'hr': 'HR', 'sk': 'SK', 'sl': 'SI', 'lt': 'LT',
+        'lv': 'LV', 'et': 'EE', 'fi': 'FI', 'sv': 'SE', 'da': 'DK',
+        'no': 'NO', 'is': 'IS', 'en': 'GB',
+      };
+      countryCode = langToCountry[parts[0].toLowerCase()] || '';
+    }
+
+    if (countryCode && supportedCodes.includes(countryCode)) {
+      originSelect.value = countryCode;
+    }
+  })();
+
+  // Update weight field when type changes
+  (function() {
+    const typeSelect = document.getElementById('hero-type');
+    const weightInput = document.getElementById('hero-weight');
+    const weightUnit = document.getElementById('hero-weight-unit');
+    const weightLabel = document.getElementById('hero-weight-label');
+
+    if (!typeSelect || !weightInput || !weightUnit || !weightLabel) return;
+
+    typeSelect.addEventListener('change', function() {
+      if (typeSelect.value === 'parcel') {
+        weightInput.value = '0.5';
+        weightInput.min = '0.1';
+        weightInput.max = '50';
+        weightInput.step = '0.1';
+        weightUnit.textContent = 'kg';
+        weightLabel.textContent = weightLabel.textContent.replace(/\(.*\)/, '(kg)');
+      } else {
+        weightInput.value = '20';
+        weightInput.min = '1';
+        weightInput.max = '2000';
+        weightInput.step = '1';
+        weightUnit.textContent = 'g';
+        weightLabel.textContent = weightLabel.textContent.replace(/\(.*\)/, '(g)');
+      }
+    });
+  })();
+</script>
