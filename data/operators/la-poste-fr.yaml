@@ -20,6 +20,10 @@ letters:
           price_eur: 3.00
         - name: "Recommandé R2"
           price_eur: 4.15
+        - name: "Recommandé R1 + AR"
+          price_eur: 4.15
+        - name: "Recommandé R2 + AR"
+          price_eur: 5.30
     - name: "Lettre verte"
       max_weight_g: 100
       price_eur: 3.10
@@ -31,6 +35,10 @@ letters:
           price_eur: 3.00
         - name: "Recommandé R2"
           price_eur: 4.15
+        - name: "Recommandé R1 + AR"
+          price_eur: 4.15
+        - name: "Recommandé R2 + AR"
+          price_eur: 5.30
     - name: "Lettre verte"
       max_weight_g: 250
       price_eur: 5.24
@@ -42,6 +50,10 @@ letters:
           price_eur: 3.00
         - name: "Recommandé R2"
           price_eur: 4.15
+        - name: "Recommandé R1 + AR"
+          price_eur: 4.15
+        - name: "Recommandé R2 + AR"
+          price_eur: 5.30
     - name: "Lettre verte"
       max_weight_g: 500
       price_eur: 7.41

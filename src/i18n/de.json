@@ -98,13 +98,13 @@
     "cta": "Preise vergleichen"
   },
   "how": {
-    "title": "So funktioniert es",
-    "step1_title": "W\u00e4hlen Sie Ihre Sendung",
-    "step1_text": "Brief oder Paket, Gewicht, Herkunfts- und Zielland",
-    "step2_title": "Preise vergleichen",
-    "step2_text": "Die Tarife der nationalen Postdienste werden nach Preis sortiert angezeigt",
-    "step3_title": "G\u00fcnstiger versenden",
-    "step3_text": "Besuchen Sie die offizielle Website des g\u00fcnstigsten Anbieters"
+    "title": "Warum vergleichen?",
+    "step1_title": "\u00dcberraschende Preisunterschiede",
+    "step1_text": "F\u00fcr denselben 20g-Brief variieren die Preise von 0,40\u20ac bis \u00fcber 3\u20ac je nach Land. Bei Paketen: bis zu dreifache Unterschiede.",
+    "step2_title": "Vergleichbare Leistungen",
+    "step2_text": "Alle nationalen Postdienste bieten \u00e4hnliche Produkte: Standardbriefe, verfolgte Pakete, Einschreiben. Nur der Preis \u00e4ndert sich \u2014 manchmal drastisch.",
+    "step3_title": "Transparent und unabh\u00e4ngig",
+    "step3_text": "Daten von den offiziellen Websites jedes Postdienstes erhoben. Keine Werbung, keine kommerziellen Partnerschaften. Open Source."
   },
   "countries_section": {
     "title": "32 abgedeckte L\u00e4nder"

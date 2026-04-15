@@ -98,13 +98,13 @@
     "cta": "Comparer les prix"
   },
   "how": {
-    "title": "Comment \u00e7a marche",
-    "step1_title": "Choisissez votre envoi",
-    "step1_text": "Lettre ou colis, poids, pays d'origine et de destination",
-    "step2_title": "Comparez les prix",
-    "step2_text": "Les tarifs des postes nationales s'affichent class\u00e9s par prix",
-    "step3_title": "Envoyez pour moins cher",
-    "step3_text": "Consultez le site officiel de l'op\u00e9rateur le moins cher"
+    "title": "Pourquoi comparer ?",
+    "step1_title": "Des \u00e9carts de prix surprenants",
+    "step1_text": "Pour une m\u00eame lettre de 20g, les prix varient de 0,40\u20ac \u00e0 plus de 3\u20ac selon les pays. M\u00eame constat pour les colis : du simple au triple.",
+    "step2_title": "Des prestations \u00e9quivalentes",
+    "step2_text": "Toutes les postes nationales offrent des services similaires : lettre standard, colis suivi, recommand\u00e9. Seul le prix change, parfois drastiquement.",
+    "step3_title": "Transparent et ind\u00e9pendant",
+    "step3_text": "Donn\u00e9es collect\u00e9es depuis les sites officiels de chaque poste. Aucune publicit\u00e9, aucun partenariat commercial. Open source."
   },
   "countries_section": {
     "title": "32 pays couverts"

@@ -98,13 +98,13 @@
     "cta": "Compare prices"
   },
   "how": {
-    "title": "How it works",
-    "step1_title": "Choose your shipment",
-    "step1_text": "Letter or parcel, weight, origin and destination country",
-    "step2_title": "Compare prices",
-    "step2_text": "National postal rates are displayed sorted by price",
-    "step3_title": "Send for less",
-    "step3_text": "Visit the official website of the cheapest operator"
+    "title": "Why compare?",
+    "step1_title": "Surprising price gaps",
+    "step1_text": "For the same 20g letter, prices range from \u20ac0.40 to over \u20ac3 depending on the country. Same for parcels: up to 3x difference.",
+    "step2_title": "Equivalent services",
+    "step2_text": "All national postal services offer similar products: standard letters, tracked parcels, registered mail. Only the price changes \u2014 sometimes dramatically.",
+    "step3_title": "Transparent and independent",
+    "step3_text": "Data collected from each postal service\u2019s official website. No ads, no commercial partnerships. Open source."
   },
   "countries_section": {
     "title": "32 countries covered"
