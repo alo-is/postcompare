@@ -1,0 +1,107 @@
+operator:
+  id: "liechtenstein-post-li"
+  name: "Liechtenstein Post"
+  country: "LI"
+  currency: "CHF"
+  website: "https://www.post.li"
+  logo: "liechtenstein-post-li.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "A-Post Brief"
+      max_weight_g: 20
+      price_eur: 0.87
+      delivery_days: [1, 1]
+      options:
+        - name: "Einschreiben"
+          price_eur: 3.88
+    - name: "B-Post Brief"
+      max_weight_g: 20
+      price_eur: 0.78
+      delivery_days: [2, 3]
+    - name: "A-Post Brief"
+      max_weight_g: 100
+      price_eur: 1.46
+      delivery_days: [1, 1]
+    - name: "A-Post Brief"
+      max_weight_g: 500
+      price_eur: 2.91
+      delivery_days: [1, 1]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS"]
+        rates:
+          - name: "Priority Brief Europa"
+            max_weight_g: 20
+            price_eur: 1.94
+            delivery_days: [3, 5]
+            options:
+              - name: "Einschreiben International"
+                price_eur: 4.85
+          - name: "Priority Brief Europa"
+            max_weight_g: 100
+            price_eur: 2.91
+            delivery_days: [3, 5]
+          - name: "Priority Brief Europa"
+            max_weight_g: 500
+            price_eur: 5.82
+            delivery_days: [3, 5]
+
+parcels:
+  domestic:
+    - name: "PostPac Economy"
+      max_weight_kg: 0.5
+      price_eur: 5.82
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Versicherung"
+          price_eur: 2.91
+    - name: "PostPac Economy"
+      max_weight_kg: 2
+      price_eur: 6.79
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Versicherung"
+          price_eur: 2.91
+    - name: "PostPac Economy"
+      max_weight_kg: 5
+      price_eur: 8.73
+      delivery_days: [1, 2]
+      tracking: true
+    - name: "PostPac Economy"
+      max_weight_kg: 10
+      price_eur: 10.67
+      delivery_days: [1, 2]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS"]
+        rates:
+          - name: "Paket Europa"
+            max_weight_kg: 0.5
+            price_eur: 14.55
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Paket Europa"
+            max_weight_kg: 2
+            price_eur: 19.40
+            delivery_days: [4, 8]
+            tracking: true
+            options:
+              - name: "Versicherung International"
+                price_eur: 4.85
+          - name: "Paket Europa"
+            max_weight_kg: 5
+            price_eur: 29.10
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Paket Europa"
+            max_weight_kg: 10
+            price_eur: 38.80
+            delivery_days: [4, 8]
+            tracking: true

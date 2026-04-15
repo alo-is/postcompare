@@ -1,0 +1,132 @@
+operator:
+  id: "poste-italiane-it"
+  name: "Poste Italiane"
+  country: "IT"
+  currency: "EUR"
+  website: "https://www.poste.it"
+  logo: "poste-italiane-it.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Posta Ordinaria"
+      max_weight_g: 20
+      price_eur: 1.10
+      delivery_days: [3, 5]
+      options:
+        - name: "Raccomandata"
+          price_eur: 4.20
+        - name: "Posta Prioritaria"
+          price_eur: 0.70
+    - name: "Posta Ordinaria"
+      max_weight_g: 100
+      price_eur: 2.50
+      delivery_days: [3, 5]
+      options:
+        - name: "Raccomandata"
+          price_eur: 4.20
+    - name: "Posta Ordinaria"
+      max_weight_g: 250
+      price_eur: 4.00
+      delivery_days: [3, 5]
+    - name: "Posta Ordinaria"
+      max_weight_g: 500
+      price_eur: 5.50
+      delivery_days: [3, 5]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Posta internazionale"
+            max_weight_g: 20
+            price_eur: 1.25
+            delivery_days: [4, 8]
+            options:
+              - name: "Raccomandata internazionale"
+                price_eur: 5.40
+          - name: "Posta internazionale"
+            max_weight_g: 100
+            price_eur: 2.80
+            delivery_days: [4, 8]
+          - name: "Posta internazionale"
+            max_weight_g: 500
+            price_eur: 5.70
+            delivery_days: [4, 8]
+
+parcels:
+  domestic:
+    - name: "Poste Delivery Standard"
+      max_weight_kg: 0.5
+      price_eur: 5.90
+      delivery_days: [3, 5]
+      tracking: true
+      options:
+        - name: "Assicurazione fino a 500 EUR"
+          price_eur: 2.50
+        - name: "Firma alla consegna"
+          price_eur: 1.00
+    - name: "Poste Delivery Standard"
+      max_weight_kg: 1
+      price_eur: 6.90
+      delivery_days: [3, 5]
+      tracking: true
+      options:
+        - name: "Assicurazione fino a 500 EUR"
+          price_eur: 2.50
+        - name: "Firma alla consegna"
+          price_eur: 1.00
+    - name: "Poste Delivery Standard"
+      max_weight_kg: 5
+      price_eur: 8.90
+      delivery_days: [3, 5]
+      tracking: true
+      options:
+        - name: "Assicurazione fino a 500 EUR"
+          price_eur: 2.50
+    - name: "Poste Delivery Standard"
+      max_weight_kg: 10
+      price_eur: 11.90
+      delivery_days: [3, 5]
+      tracking: true
+    - name: "Poste Delivery Standard"
+      max_weight_kg: 20
+      price_eur: 14.90
+      delivery_days: [3, 5]
+      tracking: true
+    - name: "Poste Delivery Standard"
+      max_weight_kg: 30
+      price_eur: 18.90
+      delivery_days: [3, 5]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Poste Delivery International Standard"
+            max_weight_kg: 0.5
+            price_eur: 9.90
+            delivery_days: [4, 8]
+            tracking: true
+            options:
+              - name: "Assicurazione internazionale"
+                price_eur: 3.50
+          - name: "Poste Delivery International Standard"
+            max_weight_kg: 2
+            price_eur: 14.90
+            delivery_days: [4, 8]
+            tracking: true
+            options:
+              - name: "Assicurazione internazionale"
+                price_eur: 3.50
+          - name: "Poste Delivery International Standard"
+            max_weight_kg: 5
+            price_eur: 21.90
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Poste Delivery International Standard"
+            max_weight_kg: 10
+            price_eur: 31.90
+            delivery_days: [4, 8]
+            tracking: true

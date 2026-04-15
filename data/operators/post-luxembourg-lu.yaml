@@ -1,0 +1,111 @@
+operator:
+  id: "post-luxembourg-lu"
+  name: "POST Luxembourg"
+  country: "LU"
+  currency: "EUR"
+  website: "https://www.post.lu"
+  logo: "post-luxembourg-lu.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Lettre domestique"
+      max_weight_g: 50
+      price_eur: 0.80
+      delivery_days: [1, 1]
+      options:
+        - name: "Recommandé"
+          price_eur: 3.70
+    - name: "Lettre domestique"
+      max_weight_g: 100
+      price_eur: 1.40
+      delivery_days: [1, 1]
+    - name: "Lettre domestique"
+      max_weight_g: 500
+      price_eur: 2.50
+      delivery_days: [1, 1]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Lettre internationale"
+            max_weight_g: 20
+            price_eur: 1.10
+            delivery_days: [2, 5]
+            options:
+              - name: "Recommandé international"
+                price_eur: 4.50
+          - name: "Lettre internationale"
+            max_weight_g: 100
+            price_eur: 2.20
+            delivery_days: [2, 5]
+          - name: "Lettre internationale"
+            max_weight_g: 500
+            price_eur: 4.50
+            delivery_days: [2, 5]
+
+parcels:
+  domestic:
+    - name: "Pack Up"
+      max_weight_kg: 0.5
+      price_eur: 4.50
+      delivery_days: [1, 1]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 2.50
+    - name: "Pack Up"
+      max_weight_kg: 1
+      price_eur: 4.50
+      delivery_days: [1, 1]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 2.50
+    - name: "Pack Up"
+      max_weight_kg: 5
+      price_eur: 5.50
+      delivery_days: [1, 1]
+      tracking: true
+      options:
+        - name: "Assurance jusqu'à 500 EUR"
+          price_eur: 2.50
+    - name: "Pack Up"
+      max_weight_kg: 10
+      price_eur: 7.50
+      delivery_days: [1, 1]
+      tracking: true
+    - name: "Pack Up"
+      max_weight_kg: 30
+      price_eur: 9.50
+      delivery_days: [1, 1]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Paquet international"
+            max_weight_kg: 0.5
+            price_eur: 8.50
+            delivery_days: [3, 6]
+            tracking: true
+          - name: "Paquet international"
+            max_weight_kg: 2
+            price_eur: 12.50
+            delivery_days: [3, 6]
+            tracking: true
+            options:
+              - name: "Assurance"
+                price_eur: 3.50
+          - name: "Paquet international"
+            max_weight_kg: 5
+            price_eur: 17.50
+            delivery_days: [3, 6]
+            tracking: true
+          - name: "Paquet international"
+            max_weight_kg: 10
+            price_eur: 24.50
+            delivery_days: [3, 6]
+            tracking: true

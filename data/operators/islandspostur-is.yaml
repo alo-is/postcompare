@@ -1,0 +1,107 @@
+operator:
+  id: "islandspostur-is"
+  name: "Íslandspóstur"
+  country: "IS"
+  currency: "ISK"
+  website: "https://www.postur.is"
+  logo: "islandspostur-is.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "A-bréf"
+      max_weight_g: 50
+      price_eur: 1.52
+      delivery_days: [1, 3]
+      options:
+        - name: "Skráð sending"
+          price_eur: 4.62
+    - name: "B-bréf"
+      max_weight_g: 50
+      price_eur: 0.99
+      delivery_days: [2, 5]
+    - name: "A-bréf"
+      max_weight_g: 250
+      price_eur: 2.31
+      delivery_days: [1, 3]
+    - name: "A-bréf"
+      max_weight_g: 500
+      price_eur: 3.30
+      delivery_days: [1, 3]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "LI"]
+        rates:
+          - name: "Alþjóðabréf"
+            max_weight_g: 20
+            price_eur: 2.64
+            delivery_days: [4, 8]
+            options:
+              - name: "Skráð alþjóðasending"
+                price_eur: 5.28
+          - name: "Alþjóðabréf"
+            max_weight_g: 100
+            price_eur: 3.96
+            delivery_days: [4, 8]
+          - name: "Alþjóðabréf"
+            max_weight_g: 500
+            price_eur: 7.26
+            delivery_days: [4, 8]
+
+parcels:
+  domestic:
+    - name: "Vörusending"
+      max_weight_kg: 0.5
+      price_eur: 5.94
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Trygging"
+          price_eur: 3.30
+    - name: "Vörusending"
+      max_weight_kg: 1
+      price_eur: 7.26
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Trygging"
+          price_eur: 3.30
+    - name: "Vörusending"
+      max_weight_kg: 5
+      price_eur: 9.90
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Vörusending"
+      max_weight_kg: 10
+      price_eur: 13.20
+      delivery_days: [2, 4]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "LI"]
+        rates:
+          - name: "Alþjóðapakki"
+            max_weight_kg: 0.5
+            price_eur: 16.50
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Alþjóðapakki"
+            max_weight_kg: 2
+            price_eur: 23.10
+            delivery_days: [5, 12]
+            tracking: true
+            options:
+              - name: "Trygging"
+                price_eur: 5.28
+          - name: "Alþjóðapakki"
+            max_weight_kg: 5
+            price_eur: 33.00
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Alþjóðapakki"
+            max_weight_kg: 10
+            price_eur: 46.20
+            delivery_days: [5, 12]
+            tracking: true

@@ -1,0 +1,111 @@
+operator:
+  id: "omniva-ee"
+  name: "Omniva"
+  country: "EE"
+  currency: "EUR"
+  website: "https://www.omniva.ee"
+  logo: "omniva-ee.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Tavaline kiri"
+      max_weight_g: 20
+      price_eur: 0.90
+      delivery_days: [2, 3]
+      options:
+        - name: "Tähitud"
+          price_eur: 1.85
+    - name: "Tavaline kiri"
+      max_weight_g: 100
+      price_eur: 1.30
+      delivery_days: [2, 3]
+    - name: "Tavaline kiri"
+      max_weight_g: 500
+      price_eur: 2.10
+      delivery_days: [2, 3]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Rahvusvaheline kiri"
+            max_weight_g: 20
+            price_eur: 1.20
+            delivery_days: [3, 7]
+            options:
+              - name: "Tähitud rahvusvaheline"
+                price_eur: 2.80
+          - name: "Rahvusvaheline kiri"
+            max_weight_g: 100
+            price_eur: 2.00
+            delivery_days: [3, 7]
+          - name: "Rahvusvaheline kiri"
+            max_weight_g: 500
+            price_eur: 4.00
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Pakk pakiautomaati"
+      max_weight_kg: 0.5
+      price_eur: 2.50
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Kindlustus kuni 500 EUR"
+          price_eur: 1.20
+    - name: "Pakk pakiautomaati"
+      max_weight_kg: 1
+      price_eur: 2.90
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Kindlustus kuni 500 EUR"
+          price_eur: 1.20
+    - name: "Pakk pakiautomaati"
+      max_weight_kg: 5
+      price_eur: 3.70
+      delivery_days: [1, 2]
+      tracking: true
+      options:
+        - name: "Kindlustus kuni 500 EUR"
+          price_eur: 1.20
+    - name: "Pakk kulleriga"
+      max_weight_kg: 10
+      price_eur: 5.50
+      delivery_days: [1, 2]
+      tracking: true
+    - name: "Pakk kulleriga"
+      max_weight_kg: 30
+      price_eur: 7.50
+      delivery_days: [1, 2]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Rahvusvaheline pakk"
+            max_weight_kg: 0.5
+            price_eur: 7.00
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Rahvusvaheline pakk"
+            max_weight_kg: 2
+            price_eur: 11.00
+            delivery_days: [4, 8]
+            tracking: true
+            options:
+              - name: "Kindlustus"
+                price_eur: 2.50
+          - name: "Rahvusvaheline pakk"
+            max_weight_kg: 5
+            price_eur: 16.00
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Rahvusvaheline pakk"
+            max_weight_kg: 10
+            price_eur: 23.00
+            delivery_days: [4, 8]
+            tracking: true
