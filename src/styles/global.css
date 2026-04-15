@@ -1124,48 +1124,76 @@ a:hover {
 
 .countries-section__title {
   font-family: var(--font-display);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-sm);
   color: var(--color-ink);
   font-size: 1.5rem;
 }
 
+.countries-section__subtitle {
+  color: var(--color-ink-faded);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-xl);
+  font-style: italic;
+}
+
 .countries-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-sm);
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
 .countries-grid__item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
+  gap: 10px;
+  padding: 10px 14px;
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
-  font-size: 0.82rem;
-  color: var(--color-ink);
   font-family: var(--font-body);
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: var(--color-ink);
 }
 
-.countries-grid__item:hover {
-  border-color: var(--color-brass);
+.countries-grid__item--link:hover {
+  border-color: var(--color-postal-red-light);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
 }
 
 .countries-grid__flag {
-  font-size: 1rem;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.countries-grid__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .countries-grid__name {
+  font-size: 0.85rem;
+  font-weight: 600;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.countries-grid__operator {
+  font-size: 0.72rem;
+  color: var(--color-ink-faded);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 1199px) {
   .sidebar { width: 40%; }
+  .countries-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 767px) {
@@ -1238,6 +1266,7 @@ a:hover {
   .ship-label__input { width: 100%; }
 
   .how-it-works__grid { grid-template-columns: 1fr; }
+  .countries-grid { grid-template-columns: repeat(2, 1fr); }
   .how-it-works__step::after { display: none; }
 
   .lang-picker {

@@ -3,7 +3,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroForm from '../../components/HeroForm.astro';
 import { t } from '../../i18n/utils';
-import { loadCountries } from '../../lib/data-loader';
+import { loadCountries, loadAllOperators } from '../../lib/data-loader';
+import { localePath } from '../../i18n/utils';
 import type { Lang } from '../../lib/types';
 
 export function getStaticPaths() {
@@ -16,6 +17,10 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const countries = loadCountries();
+const operators = loadAllOperators();
+
+// Map country code to operator for links
+const countryToOperator = new Map(operators.map(op => [op.operator.country, op.operator]));
 
 const countryName = (code: string): string => {
   const country = countries.find((c) => c.code === code);
@@ -91,13 +96,31 @@ const homeJsonLd = {
   {/* Countries covered */}
   <section class="countries-section" aria-label={t(lang, 'countries_section.title')}>
     <h2 class="countries-section__title">{t(lang, 'countries_section.title')}</h2>
+    <p class="countries-section__subtitle">
+      {lang === 'fr' ? 'Cliquez sur un pays pour voir les tarifs détaillés de sa poste nationale.' :
+       lang === 'de' ? 'Klicken Sie auf ein Land, um die detaillierten Tarife seines Postdienstes zu sehen.' :
+       'Click on a country to see the detailed rates of its national postal service.'}
+    </p>
     <div class="countries-grid">
-      {countries.map((c) => (
-        <div class="countries-grid__item">
-          <span class="countries-grid__flag">{c.flag}</span>
-          <span class="countries-grid__name">{countryName(c.code)}</span>
-        </div>
-      ))}
+      {countries.map((c) => {
+        const op = countryToOperator.get(c.code);
+        return op ? (
+          <a href={localePath(lang, `/operator/${op.id}`)} class="countries-grid__item countries-grid__item--link">
+            <span class="countries-grid__flag">{c.flag}</span>
+            <span class="countries-grid__info">
+              <span class="countries-grid__name">{countryName(c.code)}</span>
+              <span class="countries-grid__operator">{op.name}</span>
+            </span>
+          </a>
+        ) : (
+          <div class="countries-grid__item">
+            <span class="countries-grid__flag">{c.flag}</span>
+            <span class="countries-grid__info">
+              <span class="countries-grid__name">{countryName(c.code)}</span>
+            </span>
+          </div>
+        );
+      })}
     </div>
   </section>
 </BaseLayout>
