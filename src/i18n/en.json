@@ -1,0 +1,85 @@
+{
+  "site": {
+    "title": "PostCompare.eu",
+    "tagline": "Compare postal rates across Europe",
+    "description": "Free and independent European postal rate comparator. Find the best price for your letters and parcels."
+  },
+  "nav": {
+    "home": "Comparator",
+    "about": "About",
+    "contribute": "Contribute"
+  },
+  "form": {
+    "type": "Shipment type",
+    "letter": "Letter",
+    "parcel": "Parcel",
+    "weight": "Weight",
+    "weight_grams": "Weight (grams)",
+    "weight_kg": "Weight (kg)",
+    "origin": "Origin country",
+    "destination": "Destination country",
+    "all_countries": "All countries",
+    "domestic": "Domestic (same country)",
+    "compare": "Compare",
+    "modify": "Modify"
+  },
+  "results": {
+    "title": "Results",
+    "no_results": "No results found for this search.",
+    "best_price": "Best price",
+    "delivery": "Delivery",
+    "days": "business days",
+    "tracking": "Tracking",
+    "tracking_yes": "Yes",
+    "tracking_no": "No",
+    "results_count": "{count} result(s)",
+    "price": "Price",
+    "see_details": "View rates",
+    "domestic_route": "Domestic",
+    "from": "From",
+    "to": "To"
+  },
+  "operator": {
+    "title": "{name} rates",
+    "website": "Official website",
+    "last_updated": "Last updated",
+    "domestic_letters": "Domestic letters",
+    "international_letters": "International letters",
+    "domestic_parcels": "Domestic parcels",
+    "international_parcels": "International parcels",
+    "product": "Product",
+    "max_weight": "Max weight",
+    "price": "Price (EUR)",
+    "delivery": "Delivery time",
+    "zone": "Zone",
+    "countries": "Countries"
+  },
+  "about": {
+    "title": "About PostCompare.eu",
+    "intro": "PostCompare.eu is a free and independent comparator for postal rates across Europe.",
+    "methodology_title": "Methodology",
+    "methodology_text": "Prices are collected manually from national postal services' official websites. Prices from non-eurozone countries are converted to EUR at the exchange rate on the date of collection.",
+    "neutrality_title": "Neutrality",
+    "neutrality_text": "This site is purely informational. We have no commercial relationship with any of the listed postal operators.",
+    "open_source_title": "Open Source",
+    "open_source_text": "The source code and data are available on GitHub. Contributions are welcome."
+  },
+  "contribute": {
+    "title": "Contribute to PostCompare.eu",
+    "intro": "PostCompare.eu data is maintained by the community. You can help keep rates up to date.",
+    "report_title": "Report an incorrect price",
+    "report_text": "Open a GitHub Issue specifying the operator, product, and correct price.",
+    "fix_title": "Fix it directly",
+    "fix_text": "Edit the relevant operator's YAML file and open a Pull Request.",
+    "steps_title": "How to contribute",
+    "step1": "Fork the GitHub repository",
+    "step2": "Edit the YAML file in data/operators/",
+    "step3": "Verify the schema is valid: npm run validate",
+    "step4": "Open a Pull Request with the source of your data"
+  },
+  "footer": {
+    "tagline": "Independent European postal rate comparator",
+    "open_source": "Open source project",
+    "disclaimer": "Prices shown are indicative and may be inaccurate. Always verify on the operator's official website."
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "site": {
+    "title": "PostCompare.eu",
+    "tagline": "Postgebühren in Europa vergleichen",
+    "description": "Kostenloser und unabhängiger Vergleich europäischer Postgebühren. Finden Sie den besten Preis für Ihre Briefe und Pakete."
+  },
+  "nav": {
+    "home": "Vergleich",
+    "about": "Über uns",
+    "contribute": "Mitmachen"
+  },
+  "form": {
+    "type": "Sendungsart",
+    "letter": "Brief",
+    "parcel": "Paket",
+    "weight": "Gewicht",
+    "weight_grams": "Gewicht (Gramm)",
+    "weight_kg": "Gewicht (kg)",
+    "origin": "Herkunftsland",
+    "destination": "Zielland",
+    "all_countries": "Alle Länder",
+    "domestic": "Inland (gleiches Land)",
+    "compare": "Vergleichen",
+    "modify": "Ändern"
+  },
+  "results": {
+    "title": "Ergebnisse",
+    "no_results": "Keine Ergebnisse für diese Suche gefunden.",
+    "best_price": "Bester Preis",
+    "delivery": "Lieferung",
+    "days": "Werktage",
+    "tracking": "Sendungsverfolgung",
+    "tracking_yes": "Ja",
+    "tracking_no": "Nein",
+    "results_count": "{count} Ergebnis(se)",
+    "price": "Preis",
+    "see_details": "Tarife anzeigen",
+    "domestic_route": "Inland",
+    "from": "Von",
+    "to": "Nach"
+  },
+  "operator": {
+    "title": "Tarife {name}",
+    "website": "Offizielle Website",
+    "last_updated": "Zuletzt aktualisiert",
+    "domestic_letters": "Inlandsbriefe",
+    "international_letters": "Internationale Briefe",
+    "domestic_parcels": "Inlandspakete",
+    "international_parcels": "Internationale Pakete",
+    "product": "Produkt",
+    "max_weight": "Maximalgewicht",
+    "price": "Preis (EUR)",
+    "delivery": "Lieferzeit",
+    "zone": "Zone",
+    "countries": "Länder"
+  },
+  "about": {
+    "title": "Über PostCompare.eu",
+    "intro": "PostCompare.eu ist ein kostenloser und unabhängiger Vergleich der Postgebühren in Europa.",
+    "methodology_title": "Methodik",
+    "methodology_text": "Die Preise werden manuell von den offiziellen Websites der nationalen Postdienste erhoben. Preise aus Nicht-Eurozone-Ländern werden zum Wechselkurs am Tag der Erhebung in EUR umgerechnet.",
+    "neutrality_title": "Neutralität",
+    "neutrality_text": "Diese Website ist rein informativ. Wir haben keine geschäftliche Beziehung zu den aufgelisteten Postbetreibern.",
+    "open_source_title": "Open Source",
+    "open_source_text": "Der Quellcode und die Daten sind auf GitHub verfügbar. Beiträge sind willkommen."
+  },
+  "contribute": {
+    "title": "Zu PostCompare.eu beitragen",
+    "intro": "Die Daten von PostCompare.eu werden von der Community gepflegt. Sie können helfen, die Tarife aktuell zu halten.",
+    "report_title": "Einen falschen Preis melden",
+    "report_text": "Öffnen Sie ein GitHub Issue mit Angabe des Betreibers, Produkts und korrekten Preises.",
+    "fix_title": "Direkt korrigieren",
+    "fix_text": "Bearbeiten Sie die YAML-Datei des betreffenden Betreibers und öffnen Sie einen Pull Request.",
+    "steps_title": "So können Sie beitragen",
+    "step1": "Forken Sie das GitHub-Repository",
+    "step2": "Bearbeiten Sie die YAML-Datei in data/operators/",
+    "step3": "Überprüfen Sie die Schema-Validierung: npm run validate",
+    "step4": "Öffnen Sie einen Pull Request mit der Quelle Ihrer Daten"
+  },
+  "footer": {
+    "tagline": "Unabhängiger europäischer Postgebührenvergleich",
+    "open_source": "Open-Source-Projekt",
+    "disclaimer": "Die angezeigten Preise sind indikativ und können ungenau sein. Überprüfen Sie immer auf der offiziellen Website des Betreibers."
+  }
+}
