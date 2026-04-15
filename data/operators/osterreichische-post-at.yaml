@@ -5,30 +5,30 @@ operator:
   currency: "EUR"
   website: "https://www.post.at"
   logo: "osterreichische-post-at.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-02-01"
 
 letters:
   domestic:
-    - name: "Brief"
+    - name: "Brief S"
       max_weight_g: 20
       price_eur: 1.00
-      delivery_days: [1, 2]
+      delivery_days: [2, 3]
       options:
         - name: "Einschreiben"
           price_eur: 2.75
-        - name: "Rückschein"
-          price_eur: 1.90
-    - name: "Brief"
+        - name: "Premium"
+          price_eur: 0.30
+    - name: "Brief S"
       max_weight_g: 50
       price_eur: 1.00
-      delivery_days: [1, 2]
+      delivery_days: [2, 3]
       options:
         - name: "Einschreiben"
           price_eur: 2.75
-    - name: "Großbrief"
+    - name: "Brief M"
       max_weight_g: 500
-      price_eur: 2.05
-      delivery_days: [1, 2]
+      price_eur: 1.55
+      delivery_days: [2, 3]
       options:
         - name: "Einschreiben"
           price_eur: 2.75
@@ -55,46 +55,39 @@ letters:
 
 parcels:
   domestic:
-    - name: "Paket S"
-      max_weight_kg: 0.5
-      price_eur: 4.40
-      delivery_days: [1, 2]
+    - name: "Paket"
+      max_weight_kg: 1
+      price_eur: 6.40
+      delivery_days: [2, 3]
       tracking: true
       options:
         - name: "Versicherung bis 510 EUR"
           price_eur: 2.50
-        - name: "Empfängerunterschrift"
-          price_eur: 1.00
-    - name: "Paket M"
+    - name: "Paket"
       max_weight_kg: 2
-      price_eur: 5.20
-      delivery_days: [1, 2]
+      price_eur: 7.68
+      delivery_days: [2, 3]
       tracking: true
       options:
         - name: "Versicherung bis 510 EUR"
           price_eur: 2.50
-        - name: "Empfängerunterschrift"
-          price_eur: 1.00
-    - name: "Paket L"
-      max_weight_kg: 5
-      price_eur: 6.90
-      delivery_days: [1, 2]
+    - name: "Paket"
+      max_weight_kg: 4
+      price_eur: 8.95
+      delivery_days: [2, 3]
       tracking: true
       options:
         - name: "Versicherung bis 510 EUR"
           price_eur: 2.50
-    - name: "Paket XL"
+    - name: "Paket"
       max_weight_kg: 10
-      price_eur: 9.90
-      delivery_days: [1, 2]
+      price_eur: 12.77
+      delivery_days: [2, 3]
       tracking: true
-      options:
-        - name: "Versicherung bis 510 EUR"
-          price_eur: 2.50
-    - name: "Paket XL"
+    - name: "Paket"
       max_weight_kg: 31.5
-      price_eur: 14.90
-      delivery_days: [1, 2]
+      price_eur: 20.43
+      delivery_days: [2, 3]
       tracking: true
   international:
     zones:

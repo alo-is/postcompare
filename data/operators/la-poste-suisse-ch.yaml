@@ -5,7 +5,7 @@ operator:
   currency: "CHF"
   website: "https://www.post.ch"
   logo: "la-poste-suisse-ch.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
@@ -58,23 +58,7 @@ letters:
 parcels:
   domestic:
     - name: "PostPac Economy"
-      max_weight_kg: 0.5
-      price_eur: 6.79
-      delivery_days: [2, 3]
-      tracking: true
-      options:
-        - name: "Versicherung bis 500 CHF"
-          price_eur: 2.91
-    - name: "PostPac Economy"
       max_weight_kg: 2
-      price_eur: 7.76
-      delivery_days: [2, 3]
-      tracking: true
-      options:
-        - name: "Versicherung bis 500 CHF"
-          price_eur: 2.91
-    - name: "PostPac Economy"
-      max_weight_kg: 5
       price_eur: 8.73
       delivery_days: [2, 3]
       tracking: true
@@ -82,13 +66,21 @@ parcels:
         - name: "Versicherung bis 500 CHF"
           price_eur: 2.91
     - name: "PostPac Economy"
+      max_weight_kg: 5
+      price_eur: 9.70
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Versicherung bis 500 CHF"
+          price_eur: 2.91
+    - name: "PostPac Economy"
       max_weight_kg: 10
-      price_eur: 10.67
+      price_eur: 11.64
       delivery_days: [2, 3]
       tracking: true
     - name: "PostPac Economy"
       max_weight_kg: 30
-      price_eur: 14.55
+      price_eur: 15.52
       delivery_days: [2, 3]
       tracking: true
   international:

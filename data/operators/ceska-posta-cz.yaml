@@ -5,13 +5,13 @@ operator:
   currency: "CZK"
   website: "https://www.ceskaposta.cz"
   logo: "ceska-posta-cz.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2025-01-01"
 
 letters:
   domestic:
     - name: "Obyčejný dopis"
       max_weight_g: 50
-      price_eur: 0.80
+      price_eur: 1.24
       delivery_days: [2, 3]
       options:
         - name: "Doporučeně"

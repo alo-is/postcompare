@@ -5,24 +5,24 @@ operator:
   currency: "EUR"
   website: "https://www.post.lu"
   logo: "post-luxembourg-lu.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2025-02-03"
 
 letters:
   domestic:
     - name: "Lettre domestique"
       max_weight_g: 50
-      price_eur: 0.80
+      price_eur: 1.20
       delivery_days: [1, 1]
       options:
         - name: "Recommandé"
-          price_eur: 3.70
+          price_eur: 4.50
     - name: "Lettre domestique"
       max_weight_g: 100
-      price_eur: 1.40
+      price_eur: 1.80
       delivery_days: [1, 1]
     - name: "Lettre domestique"
       max_weight_g: 500
-      price_eur: 2.50
+      price_eur: 3.00
       delivery_days: [1, 1]
   international:
     zones:
@@ -30,19 +30,19 @@ letters:
         countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
           - name: "Lettre internationale"
-            max_weight_g: 20
-            price_eur: 1.10
+            max_weight_g: 50
+            price_eur: 1.70
             delivery_days: [2, 5]
             options:
               - name: "Recommandé international"
-                price_eur: 4.50
+                price_eur: 5.50
           - name: "Lettre internationale"
             max_weight_g: 100
-            price_eur: 2.20
+            price_eur: 2.80
             delivery_days: [2, 5]
           - name: "Lettre internationale"
             max_weight_g: 500
-            price_eur: 4.50
+            price_eur: 5.50
             delivery_days: [2, 5]
 
 parcels:

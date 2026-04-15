@@ -5,29 +5,25 @@ operator:
   currency: "SEK"
   website: "https://www.postnord.se"
   logo: "postnord-se.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
-    - name: "Brev 1:a klass"
-      max_weight_g: 20
-      price_eur: 1.25
-      delivery_days: [1, 2]
+    - name: "Brev"
+      max_weight_g: 50
+      price_eur: 1.96
+      delivery_days: [1, 3]
       options:
         - name: "Rekommenderat brev"
-          price_eur: 5.34
-    - name: "Brev Ekonomi"
-      max_weight_g: 20
-      price_eur: 0.89
-      delivery_days: [2, 4]
-    - name: "Brev 1:a klass"
+          price_eur: 7.12
+    - name: "Brev"
       max_weight_g: 100
-      price_eur: 1.78
-      delivery_days: [1, 2]
-    - name: "Brev 1:a klass"
+      price_eur: 1.96
+      delivery_days: [1, 3]
+    - name: "Brev"
       max_weight_g: 500
       price_eur: 3.56
-      delivery_days: [1, 2]
+      delivery_days: [1, 3]
   international:
     zones:
       - name: "Europe"
@@ -35,14 +31,14 @@ letters:
         rates:
           - name: "Utrikes brev"
             max_weight_g: 20
-            price_eur: 2.14
+            price_eur: 3.92
             delivery_days: [3, 7]
             options:
               - name: "Rekommenderat internationellt"
-                price_eur: 6.23
+                price_eur: 7.12
           - name: "Utrikes brev"
             max_weight_g: 100
-            price_eur: 3.56
+            price_eur: 3.92
             delivery_days: [3, 7]
           - name: "Utrikes brev"
             max_weight_g: 500

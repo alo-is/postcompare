@@ -5,36 +5,36 @@ operator:
   currency: "EUR"
   website: "https://www.ctt.pt"
   logo: "ctt-pt.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-02-02"
 
 letters:
   domestic:
     - name: "Correio Normal"
       max_weight_g: 20
-      price_eur: 0.80
+      price_eur: 0.73
       delivery_days: [2, 4]
       options:
         - name: "Registo"
-          price_eur: 2.45
+          price_eur: 2.60
         - name: "Aviso de receção"
-          price_eur: 1.20
+          price_eur: 1.27
     - name: "Correio Normal"
       max_weight_g: 50
-      price_eur: 0.80
+      price_eur: 0.73
       delivery_days: [2, 4]
       options:
         - name: "Registo"
-          price_eur: 2.45
+          price_eur: 2.60
     - name: "Correio Normal"
       max_weight_g: 100
-      price_eur: 1.20
+      price_eur: 1.27
       delivery_days: [2, 4]
       options:
         - name: "Registo"
-          price_eur: 2.45
+          price_eur: 2.60
     - name: "Correio Normal"
       max_weight_g: 500
-      price_eur: 2.10
+      price_eur: 2.23
       delivery_days: [2, 4]
   international:
     zones:
