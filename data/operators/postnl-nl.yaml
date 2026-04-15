@@ -25,11 +25,19 @@ letters:
           price_eur: 12.30
     - name: "Grote brief"
       max_weight_g: 100
-      price_eur: 2.80
+      price_eur: 4.20
       delivery_days: [1, 2]
       options:
         - name: "Aangetekend"
           price_eur: 12.30
+    - name: "Grote brief"
+      max_weight_g: 350
+      price_eur: 4.35
+      delivery_days: [1, 2]
+    - name: "Grote brief"
+      max_weight_g: 2000
+      price_eur: 5.50
+      delivery_days: [1, 2]
   international:
     zones:
       - name: "Europe"

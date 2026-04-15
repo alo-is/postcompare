@@ -15,25 +15,42 @@ letters:
       delivery_days: [2, 3]
       options:
         - name: "Certificado"
-          price_eur: 5.74
+          price_eur: 4.78
     - name: "Carta ordinaria"
       max_weight_g: 50
       price_eur: 1.15
       delivery_days: [2, 3]
       options:
         - name: "Certificado"
-          price_eur: 5.74
+          price_eur: 4.97
     - name: "Carta ordinaria"
       max_weight_g: 100
-      price_eur: 1.55
+      price_eur: 1.75
       delivery_days: [2, 3]
       options:
         - name: "Certificado"
-          price_eur: 5.74
+          price_eur: 5.57
     - name: "Carta ordinaria"
       max_weight_g: 500
-      price_eur: 3.30
+      price_eur: 3.70
       delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 7.52
+    - name: "Carta ordinaria"
+      max_weight_g: 1000
+      price_eur: 6.90
+      delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 10.72
+    - name: "Carta ordinaria"
+      max_weight_g: 2000
+      price_eur: 7.45
+      delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 11.27
   international:
     zones:
       - name: "Europe"
@@ -45,62 +62,107 @@ letters:
             delivery_days: [3, 7]
             options:
               - name: "Certificado internacional"
-                price_eur: 7.15
+                price_eur: 5.15
           - name: "Carta internacional"
             max_weight_g: 50
-            price_eur: 2.80
+            price_eur: 2.30
             delivery_days: [3, 7]
             options:
               - name: "Certificado internacional"
-                price_eur: 7.15
+                price_eur: 5.45
           - name: "Carta internacional"
             max_weight_g: 100
-            price_eur: 4.20
+            price_eur: 3.10
             delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 6.25
+          - name: "Carta internacional"
+            max_weight_g: 500
+            price_eur: 7.40
+            delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 11.55
+          - name: "Carta internacional"
+            max_weight_g: 1000
+            price_eur: 14.00
+            delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 18.15
+          - name: "Carta internacional"
+            max_weight_g: 2000
+            price_eur: 22.10
+            delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 26.25
 
 parcels:
   domestic:
-    - name: "Paq Estándar"
-      max_weight_kg: 0.5
-      price_eur: 2.88
-      delivery_days: [2, 3]
+    - name: "Paq Ligero"
+      max_weight_kg: 0.25
+      price_eur: 6.06
+      delivery_days: [2, 4]
       tracking: true
-      options:
-        - name: "Seguro"
-          price_eur: 2.50
+    - name: "Paq Ligero"
+      max_weight_kg: 0.5
+      price_eur: 7.56
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Paq Ligero"
+      max_weight_kg: 1
+      price_eur: 10.61
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Paq Ligero"
+      max_weight_kg: 2
+      price_eur: 12.64
+      delivery_days: [2, 4]
+      tracking: true
     - name: "Paq Estándar"
       max_weight_kg: 1
-      price_eur: 3.54
-      delivery_days: [2, 3]
+      price_eur: 13.65
+      delivery_days: [2, 4]
       tracking: true
       options:
-        - name: "Seguro"
+        - name: "Valor declarado"
           price_eur: 2.50
-    - name: "Paq Estándar"
-      max_weight_kg: 3
-      price_eur: 4.37
-      delivery_days: [2, 3]
-      tracking: true
-      options:
-        - name: "Seguro"
-          price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.00
     - name: "Paq Estándar"
       max_weight_kg: 5
-      price_eur: 4.75
-      delivery_days: [2, 3]
+      price_eur: 17.10
+      delivery_days: [2, 4]
       tracking: true
       options:
-        - name: "Seguro"
+        - name: "Valor declarado"
           price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.00
     - name: "Paq Estándar"
       max_weight_kg: 10
-      price_eur: 30.50
-      delivery_days: [3, 4]
+      price_eur: 22.95
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Valor declarado"
+          price_eur: 2.50
+    - name: "Paq Estándar"
+      max_weight_kg: 15
+      price_eur: 27.81
+      delivery_days: [2, 4]
       tracking: true
     - name: "Paq Estándar"
       max_weight_kg: 20
-      price_eur: 48.11
-      delivery_days: [3, 4]
+      price_eur: 33.65
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Paq Estándar"
+      max_weight_kg: 30
+      price_eur: 44.25
+      delivery_days: [2, 4]
       tracking: true
   international:
     zones:
@@ -113,16 +175,13 @@ parcels:
             delivery_days: [5, 10]
             tracking: true
             options:
-              - name: "Seguro internacional"
+              - name: "Valor declarado internacional"
                 price_eur: 3.50
           - name: "Paq Estándar Internacional"
             max_weight_kg: 5
-            price_eur: 29.50
+            price_eur: 30.50
             delivery_days: [5, 10]
             tracking: true
-            options:
-              - name: "Seguro internacional"
-                price_eur: 3.50
           - name: "Paq Estándar Internacional"
             max_weight_kg: 10
             price_eur: 39.50
@@ -130,6 +189,6 @@ parcels:
             tracking: true
           - name: "Paq Estándar Internacional"
             max_weight_kg: 20
-            price_eur: 55.50
+            price_eur: 55.00
             delivery_days: [5, 10]
             tracking: true
