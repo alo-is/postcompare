@@ -5,46 +5,35 @@ operator:
   currency: "EUR"
   website: "https://www.correos.es"
   logo: "correos-es.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
     - name: "Carta ordinaria"
       max_weight_g: 20
-      price_eur: 0.75
+      price_eur: 0.96
       delivery_days: [2, 3]
       options:
         - name: "Certificado"
-          price_eur: 3.40
-        - name: "Certificado urgente"
-          price_eur: 5.20
+          price_eur: 5.74
     - name: "Carta ordinaria"
       max_weight_g: 50
-      price_eur: 0.90
+      price_eur: 1.15
       delivery_days: [2, 3]
       options:
         - name: "Certificado"
-          price_eur: 3.40
-        - name: "Certificado urgente"
-          price_eur: 5.20
+          price_eur: 5.74
     - name: "Carta ordinaria"
       max_weight_g: 100
-      price_eur: 1.25
+      price_eur: 1.55
       delivery_days: [2, 3]
       options:
         - name: "Certificado"
-          price_eur: 3.40
-        - name: "Certificado urgente"
-          price_eur: 5.20
+          price_eur: 5.74
     - name: "Carta ordinaria"
       max_weight_g: 500
-      price_eur: 2.70
+      price_eur: 3.30
       delivery_days: [2, 3]
-      options:
-        - name: "Certificado"
-          price_eur: 3.40
-        - name: "Certificado urgente"
-          price_eur: 5.20
   international:
     zones:
       - name: "Europe"
@@ -52,112 +41,87 @@ letters:
         rates:
           - name: "Carta internacional"
             max_weight_g: 20
-            price_eur: 1.65
+            price_eur: 2.00
             delivery_days: [3, 7]
             options:
               - name: "Certificado internacional"
-                price_eur: 4.20
+                price_eur: 7.15
           - name: "Carta internacional"
             max_weight_g: 50
-            price_eur: 2.35
+            price_eur: 2.80
             delivery_days: [3, 7]
             options:
               - name: "Certificado internacional"
-                price_eur: 4.20
+                price_eur: 7.15
           - name: "Carta internacional"
             max_weight_g: 100
-            price_eur: 3.50
+            price_eur: 4.20
             delivery_days: [3, 7]
-            options:
-              - name: "Certificado internacional"
-                price_eur: 4.20
 
 parcels:
   domestic:
-    - name: "Paquete Estándar"
-      max_weight_kg: 0.5
-      price_eur: 3.50
-      delivery_days: [2, 4]
+    - name: "Paq Estándar"
+      max_weight_kg: 1
+      price_eur: 17.09
+      delivery_days: [3, 4]
       tracking: true
       options:
         - name: "Seguro"
           price_eur: 2.50
-        - name: "Reembolso"
-          price_eur: 3.25
-    - name: "Paquete Estándar"
+    - name: "Paq Estándar"
       max_weight_kg: 2
-      price_eur: 4.95
-      delivery_days: [2, 4]
+      price_eur: 19.04
+      delivery_days: [3, 4]
       tracking: true
       options:
         - name: "Seguro"
           price_eur: 2.50
-        - name: "Reembolso"
-          price_eur: 3.25
-    - name: "Paquete Estándar"
+    - name: "Paq Estándar"
       max_weight_kg: 5
-      price_eur: 7.50
-      delivery_days: [2, 4]
+      price_eur: 23.74
+      delivery_days: [3, 4]
       tracking: true
       options:
         - name: "Seguro"
           price_eur: 2.50
-        - name: "Reembolso"
-          price_eur: 3.25
-    - name: "Paquete Estándar"
+    - name: "Paq Estándar"
       max_weight_kg: 10
-      price_eur: 10.95
-      delivery_days: [2, 4]
+      price_eur: 30.50
+      delivery_days: [3, 4]
       tracking: true
-      options:
-        - name: "Seguro"
-          price_eur: 2.50
-        - name: "Reembolso"
-          price_eur: 3.25
-    - name: "Paquete Estándar"
+    - name: "Paq Estándar"
       max_weight_kg: 20
-      price_eur: 15.50
-      delivery_days: [2, 4]
+      price_eur: 48.11
+      delivery_days: [3, 4]
       tracking: true
-      options:
-        - name: "Seguro"
-          price_eur: 2.50
-        - name: "Reembolso"
-          price_eur: 3.25
   international:
     zones:
       - name: "Europe"
         countries: ["FR", "DE", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
-          - name: "Paquete Internacional Económico"
-            max_weight_kg: 0.5
-            price_eur: 7.50
-            delivery_days: [5, 10]
-            tracking: true
-            options:
-              - name: "Seguro internacional"
-                price_eur: 3.50
-          - name: "Paquete Internacional Económico"
+          - name: "Paq Estándar Internacional"
             max_weight_kg: 2
-            price_eur: 10.50
+            price_eur: 22.50
             delivery_days: [5, 10]
             tracking: true
             options:
               - name: "Seguro internacional"
                 price_eur: 3.50
-          - name: "Paquete Internacional Económico"
+          - name: "Paq Estándar Internacional"
             max_weight_kg: 5
-            price_eur: 16.00
+            price_eur: 29.50
             delivery_days: [5, 10]
             tracking: true
             options:
               - name: "Seguro internacional"
                 price_eur: 3.50
-          - name: "Paquete Internacional Económico"
+          - name: "Paq Estándar Internacional"
             max_weight_kg: 10
-            price_eur: 23.50
+            price_eur: 39.50
             delivery_days: [5, 10]
             tracking: true
-            options:
-              - name: "Seguro internacional"
-                price_eur: 3.50
+          - name: "Paq Estándar Internacional"
+            max_weight_kg: 20
+            price_eur: 55.50
+            delivery_days: [5, 10]
+            tracking: true

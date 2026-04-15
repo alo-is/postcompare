@@ -5,38 +5,48 @@ operator:
   currency: "GBP"
   website: "https://www.royalmail.com"
   logo: "royal-mail-gb.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2026-04-07"
 
 letters:
   domestic:
     - name: "2nd Class"
       max_weight_g: 100
-      price_eur: 0.87
+      price_eur: 1.06
       delivery_days: [2, 3]
       options:
         - name: "Signed For"
-          price_eur: 1.74
+          price_eur: 1.86
     - name: "1st Class"
       max_weight_g: 100
-      price_eur: 1.33
+      price_eur: 2.09
       delivery_days: [1, 2]
       options:
         - name: "Signed For"
-          price_eur: 1.74
-    - name: "2nd Class Large"
+          price_eur: 1.86
+    - name: "2nd Class Large Letter"
       max_weight_g: 250
-      price_eur: 1.51
+      price_eur: 1.80
       delivery_days: [2, 3]
-      options:
-        - name: "Signed For"
-          price_eur: 1.74
-    - name: "1st Class Large"
+    - name: "1st Class Large Letter"
       max_weight_g: 250
-      price_eur: 2.15
+      price_eur: 3.83
       delivery_days: [1, 2]
-      options:
-        - name: "Signed For"
-          price_eur: 1.74
+    - name: "2nd Class Large Letter"
+      max_weight_g: 500
+      price_eur: 2.09
+      delivery_days: [2, 3]
+    - name: "1st Class Large Letter"
+      max_weight_g: 500
+      price_eur: 4.18
+      delivery_days: [1, 2]
+    - name: "2nd Class Large Letter"
+      max_weight_g: 750
+      price_eur: 2.55
+      delivery_days: [2, 3]
+    - name: "1st Class Large Letter"
+      max_weight_g: 750
+      price_eur: 4.64
+      delivery_days: [1, 2]
   international:
     zones:
       - name: "Europe"
@@ -44,130 +54,93 @@ letters:
         rates:
           - name: "International Standard"
             max_weight_g: 20
-            price_eur: 2.67
+            price_eur: 2.90
             delivery_days: [5, 7]
             options:
               - name: "International Signed"
-                price_eur: 7.00
+                price_eur: 7.54
           - name: "International Standard"
             max_weight_g: 100
-            price_eur: 3.48
+            price_eur: 3.71
             delivery_days: [5, 7]
             options:
               - name: "International Signed"
-                price_eur: 7.00
-          - name: "International Standard"
+                price_eur: 7.54
+          - name: "International Standard Large"
             max_weight_g: 250
-            price_eur: 4.64
+            price_eur: 5.10
             delivery_days: [5, 7]
-            options:
-              - name: "International Signed"
-                price_eur: 7.00
 
 parcels:
   domestic:
-    - name: "Royal Mail Small Parcel 48"
-      max_weight_kg: 0.5
-      price_eur: 3.35
-      delivery_days: [2, 3]
-      tracking: true
-      options:
-        - name: "Insurance up to 100 GBP"
-          price_eur: 2.90
-        - name: "Signature on delivery"
-          price_eur: 1.16
-    - name: "Royal Mail 48"
-      max_weight_kg: 1
-      price_eur: 3.95
-      delivery_days: [2, 3]
-      tracking: true
-      options:
-        - name: "Insurance up to 100 GBP"
-          price_eur: 2.90
-        - name: "Signature on delivery"
-          price_eur: 1.16
-    - name: "Royal Mail 48"
+    - name: "Royal Mail 2nd Class Small Parcel"
       max_weight_kg: 2
-      price_eur: 4.45
+      price_eur: 4.93
       delivery_days: [2, 3]
       tracking: true
-      options:
-        - name: "Insurance up to 100 GBP"
-          price_eur: 2.90
-        - name: "Signature on delivery"
-          price_eur: 1.16
-    - name: "Royal Mail 48"
-      max_weight_kg: 5
-      price_eur: 5.95
+    - name: "Royal Mail 2nd Class Medium Parcel"
+      max_weight_kg: 2
+      price_eur: 8.06
       delivery_days: [2, 3]
       tracking: true
-      options:
-        - name: "Insurance up to 100 GBP"
-          price_eur: 2.90
-        - name: "Signature on delivery"
-          price_eur: 1.16
-    - name: "Royal Mail 48"
+    - name: "Royal Mail 2nd Class Medium Parcel"
       max_weight_kg: 10
-      price_eur: 7.25
+      price_eur: 10.15
       delivery_days: [2, 3]
       tracking: true
-      options:
-        - name: "Insurance up to 100 GBP"
-          price_eur: 2.90
-        - name: "Signature on delivery"
-          price_eur: 1.16
-    - name: "Royal Mail 48"
+    - name: "Royal Mail 2nd Class Medium Parcel"
       max_weight_kg: 20
-      price_eur: 11.55
+      price_eur: 15.25
       delivery_days: [2, 3]
       tracking: true
-      options:
-        - name: "Insurance up to 100 GBP"
-          price_eur: 2.90
-        - name: "Signature on delivery"
-          price_eur: 1.16
+    - name: "Royal Mail 1st Class Small Parcel"
+      max_weight_kg: 2
+      price_eur: 6.32
+      delivery_days: [1, 2]
+      tracking: true
+    - name: "Royal Mail 1st Class Medium Parcel"
+      max_weight_kg: 2
+      price_eur: 9.34
+      delivery_days: [1, 2]
+      tracking: true
+    - name: "Royal Mail 1st Class Medium Parcel"
+      max_weight_kg: 10
+      price_eur: 11.66
+      delivery_days: [1, 2]
+      tracking: true
+    - name: "Royal Mail 1st Class Medium Parcel"
+      max_weight_kg: 20
+      price_eur: 17.92
+      delivery_days: [1, 2]
+      tracking: true
   international:
     zones:
       - name: "Europe"
         countries: ["FR", "DE", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
-          - name: "International Tracked"
-            max_weight_kg: 0.5
-            price_eur: 8.90
+          - name: "International Tracked & Signed"
+            max_weight_kg: 1
+            price_eur: 16.59
             delivery_days: [5, 10]
             tracking: true
             options:
-              - name: "International Signed"
-                price_eur: 7.54
               - name: "Insurance up to 250 GBP"
-                price_eur: 5.80
-          - name: "International Tracked"
+                price_eur: 6.73
+          - name: "International Tracked & Signed"
             max_weight_kg: 2
-            price_eur: 12.50
+            price_eur: 17.28
             delivery_days: [5, 10]
             tracking: true
             options:
-              - name: "International Signed"
-                price_eur: 7.54
               - name: "Insurance up to 250 GBP"
-                price_eur: 5.80
-          - name: "International Tracked"
+                price_eur: 6.73
+          - name: "International Tracked & Signed"
             max_weight_kg: 5
-            price_eur: 19.80
+            price_eur: 23.20
             delivery_days: [5, 10]
             tracking: true
-            options:
-              - name: "International Signed"
-                price_eur: 7.54
-              - name: "Insurance up to 250 GBP"
-                price_eur: 5.80
-          - name: "International Tracked"
+          - name: "International Tracked & Signed"
             max_weight_kg: 10
-            price_eur: 30.50
+            price_eur: 34.80
             delivery_days: [5, 10]
             tracking: true
-            options:
-              - name: "International Signed"
-                price_eur: 7.54
-              - name: "Insurance up to 250 GBP"
-                price_eur: 5.80

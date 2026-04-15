@@ -22,5 +22,5 @@ export default defineConfig({
       redirectToDefaultLocale: true,
     },
   },
-  site: 'https://postcompare.eu',
+  site: 'https://www.postcompare.eu',
 });

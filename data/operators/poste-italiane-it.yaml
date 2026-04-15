@@ -5,99 +5,92 @@ operator:
   currency: "EUR"
   website: "https://www.poste.it"
   logo: "poste-italiane-it.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2025-04-03"
 
 letters:
   domestic:
-    - name: "Posta Ordinaria"
+    - name: "Posta 4"
       max_weight_g: 20
-      price_eur: 1.10
-      delivery_days: [3, 5]
+      price_eur: 1.30
+      delivery_days: [4, 6]
       options:
         - name: "Raccomandata"
-          price_eur: 4.20
-        - name: "Posta Prioritaria"
-          price_eur: 0.70
-    - name: "Posta Ordinaria"
+          price_eur: 6.00
+    - name: "Posta 4"
       max_weight_g: 100
-      price_eur: 2.50
-      delivery_days: [3, 5]
+      price_eur: 2.90
+      delivery_days: [4, 6]
       options:
         - name: "Raccomandata"
-          price_eur: 4.20
-    - name: "Posta Ordinaria"
+          price_eur: 6.00
+    - name: "Posta 4"
       max_weight_g: 250
-      price_eur: 4.00
-      delivery_days: [3, 5]
-    - name: "Posta Ordinaria"
-      max_weight_g: 500
-      price_eur: 5.50
-      delivery_days: [3, 5]
+      price_eur: 4.20
+      delivery_days: [4, 6]
+    - name: "Posta 4"
+      max_weight_g: 350
+      price_eur: 4.20
+      delivery_days: [4, 6]
+    - name: "Posta 4"
+      max_weight_g: 1000
+      price_eur: 6.40
+      delivery_days: [4, 6]
+    - name: "Posta 4"
+      max_weight_g: 2000
+      price_eur: 6.90
+      delivery_days: [4, 6]
   international:
     zones:
       - name: "Europe"
         countries: ["DE", "FR", "ES", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
-          - name: "Posta internazionale"
+          - name: "Postamail Internazionale"
             max_weight_g: 20
-            price_eur: 1.25
+            price_eur: 1.35
             delivery_days: [4, 8]
             options:
               - name: "Raccomandata internazionale"
-                price_eur: 5.40
-          - name: "Posta internazionale"
+                price_eur: 7.65
+          - name: "Postamail Internazionale"
             max_weight_g: 100
-            price_eur: 2.80
+            price_eur: 3.10
             delivery_days: [4, 8]
-          - name: "Posta internazionale"
+          - name: "Postamail Internazionale"
+            max_weight_g: 250
+            price_eur: 5.50
+            delivery_days: [4, 8]
+          - name: "Postamail Internazionale"
             max_weight_g: 500
-            price_eur: 5.70
+            price_eur: 6.10
             delivery_days: [4, 8]
 
 parcels:
   domestic:
     - name: "Poste Delivery Standard"
-      max_weight_kg: 0.5
-      price_eur: 5.90
-      delivery_days: [3, 5]
+      max_weight_kg: 3
+      price_eur: 10.30
+      delivery_days: [4, 5]
       tracking: true
       options:
-        - name: "Assicurazione fino a 500 EUR"
+        - name: "Assicurazione"
           price_eur: 2.50
-        - name: "Firma alla consegna"
-          price_eur: 1.00
-    - name: "Poste Delivery Standard"
-      max_weight_kg: 1
-      price_eur: 6.90
-      delivery_days: [3, 5]
-      tracking: true
-      options:
-        - name: "Assicurazione fino a 500 EUR"
-          price_eur: 2.50
-        - name: "Firma alla consegna"
-          price_eur: 1.00
     - name: "Poste Delivery Standard"
       max_weight_kg: 5
-      price_eur: 8.90
-      delivery_days: [3, 5]
+      price_eur: 12.50
+      delivery_days: [4, 5]
       tracking: true
       options:
-        - name: "Assicurazione fino a 500 EUR"
+        - name: "Assicurazione"
           price_eur: 2.50
     - name: "Poste Delivery Standard"
       max_weight_kg: 10
-      price_eur: 11.90
-      delivery_days: [3, 5]
+      price_eur: 14.50
+      delivery_days: [4, 5]
       tracking: true
     - name: "Poste Delivery Standard"
       max_weight_kg: 20
-      price_eur: 14.90
-      delivery_days: [3, 5]
-      tracking: true
-    - name: "Poste Delivery Standard"
-      max_weight_kg: 30
-      price_eur: 18.90
-      delivery_days: [3, 5]
+      price_eur: 18.50
+      delivery_days: [4, 5]
       tracking: true
   international:
     zones:
@@ -105,28 +98,33 @@ parcels:
         countries: ["DE", "FR", "ES", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
           - name: "Poste Delivery International Standard"
-            max_weight_kg: 0.5
-            price_eur: 9.90
-            delivery_days: [4, 8]
+            max_weight_kg: 1
+            price_eur: 25.80
+            delivery_days: [10, 15]
             tracking: true
             options:
               - name: "Assicurazione internazionale"
                 price_eur: 3.50
           - name: "Poste Delivery International Standard"
-            max_weight_kg: 2
-            price_eur: 14.90
-            delivery_days: [4, 8]
+            max_weight_kg: 3
+            price_eur: 33.80
+            delivery_days: [10, 15]
             tracking: true
             options:
               - name: "Assicurazione internazionale"
                 price_eur: 3.50
           - name: "Poste Delivery International Standard"
             max_weight_kg: 5
-            price_eur: 21.90
-            delivery_days: [4, 8]
+            price_eur: 39.80
+            delivery_days: [10, 15]
             tracking: true
           - name: "Poste Delivery International Standard"
             max_weight_kg: 10
-            price_eur: 31.90
-            delivery_days: [4, 8]
+            price_eur: 51.80
+            delivery_days: [10, 15]
+            tracking: true
+          - name: "Poste Delivery International Standard"
+            max_weight_kg: 20
+            price_eur: 73.80
+            delivery_days: [10, 15]
             tracking: true

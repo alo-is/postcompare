@@ -28,3 +28,9 @@ pnpm-debug.log*
 
 # superpowers
 .superpowers/
+
+# claude
+.claude/
+
+# docs/superpowers (internal planning)
+docs/superpowers/
