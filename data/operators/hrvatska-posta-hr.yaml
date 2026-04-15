@@ -1,0 +1,114 @@
+operator:
+  id: "hrvatska-posta-hr"
+  name: "Hrvatska pošta"
+  country: "HR"
+  currency: "EUR"
+  website: "https://www.posta.hr"
+  logo: "hrvatska-posta-hr.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Pismo"
+      max_weight_g: 20
+      price_eur: 0.63
+      delivery_days: [2, 3]
+      options:
+        - name: "Preporučeno"
+          price_eur: 1.70
+    - name: "Pismo"
+      max_weight_g: 100
+      price_eur: 1.00
+      delivery_days: [2, 3]
+      options:
+        - name: "Preporučeno"
+          price_eur: 1.70
+    - name: "Pismo"
+      max_weight_g: 500
+      price_eur: 1.70
+      delivery_days: [2, 3]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Međunarodno pismo"
+            max_weight_g: 20
+            price_eur: 1.20
+            delivery_days: [3, 7]
+            options:
+              - name: "Preporučeno međunarodno"
+                price_eur: 2.50
+          - name: "Međunarodno pismo"
+            max_weight_g: 100
+            price_eur: 1.90
+            delivery_days: [3, 7]
+          - name: "Međunarodno pismo"
+            max_weight_g: 500
+            price_eur: 4.00
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Paket"
+      max_weight_kg: 0.5
+      price_eur: 2.80
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Osiguranje"
+          price_eur: 1.50
+    - name: "Paket"
+      max_weight_kg: 1
+      price_eur: 3.30
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Osiguranje"
+          price_eur: 1.50
+    - name: "Paket"
+      max_weight_kg: 5
+      price_eur: 4.50
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Osiguranje"
+          price_eur: 1.50
+    - name: "Paket"
+      max_weight_kg: 10
+      price_eur: 6.00
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Paket"
+      max_weight_kg: 20
+      price_eur: 8.00
+      delivery_days: [2, 4]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Međunarodni paket"
+            max_weight_kg: 0.5
+            price_eur: 7.00
+            delivery_days: [4, 10]
+            tracking: true
+          - name: "Međunarodni paket"
+            max_weight_kg: 2
+            price_eur: 11.00
+            delivery_days: [4, 10]
+            tracking: true
+            options:
+              - name: "Osiguranje"
+                price_eur: 2.50
+          - name: "Međunarodni paket"
+            max_weight_kg: 5
+            price_eur: 16.00
+            delivery_days: [4, 10]
+            tracking: true
+          - name: "Međunarodni paket"
+            max_weight_kg: 10
+            price_eur: 23.00
+            delivery_days: [4, 10]
+            tracking: true

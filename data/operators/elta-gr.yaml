@@ -1,0 +1,115 @@
+operator:
+  id: "elta-gr"
+  name: "ELTA"
+  country: "GR"
+  currency: "EUR"
+  website: "https://www.elta.gr"
+  logo: "elta-gr.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Απλή επιστολή"
+      max_weight_g: 20
+      price_eur: 0.90
+      delivery_days: [2, 4]
+      options:
+        - name: "Συστημένη"
+          price_eur: 2.50
+    - name: "Απλή επιστολή"
+      max_weight_g: 50
+      price_eur: 0.90
+      delivery_days: [2, 4]
+    - name: "Απλή επιστολή"
+      max_weight_g: 100
+      price_eur: 1.40
+      delivery_days: [2, 4]
+    - name: "Απλή επιστολή"
+      max_weight_g: 500
+      price_eur: 2.30
+      delivery_days: [2, 4]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Διεθνής επιστολή"
+            max_weight_g: 20
+            price_eur: 1.20
+            delivery_days: [4, 8]
+            options:
+              - name: "Συστημένη διεθνής"
+                price_eur: 3.50
+          - name: "Διεθνής επιστολή"
+            max_weight_g: 100
+            price_eur: 2.40
+            delivery_days: [4, 8]
+          - name: "Διεθνής επιστολή"
+            max_weight_g: 500
+            price_eur: 5.00
+            delivery_days: [4, 8]
+
+parcels:
+  domestic:
+    - name: "Δέμα"
+      max_weight_kg: 0.5
+      price_eur: 3.20
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Ασφάλεια"
+          price_eur: 2.00
+    - name: "Δέμα"
+      max_weight_kg: 1
+      price_eur: 3.70
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Ασφάλεια"
+          price_eur: 2.00
+    - name: "Δέμα"
+      max_weight_kg: 5
+      price_eur: 5.50
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Ασφάλεια"
+          price_eur: 2.00
+    - name: "Δέμα"
+      max_weight_kg: 10
+      price_eur: 7.50
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Δέμα"
+      max_weight_kg: 20
+      price_eur: 10.50
+      delivery_days: [2, 4]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Διεθνές δέμα"
+            max_weight_kg: 0.5
+            price_eur: 8.50
+            delivery_days: [5, 10]
+            tracking: true
+          - name: "Διεθνές δέμα"
+            max_weight_kg: 2
+            price_eur: 13.00
+            delivery_days: [5, 10]
+            tracking: true
+            options:
+              - name: "Ασφάλεια διεθνής"
+                price_eur: 3.00
+          - name: "Διεθνές δέμα"
+            max_weight_kg: 5
+            price_eur: 19.00
+            delivery_days: [5, 10]
+            tracking: true
+          - name: "Διεθνές δέμα"
+            max_weight_kg: 10
+            price_eur: 28.00
+            delivery_days: [5, 10]
+            tracking: true

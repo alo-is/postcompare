@@ -1,0 +1,114 @@
+operator:
+  id: "balgarski-poshti-bg"
+  name: "Български пощи"
+  country: "BG"
+  currency: "BGN"
+  website: "https://www.bgpost.bg"
+  logo: "balgarski-poshti-bg.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Обикновена кореспонденция"
+      max_weight_g: 20
+      price_eur: 0.51
+      delivery_days: [2, 4]
+      options:
+        - name: "Препоръчана"
+          price_eur: 1.28
+    - name: "Обикновена кореспонденция"
+      max_weight_g: 100
+      price_eur: 0.77
+      delivery_days: [2, 4]
+      options:
+        - name: "Препоръчана"
+          price_eur: 1.28
+    - name: "Обикновена кореспонденция"
+      max_weight_g: 500
+      price_eur: 1.53
+      delivery_days: [2, 4]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Международно писмо"
+            max_weight_g: 20
+            price_eur: 1.02
+            delivery_days: [4, 10]
+            options:
+              - name: "Препоръчано международно"
+                price_eur: 2.04
+          - name: "Международно писмо"
+            max_weight_g: 100
+            price_eur: 1.53
+            delivery_days: [4, 10]
+          - name: "Международно писмо"
+            max_weight_g: 500
+            price_eur: 3.07
+            delivery_days: [4, 10]
+
+parcels:
+  domestic:
+    - name: "Колетна пратка"
+      max_weight_kg: 0.5
+      price_eur: 2.04
+      delivery_days: [2, 5]
+      tracking: true
+      options:
+        - name: "Застраховка"
+          price_eur: 0.77
+    - name: "Колетна пратка"
+      max_weight_kg: 1
+      price_eur: 2.56
+      delivery_days: [2, 5]
+      tracking: true
+      options:
+        - name: "Застраховка"
+          price_eur: 0.77
+    - name: "Колетна пратка"
+      max_weight_kg: 5
+      price_eur: 3.58
+      delivery_days: [2, 5]
+      tracking: true
+      options:
+        - name: "Застраховка"
+          price_eur: 0.77
+    - name: "Колетна пратка"
+      max_weight_kg: 10
+      price_eur: 4.60
+      delivery_days: [2, 5]
+      tracking: true
+    - name: "Колетна пратка"
+      max_weight_kg: 20
+      price_eur: 6.13
+      delivery_days: [2, 5]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Международна колетна пратка"
+            max_weight_kg: 0.5
+            price_eur: 5.62
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Международна колетна пратка"
+            max_weight_kg: 2
+            price_eur: 9.20
+            delivery_days: [5, 12]
+            tracking: true
+            options:
+              - name: "Застраховка"
+                price_eur: 2.04
+          - name: "Международна колетна пратка"
+            max_weight_kg: 5
+            price_eur: 14.31
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Международна колетна пратка"
+            max_weight_kg: 10
+            price_eur: 20.44
+            delivery_days: [5, 12]
+            tracking: true
