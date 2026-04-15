@@ -1,0 +1,89 @@
+name: Price Update
+description: Report an incorrect or outdated postal rate
+title: "[Price] "
+labels: ["price-correction"]
+body:
+  - type: dropdown
+    id: operator
+    attributes:
+      label: Postal Operator
+      description: Which postal operator has the incorrect price?
+      options:
+        - La Poste (France)
+        - Deutsche Post (Germany)
+        - Correos (Spain)
+        - Royal Mail (United Kingdom)
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: operator-other
+    attributes:
+      label: Other Operator
+      description: If you selected "Other" above, specify the operator name
+      placeholder: e.g., Poste Italiane
+
+  - type: dropdown
+    id: shipment-type
+    attributes:
+      label: Shipment Type
+      options:
+        - Letter
+        - Parcel
+    validations:
+      required: true
+
+  - type: input
+    id: product-name
+    attributes:
+      label: Product Name
+      description: Name of the specific product or rate tier
+      placeholder: e.g., Lettre Verte, Standard Parcel
+    validations:
+      required: true
+
+  - type: input
+    id: route
+    attributes:
+      label: Route
+      description: Domestic or international? Specify origin and destination countries.
+      placeholder: e.g., Domestic or France -> Germany
+    validations:
+      required: true
+
+  - type: input
+    id: current-price
+    attributes:
+      label: Current Price in PostCompare
+      description: The price currently shown on the site
+      placeholder: e.g., 1.16 EUR
+    validations:
+      required: true
+
+  - type: input
+    id: correct-price
+    attributes:
+      label: Correct Price
+      description: The actual correct price
+      placeholder: e.g., 1.29 EUR
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Official Source
+      description: Link to the official page showing the correct price
+      placeholder: https://www.laposte.fr/tarifs
+    validations:
+      required: true
+
+  - type: input
+    id: date-verified
+    attributes:
+      label: Date Verified
+      description: When did you verify this price?
+      placeholder: "2026-04-15"
+    validations:
+      required: true
