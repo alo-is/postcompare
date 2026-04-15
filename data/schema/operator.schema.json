@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://postcompare.eu/schemas/operator.json",
+  "title": "Postal Operator",
+  "description": "Rate data for a national postal service operator",
+  "type": "object",
+  "required": ["operator", "letters", "parcels"],
+  "additionalProperties": false,
+  "properties": {
+    "operator": {
+      "type": "object",
+      "required": ["id", "name", "country", "currency", "website", "logo", "last_updated"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri"
+        },
+        "logo": { "type": "string" },
+        "last_updated": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "letters": {
+      "type": "object",
+      "required": ["domestic", "international"],
+      "additionalProperties": false,
+      "properties": {
+        "domestic": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/letterRate" },
+          "minItems": 1
+        },
+        "international": {
+          "type": "object",
+          "required": ["zones"],
+          "additionalProperties": false,
+          "properties": {
+            "zones": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/letterZone" },
+              "minItems": 1
+            }
+          }
+        }
+      }
+    },
+    "parcels": {
+      "type": "object",
+      "required": ["domestic", "international"],
+      "additionalProperties": false,
+      "properties": {
+        "domestic": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/parcelRate" },
+          "minItems": 1
+        },
+        "international": {
+          "type": "object",
+          "required": ["zones"],
+          "additionalProperties": false,
+          "properties": {
+            "zones": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/parcelZone" },
+              "minItems": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "deliveryDays": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 0 },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "letterRate": {
+      "type": "object",
+      "required": ["name", "max_weight_g", "price_eur", "delivery_days"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "max_weight_g": { "type": "number", "exclusiveMinimum": 0 },
+        "price_eur": { "type": "number", "minimum": 0 },
+        "delivery_days": { "$ref": "#/$defs/deliveryDays" }
+      }
+    },
+    "parcelRate": {
+      "type": "object",
+      "required": ["name", "max_weight_kg", "price_eur", "delivery_days", "tracking"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "max_weight_kg": { "type": "number", "exclusiveMinimum": 0 },
+        "price_eur": { "type": "number", "minimum": 0 },
+        "delivery_days": { "$ref": "#/$defs/deliveryDays" },
+        "tracking": { "type": "boolean" }
+      }
+    },
+    "letterZone": {
+      "type": "object",
+      "required": ["name", "countries", "rates"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "countries": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
+          "minItems": 1
+        },
+        "rates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/letterRate" },
+          "minItems": 1
+        }
+      }
+    },
+    "parcelZone": {
+      "type": "object",
+      "required": ["name", "countries", "rates"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "countries": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
+          "minItems": 1
+        },
+        "rates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/parcelRate" },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}
