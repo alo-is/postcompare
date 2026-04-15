@@ -23,15 +23,20 @@ const lang = Astro.params.lang as Lang;
 
     <h2>{t(lang, 'contribute.report_title')}</h2>
     <p>{t(lang, 'contribute.report_text')}</p>
+    <p>
+      <a href="https://github.com/alo-is/postcompare/issues/new?template=price-update.yml" target="_blank" rel="noopener" class="contribute-link">
+        {lang === 'fr' ? 'Ouvrir une Issue' : lang === 'de' ? 'Issue erstellen' : 'Open an Issue'} &rarr;
+      </a>
+    </p>
 
     <h2>{t(lang, 'contribute.fix_title')}</h2>
     <p>{t(lang, 'contribute.fix_text')}</p>
 
     <h2>{t(lang, 'contribute.steps_title')}</h2>
     <ol>
-      <li>{t(lang, 'contribute.step1')}</li>
+      <li>{t(lang, 'contribute.step1')} &mdash; <a href="https://github.com/alo-is/postcompare/fork" target="_blank" rel="noopener">github.com/alo-is/postcompare</a></li>
       <li>{t(lang, 'contribute.step2')}</li>
-      <li>{t(lang, 'contribute.step3')}</li>
+      <li>{t(lang, 'contribute.step3')} &mdash; <code>npm run validate</code></li>
       <li>{t(lang, 'contribute.step4')}</li>
     </ol>
   </div>

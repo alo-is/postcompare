@@ -5,7 +5,7 @@ operator:
   currency: "ISK"
   website: "https://www.postur.is"
   logo: "islandspostur-is.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2025-01-01"
 
 letters:
   domestic:

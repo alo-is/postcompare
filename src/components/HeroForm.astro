@@ -78,6 +78,7 @@ const supportedCodes = countries.map((c) => c.code);
             <option value={c.code}>{c.flag} {countryName(c)}</option>
           ))}
         </select>
+        <span class="wizard__hint" id="origin-hint"></span>
       </div>
     </div>
 
@@ -104,10 +105,11 @@ const supportedCodes = countries.map((c) => c.code);
 </form>
 
 <script define:vars={{ supportedCodes }}>
-  // Auto-detect user's country
+  // Detect user's country and show hint (don't auto-select)
   (function() {
     const originSelect = document.getElementById('hero-origin');
-    if (!originSelect || originSelect.value !== 'all') return;
+    const hint = document.getElementById('origin-hint');
+    if (!originSelect || !hint) return;
     const lang = navigator.language || '';
     const parts = lang.split('-');
     let code = '';
@@ -117,7 +119,19 @@ const supportedCodes = countries.map((c) => c.code);
       const map = { 'fr':'FR','de':'DE','es':'ES','it':'IT','nl':'NL','pt':'PT','pl':'PL','ro':'RO','hu':'HU','el':'GR','bg':'BG','hr':'HR','sk':'SK','sl':'SI','lt':'LT','lv':'LV','et':'EE','fi':'FI','sv':'SE','da':'DK','no':'NO','is':'IS','en':'GB' };
       code = map[parts[0].toLowerCase()] || '';
     }
-    if (code && supportedCodes.includes(code)) originSelect.value = code;
+    if (code && supportedCodes.includes(code)) {
+      // Find the country name from the select options
+      const opt = originSelect.querySelector('option[value="' + code + '"]');
+      if (opt) {
+        hint.textContent = opt.textContent.trim() + ' ?';
+        hint.style.cursor = 'pointer';
+        hint.addEventListener('click', function() {
+          originSelect.value = code;
+          hint.style.display = 'none';
+          originSelect.dispatchEvent(new Event('change'));
+        });
+      }
+    }
   })();
 
   // Type toggle behavior

@@ -5,7 +5,7 @@ operator:
   currency: "RON"
   website: "https://www.posta-romana.ro"
   logo: "posta-romana-ro.svg"
-  last_updated: "2026-04-01"
+  last_updated: "2025-01-01"
 
 letters:
   domestic:
