@@ -1168,6 +1168,8 @@ a:hover {
 .countries-grid__flag {
   font-size: 1.4rem;
   flex-shrink: 0;
+  width: 24px;
+  text-align: center;
 }
 
 .countries-grid__info {
