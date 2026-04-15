@@ -63,3 +63,10 @@ export const languageNames: Record<Lang, string> = {
   en: 'English',
   de: 'Deutsch',
 };
+
+/** Short language codes for compact display */
+export const languageCodes: Record<Lang, string> = {
+  fr: 'FR',
+  en: 'EN',
+  de: 'DE',
+};

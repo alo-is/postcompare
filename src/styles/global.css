@@ -423,25 +423,32 @@ a:hover {
 /* ===== Language Picker ===== */
 .lang-picker {
   display: flex;
-  gap: var(--space-xs);
+  align-items: center;
+  gap: 2px;
 }
 
 .lang-picker__link {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius);
-  transition: all 0.2s;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.7rem;
+  padding: 2px 4px;
+  letter-spacing: 0.5px;
+  font-family: var(--font-body);
+  transition: color 0.2s;
 }
 
 .lang-picker__link:hover {
-  color: var(--color-white);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
 }
 
 .lang-picker__link--active {
-  color: var(--color-white);
-  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.lang-picker__sep {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.65rem;
+  user-select: none;
 }
 
 /* ===== Operator Detail Page ===== */
