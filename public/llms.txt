@@ -1,0 +1,22 @@
+# PostCompare.eu
+
+> European postal service price comparator. Compare letter and parcel rates across 32 countries.
+
+## API / Data Access
+The postal rate data is available as YAML files in the open-source repository.
+Each operator has a YAML file at data/operators/{operator-id}.yaml
+
+## Data Format
+Operator files contain: domestic letter rates, international letter rates (by zone), domestic parcel rates, international parcel rates (by zone). All prices in EUR.
+
+## Supported Countries
+EU27 + EFTA (CH, NO, IS, LI) + UK = 32 countries
+
+## Available Operators
+- La Poste (France) - data/operators/la-poste-fr.yaml
+- Deutsche Post (Germany) - data/operators/deutsche-post-de.yaml
+- Correos (Spain) - data/operators/correos-es.yaml
+- Royal Mail (United Kingdom) - data/operators/royal-mail-gb.yaml
+
+## Languages
+Available in French (fr), English (en), and German (de).

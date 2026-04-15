@@ -12,20 +12,21 @@ const { lang } = Astro.props;
 const currentPath = Astro.url.pathname.replace(/^\/(fr|en|de)/, '');
 ---
 
-<header class="header">
+<header class="header" role="banner">
   <div class="header__inner">
-    <a href={localePath(lang, '/')} class="header__logo">
+    <a href={localePath(lang, '/')} class="header__logo" aria-label="PostCompare.eu - Home">
+      <img src="/logo.svg" alt="PostCompare.eu" class="header__logo-icon" width="28" height="28" />
       PostCompare.eu
     </a>
 
-    <button class="header__burger" aria-label="Menu" id="burger-btn">
+    <button class="header__burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu" id="burger-btn">
       &#9776;
     </button>
 
-    <nav class="header__nav" id="nav-menu">
-      <a href={localePath(lang, '/compare')}>{t(lang, 'nav.home')}</a>
-      <a href={localePath(lang, '/about')}>{t(lang, 'nav.about')}</a>
-      <a href={localePath(lang, '/contribute')}>{t(lang, 'nav.contribute')}</a>
+    <nav class="header__nav" id="nav-menu" aria-label="Main navigation">
+      <a href={localePath(lang, '/compare')} aria-label={t(lang, 'nav.home')}>{t(lang, 'nav.home')}</a>
+      <a href={localePath(lang, '/about')} aria-label={t(lang, 'nav.about')}>{t(lang, 'nav.about')}</a>
+      <a href={localePath(lang, '/contribute')} aria-label={t(lang, 'nav.contribute')}>{t(lang, 'nav.contribute')}</a>
       <LanguagePicker lang={lang} currentPath={currentPath} />
     </nav>
   </div>
@@ -36,5 +37,7 @@ const currentPath = Astro.url.pathname.replace(/^\/(fr|en|de)/, '');
   const nav = document.getElementById('nav-menu');
   burger?.addEventListener('click', () => {
     nav?.classList.toggle('header__nav--open');
+    const expanded = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!expanded));
   });
 </script>
