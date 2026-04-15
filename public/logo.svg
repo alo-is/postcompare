@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Background stamp shape -->
+  <rect width="48" height="48" rx="5" fill="#c4a35a"/>
+  <rect x="3" y="3" width="42" height="42" rx="3" fill="#fffef7" stroke="#c4a35a" stroke-width="1" stroke-dasharray="3 2"/>
+  <!-- Envelope body -->
+  <rect x="8" y="14" width="32" height="22" rx="2" fill="#fffef7" stroke="#c4a35a" stroke-width="1.5"/>
+  <!-- Envelope flap (triangle) -->
+  <polygon points="8,14 24,27 40,14" fill="#c0392b" opacity="0.9"/>
+  <!-- Bottom fold lines -->
+  <line x1="8" y1="36" x2="18" y2="26" stroke="#c4a35a" stroke-width="1" opacity="0.5"/>
+  <line x1="40" y1="36" x2="30" y2="26" stroke="#c4a35a" stroke-width="1" opacity="0.5"/>
+  <!-- Small stamp in top-right -->
+  <rect x="33" y="16" width="5" height="6" rx="0.5" fill="#c0392b" opacity="0.3"/>
+</svg>

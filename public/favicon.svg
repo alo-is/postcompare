@@ -1,7 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+  <!-- Gold stamp background -->
   <rect width="36" height="36" rx="4" fill="#c4a35a"/>
-  <rect x="4" y="8" width="28" height="20" rx="2" fill="#fdf6e3"/>
-  <polyline points="4,8 18,20 32,8" fill="none" stroke="#c4a35a" stroke-width="2.5" stroke-linejoin="round"/>
-  <line x1="4" y1="28" x2="14" y2="19" stroke="#c4a35a" stroke-width="1.5"/>
-  <line x1="32" y1="28" x2="22" y2="19" stroke="#c4a35a" stroke-width="1.5"/>
+  <!-- Cream envelope body -->
+  <rect x="4" y="8" width="28" height="20" rx="2" fill="#fffef7"/>
+  <!-- Red flap -->
+  <polygon points="4,8 18,19 32,8" fill="#c0392b"/>
+  <!-- Bottom fold lines -->
+  <line x1="4" y1="28" x2="13" y2="20" stroke="#c4a35a" stroke-width="1.2" opacity="0.5"/>
+  <line x1="32" y1="28" x2="23" y2="20" stroke="#c4a35a" stroke-width="1.2" opacity="0.5"/>
 </svg>
