@@ -1,5 +1,5 @@
 // src/components/ComparatorForm.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { SearchParams, ShipmentType, Country, Lang } from '../lib/types';
 import { t } from '../i18n/utils';
 
@@ -29,15 +29,25 @@ export default function ComparatorForm({
     return country[`name_${lang}` as keyof Country] as string;
   };
 
+  const isFirstRender = useRef(true);
+
+  // Auto-search on any form value change
+  useEffect(() => {
+    // Debounce weight changes to avoid too many updates while typing
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      onSearch({ type, weight, origin, destination });
+      return;
+    }
+    const timer = setTimeout(() => {
+      onSearch({ type, weight, origin, destination });
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [type, weight, origin, destination]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch({ type, weight, origin, destination });
   };
-
-  // Auto-search on mount with defaults
-  useEffect(() => {
-    onSearch({ type, weight, origin, destination });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <form onSubmit={handleSubmit}>

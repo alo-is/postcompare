@@ -54,6 +54,14 @@ export default function Comparator({ operators, countries, lang, initialParams }
       setCurrentParams(params);
       setMobileFormOpen(false);
 
+      // Sync URL params without navigation
+      const url = new URL(window.location.href);
+      url.searchParams.set('type', params.type);
+      url.searchParams.set('weight', String(params.weight));
+      url.searchParams.set('origin', params.origin);
+      url.searchParams.set('destination', params.destination);
+      window.history.replaceState({}, '', url.toString());
+
       // Compute reverse route if applicable
       if (
         params.origin !== 'all' &&
