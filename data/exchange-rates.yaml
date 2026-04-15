@@ -1,0 +1,38 @@
+# Exchange rates to EUR for non-eurozone countries
+# Used during data collection to convert local prices to EUR
+# Rates from ECB reference rates, collected on the date indicated
+
+rates:
+  GBP:
+    rate_to_eur: 1.16
+    date: "2026-04-01"
+  CHF:
+    rate_to_eur: 0.97
+    date: "2026-04-01"
+  SEK:
+    rate_to_eur: 0.089
+    date: "2026-04-01"
+  DKK:
+    rate_to_eur: 0.134
+    date: "2026-04-01"
+  NOK:
+    rate_to_eur: 0.085
+    date: "2026-04-01"
+  PLN:
+    rate_to_eur: 0.232
+    date: "2026-04-01"
+  CZK:
+    rate_to_eur: 0.040
+    date: "2026-04-01"
+  RON:
+    rate_to_eur: 0.201
+    date: "2026-04-01"
+  HUF:
+    rate_to_eur: 0.0025
+    date: "2026-04-01"
+  BGN:
+    rate_to_eur: 0.511
+    date: "2026-04-01"
+  ISK:
+    rate_to_eur: 0.0066
+    date: "2026-04-01"
