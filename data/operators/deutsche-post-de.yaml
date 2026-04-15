@@ -109,51 +109,79 @@ parcels:
       - name: "EU"
         countries: ["FR", "ES", "IT", "BE", "NL", "PT", "AT", "IE", "LU", "SE", "DK", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT"]
         rates:
-          - name: "DHL Päckchen International"
-            max_weight_kg: 0.5
-            price_eur: 5.49
+          - name: "DHL Päckchen XS (en ligne)"
+            max_weight_kg: 2
+            price_eur: 6.99
             delivery_days: [3, 7]
             tracking: false
-          - name: "DHL Paket International"
+          - name: "DHL Päckchen M (en ligne)"
+            max_weight_kg: 2
+            price_eur: 10.49
+            delivery_days: [3, 7]
+            tracking: false
+            options:
+              - name: "Filiale (guichet)"
+                price_eur: 1.50
+          - name: "DHL Paket (en ligne)"
             max_weight_kg: 5
-            price_eur: 13.99
+            price_eur: 17.49
             delivery_days: [3, 7]
             tracking: true
             options:
+              - name: "Filiale (guichet)"
+                price_eur: 3.00
               - name: "Transportversicherung"
                 price_eur: 4.50
-          - name: "DHL Paket International"
+          - name: "DHL Paket (en ligne)"
             max_weight_kg: 10
-            price_eur: 18.99
+            price_eur: 22.49
             delivery_days: [3, 7]
             tracking: true
             options:
+              - name: "Filiale (guichet)"
+                price_eur: 3.00
               - name: "Transportversicherung"
                 price_eur: 4.50
-          - name: "DHL Paket International"
-            max_weight_kg: 31.5
-            price_eur: 37.99
+          - name: "DHL Paket (en ligne)"
+            max_weight_kg: 20
+            price_eur: 28.49
             delivery_days: [3, 7]
             tracking: true
             options:
+              - name: "Filiale (guichet)"
+                price_eur: 3.00
+              - name: "Transportversicherung"
+                price_eur: 4.50
+          - name: "DHL Paket (en ligne)"
+            max_weight_kg: 30
+            price_eur: 45.49
+            delivery_days: [3, 7]
+            tracking: true
+            options:
+              - name: "Filiale (guichet)"
+                price_eur: 3.00
               - name: "Transportversicherung"
                 price_eur: 4.50
       - name: "Europe hors UE"
         countries: ["CH", "GB", "NO", "IS", "LI"]
         rates:
-          - name: "DHL Paket International"
+          - name: "DHL Paket International (en ligne)"
             max_weight_kg: 5
-            price_eur: 18.99
+            price_eur: 20.99
             delivery_days: [4, 10]
             tracking: true
             options:
+              - name: "Filiale (guichet)"
+                price_eur: 3.00
               - name: "Transportversicherung"
                 price_eur: 4.50
-          - name: "DHL Paket International"
+          - name: "DHL Paket International (en ligne)"
             max_weight_kg: 10
-            price_eur: 25.99
+            price_eur: 28.99
             delivery_days: [4, 10]
             tracking: true
             options:
+              - name: "Filiale (guichet)"
+                price_eur: 3.00
               - name: "Transportversicherung"
                 price_eur: 4.50
