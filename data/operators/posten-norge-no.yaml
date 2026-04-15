@@ -1,0 +1,115 @@
+operator:
+  id: "posten-norge-no"
+  name: "Posten Norge"
+  country: "NO"
+  currency: "NOK"
+  website: "https://www.posten.no"
+  logo: "posten-norge-no.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "A-Prioritaire"
+      max_weight_g: 20
+      price_eur: 1.70
+      delivery_days: [1, 3]
+      options:
+        - name: "Rekommandert"
+          price_eur: 6.80
+    - name: "B-Ekonomi"
+      max_weight_g: 20
+      price_eur: 1.19
+      delivery_days: [3, 5]
+    - name: "A-Prioritaire"
+      max_weight_g: 100
+      price_eur: 2.55
+      delivery_days: [1, 3]
+    - name: "A-Prioritaire"
+      max_weight_g: 500
+      price_eur: 4.25
+      delivery_days: [1, 3]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Brev til Europa"
+            max_weight_g: 20
+            price_eur: 2.55
+            delivery_days: [3, 7]
+            options:
+              - name: "Rekommandert internasjonalt"
+                price_eur: 7.65
+          - name: "Brev til Europa"
+            max_weight_g: 100
+            price_eur: 4.25
+            delivery_days: [3, 7]
+          - name: "Brev til Europa"
+            max_weight_g: 500
+            price_eur: 7.65
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Norgespakke"
+      max_weight_kg: 0.5
+      price_eur: 5.95
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Forsikring opptil 5000 NOK"
+          price_eur: 3.40
+    - name: "Norgespakke"
+      max_weight_kg: 1
+      price_eur: 7.65
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Forsikring opptil 5000 NOK"
+          price_eur: 3.40
+    - name: "Norgespakke"
+      max_weight_kg: 5
+      price_eur: 10.20
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Forsikring opptil 5000 NOK"
+          price_eur: 3.40
+    - name: "Norgespakke"
+      max_weight_kg: 10
+      price_eur: 12.75
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Norgespakke"
+      max_weight_kg: 35
+      price_eur: 17.00
+      delivery_days: [2, 4]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Pakke til Europa"
+            max_weight_kg: 0.5
+            price_eur: 14.45
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Pakke til Europa"
+            max_weight_kg: 2
+            price_eur: 21.25
+            delivery_days: [4, 8]
+            tracking: true
+            options:
+              - name: "Forsikring"
+                price_eur: 5.10
+          - name: "Pakke til Europa"
+            max_weight_kg: 5
+            price_eur: 29.75
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Pakke til Europa"
+            max_weight_kg: 10
+            price_eur: 42.50
+            delivery_days: [4, 8]
+            tracking: true

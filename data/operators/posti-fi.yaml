@@ -1,0 +1,115 @@
+operator:
+  id: "posti-fi"
+  name: "Posti"
+  country: "FI"
+  currency: "EUR"
+  website: "https://www.posti.fi"
+  logo: "posti-fi.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Kirje 2. luokka"
+      max_weight_g: 50
+      price_eur: 1.85
+      delivery_days: [2, 4]
+      options:
+        - name: "Kirjattu kirje"
+          price_eur: 5.90
+    - name: "Kirje 1. luokka"
+      max_weight_g: 50
+      price_eur: 2.10
+      delivery_days: [1, 2]
+    - name: "Kirje 2. luokka"
+      max_weight_g: 250
+      price_eur: 3.00
+      delivery_days: [2, 4]
+    - name: "Kirje 2. luokka"
+      max_weight_g: 500
+      price_eur: 4.50
+      delivery_days: [2, 4]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Ulkomaankirje Priority"
+            max_weight_g: 20
+            price_eur: 1.90
+            delivery_days: [3, 7]
+            options:
+              - name: "Kirjattu kansainvälinen"
+                price_eur: 6.50
+          - name: "Ulkomaankirje Priority"
+            max_weight_g: 100
+            price_eur: 3.20
+            delivery_days: [3, 7]
+          - name: "Ulkomaankirje Priority"
+            max_weight_g: 500
+            price_eur: 6.50
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Postipaketti"
+      max_weight_kg: 0.5
+      price_eur: 5.90
+      delivery_days: [1, 3]
+      tracking: true
+      options:
+        - name: "Vakuutus 100 EUR asti"
+          price_eur: 2.50
+    - name: "Postipaketti"
+      max_weight_kg: 1
+      price_eur: 5.90
+      delivery_days: [1, 3]
+      tracking: true
+      options:
+        - name: "Vakuutus 100 EUR asti"
+          price_eur: 2.50
+    - name: "Postipaketti"
+      max_weight_kg: 5
+      price_eur: 8.90
+      delivery_days: [1, 3]
+      tracking: true
+      options:
+        - name: "Vakuutus 100 EUR asti"
+          price_eur: 2.50
+    - name: "Postipaketti"
+      max_weight_kg: 10
+      price_eur: 10.90
+      delivery_days: [1, 3]
+      tracking: true
+    - name: "Postipaketti"
+      max_weight_kg: 30
+      price_eur: 14.90
+      delivery_days: [1, 3]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Ulkomaanpaketti"
+            max_weight_kg: 0.5
+            price_eur: 12.90
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Ulkomaanpaketti"
+            max_weight_kg: 2
+            price_eur: 18.90
+            delivery_days: [4, 8]
+            tracking: true
+            options:
+              - name: "Vakuutus"
+                price_eur: 4.50
+          - name: "Ulkomaanpaketti"
+            max_weight_kg: 5
+            price_eur: 26.90
+            delivery_days: [4, 8]
+            tracking: true
+          - name: "Ulkomaanpaketti"
+            max_weight_kg: 10
+            price_eur: 36.90
+            delivery_days: [4, 8]
+            tracking: true

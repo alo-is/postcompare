@@ -1,0 +1,114 @@
+operator:
+  id: "magyar-posta-hu"
+  name: "Magyar Posta"
+  country: "HU"
+  currency: "HUF"
+  website: "https://www.posta.hu"
+  logo: "magyar-posta-hu.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Belföldi levél"
+      max_weight_g: 30
+      price_eur: 0.63
+      delivery_days: [2, 4]
+      options:
+        - name: "Ajánlott"
+          price_eur: 1.25
+    - name: "Belföldi levél"
+      max_weight_g: 100
+      price_eur: 0.88
+      delivery_days: [2, 4]
+      options:
+        - name: "Ajánlott"
+          price_eur: 1.25
+    - name: "Belföldi levél"
+      max_weight_g: 500
+      price_eur: 1.50
+      delivery_days: [2, 4]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Nemzetközi levél"
+            max_weight_g: 20
+            price_eur: 1.13
+            delivery_days: [4, 8]
+            options:
+              - name: "Ajánlott nemzetközi"
+                price_eur: 2.00
+          - name: "Nemzetközi levél"
+            max_weight_g: 100
+            price_eur: 1.75
+            delivery_days: [4, 8]
+          - name: "Nemzetközi levél"
+            max_weight_g: 500
+            price_eur: 3.50
+            delivery_days: [4, 8]
+
+parcels:
+  domestic:
+    - name: "Csomagpont csomag"
+      max_weight_kg: 0.5
+      price_eur: 2.13
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Biztosítás 50000 HUF-ig"
+          price_eur: 0.75
+    - name: "Csomagpont csomag"
+      max_weight_kg: 1
+      price_eur: 2.50
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Biztosítás 50000 HUF-ig"
+          price_eur: 0.75
+    - name: "Csomagpont csomag"
+      max_weight_kg: 5
+      price_eur: 3.25
+      delivery_days: [2, 4]
+      tracking: true
+      options:
+        - name: "Biztosítás 50000 HUF-ig"
+          price_eur: 0.75
+    - name: "Csomagpont csomag"
+      max_weight_kg: 10
+      price_eur: 4.00
+      delivery_days: [2, 4]
+      tracking: true
+    - name: "Csomagpont csomag"
+      max_weight_kg: 20
+      price_eur: 5.50
+      delivery_days: [2, 4]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Nemzetközi csomag"
+            max_weight_kg: 0.5
+            price_eur: 6.25
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Nemzetközi csomag"
+            max_weight_kg: 2
+            price_eur: 10.00
+            delivery_days: [5, 12]
+            tracking: true
+            options:
+              - name: "Biztosítás"
+                price_eur: 2.50
+          - name: "Nemzetközi csomag"
+            max_weight_kg: 5
+            price_eur: 15.00
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Nemzetközi csomag"
+            max_weight_kg: 10
+            price_eur: 22.50
+            delivery_days: [5, 12]
+            tracking: true

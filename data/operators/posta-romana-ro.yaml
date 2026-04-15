@@ -1,0 +1,114 @@
+operator:
+  id: "posta-romana-ro"
+  name: "Poșta Română"
+  country: "RO"
+  currency: "RON"
+  website: "https://www.posta-romana.ro"
+  logo: "posta-romana-ro.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "Scrisoare standard"
+      max_weight_g: 20
+      price_eur: 0.40
+      delivery_days: [2, 4]
+      options:
+        - name: "Recomandat"
+          price_eur: 1.01
+    - name: "Scrisoare standard"
+      max_weight_g: 100
+      price_eur: 0.60
+      delivery_days: [2, 4]
+      options:
+        - name: "Recomandat"
+          price_eur: 1.01
+    - name: "Scrisoare standard"
+      max_weight_g: 500
+      price_eur: 1.21
+      delivery_days: [2, 4]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Scrisoare internațională"
+            max_weight_g: 20
+            price_eur: 1.01
+            delivery_days: [4, 10]
+            options:
+              - name: "Recomandat internațional"
+                price_eur: 1.61
+          - name: "Scrisoare internațională"
+            max_weight_g: 100
+            price_eur: 1.61
+            delivery_days: [4, 10]
+          - name: "Scrisoare internațională"
+            max_weight_g: 500
+            price_eur: 3.42
+            delivery_days: [4, 10]
+
+parcels:
+  domestic:
+    - name: "Colet poștal"
+      max_weight_kg: 0.5
+      price_eur: 2.01
+      delivery_days: [2, 5]
+      tracking: true
+      options:
+        - name: "Asigurare"
+          price_eur: 0.80
+    - name: "Colet poștal"
+      max_weight_kg: 1
+      price_eur: 2.41
+      delivery_days: [2, 5]
+      tracking: true
+      options:
+        - name: "Asigurare"
+          price_eur: 0.80
+    - name: "Colet poștal"
+      max_weight_kg: 5
+      price_eur: 3.22
+      delivery_days: [2, 5]
+      tracking: true
+      options:
+        - name: "Asigurare"
+          price_eur: 0.80
+    - name: "Colet poștal"
+      max_weight_kg: 10
+      price_eur: 4.02
+      delivery_days: [2, 5]
+      tracking: true
+    - name: "Colet poștal"
+      max_weight_kg: 30
+      price_eur: 6.03
+      delivery_days: [2, 5]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Colet internațional"
+            max_weight_kg: 0.5
+            price_eur: 6.03
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Colet internațional"
+            max_weight_kg: 2
+            price_eur: 10.05
+            delivery_days: [5, 12]
+            tracking: true
+            options:
+              - name: "Asigurare internațională"
+                price_eur: 2.01
+          - name: "Colet internațional"
+            max_weight_kg: 5
+            price_eur: 16.08
+            delivery_days: [5, 12]
+            tracking: true
+          - name: "Colet internațional"
+            max_weight_kg: 10
+            price_eur: 24.12
+            delivery_days: [5, 12]
+            tracking: true

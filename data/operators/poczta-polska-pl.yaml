@@ -1,0 +1,114 @@
+operator:
+  id: "poczta-polska-pl"
+  name: "Poczta Polska"
+  country: "PL"
+  currency: "PLN"
+  website: "https://www.poczta-polska.pl"
+  logo: "poczta-polska-pl.svg"
+  last_updated: "2026-04-01"
+
+letters:
+  domestic:
+    - name: "List ekonomiczny"
+      max_weight_g: 50
+      price_eur: 0.81
+      delivery_days: [3, 5]
+      options:
+        - name: "Polecony"
+          price_eur: 1.39
+    - name: "List priorytetowy"
+      max_weight_g: 50
+      price_eur: 1.04
+      delivery_days: [1, 2]
+      options:
+        - name: "Polecony"
+          price_eur: 1.39
+    - name: "List ekonomiczny"
+      max_weight_g: 500
+      price_eur: 1.62
+      delivery_days: [3, 5]
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "List zagraniczny priorytetowy"
+            max_weight_g: 20
+            price_eur: 1.16
+            delivery_days: [3, 7]
+            options:
+              - name: "Polecony zagraniczny"
+                price_eur: 2.09
+          - name: "List zagraniczny priorytetowy"
+            max_weight_g: 100
+            price_eur: 1.62
+            delivery_days: [3, 7]
+          - name: "List zagraniczny priorytetowy"
+            max_weight_g: 500
+            price_eur: 3.48
+            delivery_days: [3, 7]
+
+parcels:
+  domestic:
+    - name: "Pocztex Kurier48"
+      max_weight_kg: 0.5
+      price_eur: 2.78
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Ubezpieczenie do 500 PLN"
+          price_eur: 1.16
+    - name: "Pocztex Kurier48"
+      max_weight_kg: 1
+      price_eur: 3.02
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Ubezpieczenie do 500 PLN"
+          price_eur: 1.16
+    - name: "Pocztex Kurier48"
+      max_weight_kg: 5
+      price_eur: 3.48
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Ubezpieczenie do 500 PLN"
+          price_eur: 1.16
+    - name: "Pocztex Kurier48"
+      max_weight_kg: 10
+      price_eur: 4.64
+      delivery_days: [2, 3]
+      tracking: true
+    - name: "Pocztex Kurier48"
+      max_weight_kg: 20
+      price_eur: 5.80
+      delivery_days: [2, 3]
+      tracking: true
+  international:
+    zones:
+      - name: "Europe"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+        rates:
+          - name: "Paczka zagraniczna"
+            max_weight_kg: 0.5
+            price_eur: 5.80
+            delivery_days: [4, 10]
+            tracking: true
+          - name: "Paczka zagraniczna"
+            max_weight_kg: 2
+            price_eur: 9.28
+            delivery_days: [4, 10]
+            tracking: true
+            options:
+              - name: "Ubezpieczenie"
+                price_eur: 2.32
+          - name: "Paczka zagraniczna"
+            max_weight_kg: 5
+            price_eur: 13.92
+            delivery_days: [4, 10]
+            tracking: true
+          - name: "Paczka zagraniczna"
+            max_weight_kg: 10
+            price_eur: 18.56
+            delivery_days: [4, 10]
+            tracking: true
