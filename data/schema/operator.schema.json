@@ -100,7 +100,8 @@
         "name": { "type": "string", "minLength": 1 },
         "max_weight_g": { "type": "number", "exclusiveMinimum": 0 },
         "price_eur": { "type": "number", "minimum": 0 },
-        "delivery_days": { "$ref": "#/$defs/deliveryDays" }
+        "delivery_days": { "$ref": "#/$defs/deliveryDays" },
+        "options": { "type": "array", "items": { "$ref": "#/$defs/serviceOption" } }
       }
     },
     "parcelRate": {
@@ -112,7 +113,17 @@
         "max_weight_kg": { "type": "number", "exclusiveMinimum": 0 },
         "price_eur": { "type": "number", "minimum": 0 },
         "delivery_days": { "$ref": "#/$defs/deliveryDays" },
-        "tracking": { "type": "boolean" }
+        "tracking": { "type": "boolean" },
+        "options": { "type": "array", "items": { "$ref": "#/$defs/serviceOption" } }
+      }
+    },
+    "serviceOption": {
+      "type": "object",
+      "required": ["name", "price_eur"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "price_eur": { "type": "number", "minimum": 0 }
       }
     },
     "letterZone": {

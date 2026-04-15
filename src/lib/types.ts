@@ -3,12 +3,19 @@
 /** Delivery time range in business days [min, max] */
 export type DeliveryDays = [number, number];
 
+/** An optional add-on service (insurance, tracking, signature, etc.) */
+export interface ServiceOption {
+  name: string;
+  price_eur: number;
+}
+
 /** A single rate tier for letters */
 export interface LetterRate {
   name: string;
   max_weight_g: number;
   price_eur: number;
   delivery_days: DeliveryDays;
+  options?: ServiceOption[];
 }
 
 /** A single rate tier for parcels */
@@ -18,6 +25,7 @@ export interface ParcelRate {
   price_eur: number;
   delivery_days: DeliveryDays;
   tracking: boolean;
+  options?: ServiceOption[];
 }
 
 /** International zone grouping countries with shared rates */
@@ -103,6 +111,7 @@ export interface ComparisonResult {
   deliveryDays: DeliveryDays;
   tracking: boolean;
   isBestPrice: boolean;
+  options?: ServiceOption[];
   route: {
     origin: string;
     destination: string;

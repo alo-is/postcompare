@@ -52,6 +52,15 @@ export default function ResultCard({ result, countries, lang, variant = 'default
               {result.tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}
             </div>
           )}
+          {result.options && result.options.length > 0 && variant !== 'muted' && (
+            <div className="result-card__options">
+              {result.options.map((opt, i) => (
+                <span key={i} className="result-card__option">
+                  {opt.name} +{opt.price_eur.toFixed(2)}&euro;
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

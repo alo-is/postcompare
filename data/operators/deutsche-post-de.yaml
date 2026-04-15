@@ -13,14 +13,35 @@ letters:
       max_weight_g: 20
       price_eur: 0.95
       delivery_days: [1, 2]
+      options:
+        - name: "Einschreiben Einwurf"
+          price_eur: 2.35
+        - name: "Einschreiben Standard"
+          price_eur: 2.65
+        - name: "Einschreiben Eigenhändig"
+          price_eur: 4.65
     - name: "Kompaktbrief"
       max_weight_g: 50
       price_eur: 1.15
       delivery_days: [1, 2]
+      options:
+        - name: "Einschreiben Einwurf"
+          price_eur: 2.35
+        - name: "Einschreiben Standard"
+          price_eur: 2.65
+        - name: "Einschreiben Eigenhändig"
+          price_eur: 4.65
     - name: "Großbrief"
       max_weight_g: 500
       price_eur: 1.80
       delivery_days: [1, 2]
+      options:
+        - name: "Einschreiben Einwurf"
+          price_eur: 2.35
+        - name: "Einschreiben Standard"
+          price_eur: 2.65
+        - name: "Einschreiben Eigenhändig"
+          price_eur: 4.65
   international:
     zones:
       - name: "Europe"
@@ -30,10 +51,16 @@ letters:
             max_weight_g: 20
             price_eur: 1.10
             delivery_days: [2, 5]
+            options:
+              - name: "Einschreiben International"
+                price_eur: 3.50
           - name: "Großbrief International"
             max_weight_g: 500
             price_eur: 3.70
             delivery_days: [2, 5]
+            options:
+              - name: "Einschreiben International"
+                price_eur: 3.50
 
 parcels:
   domestic:
@@ -52,16 +79,31 @@ parcels:
       price_eur: 6.99
       delivery_days: [1, 2]
       tracking: true
+      options:
+        - name: "Transportversicherung"
+          price_eur: 3.00
+        - name: "Wunschzustellung"
+          price_eur: 1.99
     - name: "DHL Paket"
       max_weight_kg: 10
       price_eur: 9.49
       delivery_days: [1, 2]
       tracking: true
+      options:
+        - name: "Transportversicherung"
+          price_eur: 3.00
+        - name: "Wunschzustellung"
+          price_eur: 1.99
     - name: "DHL Paket"
       max_weight_kg: 31.5
       price_eur: 16.49
       delivery_days: [1, 2]
       tracking: true
+      options:
+        - name: "Transportversicherung"
+          price_eur: 3.00
+        - name: "Wunschzustellung"
+          price_eur: 1.99
   international:
     zones:
       - name: "EU"
@@ -77,16 +119,25 @@ parcels:
             price_eur: 13.99
             delivery_days: [3, 7]
             tracking: true
+            options:
+              - name: "Transportversicherung"
+                price_eur: 4.50
           - name: "DHL Paket International"
             max_weight_kg: 10
             price_eur: 18.99
             delivery_days: [3, 7]
             tracking: true
+            options:
+              - name: "Transportversicherung"
+                price_eur: 4.50
           - name: "DHL Paket International"
             max_weight_kg: 31.5
             price_eur: 37.99
             delivery_days: [3, 7]
             tracking: true
+            options:
+              - name: "Transportversicherung"
+                price_eur: 4.50
       - name: "Europe hors UE"
         countries: ["CH", "GB", "NO", "IS", "LI"]
         rates:
@@ -95,8 +146,14 @@ parcels:
             price_eur: 18.99
             delivery_days: [4, 10]
             tracking: true
+            options:
+              - name: "Transportversicherung"
+                price_eur: 4.50
           - name: "DHL Paket International"
             max_weight_kg: 10
             price_eur: 25.99
             delivery_days: [4, 10]
             tracking: true
+            options:
+              - name: "Transportversicherung"
+                price_eur: 4.50

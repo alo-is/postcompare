@@ -6,6 +6,7 @@ import type {
   LetterRate,
   ParcelRate,
   DeliveryDays,
+  ServiceOption,
 } from './types';
 
 /**
@@ -47,6 +48,7 @@ function findRate(
   deliveryDays: DeliveryDays;
   tracking: boolean;
   isDomestic: boolean;
+  options?: ServiceOption[];
 } | null {
   const destCountry = params.destination;
   const isDomestic =
@@ -62,6 +64,7 @@ function findRate(
         deliveryDays: rate.delivery_days,
         tracking: false,
         isDomestic: true,
+        options: rate.options,
       };
     } else {
       // Find the zone containing the destination
@@ -77,6 +80,7 @@ function findRate(
         deliveryDays: rate.delivery_days,
         tracking: false,
         isDomestic: false,
+        options: rate.options,
       };
     }
   } else {
@@ -90,6 +94,7 @@ function findRate(
         deliveryDays: rate.delivery_days,
         tracking: rate.tracking,
         isDomestic: true,
+        options: rate.options,
       };
     } else {
       const zone = operator.parcels.international.zones.find((z) =>
@@ -104,6 +109,7 @@ function findRate(
         deliveryDays: rate.delivery_days,
         tracking: rate.tracking,
         isDomestic: false,
+        options: rate.options,
       };
     }
   }
@@ -141,6 +147,7 @@ export function compare(
       deliveryDays: rate.deliveryDays,
       tracking: rate.tracking,
       isBestPrice: false, // set below
+      options: rate.options,
       route: {
         origin: originCountry,
         destination: effectiveDestination,

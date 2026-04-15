@@ -13,18 +13,38 @@ letters:
       max_weight_g: 20
       price_eur: 0.75
       delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 3.40
+        - name: "Certificado urgente"
+          price_eur: 5.20
     - name: "Carta ordinaria"
       max_weight_g: 50
       price_eur: 0.90
       delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 3.40
+        - name: "Certificado urgente"
+          price_eur: 5.20
     - name: "Carta ordinaria"
       max_weight_g: 100
       price_eur: 1.25
       delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 3.40
+        - name: "Certificado urgente"
+          price_eur: 5.20
     - name: "Carta ordinaria"
       max_weight_g: 500
       price_eur: 2.70
       delivery_days: [2, 3]
+      options:
+        - name: "Certificado"
+          price_eur: 3.40
+        - name: "Certificado urgente"
+          price_eur: 5.20
   international:
     zones:
       - name: "Europe"
@@ -34,14 +54,23 @@ letters:
             max_weight_g: 20
             price_eur: 1.65
             delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 4.20
           - name: "Carta internacional"
             max_weight_g: 50
             price_eur: 2.35
             delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 4.20
           - name: "Carta internacional"
             max_weight_g: 100
             price_eur: 3.50
             delivery_days: [3, 7]
+            options:
+              - name: "Certificado internacional"
+                price_eur: 4.20
 
 parcels:
   domestic:
@@ -50,26 +79,51 @@ parcels:
       price_eur: 3.50
       delivery_days: [2, 4]
       tracking: true
+      options:
+        - name: "Seguro"
+          price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.25
     - name: "Paquete Estándar"
       max_weight_kg: 2
       price_eur: 4.95
       delivery_days: [2, 4]
       tracking: true
+      options:
+        - name: "Seguro"
+          price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.25
     - name: "Paquete Estándar"
       max_weight_kg: 5
       price_eur: 7.50
       delivery_days: [2, 4]
       tracking: true
+      options:
+        - name: "Seguro"
+          price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.25
     - name: "Paquete Estándar"
       max_weight_kg: 10
       price_eur: 10.95
       delivery_days: [2, 4]
       tracking: true
+      options:
+        - name: "Seguro"
+          price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.25
     - name: "Paquete Estándar"
       max_weight_kg: 20
       price_eur: 15.50
       delivery_days: [2, 4]
       tracking: true
+      options:
+        - name: "Seguro"
+          price_eur: 2.50
+        - name: "Reembolso"
+          price_eur: 3.25
   international:
     zones:
       - name: "Europe"
@@ -80,18 +134,30 @@ parcels:
             price_eur: 7.50
             delivery_days: [5, 10]
             tracking: true
+            options:
+              - name: "Seguro internacional"
+                price_eur: 3.50
           - name: "Paquete Internacional Económico"
             max_weight_kg: 2
             price_eur: 10.50
             delivery_days: [5, 10]
             tracking: true
+            options:
+              - name: "Seguro internacional"
+                price_eur: 3.50
           - name: "Paquete Internacional Económico"
             max_weight_kg: 5
             price_eur: 16.00
             delivery_days: [5, 10]
             tracking: true
+            options:
+              - name: "Seguro internacional"
+                price_eur: 3.50
           - name: "Paquete Internacional Económico"
             max_weight_kg: 10
             price_eur: 23.50
             delivery_days: [5, 10]
             tracking: true
+            options:
+              - name: "Seguro internacional"
+                price_eur: 3.50
