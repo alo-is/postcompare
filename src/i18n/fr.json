@@ -21,6 +21,7 @@
     "all_countries": "Tous les pays",
     "domestic": "National (même pays)",
     "compare": "Comparer",
+    "weight_error": "Le poids doit \u00eatre sup\u00e9rieur \u00e0 {min}",
     "modify": "Modifier"
   },
   "results": {

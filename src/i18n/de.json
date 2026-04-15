@@ -21,6 +21,7 @@
     "all_countries": "Alle Länder",
     "domestic": "Inland (gleiches Land)",
     "compare": "Vergleichen",
+    "weight_error": "Gewicht muss gr\u00f6\u00dfer als {min} sein",
     "modify": "Ändern"
   },
   "results": {

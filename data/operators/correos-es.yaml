@@ -61,25 +61,33 @@ letters:
 parcels:
   domestic:
     - name: "Paq Estándar"
-      max_weight_kg: 1
-      price_eur: 17.09
-      delivery_days: [3, 4]
+      max_weight_kg: 0.5
+      price_eur: 2.88
+      delivery_days: [2, 3]
       tracking: true
       options:
         - name: "Seguro"
           price_eur: 2.50
     - name: "Paq Estándar"
-      max_weight_kg: 2
-      price_eur: 19.04
-      delivery_days: [3, 4]
+      max_weight_kg: 1
+      price_eur: 3.54
+      delivery_days: [2, 3]
+      tracking: true
+      options:
+        - name: "Seguro"
+          price_eur: 2.50
+    - name: "Paq Estándar"
+      max_weight_kg: 3
+      price_eur: 4.37
+      delivery_days: [2, 3]
       tracking: true
       options:
         - name: "Seguro"
           price_eur: 2.50
     - name: "Paq Estándar"
       max_weight_kg: 5
-      price_eur: 23.74
-      delivery_days: [3, 4]
+      price_eur: 4.75
+      delivery_days: [2, 3]
       tracking: true
       options:
         - name: "Seguro"

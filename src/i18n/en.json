@@ -21,6 +21,7 @@
     "all_countries": "All countries",
     "domestic": "Domestic (same country)",
     "compare": "Compare",
+    "weight_error": "Weight must be greater than {min}",
     "modify": "Modify"
   },
   "results": {

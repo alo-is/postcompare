@@ -31,9 +31,12 @@ export default function ComparatorForm({
 
   const isFirstRender = useRef(true);
 
-  // Auto-search on any form value change
+  const minWeight = type === 'letter' ? 1 : 0.1;
+  const weightInvalid = weight <= 0 || isNaN(weight);
+
+  // Auto-search on any form value change (skip if weight is invalid)
   useEffect(() => {
-    // Debounce weight changes to avoid too many updates while typing
+    if (weightInvalid) return;
     if (isFirstRender.current) {
       isFirstRender.current = false;
       onSearch({ type, weight, origin, destination });
@@ -41,7 +44,7 @@ export default function ComparatorForm({
     }
     const timer = setTimeout(() => {
       onSearch({ type, weight, origin, destination });
-    }, 150);
+    }, 300);
     return () => clearTimeout(timer);
   }, [type, weight, origin, destination]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -86,13 +89,18 @@ export default function ComparatorForm({
         <input
           id="weight"
           type="number"
-          className="form-input"
+          className={`form-input ${weightInvalid ? 'form-input--error' : ''}`}
           value={weight}
           onChange={(e) => setWeight(Number(e.target.value))}
           min={type === 'letter' ? 1 : 0.1}
           max={type === 'letter' ? 2000 : 50}
           step={type === 'letter' ? 1 : 0.1}
         />
+        {weightInvalid && (
+          <span className="form-error">
+            {t(lang, 'form.weight_error', { min: String(minWeight) })}
+          </span>
+        )}
       </div>
 
       {/* Origin country */}

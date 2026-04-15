@@ -274,6 +274,19 @@ a:hover {
   box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.12);
 }
 
+.form-input--error {
+  border-color: var(--color-postal-red);
+  box-shadow: 0 0 0 2px rgba(155, 35, 53, 0.15);
+}
+
+.form-error {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--color-postal-red);
+  font-style: italic;
+}
+
 .type-toggle {
   display: flex;
   gap: var(--space-sm);
