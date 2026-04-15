@@ -1,0 +1,163 @@
+<h2>Layout de la page d'accueil</h2>
+<p class="subtitle">Comment organiser le configurateur et les r&eacute;sultats ? Cliquez pour choisir.</p>
+
+<div class="cards">
+  <div class="card" data-choice="top-form" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: #fdf6e3; padding: 16px; border-radius: 8px; font-family: Georgia, serif;">
+        <!-- Layout A: Form on top -->
+        <div style="background: #fffef7; border-radius: 8px; border: 2px dashed #c4a35a; overflow: hidden;">
+          <!-- Header -->
+          <div style="background: #c0392b; color: white; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+            <span style="font-weight: 700;">&#9993; PostCompare.eu</span>
+            <span style="font-size: 9px; opacity: 0.8;">Lettres &bull; Colis &bull; &Agrave; propos</span>
+          </div>
+          <!-- Hero + Form -->
+          <div style="background: linear-gradient(180deg, #f5e6c8 0%, #fffef7 100%); padding: 12px; text-align: center;">
+            <div style="font-size: 13px; font-weight: 700; color: #2c1810; margin-bottom: 4px;">Comparez les tarifs postaux en Europe</div>
+            <div style="font-size: 9px; color: #8b6914; margin-bottom: 10px;">32 pays &bull; Lettres &amp; Colis &bull; Donn&eacute;es &agrave; jour</div>
+            <!-- Form inline -->
+            <div style="display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;">
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 8px; font-size: 9px; color: #8b6914;">&#128230; Colis</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 8px; font-size: 9px; color: #8b6914;">&#127467;&#127479; France</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 8px; font-size: 9px; color: #8b6914;">&rarr; &#127465;&#127466; Allemagne</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 8px; font-size: 9px; color: #8b6914;">1 kg</div>
+              <div style="background: #c0392b; color: white; border-radius: 4px; padding: 4px 8px; font-size: 9px; font-weight: 600;">Comparer</div>
+            </div>
+          </div>
+          <!-- Results -->
+          <div style="padding: 8px 12px;">
+            <div style="font-size: 10px; color: #8b6914; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">R&eacute;sultats &mdash; 8 op&eacute;rateurs</div>
+            <div style="background: #f5e6c8; border-radius: 4px; padding: 6px 8px; margin-bottom: 4px; display: flex; justify-content: space-between; font-size: 9px;">
+              <span style="color: #2c1810;">&#127467;&#127479; La Poste &mdash; Colissimo</span>
+              <span><b style="color: #c0392b;">9.50&euro;</b> &bull; 3-5j</span>
+            </div>
+            <div style="background: #fffef7; border: 1px solid #e8d5b0; border-radius: 4px; padding: 6px 8px; margin-bottom: 4px; display: flex; justify-content: space-between; font-size: 9px;">
+              <span style="color: #2c1810;">&#127465;&#127466; Deutsche Post &mdash; DHL Paket</span>
+              <span><b style="color: #2c1810;">6.99&euro;</b> &bull; 2-4j</span>
+            </div>
+            <div style="background: #fffef7; border: 1px solid #e8d5b0; border-radius: 4px; padding: 6px 8px; margin-bottom: 4px; display: flex; justify-content: space-between; font-size: 9px;">
+              <span style="color: #2c1810;">&#127466;&#127480; Correos &mdash; Paquete</span>
+              <span><b style="color: #2c1810;">7.25&euro;</b> &bull; 4-7j</span>
+            </div>
+            <div style="text-align: center; font-size: 8px; color: #8b6914; padding: 4px;">&#8230; 5 autres r&eacute;sultats</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Formulaire en haut</h3>
+      <p>Configurateur en bandeau hero, r&eacute;sultats dessous en liste. Simple, efficace, le parcours classique d'un comparateur.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="sidebar" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: #fdf6e3; padding: 16px; border-radius: 8px; font-family: Georgia, serif;">
+        <div style="background: #fffef7; border-radius: 8px; border: 2px dashed #c4a35a; overflow: hidden;">
+          <!-- Header -->
+          <div style="background: #c0392b; color: white; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+            <span style="font-weight: 700;">&#9993; PostCompare.eu</span>
+            <span style="font-size: 9px; opacity: 0.8;">Lettres &bull; Colis &bull; &Agrave; propos</span>
+          </div>
+          <!-- Sidebar + Content -->
+          <div style="display: flex;">
+            <!-- Sidebar Form -->
+            <div style="width: 35%; background: #f5e6c8; padding: 10px; border-right: 2px dashed #c4a35a;">
+              <div style="font-size: 10px; font-weight: 700; color: #2c1810; margin-bottom: 8px;">Votre envoi</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 6px; font-size: 8px; color: #8b6914; margin-bottom: 4px;">Type: &#128230; Colis</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 6px; font-size: 8px; color: #8b6914; margin-bottom: 4px;">De: &#127467;&#127479; France</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 6px; font-size: 8px; color: #8b6914; margin-bottom: 4px;">Vers: &#127465;&#127466; Allemagne</div>
+              <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 4px 6px; font-size: 8px; color: #8b6914; margin-bottom: 6px;">Poids: 1 kg</div>
+              <div style="background: #c0392b; color: white; border-radius: 4px; padding: 5px; font-size: 9px; font-weight: 600; text-align: center;">Comparer</div>
+            </div>
+            <!-- Results -->
+            <div style="width: 65%; padding: 10px;">
+              <div style="font-size: 10px; color: #8b6914; font-weight: 700; margin-bottom: 6px;">8 r&eacute;sultats</div>
+              <div style="background: #f5e6c8; border-radius: 4px; padding: 5px 6px; margin-bottom: 3px; font-size: 8px; display: flex; justify-content: space-between;">
+                <span>&#127467;&#127479; La Poste</span><span><b style="color: #c0392b;">9.50&euro;</b></span>
+              </div>
+              <div style="border: 1px solid #e8d5b0; border-radius: 4px; padding: 5px 6px; margin-bottom: 3px; font-size: 8px; display: flex; justify-content: space-between;">
+                <span>&#127465;&#127466; Deutsche Post</span><span><b>6.99&euro;</b></span>
+              </div>
+              <div style="border: 1px solid #e8d5b0; border-radius: 4px; padding: 5px 6px; margin-bottom: 3px; font-size: 8px; display: flex; justify-content: space-between;">
+                <span>&#127466;&#127480; Correos</span><span><b>7.25&euro;</b></span>
+              </div>
+              <div style="border: 1px solid #e8d5b0; border-radius: 4px; padding: 5px 6px; margin-bottom: 3px; font-size: 8px; display: flex; justify-content: space-between;">
+                <span>&#127470;&#127481; Poste Italiane</span><span><b>8.10&euro;</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Sidebar + Contenu</h3>
+      <p>Formulaire fix&eacute; dans une colonne lat&eacute;rale, r&eacute;sultats &agrave; droite. Permet de modifier la recherche sans scroller. Plus "outil".</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="tabs" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background: #fdf6e3; padding: 16px; border-radius: 8px; font-family: Georgia, serif;">
+        <div style="background: #fffef7; border-radius: 8px; border: 2px dashed #c4a35a; overflow: hidden;">
+          <!-- Header -->
+          <div style="background: #c0392b; color: white; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+            <span style="font-weight: 700;">&#9993; PostCompare.eu</span>
+            <span style="font-size: 9px; opacity: 0.8;">Lettres &bull; Colis &bull; &Agrave; propos</span>
+          </div>
+          <!-- Tabs -->
+          <div style="display: flex; border-bottom: 2px solid #e8d5b0;">
+            <div style="padding: 6px 14px; font-size: 10px; font-weight: 700; color: #c0392b; border-bottom: 2px solid #c0392b; margin-bottom: -2px;">&#9993; Lettres</div>
+            <div style="padding: 6px 14px; font-size: 10px; color: #8b6914;">&#128230; Colis</div>
+          </div>
+          <!-- Form compact -->
+          <div style="background: #f5e6c8; padding: 8px 12px; display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+            <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 3px 6px; font-size: 8px; color: #8b6914;">&#127467;&#127479; France</div>
+            <span style="font-size: 10px; color: #8b6914;">&rarr;</span>
+            <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 3px 6px; font-size: 8px; color: #8b6914;">&#127465;&#127466; Allemagne</div>
+            <div style="background: white; border: 1px solid #e8d5b0; border-radius: 4px; padding: 3px 6px; font-size: 8px; color: #8b6914;">20g</div>
+            <div style="background: #c0392b; color: white; border-radius: 4px; padding: 3px 8px; font-size: 8px; font-weight: 600;">Go</div>
+          </div>
+          <!-- Results as table -->
+          <div style="padding: 8px 12px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 8px;">
+              <tr style="background: #f5e6c8; color: #8b6914; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                <td style="padding: 4px 6px;">#</td>
+                <td style="padding: 4px 6px;">Poste</td>
+                <td style="padding: 4px 6px;">Produit</td>
+                <td style="padding: 4px 6px;">Prix</td>
+                <td style="padding: 4px 6px;">D&eacute;lai</td>
+              </tr>
+              <tr style="border-top: 1px solid #e8d5b0;">
+                <td style="padding: 4px 6px; color: #c0392b; font-weight: 700;">1</td>
+                <td style="padding: 4px 6px;">&#127465;&#127466; Deutsche Post</td>
+                <td style="padding: 4px 6px; color: #8b6914;">Standardbrief Int.</td>
+                <td style="padding: 4px 6px; font-weight: 700;">1.10&euro;</td>
+                <td style="padding: 4px 6px; color: #8b6914;">2-4j</td>
+              </tr>
+              <tr style="border-top: 1px solid #e8d5b0;">
+                <td style="padding: 4px 6px; color: #8b6914;">2</td>
+                <td style="padding: 4px 6px;">&#127467;&#127479; La Poste</td>
+                <td style="padding: 4px 6px; color: #8b6914;">Lettre Int.</td>
+                <td style="padding: 4px 6px; font-weight: 700;">1.80&euro;</td>
+                <td style="padding: 4px 6px; color: #8b6914;">3-5j</td>
+              </tr>
+              <tr style="border-top: 1px solid #e8d5b0;">
+                <td style="padding: 4px 6px; color: #8b6914;">3</td>
+                <td style="padding: 4px 6px;">&#127466;&#127480; Correos</td>
+                <td style="padding: 4px 6px; color: #8b6914;">Carta Int.</td>
+                <td style="padding: 4px 6px; font-weight: 700;">1.65&euro;</td>
+                <td style="padding: 4px 6px; color: #8b6914;">4-7j</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Onglets Lettres/Colis</h3>
+      <p>S&eacute;paration lettres/colis par onglets, formulaire compact en barre, r&eacute;sultats en tableau avec classement. Tr&egrave;s structur&eacute;.</p>
+    </div>
+  </div>
+</div>
