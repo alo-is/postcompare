@@ -42,7 +42,7 @@ export default function ResultCard({ result, countries, lang }: ResultCardProps)
         <div>
           <div className="result-card__route">{routeLabel}</div>
           <div className="result-card__delivery">
-            {t(lang, 'results.delivery')}: {result.deliveryDays[0]}\u2013{result.deliveryDays[1]}{' '}
+            {t(lang, 'results.delivery')}: {result.deliveryDays[0]}–{result.deliveryDays[1]}{' '}
             {t(lang, 'results.days')}
           </div>
           {result.tracking !== undefined && (
