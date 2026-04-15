@@ -27,18 +27,35 @@ interface ComparatorProps {
   initialParams?: InitialParams;
 }
 
+function getParamsFromURL(): SearchParams | undefined {
+  if (typeof window === 'undefined') return undefined;
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type');
+  const weight = params.get('weight');
+  const origin = params.get('origin');
+  const destination = params.get('destination');
+  if (!type && !weight && !origin && !destination) return undefined;
+  return {
+    type: (type === 'letter' || type === 'parcel' ? type : 'letter') as ShipmentType,
+    weight: weight ? Number(weight) : 20,
+    origin: origin || 'all',
+    destination: destination || 'domestic',
+  };
+}
+
 export default function Comparator({ operators, countries, lang, initialParams }: ComparatorProps) {
-  // Build initial SearchParams from URL query params if provided
-  const urlSearchParams: SearchParams | undefined = initialParams
-    ? {
-        type: (initialParams.type === 'letter' || initialParams.type === 'parcel'
-          ? initialParams.type
-          : 'letter') as ShipmentType,
-        weight: initialParams.weight ? Number(initialParams.weight) : 20,
-        origin: initialParams.origin || 'all',
-        destination: initialParams.destination || 'domestic',
-      }
-    : undefined;
+  // Read URL params client-side (works on F5 refresh), fallback to server-side props
+  const urlSearchParams: SearchParams | undefined = getParamsFromURL()
+    ?? (initialParams
+      ? {
+          type: (initialParams.type === 'letter' || initialParams.type === 'parcel'
+            ? initialParams.type
+            : 'letter') as ShipmentType,
+          weight: initialParams.weight ? Number(initialParams.weight) : 20,
+          origin: initialParams.origin || 'all',
+          destination: initialParams.destination || 'domestic',
+        }
+      : undefined);
 
   const [results, setResults] = useState<ComparisonResult[]>([]);
   const [reverseResults, setReverseResults] = useState<ComparisonResult[]>([]);
