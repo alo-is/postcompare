@@ -36,6 +36,7 @@ export default function ResultCard({ result, countries, lang, variant = 'default
         <div>
           <div className="result-card__name">{result.operator.name}</div>
           <div className="result-card__product">{result.productName}</div>
+          <div className="result-card__country">{countryName(originCountry)}</div>
         </div>
       </div>
 

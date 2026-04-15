@@ -142,6 +142,7 @@ export default function Comparator({ operators, countries, lang, initialParams }
             countries={countries}
             lang={lang}
             hasSearched={hasSearched}
+            searchParams={currentParams ?? undefined}
             reverseResults={reverseResults.length > 0 ? reverseResults : undefined}
             reverseOrigin={currentParams?.destination !== 'domestic' ? currentParams?.destination : undefined}
             reverseDestination={currentParams?.origin !== 'all' ? currentParams?.origin : undefined}

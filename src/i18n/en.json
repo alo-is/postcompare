@@ -38,7 +38,12 @@
     "see_details": "View rates",
     "domestic_route": "Domestic",
     "from": "From",
-    "to": "To"
+    "to": "To",
+    "desc_all_domestic": "Rates for sending a {weight} {type} domestically, from each country. The price shown is from the listed country's postal service.",
+    "desc_all_to": "Rates for sending a {weight} {type} to {destination}, from each European country.",
+    "desc_domestic": "Rates for sending a {weight} {type} domestically in {origin}.",
+    "desc_route": "Rates for sending a {weight} {type} from {origin} to {destination}.",
+    "desc_from_operator": "from"
   },
   "operator": {
     "title": "{name} rates",

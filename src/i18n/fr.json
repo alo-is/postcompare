@@ -38,7 +38,12 @@
     "see_details": "Voir les tarifs",
     "domestic_route": "National",
     "from": "De",
-    "to": "Vers"
+    "to": "Vers",
+    "desc_all_domestic": "Tarifs pour envoyer {type} de {weight} en national, depuis chaque pays. Le prix affiché est celui de la poste du pays indiqué.",
+    "desc_all_to": "Tarifs pour envoyer {type} de {weight} vers {destination}, depuis chaque pays européen.",
+    "desc_domestic": "Tarifs pour envoyer {type} de {weight} en national en {origin}.",
+    "desc_route": "Tarifs pour envoyer {type} de {weight} depuis {origin} vers {destination}.",
+    "desc_from_operator": "depuis"
   },
   "operator": {
     "title": "Tarifs {name}",

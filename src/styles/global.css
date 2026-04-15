@@ -342,6 +342,17 @@ a:hover {
   font-style: italic;
 }
 
+.results-description {
+  color: var(--color-ink-secondary);
+  font-size: 0.92rem;
+  margin-bottom: var(--space-lg);
+  line-height: 1.6;
+  font-style: italic;
+  padding: var(--space-sm) var(--space-md);
+  border-left: 3px solid var(--color-border);
+  background: var(--color-paper-light);
+}
+
 /* Stamp perforation edge effect */
 .result-card {
   background: var(--color-white);
@@ -425,6 +436,12 @@ a:hover {
   color: var(--color-ink-faded);
   font-size: 0.8rem;
   font-style: italic;
+}
+
+.result-card__country {
+  font-size: 0.75rem;
+  color: var(--color-ink-faded);
+  margin-top: 2px;
 }
 
 .result-card__details {

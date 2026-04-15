@@ -1,5 +1,5 @@
 // src/components/ResultsList.tsx
-import type { ComparisonResult, Country, Lang } from '../lib/types';
+import type { ComparisonResult, Country, Lang, SearchParams } from '../lib/types';
 import { t } from '../i18n/utils';
 import ResultCard from './ResultCard';
 
@@ -8,6 +8,7 @@ interface ResultsListProps {
   countries: Country[];
   lang: Lang;
   hasSearched: boolean;
+  searchParams?: SearchParams;
   reverseResults?: ComparisonResult[];
   reverseOrigin?: string;
   reverseDestination?: string;
@@ -18,6 +19,7 @@ export default function ResultsList({
   countries,
   lang,
   hasSearched,
+  searchParams,
   reverseResults,
   reverseOrigin,
   reverseDestination,
@@ -44,6 +46,36 @@ export default function ResultsList({
     );
   }
 
+  // Build descriptive sentence
+  const buildDescription = (): string | null => {
+    if (!searchParams) return null;
+    const typeLabel = searchParams.type === 'letter'
+      ? t(lang, 'form.letter').toLowerCase()
+      : t(lang, 'form.parcel').toLowerCase();
+    const weightLabel = searchParams.type === 'letter'
+      ? `${searchParams.weight}g`
+      : `${searchParams.weight}kg`;
+
+    if (searchParams.origin === 'all' && searchParams.destination === 'domestic') {
+      // "domestic across all countries"
+      return t(lang, 'results.desc_all_domestic', { type: typeLabel, weight: weightLabel });
+    }
+    if (searchParams.origin === 'all' && searchParams.destination !== 'domestic') {
+      const destName = getCountryName(searchParams.destination);
+      return t(lang, 'results.desc_all_to', { type: typeLabel, weight: weightLabel, destination: destName });
+    }
+    if (searchParams.origin !== 'all' && searchParams.destination === 'domestic') {
+      const originName = getCountryName(searchParams.origin);
+      return t(lang, 'results.desc_domestic', { type: typeLabel, weight: weightLabel, origin: originName });
+    }
+    // specific origin → specific destination
+    const originName = getCountryName(searchParams.origin);
+    const destName = getCountryName(searchParams.destination);
+    return t(lang, 'results.desc_route', { type: typeLabel, weight: weightLabel, origin: originName, destination: destName });
+  };
+
+  const description = buildDescription();
+
   return (
     <div>
       <div className="results-header">
@@ -52,6 +84,10 @@ export default function ResultsList({
           {t(lang, 'results.results_count', { count: results.length })}
         </span>
       </div>
+
+      {description && (
+        <p className="results-description">{description}</p>
+      )}
 
       {results.map((result, index) => (
         <ResultCard

@@ -38,7 +38,12 @@
     "see_details": "Tarife anzeigen",
     "domestic_route": "Inland",
     "from": "Von",
-    "to": "Nach"
+    "to": "Nach",
+    "desc_all_domestic": "Tarife für den Versand von {type} ({weight}) im Inland, aus jedem Land. Der angezeigte Preis ist der des jeweiligen Postdienstes.",
+    "desc_all_to": "Tarife für den Versand von {type} ({weight}) nach {destination}, aus jedem europäischen Land.",
+    "desc_domestic": "Tarife für den Versand von {type} ({weight}) im Inland in {origin}.",
+    "desc_route": "Tarife für den Versand von {type} ({weight}) von {origin} nach {destination}.",
+    "desc_from_operator": "aus"
   },
   "operator": {
     "title": "Tarife {name}",
