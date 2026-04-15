@@ -77,6 +77,23 @@
     "step3": "Überprüfen Sie die Schema-Validierung: npm run validate",
     "step4": "Öffnen Sie einen Pull Request mit der Quelle Ihrer Daten"
   },
+  "hero": {
+    "title": "Vergleichen Sie Postgeb\u00fchren aus 32 europ\u00e4ischen L\u00e4ndern",
+    "subtitle": "Kostenlos, unabh\u00e4ngig, Open Source",
+    "cta": "Preise vergleichen"
+  },
+  "how": {
+    "title": "So funktioniert es",
+    "step1_title": "W\u00e4hlen Sie Ihre Sendung",
+    "step1_text": "Brief oder Paket, Gewicht, Herkunfts- und Zielland",
+    "step2_title": "Preise vergleichen",
+    "step2_text": "Die Tarife der nationalen Postdienste werden nach Preis sortiert angezeigt",
+    "step3_title": "G\u00fcnstiger versenden",
+    "step3_text": "Besuchen Sie die offizielle Website des g\u00fcnstigsten Anbieters"
+  },
+  "countries_section": {
+    "title": "32 abgedeckte L\u00e4nder"
+  },
   "footer": {
     "tagline": "Unabhängiger europäischer Postgebührenvergleich",
     "open_source": "Open-Source-Projekt",

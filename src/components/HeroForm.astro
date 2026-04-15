@@ -1,0 +1,67 @@
+---
+// src/components/HeroForm.astro
+import { t, localePath } from '../i18n/utils';
+import { loadCountries } from '../lib/data-loader';
+import type { Lang, Country } from '../lib/types';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const countries = loadCountries();
+
+const countryName = (c: Country): string => {
+  return c[`name_${lang}` as keyof Country] as string;
+};
+---
+
+<form class="hero-form" action={localePath(lang, '/compare')} method="get">
+  <div class="hero-form__field">
+    <label class="hero-form__label" for="hero-type">{t(lang, 'form.type')}</label>
+    <select id="hero-type" name="type" class="hero-form__select">
+      <option value="letter">{t(lang, 'form.letter')}</option>
+      <option value="parcel">{t(lang, 'form.parcel')}</option>
+    </select>
+  </div>
+
+  <div class="hero-form__field">
+    <label class="hero-form__label" for="hero-weight">{t(lang, 'form.weight')}</label>
+    <input
+      id="hero-weight"
+      name="weight"
+      type="number"
+      class="hero-form__input"
+      value="20"
+      min="1"
+      max="2000"
+      step="1"
+    />
+  </div>
+
+  <div class="hero-form__field">
+    <label class="hero-form__label" for="hero-origin">{t(lang, 'form.origin')}</label>
+    <select id="hero-origin" name="origin" class="hero-form__select">
+      <option value="all">{t(lang, 'form.all_countries')}</option>
+      {countries.map((c) => (
+        <option value={c.code}>{c.flag} {countryName(c)}</option>
+      ))}
+    </select>
+  </div>
+
+  <div class="hero-form__field">
+    <label class="hero-form__label" for="hero-destination">{t(lang, 'form.destination')}</label>
+    <select id="hero-destination" name="destination" class="hero-form__select">
+      <option value="domestic">{t(lang, 'form.domestic')}</option>
+      {countries.map((c) => (
+        <option value={c.code}>{c.flag} {countryName(c)}</option>
+      ))}
+    </select>
+  </div>
+
+  <div class="hero-form__field hero-form__field--submit">
+    <button type="submit" class="hero-form__submit">
+      {t(lang, 'hero.cta')}
+    </button>
+  </div>
+</form>

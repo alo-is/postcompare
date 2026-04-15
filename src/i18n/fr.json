@@ -77,6 +77,23 @@
     "step3": "Vérifiez que le schéma est valide : npm run validate",
     "step4": "Ouvrez une Pull Request avec la source de vos données"
   },
+  "hero": {
+    "title": "Comparez les tarifs postaux de 32 pays europ\u00e9ens",
+    "subtitle": "Gratuit, ind\u00e9pendant, open source",
+    "cta": "Comparer les prix"
+  },
+  "how": {
+    "title": "Comment \u00e7a marche",
+    "step1_title": "Choisissez votre envoi",
+    "step1_text": "Lettre ou colis, poids, pays d'origine et de destination",
+    "step2_title": "Comparez les prix",
+    "step2_text": "Les tarifs des postes nationales s'affichent class\u00e9s par prix",
+    "step3_title": "Envoyez pour moins cher",
+    "step3_text": "Consultez le site officiel de l'op\u00e9rateur le moins cher"
+  },
+  "countries_section": {
+    "title": "32 pays couverts"
+  },
   "footer": {
     "tagline": "Comparateur indépendant de tarifs postaux européens",
     "open_source": "Projet open source",

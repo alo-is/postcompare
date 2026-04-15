@@ -77,6 +77,23 @@
     "step3": "Verify the schema is valid: npm run validate",
     "step4": "Open a Pull Request with the source of your data"
   },
+  "hero": {
+    "title": "Compare postal rates from 32 European countries",
+    "subtitle": "Free, independent, open source",
+    "cta": "Compare prices"
+  },
+  "how": {
+    "title": "How it works",
+    "step1_title": "Choose your shipment",
+    "step1_text": "Letter or parcel, weight, origin and destination country",
+    "step2_title": "Compare prices",
+    "step2_text": "National postal rates are displayed sorted by price",
+    "step3_title": "Send for less",
+    "step3_text": "Visit the official website of the cheapest operator"
+  },
+  "countries_section": {
+    "title": "32 countries covered"
+  },
   "footer": {
     "tagline": "Independent European postal rate comparator",
     "open_source": "Open source project",

@@ -1,9 +1,9 @@
 ---
-// src/pages/[lang]/index.astro
+// src/pages/[lang]/index.astro — Landing page with hero
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Comparator from '../../components/Comparator';
+import HeroForm from '../../components/HeroForm.astro';
 import { t } from '../../i18n/utils';
-import { loadAllOperators, loadCountries } from '../../lib/data-loader';
+import { loadCountries } from '../../lib/data-loader';
 import type { Lang } from '../../lib/types';
 
 export function getStaticPaths() {
@@ -15,8 +15,13 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
-const operators = loadAllOperators();
 const countries = loadCountries();
+
+const countryName = (code: string): string => {
+  const country = countries.find((c) => c.code === code);
+  if (!country) return code;
+  return country[`name_${lang}` as keyof typeof country] as string;
+};
 ---
 
 <BaseLayout
@@ -24,10 +29,45 @@ const countries = loadCountries();
   description={t(lang, 'site.description')}
   lang={lang}
 >
-  <Comparator
-    client:load
-    operators={operators}
-    countries={countries}
-    lang={lang}
-  />
+  {/* Hero section */}
+  <section class="hero">
+    <h1 class="hero__title">{t(lang, 'hero.title')}</h1>
+    <p class="hero__subtitle">{t(lang, 'hero.subtitle')}</p>
+    <HeroForm lang={lang} />
+  </section>
+
+  {/* How it works */}
+  <section class="how-it-works">
+    <h2 class="how-it-works__title">{t(lang, 'how.title')}</h2>
+    <div class="how-it-works__grid">
+      <div class="how-it-works__step">
+        <span class="how-it-works__number">1</span>
+        <h3>{t(lang, 'how.step1_title')}</h3>
+        <p>{t(lang, 'how.step1_text')}</p>
+      </div>
+      <div class="how-it-works__step">
+        <span class="how-it-works__number">2</span>
+        <h3>{t(lang, 'how.step2_title')}</h3>
+        <p>{t(lang, 'how.step2_text')}</p>
+      </div>
+      <div class="how-it-works__step">
+        <span class="how-it-works__number">3</span>
+        <h3>{t(lang, 'how.step3_title')}</h3>
+        <p>{t(lang, 'how.step3_text')}</p>
+      </div>
+    </div>
+  </section>
+
+  {/* Countries covered */}
+  <section class="countries-section">
+    <h2 class="countries-section__title">{t(lang, 'countries_section.title')}</h2>
+    <div class="countries-grid">
+      {countries.map((c) => (
+        <div class="countries-grid__item">
+          <span class="countries-grid__flag">{c.flag}</span>
+          <span class="countries-grid__name">{countryName(c.code)}</span>
+        </div>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
