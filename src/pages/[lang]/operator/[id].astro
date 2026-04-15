@@ -3,7 +3,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { t, localePath } from '../../../i18n/utils';
 import { loadAllOperators, loadCountries, getOperatorIds } from '../../../lib/data-loader';
-import type { Lang, Country } from '../../../lib/types';
+import type { Lang, Country, LetterRate, ParcelRate } from '../../../lib/types';
 
 export function getStaticPaths() {
   const langs: Lang[] = ['fr', 'en', 'de'];
@@ -40,14 +40,20 @@ const countryName = (code: string): string => {
 
 const operatorCountry = getCountry(info.country);
 
-// Build JSON-LD for the operator (Service schema)
-const lowestLetterPrice = operator.letters.domestic.reduce(
-  (min, r) => Math.min(min, r.price_eur), Infinity
+// Find cheapest rates in each section
+const cheapestDomesticLetter = operator.letters.domestic.reduce(
+  (min, r) => (r.price_eur < min.price_eur ? r : min),
+  operator.letters.domestic[0],
 );
-const lowestParcelPrice = operator.parcels.domestic.reduce(
-  (min, r) => Math.min(min, r.price_eur), Infinity
+const cheapestDomesticParcel = operator.parcels.domestic.reduce(
+  (min, r) => (r.price_eur < min.price_eur ? r : min),
+  operator.parcels.domestic[0],
 );
 
+const lowestLetterPrice = cheapestDomesticLetter?.price_eur ?? Infinity;
+const lowestParcelPrice = cheapestDomesticParcel?.price_eur ?? Infinity;
+
+// Build JSON-LD for the operator (Service schema)
 const operatorJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -80,6 +86,13 @@ const operatorDescriptions: Record<string, string> = {
   en: `${info.name} rates: letters from ${lowestLetterPrice.toFixed(2)} EUR, parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
   de: `${info.name} Tarife: Briefe ab ${lowestLetterPrice.toFixed(2)} EUR, Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
 };
+
+// Helper: check if a letter rate is the cheapest in its group
+const isLetterCheapest = (rate: LetterRate, group: LetterRate[]) =>
+  rate.price_eur === Math.min(...group.map((r) => r.price_eur));
+
+const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
+  rate.price_eur === Math.min(...group.map((r) => r.price_eur));
 ---
 
 <BaseLayout
@@ -88,111 +101,189 @@ const operatorDescriptions: Record<string, string> = {
   lang={lang}
   jsonLd={operatorJsonLd}
 >
-  <article class="content-page" aria-label={info.name}>
-    <div class="operator-header">
-      <span class="operator-header__flag">{operatorCountry?.flag}</span>
-      <div>
-        <h1>{info.name}</h1>
-        <div class="operator-header__meta">
-          {countryName(info.country)} —
-          <a href={info.website} target="_blank" rel="noopener">
-            {t(lang, 'operator.website')} ↗
-          </a>
-        </div>
-        <div class="operator-header__meta">
-          {t(lang, 'operator.last_updated')}: {info.last_updated}
-        </div>
-      </div>
+  <article class="op-page" aria-label={info.name}>
+
+    <!-- Back navigation -->
+    <div class="op-page__nav">
+      <a href={localePath(lang, '/')} class="op-page__back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {t(lang, 'operator.back_home')}
+      </a>
     </div>
 
-    <!-- Domestic Letters -->
-    <h2>{t(lang, 'operator.domestic_letters')}</h2>
-    <table class="rate-table">
-      <thead>
-        <tr>
-          <th>{t(lang, 'operator.product')}</th>
-          <th>{t(lang, 'operator.max_weight')}</th>
-          <th>{t(lang, 'operator.price')}</th>
-          <th>{t(lang, 'operator.delivery')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {operator.letters.domestic.map((rate) => (
-          <tr>
-            <td>{rate.name}</td>
-            <td>{rate.max_weight_g}g</td>
-            <td>{rate.price_eur.toFixed(2)} €</td>
-            <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <!-- Hero Header -->
+    <header class="op-hero">
+      <div class="op-hero__airmail"></div>
+      <div class="op-hero__content">
+        <span class="op-hero__flag">{operatorCountry?.flag}</span>
+        <div class="op-hero__info">
+          <h1 class="op-hero__name">{info.name}</h1>
+          <p class="op-hero__country">{countryName(info.country)}</p>
+          <div class="op-hero__meta">
+            <a href={info.website} target="_blank" rel="noopener" class="op-hero__website">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M9 1h6m0 0v6m0-6L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {t(lang, 'operator.website')}
+            </a>
+            <span class="op-hero__updated">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              {t(lang, 'operator.last_updated')}: {info.last_updated}
+            </span>
+          </div>
+        </div>
+        <div class="op-hero__prices">
+          <div class="op-hero__price-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="op-hero__price-label">{t(lang, 'form.letter')}</span>
+            <span class="op-hero__price-value">{t(lang, 'operator.from_price', { price: lowestLetterPrice.toFixed(2) })}</span>
+          </div>
+          <div class="op-hero__price-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="op-hero__price-label">{t(lang, 'form.parcel')}</span>
+            <span class="op-hero__price-value">{t(lang, 'operator.from_price', { price: lowestParcelPrice.toFixed(2) })}</span>
+          </div>
+        </div>
+      </div>
+      <div class="op-hero__airmail"></div>
+    </header>
 
-    <!-- International Letters -->
-    <h2>{t(lang, 'operator.international_letters')}</h2>
-    {operator.letters.international.zones.map((zone) => (
-      <div>
-        <h3>{t(lang, 'operator.zone')}: {zone.name}</h3>
-        <p class="operator-header__meta">
-          {t(lang, 'operator.countries')}: {zone.countries.map((c) => `${getCountry(c)?.flag ?? ''} ${countryName(c)}`).join(', ')}
-        </p>
-        <table class="rate-table">
+    <!-- Compare CTA -->
+    <div class="op-cta">
+      <a href={localePath(lang, `/?origin=${info.country}`)} class="op-cta__btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="6" r="2" fill="currentColor"/><circle cx="17" cy="12" r="2" fill="currentColor"/><circle cx="11" cy="18" r="2" fill="currentColor"/></svg>
+        {t(lang, 'operator.compare_cta')}
+      </a>
+    </div>
+
+    <!-- ====== DOMESTIC LETTERS ====== -->
+    <section class="op-section">
+      <div class="op-section__header">
+        <div class="op-section__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h2 class="op-section__title">{t(lang, 'operator.domestic_letters')}</h2>
+      </div>
+      <div class="op-table-wrap">
+        <table class="op-table">
           <thead>
             <tr>
               <th>{t(lang, 'operator.product')}</th>
               <th>{t(lang, 'operator.max_weight')}</th>
               <th>{t(lang, 'operator.price')}</th>
               <th>{t(lang, 'operator.delivery')}</th>
+              <th>{t(lang, 'operator.options')}</th>
             </tr>
           </thead>
           <tbody>
-            {zone.rates.map((rate) => (
-              <tr>
-                <td>{rate.name}</td>
+            {operator.letters.domestic.map((rate) => (
+              <tr class={isLetterCheapest(rate, operator.letters.domestic) ? 'op-table__row--cheapest' : ''}>
+                <td class="op-table__product">{rate.name}</td>
                 <td>{rate.max_weight_g}g</td>
-                <td>{rate.price_eur.toFixed(2)} €</td>
-                <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+                <td class="op-table__price">
+                  {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
+                  {isLetterCheapest(rate, operator.letters.domestic) && (
+                    <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
+                  )}
+                </td>
+                <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+                <td>
+                  {rate.options && rate.options.length > 0 ? (
+                    <div class="op-options">
+                      {rate.options.map((opt) => (
+                        <span class="op-option">
+                          {opt.name} +{opt.price_eur.toFixed(2)} EUR
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span class="op-table__none">&mdash;</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    ))}
+    </section>
 
-    <!-- Domestic Parcels -->
-    <h2>{t(lang, 'operator.domestic_parcels')}</h2>
-    <table class="rate-table">
-      <thead>
-        <tr>
-          <th>{t(lang, 'operator.product')}</th>
-          <th>{t(lang, 'operator.max_weight')}</th>
-          <th>{t(lang, 'operator.price')}</th>
-          <th>{t(lang, 'operator.delivery')}</th>
-          <th>{t(lang, 'results.tracking')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {operator.parcels.domestic.map((rate) => (
-          <tr>
-            <td>{rate.name}</td>
-            <td>{rate.max_weight_kg}kg</td>
-            <td>{rate.price_eur.toFixed(2)} €</td>
-            <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-            <td>{rate.tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <!-- Airmail separator -->
+    <div class="op-airmail-sep" aria-hidden="true"></div>
 
-    <!-- International Parcels -->
-    <h2>{t(lang, 'operator.international_parcels')}</h2>
-    {operator.parcels.international.zones.map((zone) => (
-      <div>
-        <h3>{t(lang, 'operator.zone')}: {zone.name}</h3>
-        <p class="operator-header__meta">
-          {t(lang, 'operator.countries')}: {zone.countries.map((c) => `${getCountry(c)?.flag ?? ''} ${countryName(c)}`).join(', ')}
-        </p>
-        <table class="rate-table">
+    <!-- ====== INTERNATIONAL LETTERS ====== -->
+    <section class="op-section">
+      <div class="op-section__header">
+        <div class="op-section__icon op-section__icon--intl">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h2 class="op-section__title">{t(lang, 'operator.international_letters')}</h2>
+      </div>
+      {operator.letters.international.zones.map((zone) => (
+        <div class="op-zone">
+          <div class="op-zone__header">
+            <h3 class="op-zone__title">{t(lang, 'operator.zone')}: {zone.name}</h3>
+            <p class="op-zone__countries">
+              {zone.countries.map((c) => (
+                <span class="op-zone__country">{getCountry(c)?.flag ?? ''} {countryName(c)}</span>
+              ))}
+            </p>
+          </div>
+          <div class="op-table-wrap">
+            <table class="op-table">
+              <thead>
+                <tr>
+                  <th>{t(lang, 'operator.product')}</th>
+                  <th>{t(lang, 'operator.max_weight')}</th>
+                  <th>{t(lang, 'operator.price')}</th>
+                  <th>{t(lang, 'operator.delivery')}</th>
+                  <th>{t(lang, 'operator.options')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {zone.rates.map((rate) => (
+                  <tr class={isLetterCheapest(rate, zone.rates) ? 'op-table__row--cheapest' : ''}>
+                    <td class="op-table__product">{rate.name}</td>
+                    <td>{rate.max_weight_g}g</td>
+                    <td class="op-table__price">
+                      {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
+                      {isLetterCheapest(rate, zone.rates) && (
+                        <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
+                      )}
+                    </td>
+                    <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+                    <td>
+                      {rate.options && rate.options.length > 0 ? (
+                        <div class="op-options">
+                          {rate.options.map((opt) => (
+                            <span class="op-option">
+                              {opt.name} +{opt.price_eur.toFixed(2)} EUR
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span class="op-table__none">&mdash;</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Airmail separator -->
+    <div class="op-airmail-sep" aria-hidden="true"></div>
+
+    <!-- ====== DOMESTIC PARCELS ====== -->
+    <section class="op-section">
+      <div class="op-section__header">
+        <div class="op-section__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="11" x2="12" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9.5" y1="13.5" x2="14.5" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h2 class="op-section__title">{t(lang, 'operator.domestic_parcels')}</h2>
+      </div>
+      <div class="op-table-wrap">
+        <table class="op-table">
           <thead>
             <tr>
               <th>{t(lang, 'operator.product')}</th>
@@ -200,25 +291,144 @@ const operatorDescriptions: Record<string, string> = {
               <th>{t(lang, 'operator.price')}</th>
               <th>{t(lang, 'operator.delivery')}</th>
               <th>{t(lang, 'results.tracking')}</th>
+              <th>{t(lang, 'operator.options')}</th>
             </tr>
           </thead>
           <tbody>
-            {zone.rates.map((rate) => (
-              <tr>
-                <td>{rate.name}</td>
+            {operator.parcels.domestic.map((rate) => (
+              <tr class={isParcelCheapest(rate, operator.parcels.domestic) ? 'op-table__row--cheapest' : ''}>
+                <td class="op-table__product">{rate.name}</td>
                 <td>{rate.max_weight_kg}kg</td>
-                <td>{rate.price_eur.toFixed(2)} €</td>
-                <td>{rate.delivery_days[0]}–{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-                <td>{rate.tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}</td>
+                <td class="op-table__price">
+                  {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
+                  {isParcelCheapest(rate, operator.parcels.domestic) && (
+                    <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
+                  )}
+                </td>
+                <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+                <td>
+                  {rate.tracking ? (
+                    <span class="op-tracking op-tracking--yes">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      {t(lang, 'results.tracking_yes')}
+                    </span>
+                  ) : (
+                    <span class="op-tracking op-tracking--no">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                      {t(lang, 'results.tracking_no')}
+                    </span>
+                  )}
+                </td>
+                <td>
+                  {rate.options && rate.options.length > 0 ? (
+                    <div class="op-options">
+                      {rate.options.map((opt) => (
+                        <span class="op-option">
+                          {opt.name} +{opt.price_eur.toFixed(2)} EUR
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span class="op-table__none">&mdash;</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    ))}
+    </section>
 
-    <p style="margin-top: var(--space-xl); text-align: center;">
-      <a href={localePath(lang, '/')} aria-label={t(lang, 'nav.home')}>← {t(lang, 'nav.home')}</a>
-    </p>
+    <!-- Airmail separator -->
+    <div class="op-airmail-sep" aria-hidden="true"></div>
+
+    <!-- ====== INTERNATIONAL PARCELS ====== -->
+    <section class="op-section">
+      <div class="op-section__header">
+        <div class="op-section__icon op-section__icon--intl">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="11" x2="12" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9.5" y1="13.5" x2="14.5" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h2 class="op-section__title">{t(lang, 'operator.international_parcels')}</h2>
+      </div>
+      {operator.parcels.international.zones.map((zone) => (
+        <div class="op-zone">
+          <div class="op-zone__header">
+            <h3 class="op-zone__title">{t(lang, 'operator.zone')}: {zone.name}</h3>
+            <p class="op-zone__countries">
+              {zone.countries.map((c) => (
+                <span class="op-zone__country">{getCountry(c)?.flag ?? ''} {countryName(c)}</span>
+              ))}
+            </p>
+          </div>
+          <div class="op-table-wrap">
+            <table class="op-table">
+              <thead>
+                <tr>
+                  <th>{t(lang, 'operator.product')}</th>
+                  <th>{t(lang, 'operator.max_weight')}</th>
+                  <th>{t(lang, 'operator.price')}</th>
+                  <th>{t(lang, 'operator.delivery')}</th>
+                  <th>{t(lang, 'results.tracking')}</th>
+                  <th>{t(lang, 'operator.options')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {zone.rates.map((rate) => (
+                  <tr class={isParcelCheapest(rate, zone.rates) ? 'op-table__row--cheapest' : ''}>
+                    <td class="op-table__product">{rate.name}</td>
+                    <td>{rate.max_weight_kg}kg</td>
+                    <td class="op-table__price">
+                      {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
+                      {isParcelCheapest(rate, zone.rates) && (
+                        <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
+                      )}
+                    </td>
+                    <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
+                    <td>
+                      {rate.tracking ? (
+                        <span class="op-tracking op-tracking--yes">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          {t(lang, 'results.tracking_yes')}
+                        </span>
+                      ) : (
+                        <span class="op-tracking op-tracking--no">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                          {t(lang, 'results.tracking_no')}
+                        </span>
+                      )}
+                    </td>
+                    <td>
+                      {rate.options && rate.options.length > 0 ? (
+                        <div class="op-options">
+                          {rate.options.map((opt) => (
+                            <span class="op-option">
+                              {opt.name} +{opt.price_eur.toFixed(2)} EUR
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span class="op-table__none">&mdash;</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Bottom CTA -->
+    <div class="op-bottom-nav">
+      <a href={localePath(lang, '/')} class="op-page__back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {t(lang, 'operator.back_home')}
+      </a>
+      <a href={localePath(lang, `/?origin=${info.country}`)} class="op-cta__btn op-cta__btn--sm">
+        {t(lang, 'operator.compare_cta')}
+      </a>
+    </div>
+
   </article>
 </BaseLayout>

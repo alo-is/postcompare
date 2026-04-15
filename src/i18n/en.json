@@ -59,7 +59,15 @@
     "price": "Price (EUR)",
     "delivery": "Delivery time",
     "zone": "Zone",
-    "countries": "Countries"
+    "countries": "Countries",
+    "compare_cta": "Compare with other countries",
+    "back_home": "Back to comparator",
+    "cheapest": "Cheapest",
+    "options": "Options",
+    "insurance": "Insurance",
+    "tracking_label": "Tracking",
+    "signature": "Signature",
+    "from_price": "from {price} EUR"
   },
   "about": {
     "title": "About PostCompare.eu",
