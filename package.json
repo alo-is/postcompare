@@ -1,0 +1,31 @@
+{
+  "name": "postcompare-eu",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "validate": "npx tsx scripts/validate-data.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@astrojs/react": "^5.0.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "ajv": "^8.18.0",
+    "ajv-formats": "^3.0.1",
+    "astro": "^6.1.6",
+    "js-yaml": "^4.1.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "vitest": "^4.1.4"
+  }
+}
