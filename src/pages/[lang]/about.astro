@@ -1,0 +1,33 @@
+---
+// src/pages/[lang]/about.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/utils';
+import type { Lang } from '../../lib/types';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'fr' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const lang = Astro.params.lang as Lang;
+---
+
+<BaseLayout title={t(lang, 'about.title')} lang={lang}>
+  <div class="content-page">
+    <h1>{t(lang, 'about.title')}</h1>
+
+    <p>{t(lang, 'about.intro')}</p>
+
+    <h2>{t(lang, 'about.methodology_title')}</h2>
+    <p>{t(lang, 'about.methodology_text')}</p>
+
+    <h2>{t(lang, 'about.neutrality_title')}</h2>
+    <p>{t(lang, 'about.neutrality_text')}</p>
+
+    <h2>{t(lang, 'about.open_source_title')}</h2>
+    <p>{t(lang, 'about.open_source_text')}</p>
+  </div>
+</BaseLayout>
