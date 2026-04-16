@@ -9,40 +9,44 @@ operator:
 
 letters:
   domestic:
-    - name: "Posta 4"
+    - name: "Posta 4 (standard)"
       max_weight_g: 20
       price_eur: 1.30
       delivery_days: [4, 6]
       options:
         - name: "Raccomandata"
           price_eur: 3.40
-    - name: "Posta 4"
-      max_weight_g: 50
-      price_eur: 2.90
-      delivery_days: [4, 6]
-    - name: "Posta 4"
+    - name: "Posta 1 (prioritaire)"
+      max_weight_g: 20
+      price_eur: 3.00
+      delivery_days: [1, 4]
+      options:
+        - name: "Raccomandata"
+          price_eur: 3.40
+    - name: "Posta 4 (standard)"
       max_weight_g: 100
       price_eur: 2.95
       delivery_days: [4, 6]
-    - name: "Posta 4"
-      max_weight_g: 250
-      price_eur: 4.25
-      delivery_days: [4, 6]
-    - name: "Posta 4"
-      max_weight_g: 350
+    - name: "Posta 1 (prioritaire)"
+      max_weight_g: 100
+      price_eur: 3.00
+      delivery_days: [1, 4]
+    - name: "Posta 4 (standard)"
+      max_weight_g: 500
       price_eur: 5.40
       delivery_days: [4, 6]
-    - name: "Posta 4"
-      max_weight_g: 1000
-      price_eur: 6.40
-      delivery_days: [4, 6]
-    - name: "Posta 4"
+    - name: "Posta 1 (prioritaire)"
+      max_weight_g: 500
+      price_eur: 5.90
+      delivery_days: [1, 4]
+    - name: "Posta 4 (standard)"
       max_weight_g: 2000
       price_eur: 7.05
       delivery_days: [4, 6]
-      options:
-        - name: "Posta 1 (prioritaire)"
-          price_eur: 0.45
+    - name: "Posta 1 (prioritaire)"
+      max_weight_g: 2000
+      price_eur: 7.50
+      delivery_days: [1, 4]
   international:
     zones:
       - name: "Europe"
