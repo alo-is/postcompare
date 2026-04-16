@@ -9,9 +9,10 @@ interface ResultCardProps {
   variant?: 'default' | 'muted';
   isUserCountry?: boolean;
   isNationalOperator?: boolean;
+  totalResults?: number;
 }
 
-export default function ResultCard({ result, countries, lang, variant = 'default', isUserCountry = false, isNationalOperator = false }: ResultCardProps) {
+export default function ResultCard({ result, countries, lang, variant = 'default', isUserCountry = false, isNationalOperator = false, totalResults = 2 }: ResultCardProps) {
   const getCountry = (code: string): Country | undefined =>
     countries.find((c) => c.code === code);
 
@@ -28,9 +29,15 @@ export default function ResultCard({ result, countries, lang, variant = 'default
     : `${originCountry?.flag ?? ''} ${countryName(originCountry)} \u2192 ${destCountry?.flag ?? ''} ${countryName(destCountry)}`;
 
   return (
-    <div className={`result-card ${result.isBestPrice && variant !== 'muted' ? 'result-card--best' : ''} ${variant === 'muted' ? 'result-card--muted' : ''} ${isUserCountry && variant !== 'muted' ? 'result-card--user' : ''}`}>
-      {result.isBestPrice && variant !== 'muted' && (
-        <span className="result-card__badge">{t(lang, 'results.best_price')}</span>
+    <div className={`result-card ${result.isBestPrice && totalResults > 1 && variant !== 'muted' ? 'result-card--best' : ''} ${variant === 'muted' ? 'result-card--muted' : ''} ${isUserCountry && variant !== 'muted' ? 'result-card--user' : ''}`}>
+      {variant !== 'muted' && (result.isBestPrice && totalResults > 1 || isNationalOperator) && (
+        <span className={`result-card__badge ${isNationalOperator && !(result.isBestPrice && totalResults > 1) ? 'result-card__badge--national' : ''}`}>
+          {result.isBestPrice && totalResults > 1
+            ? isNationalOperator
+              ? `${t(lang, 'results.best_price')} · ${lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator'}`
+              : t(lang, 'results.best_price')
+            : lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator'}
+        </span>
       )}
 
       <div className="result-card__operator">
@@ -45,14 +52,7 @@ export default function ResultCard({ result, countries, lang, variant = 'default
             )}
           </div>
           <div className="result-card__product">{result.productName}</div>
-          <div className="result-card__country">
-            {countryName(originCountry)}
-            {isNationalOperator && variant !== 'muted' && (
-              <span className="result-card__national-badge">
-                {lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator'}
-              </span>
-            )}
-          </div>
+          <div className="result-card__country">{countryName(originCountry)}</div>
         </div>
       </div>
 

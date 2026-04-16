@@ -419,11 +419,21 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.65rem;
   font-weight: 700;
-  padding: 4px 12px 4px 8px;
+  padding: 4px 14px 4px 8px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   /* Ribbon shape */
   clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 50%, 100% 100%, 0 100%);
+}
+
+.result-card__badge--national {
+  background: var(--color-airmail-blue);
+}
+
+/* Extra top padding when badge is present */
+.result-card--best,
+.result-card:has(.result-card__badge) {
+  padding-top: calc(var(--space-lg) + 10px);
 }
 
 .result-card__operator {
@@ -455,22 +465,6 @@ a:hover {
   font-size: 0.75rem;
   color: var(--color-ink-faded);
   margin-top: 2px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.result-card__national-badge {
-  display: inline-block;
-  padding: 1px 6px;
-  background: var(--color-paper-dark);
-  border: 1px dashed var(--color-border);
-  font-size: 0.6rem;
-  font-weight: 600;
-  color: var(--color-ink-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
 }
 
 .result-card__details {

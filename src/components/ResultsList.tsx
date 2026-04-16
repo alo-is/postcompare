@@ -101,6 +101,7 @@ export default function ResultsList({
             lang={lang}
             isUserCountry={userCountry ? result.operator.country === userCountry : false}
             isNationalOperator={showNationalBadge}
+            totalResults={results.length}
           />
         );
       })}
