@@ -5,39 +5,31 @@ operator:
   currency: "EUR"
   website: "https://www.posta.sk"
   logo: "slovenska-posta-sk.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
     - name: "List 2. trieda"
       max_weight_g: 50
-      price_eur: 0.90
+      price_eur: 1.40
       delivery_days: [2, 4]
       options:
         - name: "Doporučene"
-          price_eur: 1.70
+          price_eur: 3.30
     - name: "List 1. trieda"
       max_weight_g: 50
-      price_eur: 1.15
+      price_eur: 1.65
       delivery_days: [1, 2]
       options:
         - name: "Doporučene"
-          price_eur: 1.70
-    - name: "List 2. trieda"
-      max_weight_g: 100
-      price_eur: 1.20
-      delivery_days: [2, 4]
-    - name: "List 1. trieda"
-      max_weight_g: 100
-      price_eur: 1.50
-      delivery_days: [1, 2]
+          price_eur: 3.80
     - name: "List 2. trieda"
       max_weight_g: 500
-      price_eur: 2.00
+      price_eur: 2.50
       delivery_days: [2, 4]
     - name: "List 1. trieda"
       max_weight_g: 500
-      price_eur: 2.40
+      price_eur: 2.90
       delivery_days: [1, 2]
   international:
     zones:
