@@ -2,7 +2,7 @@
 // src/pages/[lang]/rankings.astro — Composite rankings of European postal services
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t, localePath } from '../../i18n/utils';
-import { loadCountries, loadAllOperators } from '../../lib/data-loader';
+import { loadCountries, loadAllOperators, loadPriceLevelIndices } from '../../lib/data-loader';
 import { compare } from '../../lib/comparison-engine';
 import type { Lang, ComparisonResult } from '../../lib/types';
 
@@ -17,6 +17,8 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const countries = loadCountries();
 const operators = loadAllOperators();
+const pliData = loadPriceLevelIndices();
+const pli = pliData.indices;
 
 // --- Helpers ---
 const countryName = (code: string): string => {
@@ -50,6 +52,7 @@ type CompositeEntry = {
   operatorId: string;
   avgRank: number;
   avgPrice: number;
+  avgPricePPP: number; // PPP-adjusted average price
   prices: { weight: number; price: number }[];
   tierCount: number;
 };
@@ -66,6 +69,8 @@ function buildComposite(
     if (!op) continue;
     const avgRank = ranks.reduce((s, r) => s + r, 0) / ranks.length;
     const avgPrice = prices.reduce((s, p) => s + p, 0) / prices.length;
+    const countryPLI = pli[cc] ?? 100;
+    const avgPricePPP = avgPrice / (countryPLI / 100);
     const priceDetails = weights.map((w, i) => ({ weight: w, price: prices[i] ?? 0 })).filter(p => p.price > 0);
     entries.push({
       country: cc,
@@ -73,6 +78,7 @@ function buildComposite(
       operatorId: op.operator.id,
       avgRank,
       avgPrice,
+      avgPricePPP,
       prices: priceDetails,
       tierCount: ranks.length,
     });
@@ -179,6 +185,7 @@ const rankingsJsonLd = {
               <th>{t(lang, 'rankings.operator')}</th>
               {letterWeightLabels.map(w => <th class="rk-th--price">{w}</th>)}
               <th class="rk-th--price">{lang === 'fr' ? 'Moy.' : lang === 'de' ? 'Ø' : 'Avg.'}</th>
+              <th class="rk-th--price rk-th--ppp">{lang === 'fr' ? 'PPA*' : lang === 'de' ? 'KKP*' : 'PPP*'}</th>
             </tr>
           </thead>
           <tbody>
@@ -202,6 +209,7 @@ const rankingsJsonLd = {
                     <td class="rk-td--price"><span class="rk-price-na">—</span></td>
                   ))}
                   <td class="rk-td--price"><span class="rk-price">{e.avgPrice.toFixed(2)}&nbsp;&euro;</span></td>
+                  <td class="rk-td--price rk-td--ppp"><span class="rk-price-ppp">{e.avgPricePPP.toFixed(2)}&nbsp;&euro;</span></td>
                 </tr>
               );
             })}
@@ -249,6 +257,7 @@ const rankingsJsonLd = {
               <th>{t(lang, 'rankings.operator')}</th>
               {parcelWeightLabels.map(w => <th class="rk-th--price">{w}</th>)}
               <th class="rk-th--price">{lang === 'fr' ? 'Moy.' : lang === 'de' ? 'Ø' : 'Avg.'}</th>
+              <th class="rk-th--price rk-th--ppp">{lang === 'fr' ? 'PPA*' : lang === 'de' ? 'KKP*' : 'PPP*'}</th>
             </tr>
           </thead>
           <tbody>
@@ -271,6 +280,7 @@ const rankingsJsonLd = {
                     <td class="rk-td--price"><span class="rk-price-na">—</span></td>
                   ))}
                   <td class="rk-td--price"><span class="rk-price">{e.avgPrice.toFixed(2)}&nbsp;&euro;</span></td>
+                  <td class="rk-td--price rk-td--ppp"><span class="rk-price-ppp">{e.avgPricePPP.toFixed(2)}&nbsp;&euro;</span></td>
                 </tr>
               );
             })}
@@ -300,6 +310,19 @@ const rankingsJsonLd = {
         {t(lang, 'rankings.cta')} &rarr;
       </a>
     </div>
+
+    <footer class="rk-footnote">
+      <p>
+        {lang === 'fr' ? '* PPA (Parité de Pouvoir d\'Achat) : prix ajusté au coût de la vie de chaque pays. Un timbre à 1€ en Bulgarie (coût de la vie bas) pèse plus dans le budget qu\'un timbre à 1€ en Suisse.' :
+         lang === 'de' ? '* KKP (Kaufkraftparität): Preis angepasst an die Lebenshaltungskosten jedes Landes. Eine Briefmarke für 1€ in Bulgarien (niedrige Lebenshaltungskosten) belastet das Budget stärker als eine 1€-Briefmarke in der Schweiz.' :
+         '* PPP (Purchasing Power Parity): price adjusted for each country\'s cost of living. A €1 stamp in Bulgaria (low cost of living) weighs more on the budget than a €1 stamp in Switzerland.'}
+      </p>
+      <p class="rk-footnote__source">
+        {lang === 'fr' ? 'Source : ' : lang === 'de' ? 'Quelle: ' : 'Source: '}
+        <a href={pliData.source_url} target="_blank" rel="noopener">{pliData.source}</a>
+        {` (${pliData.year})`}
+      </p>
+    </footer>
   </div>
 </BaseLayout>
 

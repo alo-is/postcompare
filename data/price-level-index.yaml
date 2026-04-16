@@ -1,0 +1,45 @@
+# Price Level Indices for Actual Individual Consumption (AIC), 2024
+# EU27 = 100
+# Source: Eurostat, Purchasing Power Parities (prc_ppp_ind)
+# https://ec.europa.eu/eurostat/databrowser/view/tec00120/default/table
+# Retrieved: April 2026
+# Used to compute PPP-adjusted postal prices
+
+year: 2024
+base: "EU27=100"
+source: "Eurostat — Comparative price levels of consumer goods and services"
+source_url: "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Comparative_price_levels_of_consumer_goods_and_services"
+
+indices:
+  FR: 107
+  DE: 103
+  ES: 90
+  IT: 99
+  GB: 117
+  NL: 110
+  BE: 109
+  PT: 83
+  AT: 108
+  CH: 162
+  SE: 112
+  DK: 143
+  NO: 137
+  FI: 120
+  IE: 138
+  PL: 72
+  CZ: 80
+  RO: 64
+  HU: 69
+  GR: 86
+  BG: 60
+  HR: 77
+  SK: 81
+  SI: 87
+  LT: 75
+  LV: 80
+  EE: 85
+  CY: 89
+  LU: 133
+  MT: 84
+  IS: 148
+  LI: 162

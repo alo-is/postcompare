@@ -43,6 +43,17 @@ export function loadCountries(): Country[] {
 }
 
 /**
+ * Load Price Level Index data (PLI, EU27=100)
+ */
+export function loadPriceLevelIndices(): { indices: Record<string, number>; year: number; source: string; source_url: string } {
+  const content = fs.readFileSync(
+    path.join(DATA_DIR, 'price-level-index.yaml'),
+    'utf-8',
+  );
+  return yaml.load(content) as { indices: Record<string, number>; year: number; source: string; source_url: string };
+}
+
+/**
  * Get all operator IDs from the operators directory
  */
 export function getOperatorIds(): string[] {

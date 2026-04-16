@@ -2011,6 +2011,40 @@ a:hover {
   font-size: 0.8rem;
 }
 
+.rk-price-ppp {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-airmail-blue);
+  white-space: nowrap;
+}
+
+.rk-th--ppp,
+.rk-td--ppp {
+  border-left: 1px dashed var(--color-border-light);
+}
+
+.rk-footnote {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.8rem;
+  color: var(--color-ink-faded);
+  line-height: 1.6;
+}
+
+.rk-footnote p {
+  margin-bottom: var(--space-sm);
+}
+
+.rk-footnote__source {
+  font-style: italic;
+}
+
+.rk-footnote__source a {
+  color: var(--color-ink-secondary);
+}
+
 .rk-methodology {
   text-align: center;
   font-size: 0.88rem;
