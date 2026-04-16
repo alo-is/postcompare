@@ -7,7 +7,8 @@
   "nav": {
     "home": "Comparator",
     "about": "About",
-    "contribute": "Contribute"
+    "contribute": "Contribute",
+    "rankings": "Rankings"
   },
   "form": {
     "type": "Shipment type",
@@ -108,6 +109,24 @@
   },
   "countries_section": {
     "title": "32 countries covered"
+  },
+  "rankings": {
+    "title": "European postal service rankings",
+    "subtitle": "Who is the cheapest? Who is the most expensive?",
+    "letters_title": "Standard 20g letters \u2014 Domestic rate",
+    "parcels_title": "1kg parcels \u2014 Domestic rate",
+    "rank": "Rank",
+    "country": "Country",
+    "operator": "Operator",
+    "product": "Product",
+    "price": "Price",
+    "delivery": "Delivery",
+    "median": "Median price",
+    "average": "Average price",
+    "cheapest": "Top 5 cheapest",
+    "most_expensive": "Top 5 most expensive",
+    "cta": "Compare your own shipments",
+    "days": "d"
   },
   "footer": {
     "tagline": "Independent European postal rate comparator",

@@ -26,6 +26,7 @@ const currentPath = Astro.url.pathname.replace(/^\/(fr|en|de)/, '');
     <nav class="header__nav" id="nav-menu" aria-label="Main navigation">
       <a href={localePath(lang, '/compare')} aria-label={t(lang, 'nav.home')}>{t(lang, 'nav.home')}</a>
       <a href={localePath(lang, '/about')} aria-label={t(lang, 'nav.about')}>{t(lang, 'nav.about')}</a>
+      <a href={localePath(lang, '/rankings')} aria-label={t(lang, 'nav.rankings')}>{t(lang, 'nav.rankings')}</a>
       <a href={localePath(lang, '/contribute')} aria-label={t(lang, 'nav.contribute')}>{t(lang, 'nav.contribute')}</a>
       <LanguagePicker lang={lang} currentPath={currentPath} />
     </nav>

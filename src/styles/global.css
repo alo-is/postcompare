@@ -1801,6 +1801,377 @@ a:hover {
   }
 }
 
+/* ===== Rankings Page ===== */
+
+.rk-hero {
+  width: 100%;
+  padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+  text-align: center;
+  background: var(--color-paper-dark);
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(155, 35, 53, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(30, 58, 95, 0.03) 0%, transparent 50%);
+}
+
+.rk-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-postal-red) 0, var(--color-postal-red) 8px,
+    transparent 8px, transparent 12px,
+    var(--color-airmail-blue) 12px, var(--color-airmail-blue) 20px,
+    transparent 20px, transparent 24px
+  );
+}
+
+.rk-hero__title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--color-ink);
+  margin-bottom: var(--space-sm);
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.rk-hero__subtitle {
+  color: var(--color-ink-secondary);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  font-family: var(--font-body);
+  font-style: italic;
+}
+
+/* Rankings page container */
+.rk-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+}
+
+/* Section header */
+.rk-section {
+  margin-bottom: var(--space-xl);
+}
+
+.rk-section__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--border-dashed);
+}
+
+.rk-section__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-postal-red);
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+
+.rk-section__icon--parcel {
+  background: var(--color-airmail-blue);
+}
+
+.rk-section__title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+/* Table */
+.rk-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-md);
+}
+
+.rk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 640px;
+}
+
+.rk-table thead th {
+  background: var(--color-paper-dark);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px var(--space-md);
+  text-align: left;
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.rk-th--rank { width: 70px; text-align: center; }
+.rk-th--price { text-align: right; }
+.rk-th--delivery { text-align: center; }
+
+.rk-table tbody td {
+  padding: 9px var(--space-md);
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: middle;
+}
+
+.rk-table tbody tr:hover td {
+  background: var(--color-paper-light);
+}
+
+/* Rank column */
+.rk-td--rank {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-ink-secondary);
+}
+
+.rk-rank {
+  white-space: nowrap;
+}
+
+/* Country column */
+.rk-td--country {
+  white-space: nowrap;
+}
+
+.rk-flag {
+  font-size: 1.2rem;
+  margin-right: 6px;
+  vertical-align: middle;
+  filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.08));
+}
+
+.rk-country-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+/* Operator link */
+.rk-td--operator a {
+  color: var(--color-postal-red);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.rk-td--operator a:hover {
+  color: var(--color-postal-red-dark);
+  text-decoration: underline;
+}
+
+/* Product */
+.rk-td--product {
+  color: var(--color-ink-faded);
+  font-size: 0.84rem;
+  font-style: italic;
+}
+
+/* Price */
+.rk-td--price {
+  text-align: right;
+}
+
+.rk-price {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+/* Delivery */
+.rk-td--delivery {
+  text-align: center;
+  color: var(--color-ink-secondary);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Row color coding */
+.rk-row--cheap td {
+  background: rgba(45, 106, 79, 0.06);
+}
+
+.rk-row--cheap .rk-price {
+  color: var(--color-stamp-green);
+}
+
+.rk-row--expensive td {
+  background: rgba(155, 35, 53, 0.05);
+}
+
+.rk-row--expensive .rk-price {
+  color: var(--color-postal-red);
+}
+
+/* User country highlight */
+.rk-row--user td {
+  background: rgba(30, 58, 95, 0.08) !important;
+  border-bottom-color: var(--color-airmail-blue-light);
+}
+
+.rk-row--user .rk-country-name::after {
+  content: '\2190';
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.75rem;
+  color: var(--color-airmail-blue);
+  font-weight: 700;
+}
+
+/* Stats bar */
+.rk-stats {
+  display: flex;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.rk-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 10px var(--space-lg);
+  background: var(--color-white);
+  border: 1px dashed var(--color-border);
+  flex: 1;
+}
+
+.rk-stat__label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-faded);
+  font-weight: 700;
+}
+
+.rk-stat__value {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--color-brass);
+  margin-left: auto;
+}
+
+/* Legend */
+.rk-legend {
+  display: flex;
+  gap: var(--space-md);
+  font-size: 0.78rem;
+  color: var(--color-ink-faded);
+}
+
+.rk-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rk-legend__item::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-border-light);
+}
+
+.rk-legend__item--cheap::before {
+  background: rgba(45, 106, 79, 0.1);
+}
+
+.rk-legend__item--expensive::before {
+  background: rgba(155, 35, 53, 0.08);
+}
+
+/* Airmail separator */
+.rk-airmail-sep {
+  height: 6px;
+  margin: var(--space-xl) 0 var(--space-2xl);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-postal-red) 0,
+    var(--color-postal-red) 8px,
+    var(--color-white) 8px,
+    var(--color-white) 12px,
+    var(--color-airmail-blue) 12px,
+    var(--color-airmail-blue) 20px,
+    var(--color-white) 20px,
+    var(--color-white) 24px
+  );
+  opacity: 0.35;
+}
+
+/* CTA */
+.rk-cta {
+  text-align: center;
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: var(--border-dashed);
+}
+
+/* Rankings responsive */
+@media (max-width: 767px) {
+  .rk-hero {
+    padding: var(--space-2xl) var(--space-md) var(--space-xl);
+  }
+
+  .rk-hero__title {
+    font-size: 1.7rem;
+  }
+
+  .rk-page {
+    padding: var(--space-lg) var(--space-md) var(--space-2xl);
+  }
+
+  .rk-section__header {
+    gap: var(--space-sm);
+  }
+
+  .rk-section__icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .rk-section__title {
+    font-size: 1.15rem;
+  }
+
+  .rk-table-wrap {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding: 0 var(--space-md);
+  }
+
+  .rk-stats {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .rk-legend {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+}
+
 /* ===== Print Styles ===== */
 @media print {
   /* Reset backgrounds and shadows */
@@ -1964,6 +2335,20 @@ a:hover {
   .result-card a::after {
     content: none !important;
   }
+
+  /* Rankings page */
+  .rk-hero {
+    background: none !important;
+    padding: 20pt 0 10pt !important;
+    border-bottom: 1pt solid #999 !important;
+  }
+  .rk-hero::after { display: none !important; }
+  .rk-hero__title { font-size: 16pt !important; color: black !important; }
+  .rk-airmail-sep { display: none !important; }
+  .rk-cta { display: none !important; }
+  .rk-row--user td { background: #eee !important; }
+  .rk-table { min-width: auto !important; font-size: 9pt !important; }
+  .rk-stat { border: 1pt solid #ccc !important; }
 
   /* Footer URL */
   body::after {

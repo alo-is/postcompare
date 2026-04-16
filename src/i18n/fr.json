@@ -7,7 +7,8 @@
   "nav": {
     "home": "Comparateur",
     "about": "À propos",
-    "contribute": "Contribuer"
+    "contribute": "Contribuer",
+    "rankings": "Classement"
   },
   "form": {
     "type": "Type d'envoi",
@@ -108,6 +109,24 @@
   },
   "countries_section": {
     "title": "32 pays couverts"
+  },
+  "rankings": {
+    "title": "Classement des postes europ\u00e9ennes",
+    "subtitle": "Qui est le moins cher ? Qui est le plus cher ?",
+    "letters_title": "Lettres standard 20g \u2014 Tarif national",
+    "parcels_title": "Colis 1kg \u2014 Tarif national",
+    "rank": "Rang",
+    "country": "Pays",
+    "operator": "Op\u00e9rateur",
+    "product": "Produit",
+    "price": "Prix",
+    "delivery": "D\u00e9lai",
+    "median": "Prix m\u00e9dian",
+    "average": "Prix moyen",
+    "cheapest": "Les 5 moins chers",
+    "most_expensive": "Les 5 plus chers",
+    "cta": "Comparez vos propres envois",
+    "days": "j"
   },
   "footer": {
     "tagline": "Comparateur indépendant de tarifs postaux européens",

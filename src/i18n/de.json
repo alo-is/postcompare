@@ -7,7 +7,8 @@
   "nav": {
     "home": "Vergleich",
     "about": "Über uns",
-    "contribute": "Mitmachen"
+    "contribute": "Mitmachen",
+    "rankings": "Rangliste"
   },
   "form": {
     "type": "Sendungsart",
@@ -108,6 +109,24 @@
   },
   "countries_section": {
     "title": "32 abgedeckte L\u00e4nder"
+  },
+  "rankings": {
+    "title": "Rangliste der europ\u00e4ischen Postdienste",
+    "subtitle": "Wer ist am g\u00fcnstigsten? Wer ist am teuersten?",
+    "letters_title": "Standardbriefe 20g \u2014 Inlandstarif",
+    "parcels_title": "Pakete 1kg \u2014 Inlandstarif",
+    "rank": "Rang",
+    "country": "Land",
+    "operator": "Betreiber",
+    "product": "Produkt",
+    "price": "Preis",
+    "delivery": "Lieferzeit",
+    "median": "Medianpreis",
+    "average": "Durchschnittspreis",
+    "cheapest": "Die 5 g\u00fcnstigsten",
+    "most_expensive": "Die 5 teuersten",
+    "cta": "Vergleichen Sie Ihre eigenen Sendungen",
+    "days": "T"
   },
   "footer": {
     "tagline": "Unabhängiger europäischer Postgebührenvergleich",

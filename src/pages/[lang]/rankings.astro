@@ -1,0 +1,295 @@
+---
+// src/pages/[lang]/rankings.astro — Static rankings of European postal services
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t, localePath } from '../../i18n/utils';
+import { loadCountries, loadAllOperators } from '../../lib/data-loader';
+import { compare } from '../../lib/comparison-engine';
+import type { Lang, ComparisonResult } from '../../lib/types';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'fr' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const lang = Astro.params.lang as Lang;
+const countries = loadCountries();
+const operators = loadAllOperators();
+
+// --- Build-time comparisons ---
+const letterResults = compare(operators, {
+  type: 'letter',
+  weight: 20,
+  origin: 'all',
+  destination: 'domestic',
+});
+
+const parcelResults = compare(operators, {
+  type: 'parcel',
+  weight: 1,
+  origin: 'all',
+  destination: 'domestic',
+});
+
+// --- Helpers ---
+const countryName = (code: string): string => {
+  const country = countries.find((c) => c.code === code);
+  if (!country) return code;
+  return country[`name_${lang}` as keyof typeof country] as string;
+};
+
+const countryFlag = (code: string): string => {
+  const country = countries.find((c) => c.code === code);
+  return country?.flag ?? '';
+};
+
+function computeStats(results: ComparisonResult[]) {
+  const prices = results.map((r) => r.priceEur);
+  const sorted = [...prices].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  const median = sorted.length % 2 !== 0
+    ? sorted[mid]
+    : (sorted[mid - 1] + sorted[mid]) / 2;
+  const average = prices.reduce((s, p) => s + p, 0) / prices.length;
+  return { median, average };
+}
+
+const letterStats = computeStats(letterResults);
+const parcelStats = computeStats(parcelResults);
+
+// --- Medal helper ---
+function medal(rank: number): string {
+  if (rank === 1) return '\u{1F947}';
+  if (rank === 2) return '\u{1F948}';
+  if (rank === 3) return '\u{1F949}';
+  return '';
+}
+
+function rowClass(rank: number, total: number): string {
+  if (rank <= 5) return 'rk-row--cheap';
+  if (rank > total - 5) return 'rk-row--expensive';
+  return '';
+}
+
+// --- JSON-LD ---
+const rankingsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": t(lang, 'rankings.title'),
+  "description": t(lang, 'rankings.subtitle'),
+  "url": `https://postcompare.eu/${lang}/rankings`,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "PostCompare.eu",
+    "url": "https://postcompare.eu",
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": t(lang, 'rankings.letters_title'),
+    "numberOfItems": letterResults.length,
+    "itemListElement": letterResults.slice(0, 10).map((r, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": `${r.operator.name} — ${r.priceEur.toFixed(2)} EUR`,
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title={t(lang, 'rankings.title')}
+  description={t(lang, 'rankings.subtitle')}
+  lang={lang}
+  jsonLd={rankingsJsonLd}
+>
+  {/* Hero */}
+  <section class="rk-hero">
+    <h1 class="rk-hero__title">{t(lang, 'rankings.title')}</h1>
+    <p class="rk-hero__subtitle">{t(lang, 'rankings.subtitle')}</p>
+  </section>
+
+  <div class="rk-page">
+
+    {/* ====== Letters ranking ====== */}
+    <section class="rk-section" aria-label={t(lang, 'rankings.letters_title')}>
+      <div class="rk-section__header">
+        <div class="rk-section__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 4l10 8 10-8"/>
+          </svg>
+        </div>
+        <h2 class="rk-section__title">{t(lang, 'rankings.letters_title')}</h2>
+      </div>
+
+      <div class="rk-table-wrap">
+        <table class="rk-table">
+          <thead>
+            <tr>
+              <th class="rk-th--rank">{t(lang, 'rankings.rank')}</th>
+              <th class="rk-th--country">{t(lang, 'rankings.country')}</th>
+              <th class="rk-th--operator">{t(lang, 'rankings.operator')}</th>
+              <th class="rk-th--product">{t(lang, 'rankings.product')}</th>
+              <th class="rk-th--price">{t(lang, 'rankings.price')}</th>
+              <th class="rk-th--delivery">{t(lang, 'rankings.delivery')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {letterResults.map((r, i) => {
+              const rank = i + 1;
+              return (
+                <tr
+                  class={`rk-row ${rowClass(rank, letterResults.length)}`}
+                  data-country={r.operator.country}
+                >
+                  <td class="rk-td--rank">
+                    <span class="rk-rank">{medal(rank)} {rank}</span>
+                  </td>
+                  <td class="rk-td--country">
+                    <span class="rk-flag">{countryFlag(r.operator.country)}</span>
+                    <span class="rk-country-name">{countryName(r.operator.country)}</span>
+                  </td>
+                  <td class="rk-td--operator">
+                    <a href={localePath(lang, `/operator/${r.operator.id}`)}>
+                      {r.operator.name}
+                    </a>
+                  </td>
+                  <td class="rk-td--product">{r.productName}</td>
+                  <td class="rk-td--price">
+                    <span class="rk-price">{r.priceEur.toFixed(2)}&nbsp;&euro;</span>
+                  </td>
+                  <td class="rk-td--delivery">
+                    {r.deliveryDays[0]}{r.deliveryDays[0] !== r.deliveryDays[1] ? `\u2013${r.deliveryDays[1]}` : ''}{t(lang, 'rankings.days')}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rk-stats">
+        <div class="rk-stat">
+          <span class="rk-stat__label">{t(lang, 'rankings.median')}</span>
+          <span class="rk-stat__value">{letterStats.median.toFixed(2)}&nbsp;&euro;</span>
+        </div>
+        <div class="rk-stat">
+          <span class="rk-stat__label">{t(lang, 'rankings.average')}</span>
+          <span class="rk-stat__value">{letterStats.average.toFixed(2)}&nbsp;&euro;</span>
+        </div>
+      </div>
+
+      <div class="rk-legend">
+        <span class="rk-legend__item rk-legend__item--cheap">{t(lang, 'rankings.cheapest')}</span>
+        <span class="rk-legend__item rk-legend__item--expensive">{t(lang, 'rankings.most_expensive')}</span>
+      </div>
+    </section>
+
+    {/* Airmail separator */}
+    <div class="rk-airmail-sep" aria-hidden="true"></div>
+
+    {/* ====== Parcels ranking ====== */}
+    <section class="rk-section" aria-label={t(lang, 'rankings.parcels_title')}>
+      <div class="rk-section__header">
+        <div class="rk-section__icon rk-section__icon--parcel">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <h2 class="rk-section__title">{t(lang, 'rankings.parcels_title')}</h2>
+      </div>
+
+      <div class="rk-table-wrap">
+        <table class="rk-table">
+          <thead>
+            <tr>
+              <th class="rk-th--rank">{t(lang, 'rankings.rank')}</th>
+              <th class="rk-th--country">{t(lang, 'rankings.country')}</th>
+              <th class="rk-th--operator">{t(lang, 'rankings.operator')}</th>
+              <th class="rk-th--product">{t(lang, 'rankings.product')}</th>
+              <th class="rk-th--price">{t(lang, 'rankings.price')}</th>
+              <th class="rk-th--delivery">{t(lang, 'rankings.delivery')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {parcelResults.map((r, i) => {
+              const rank = i + 1;
+              return (
+                <tr
+                  class={`rk-row ${rowClass(rank, parcelResults.length)}`}
+                  data-country={r.operator.country}
+                >
+                  <td class="rk-td--rank">
+                    <span class="rk-rank">{medal(rank)} {rank}</span>
+                  </td>
+                  <td class="rk-td--country">
+                    <span class="rk-flag">{countryFlag(r.operator.country)}</span>
+                    <span class="rk-country-name">{countryName(r.operator.country)}</span>
+                  </td>
+                  <td class="rk-td--operator">
+                    <a href={localePath(lang, `/operator/${r.operator.id}`)}>
+                      {r.operator.name}
+                    </a>
+                  </td>
+                  <td class="rk-td--product">{r.productName}</td>
+                  <td class="rk-td--price">
+                    <span class="rk-price">{r.priceEur.toFixed(2)}&nbsp;&euro;</span>
+                  </td>
+                  <td class="rk-td--delivery">
+                    {r.deliveryDays[0]}{r.deliveryDays[0] !== r.deliveryDays[1] ? `\u2013${r.deliveryDays[1]}` : ''}{t(lang, 'rankings.days')}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rk-stats">
+        <div class="rk-stat">
+          <span class="rk-stat__label">{t(lang, 'rankings.median')}</span>
+          <span class="rk-stat__value">{parcelStats.median.toFixed(2)}&nbsp;&euro;</span>
+        </div>
+        <div class="rk-stat">
+          <span class="rk-stat__label">{t(lang, 'rankings.average')}</span>
+          <span class="rk-stat__value">{parcelStats.average.toFixed(2)}&nbsp;&euro;</span>
+        </div>
+      </div>
+
+      <div class="rk-legend">
+        <span class="rk-legend__item rk-legend__item--cheap">{t(lang, 'rankings.cheapest')}</span>
+        <span class="rk-legend__item rk-legend__item--expensive">{t(lang, 'rankings.most_expensive')}</span>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <div class="rk-cta">
+      <a href={localePath(lang, '/compare')} class="op-cta__btn">
+        {t(lang, 'rankings.cta')} &rarr;
+      </a>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  // Highlight the user's country rows
+  (async () => {
+    try {
+      const resp = await fetch('https://ipapi.co/json/');
+      if (!resp.ok) return;
+      const data = await resp.json();
+      const code = data.country_code?.toUpperCase();
+      if (!code) return;
+      document.querySelectorAll(`tr[data-country="${code}"]`).forEach((row) => {
+        row.classList.add('rk-row--user');
+      });
+    } catch {
+      // silently ignore
+    }
+  })();
+</script>
