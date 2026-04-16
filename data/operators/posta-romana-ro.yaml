@@ -5,27 +5,29 @@ operator:
   currency: "RON"
   website: "https://www.posta-romana.ro"
   logo: "posta-romana-ro.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
     - name: "Scrisoare standard"
-      max_weight_g: 20
-      price_eur: 0.40
+      max_weight_g: 50
+      price_eur: 0.52
       delivery_days: [2, 4]
       options:
         - name: "Recomandat"
           price_eur: 1.01
+        - name: "Confirmare de primire (AR)"
+          price_eur: 2.21
     - name: "Scrisoare standard"
       max_weight_g: 100
-      price_eur: 0.60
+      price_eur: 0.80
       delivery_days: [2, 4]
       options:
         - name: "Recomandat"
           price_eur: 1.01
     - name: "Scrisoare standard"
       max_weight_g: 500
-      price_eur: 1.21
+      price_eur: 1.41
       delivery_days: [2, 4]
   international:
     zones:
