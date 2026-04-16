@@ -1,5 +1,5 @@
 ---
-// src/pages/[lang]/rankings.astro — Static rankings of European postal services
+// src/pages/[lang]/rankings.astro — Composite rankings of European postal services
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t, localePath } from '../../i18n/utils';
 import { loadCountries, loadAllOperators } from '../../lib/data-loader';
@@ -18,83 +18,121 @@ const lang = Astro.params.lang as Lang;
 const countries = loadCountries();
 const operators = loadAllOperators();
 
-// --- Build-time comparisons ---
-const letterResults = compare(operators, {
-  type: 'letter',
-  weight: 20,
-  origin: 'all',
-  destination: 'domestic',
-});
-
-const parcelResults = compare(operators, {
-  type: 'parcel',
-  weight: 1,
-  origin: 'all',
-  destination: 'domestic',
-});
-
 // --- Helpers ---
 const countryName = (code: string): string => {
-  const country = countries.find((c) => c.code === code);
-  if (!country) return code;
-  return country[`name_${lang}` as keyof typeof country] as string;
+  const c = countries.find((c) => c.code === code);
+  if (!c) return code;
+  return c[`name_${lang}` as keyof typeof c] as string;
 };
+const countryFlag = (code: string): string =>
+  countries.find((c) => c.code === code)?.flag ?? '';
 
-const countryFlag = (code: string): string => {
-  const country = countries.find((c) => c.code === code);
-  return country?.flag ?? '';
-};
+// --- Composite letter ranking (20g, 50g, 100g, 200g) ---
+const letterWeights = [20, 50, 100, 200];
+const letterRanksByWeight: Map<string, number[]> = new Map();
+const letterPricesByWeight: Map<string, number[]> = new Map();
 
-function computeStats(results: ComparisonResult[]) {
-  const prices = results.map((r) => r.priceEur);
-  const sorted = [...prices].sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-  const median = sorted.length % 2 !== 0
-    ? sorted[mid]
-    : (sorted[mid - 1] + sorted[mid]) / 2;
-  const average = prices.reduce((s, p) => s + p, 0) / prices.length;
-  return { median, average };
+for (const w of letterWeights) {
+  const results = compare(operators, { type: 'letter', weight: w, origin: 'all', destination: 'domestic' });
+  results.forEach((r, i) => {
+    const cc = r.operator.country;
+    if (!letterRanksByWeight.has(cc)) letterRanksByWeight.set(cc, []);
+    if (!letterPricesByWeight.has(cc)) letterPricesByWeight.set(cc, []);
+    letterRanksByWeight.get(cc)!.push(i + 1);
+    letterPricesByWeight.get(cc)!.push(r.priceEur);
+  });
 }
 
-const letterStats = computeStats(letterResults);
-const parcelStats = computeStats(parcelResults);
+// Build composite: average rank + average price
+type CompositeEntry = {
+  country: string;
+  operatorName: string;
+  operatorId: string;
+  avgRank: number;
+  avgPrice: number;
+  prices: { weight: number; price: number }[];
+  tierCount: number;
+};
 
-// --- Medal helper ---
+function buildComposite(
+  ranksByWeight: Map<string, number[]>,
+  pricesByWeight: Map<string, number[]>,
+  weights: number[],
+): CompositeEntry[] {
+  const entries: CompositeEntry[] = [];
+  for (const [cc, ranks] of ranksByWeight) {
+    const prices = pricesByWeight.get(cc) ?? [];
+    const op = operators.find(o => o.operator.country === cc);
+    if (!op) continue;
+    const avgRank = ranks.reduce((s, r) => s + r, 0) / ranks.length;
+    const avgPrice = prices.reduce((s, p) => s + p, 0) / prices.length;
+    const priceDetails = weights.map((w, i) => ({ weight: w, price: prices[i] ?? 0 })).filter(p => p.price > 0);
+    entries.push({
+      country: cc,
+      operatorName: op.operator.name,
+      operatorId: op.operator.id,
+      avgRank,
+      avgPrice,
+      prices: priceDetails,
+      tierCount: ranks.length,
+    });
+  }
+  return entries.sort((a, b) => a.avgRank - b.avgRank);
+}
+
+const letterRanking = buildComposite(letterRanksByWeight, letterPricesByWeight, letterWeights);
+
+// --- Composite parcel ranking (1kg, 2kg, 5kg, 10kg) ---
+const parcelWeights = [1, 2, 5, 10];
+const parcelRanksByWeight: Map<string, number[]> = new Map();
+const parcelPricesByWeight: Map<string, number[]> = new Map();
+
+for (const w of parcelWeights) {
+  const results = compare(operators, { type: 'parcel', weight: w, origin: 'all', destination: 'domestic' });
+  results.forEach((r, i) => {
+    const cc = r.operator.country;
+    if (!parcelRanksByWeight.has(cc)) parcelRanksByWeight.set(cc, []);
+    if (!parcelPricesByWeight.has(cc)) parcelPricesByWeight.set(cc, []);
+    parcelRanksByWeight.get(cc)!.push(i + 1);
+    parcelPricesByWeight.get(cc)!.push(r.priceEur);
+  });
+}
+
+const parcelRanking = buildComposite(parcelRanksByWeight, parcelPricesByWeight, parcelWeights);
+
+// --- Stats ---
+function avgOf(entries: CompositeEntry[]): number {
+  return entries.reduce((s, e) => s + e.avgPrice, 0) / entries.length;
+}
+function medianOf(entries: CompositeEntry[]): number {
+  const sorted = [...entries].sort((a, b) => a.avgPrice - b.avgPrice);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 !== 0 ? sorted[mid].avgPrice : (sorted[mid - 1].avgPrice + sorted[mid].avgPrice) / 2;
+}
+
+// --- Medal ---
 function medal(rank: number): string {
   if (rank === 1) return '\u{1F947}';
   if (rank === 2) return '\u{1F948}';
   if (rank === 3) return '\u{1F949}';
   return '';
 }
-
 function rowClass(rank: number, total: number): string {
   if (rank <= 5) return 'rk-row--cheap';
   if (rank > total - 5) return 'rk-row--expensive';
   return '';
 }
 
-// --- JSON-LD ---
+// --- i18n labels ---
+const letterWeightLabels = letterWeights.map(w => `${w}g`);
+const parcelWeightLabels = parcelWeights.map(w => `${w}kg`);
+
 const rankingsJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": t(lang, 'rankings.title'),
   "description": t(lang, 'rankings.subtitle'),
-  "url": `https://postcompare.eu/${lang}/rankings`,
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "PostCompare.eu",
-    "url": "https://postcompare.eu",
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "name": t(lang, 'rankings.letters_title'),
-    "numberOfItems": letterResults.length,
-    "itemListElement": letterResults.slice(0, 10).map((r, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "name": `${r.operator.name} — ${r.priceEur.toFixed(2)} EUR`,
-    })),
-  },
+  "url": `https://www.postcompare.eu/${lang}/rankings`,
 };
 ---
 
@@ -104,21 +142,29 @@ const rankingsJsonLd = {
   lang={lang}
   jsonLd={rankingsJsonLd}
 >
-  {/* Hero */}
   <section class="rk-hero">
     <h1 class="rk-hero__title">{t(lang, 'rankings.title')}</h1>
     <p class="rk-hero__subtitle">{t(lang, 'rankings.subtitle')}</p>
   </section>
 
   <div class="rk-page">
+    <p class="rk-methodology">
+      {lang === 'fr' ? 'Classement basé sur la moyenne des rangs pour les poids : ' :
+       lang === 'de' ? 'Rangliste basierend auf dem Durchschnittsrang für Gewichte: ' :
+       'Ranking based on average rank across weights: '}
+      <strong>
+        {lang === 'fr' ? `Lettres : ${letterWeightLabels.join(', ')} — Colis : ${parcelWeightLabels.join(', ')}` :
+         lang === 'de' ? `Briefe: ${letterWeightLabels.join(', ')} — Pakete: ${parcelWeightLabels.join(', ')}` :
+         `Letters: ${letterWeightLabels.join(', ')} — Parcels: ${parcelWeightLabels.join(', ')}`}
+      </strong>
+    </p>
 
-    {/* ====== Letters ranking ====== */}
+    {/* ====== Letters composite ranking ====== */}
     <section class="rk-section" aria-label={t(lang, 'rankings.letters_title')}>
       <div class="rk-section__header">
         <div class="rk-section__icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M2 4l10 8 10-8"/>
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 8 10-8"/>
           </svg>
         </div>
         <h2 class="rk-section__title">{t(lang, 'rankings.letters_title')}</h2>
@@ -128,41 +174,34 @@ const rankingsJsonLd = {
         <table class="rk-table">
           <thead>
             <tr>
-              <th class="rk-th--rank">{t(lang, 'rankings.rank')}</th>
-              <th class="rk-th--country">{t(lang, 'rankings.country')}</th>
-              <th class="rk-th--operator">{t(lang, 'rankings.operator')}</th>
-              <th class="rk-th--product">{t(lang, 'rankings.product')}</th>
-              <th class="rk-th--price">{t(lang, 'rankings.price')}</th>
-              <th class="rk-th--delivery">{t(lang, 'rankings.delivery')}</th>
+              <th class="rk-th--rank">#</th>
+              <th>{t(lang, 'rankings.country')}</th>
+              <th>{t(lang, 'rankings.operator')}</th>
+              {letterWeightLabels.map(w => <th class="rk-th--price">{w}</th>)}
+              <th class="rk-th--price">{lang === 'fr' ? 'Moy.' : lang === 'de' ? 'Ø' : 'Avg.'}</th>
             </tr>
           </thead>
           <tbody>
-            {letterResults.map((r, i) => {
+            {letterRanking.map((e, i) => {
               const rank = i + 1;
               return (
-                <tr
-                  class={`rk-row ${rowClass(rank, letterResults.length)}`}
-                  data-country={r.operator.country}
-                >
-                  <td class="rk-td--rank">
-                    <span class="rk-rank">{medal(rank)} {rank}</span>
-                  </td>
+                <tr class={`rk-row ${rowClass(rank, letterRanking.length)}`} data-country={e.country}>
+                  <td class="rk-td--rank"><span class="rk-rank">{medal(rank)} {rank}</span></td>
                   <td class="rk-td--country">
-                    <span class="rk-flag">{countryFlag(r.operator.country)}</span>
-                    <span class="rk-country-name">{countryName(r.operator.country)}</span>
+                    <span class="rk-flag">{countryFlag(e.country)}</span>
+                    <span class="rk-country-name">{countryName(e.country)}</span>
                   </td>
                   <td class="rk-td--operator">
-                    <a href={localePath(lang, `/operator/${r.operator.id}`)}>
-                      {r.operator.name}
-                    </a>
+                    <a href={localePath(lang, `/operator/${e.operatorId}`)}>{e.operatorName}</a>
                   </td>
-                  <td class="rk-td--product">{r.productName}</td>
-                  <td class="rk-td--price">
-                    <span class="rk-price">{r.priceEur.toFixed(2)}&nbsp;&euro;</span>
-                  </td>
-                  <td class="rk-td--delivery">
-                    {r.deliveryDays[0]}{r.deliveryDays[0] !== r.deliveryDays[1] ? `\u2013${r.deliveryDays[1]}` : ''}{t(lang, 'rankings.days')}
-                  </td>
+                  {e.prices.map(p => (
+                    <td class="rk-td--price"><span class="rk-price-sm">{p.price.toFixed(2)}&euro;</span></td>
+                  ))}
+                  {/* Fill missing tiers */}
+                  {Array.from({ length: letterWeights.length - e.prices.length }).map(() => (
+                    <td class="rk-td--price"><span class="rk-price-na">—</span></td>
+                  ))}
+                  <td class="rk-td--price"><span class="rk-price">{e.avgPrice.toFixed(2)}&nbsp;&euro;</span></td>
                 </tr>
               );
             })}
@@ -173,11 +212,11 @@ const rankingsJsonLd = {
       <div class="rk-stats">
         <div class="rk-stat">
           <span class="rk-stat__label">{t(lang, 'rankings.median')}</span>
-          <span class="rk-stat__value">{letterStats.median.toFixed(2)}&nbsp;&euro;</span>
+          <span class="rk-stat__value">{medianOf(letterRanking).toFixed(2)}&nbsp;&euro;</span>
         </div>
         <div class="rk-stat">
           <span class="rk-stat__label">{t(lang, 'rankings.average')}</span>
-          <span class="rk-stat__value">{letterStats.average.toFixed(2)}&nbsp;&euro;</span>
+          <span class="rk-stat__value">{avgOf(letterRanking).toFixed(2)}&nbsp;&euro;</span>
         </div>
       </div>
 
@@ -187,17 +226,15 @@ const rankingsJsonLd = {
       </div>
     </section>
 
-    {/* Airmail separator */}
     <div class="rk-airmail-sep" aria-hidden="true"></div>
 
-    {/* ====== Parcels ranking ====== */}
+    {/* ====== Parcels composite ranking ====== */}
     <section class="rk-section" aria-label={t(lang, 'rankings.parcels_title')}>
       <div class="rk-section__header">
         <div class="rk-section__icon rk-section__icon--parcel">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
           </svg>
         </div>
         <h2 class="rk-section__title">{t(lang, 'rankings.parcels_title')}</h2>
@@ -207,41 +244,33 @@ const rankingsJsonLd = {
         <table class="rk-table">
           <thead>
             <tr>
-              <th class="rk-th--rank">{t(lang, 'rankings.rank')}</th>
-              <th class="rk-th--country">{t(lang, 'rankings.country')}</th>
-              <th class="rk-th--operator">{t(lang, 'rankings.operator')}</th>
-              <th class="rk-th--product">{t(lang, 'rankings.product')}</th>
-              <th class="rk-th--price">{t(lang, 'rankings.price')}</th>
-              <th class="rk-th--delivery">{t(lang, 'rankings.delivery')}</th>
+              <th class="rk-th--rank">#</th>
+              <th>{t(lang, 'rankings.country')}</th>
+              <th>{t(lang, 'rankings.operator')}</th>
+              {parcelWeightLabels.map(w => <th class="rk-th--price">{w}</th>)}
+              <th class="rk-th--price">{lang === 'fr' ? 'Moy.' : lang === 'de' ? 'Ø' : 'Avg.'}</th>
             </tr>
           </thead>
           <tbody>
-            {parcelResults.map((r, i) => {
+            {parcelRanking.map((e, i) => {
               const rank = i + 1;
               return (
-                <tr
-                  class={`rk-row ${rowClass(rank, parcelResults.length)}`}
-                  data-country={r.operator.country}
-                >
-                  <td class="rk-td--rank">
-                    <span class="rk-rank">{medal(rank)} {rank}</span>
-                  </td>
+                <tr class={`rk-row ${rowClass(rank, parcelRanking.length)}`} data-country={e.country}>
+                  <td class="rk-td--rank"><span class="rk-rank">{medal(rank)} {rank}</span></td>
                   <td class="rk-td--country">
-                    <span class="rk-flag">{countryFlag(r.operator.country)}</span>
-                    <span class="rk-country-name">{countryName(r.operator.country)}</span>
+                    <span class="rk-flag">{countryFlag(e.country)}</span>
+                    <span class="rk-country-name">{countryName(e.country)}</span>
                   </td>
                   <td class="rk-td--operator">
-                    <a href={localePath(lang, `/operator/${r.operator.id}`)}>
-                      {r.operator.name}
-                    </a>
+                    <a href={localePath(lang, `/operator/${e.operatorId}`)}>{e.operatorName}</a>
                   </td>
-                  <td class="rk-td--product">{r.productName}</td>
-                  <td class="rk-td--price">
-                    <span class="rk-price">{r.priceEur.toFixed(2)}&nbsp;&euro;</span>
-                  </td>
-                  <td class="rk-td--delivery">
-                    {r.deliveryDays[0]}{r.deliveryDays[0] !== r.deliveryDays[1] ? `\u2013${r.deliveryDays[1]}` : ''}{t(lang, 'rankings.days')}
-                  </td>
+                  {e.prices.map(p => (
+                    <td class="rk-td--price"><span class="rk-price-sm">{p.price.toFixed(2)}&euro;</span></td>
+                  ))}
+                  {Array.from({ length: parcelWeights.length - e.prices.length }).map(() => (
+                    <td class="rk-td--price"><span class="rk-price-na">—</span></td>
+                  ))}
+                  <td class="rk-td--price"><span class="rk-price">{e.avgPrice.toFixed(2)}&nbsp;&euro;</span></td>
                 </tr>
               );
             })}
@@ -252,11 +281,11 @@ const rankingsJsonLd = {
       <div class="rk-stats">
         <div class="rk-stat">
           <span class="rk-stat__label">{t(lang, 'rankings.median')}</span>
-          <span class="rk-stat__value">{parcelStats.median.toFixed(2)}&nbsp;&euro;</span>
+          <span class="rk-stat__value">{medianOf(parcelRanking).toFixed(2)}&nbsp;&euro;</span>
         </div>
         <div class="rk-stat">
           <span class="rk-stat__label">{t(lang, 'rankings.average')}</span>
-          <span class="rk-stat__value">{parcelStats.average.toFixed(2)}&nbsp;&euro;</span>
+          <span class="rk-stat__value">{avgOf(parcelRanking).toFixed(2)}&nbsp;&euro;</span>
         </div>
       </div>
 
@@ -266,30 +295,27 @@ const rankingsJsonLd = {
       </div>
     </section>
 
-    {/* CTA */}
     <div class="rk-cta">
       <a href={localePath(lang, '/compare')} class="op-cta__btn">
         {t(lang, 'rankings.cta')} &rarr;
       </a>
     </div>
-
   </div>
 </BaseLayout>
 
 <script>
-  // Highlight the user's country rows
-  (async () => {
-    try {
-      const resp = await fetch('https://ipapi.co/json/');
-      if (!resp.ok) return;
-      const data = await resp.json();
-      const code = data.country_code?.toUpperCase();
-      if (!code) return;
-      document.querySelectorAll(`tr[data-country="${code}"]`).forEach((row) => {
-        row.classList.add('rk-row--user');
-      });
-    } catch {
-      // silently ignore
+  // Highlight user's country
+  (function() {
+    const lang = (navigator.language || '').split('-');
+    let code = '';
+    if (lang.length >= 2) code = lang[1].toUpperCase();
+    else {
+      const map: Record<string, string> = {fr:'FR',de:'DE',es:'ES',it:'IT',nl:'NL',pt:'PT',pl:'PL',ro:'RO',hu:'HU',el:'GR',bg:'BG',hr:'HR',sk:'SK',sl:'SI',lt:'LT',lv:'LV',et:'EE',fi:'FI',sv:'SE',da:'DK',no:'NO',is:'IS',en:'GB'};
+      code = map[lang[0].toLowerCase()] || '';
     }
+    if (!code) return;
+    document.querySelectorAll(`tr[data-country="${code}"]`).forEach(row => {
+      row.classList.add('rk-row--user');
+    });
   })();
 </script>

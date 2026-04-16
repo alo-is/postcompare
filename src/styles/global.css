@@ -1998,6 +1998,28 @@ a:hover {
   white-space: nowrap;
 }
 
+.rk-price-sm {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--color-ink-secondary);
+  white-space: nowrap;
+}
+
+.rk-price-na {
+  color: var(--color-ink-faded);
+  font-size: 0.8rem;
+}
+
+.rk-methodology {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--color-ink-secondary);
+  margin-bottom: var(--space-2xl);
+  font-style: italic;
+  line-height: 1.6;
+}
+
 /* Delivery */
 .rk-td--delivery {
   text-align: center;
