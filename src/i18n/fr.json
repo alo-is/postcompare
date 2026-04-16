@@ -113,8 +113,8 @@
   "rankings": {
     "title": "Classement des postes europ\u00e9ennes",
     "subtitle": "Qui est le moins cher ? Qui est le plus cher ?",
-    "letters_title": "Lettres standard 20g \u2014 Tarif national",
-    "parcels_title": "Colis 1kg \u2014 Tarif national",
+    "letters_title": "Classement lettres \u2014 Tarif national",
+    "parcels_title": "Classement colis \u2014 Tarif national",
     "rank": "Rang",
     "country": "Pays",
     "operator": "Op\u00e9rateur",

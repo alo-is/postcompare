@@ -113,8 +113,8 @@
   "rankings": {
     "title": "Rangliste der europ\u00e4ischen Postdienste",
     "subtitle": "Wer ist am g\u00fcnstigsten? Wer ist am teuersten?",
-    "letters_title": "Standardbriefe 20g \u2014 Inlandstarif",
-    "parcels_title": "Pakete 1kg \u2014 Inlandstarif",
+    "letters_title": "Briefrangliste \u2014 Inlandstarif",
+    "parcels_title": "Paketrangliste \u2014 Inlandstarif",
     "rank": "Rang",
     "country": "Land",
     "operator": "Betreiber",

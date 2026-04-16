@@ -113,8 +113,8 @@
   "rankings": {
     "title": "European postal service rankings",
     "subtitle": "Who is the cheapest? Who is the most expensive?",
-    "letters_title": "Standard 20g letters \u2014 Domestic rate",
-    "parcels_title": "1kg parcels \u2014 Domestic rate",
+    "letters_title": "Letter rankings \u2014 Domestic rate",
+    "parcels_title": "Parcel rankings \u2014 Domestic rate",
     "rank": "Rank",
     "country": "Country",
     "operator": "Operator",
