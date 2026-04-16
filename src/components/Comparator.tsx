@@ -1,5 +1,5 @@
 // src/components/Comparator.tsx
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import ComparatorForm from './ComparatorForm';
 import ResultsList from './ResultsList';
 import { compare } from '../lib/comparison-engine';
@@ -25,6 +25,20 @@ interface ComparatorProps {
   countries: Country[];
   lang: Lang;
   initialParams?: InitialParams;
+}
+
+function detectUserCountry(supportedCodes: string[]): string | null {
+  if (typeof window === 'undefined') return null;
+  const lang = navigator.language || '';
+  const parts = lang.split('-');
+  let code = '';
+  if (parts.length >= 2) {
+    code = parts[1].toUpperCase();
+  } else {
+    const map: Record<string, string> = { fr:'FR',de:'DE',es:'ES',it:'IT',nl:'NL',pt:'PT',pl:'PL',ro:'RO',hu:'HU',el:'GR',bg:'BG',hr:'HR',sk:'SK',sl:'SI',lt:'LT',lv:'LV',et:'EE',fi:'FI',sv:'SE',da:'DK',no:'NO',is:'IS',en:'GB' };
+    code = map[parts[0].toLowerCase()] || '';
+  }
+  return code && supportedCodes.includes(code) ? code : null;
 }
 
 function getParamsFromURL(): SearchParams | undefined {
@@ -56,6 +70,11 @@ export default function Comparator({ operators, countries, lang, initialParams }
           destination: initialParams.destination || 'domestic',
         }
       : undefined);
+
+  const userCountry = useMemo(
+    () => detectUserCountry(countries.map(c => c.code)),
+    [countries],
+  );
 
   const [results, setResults] = useState<ComparisonResult[]>([]);
   const [reverseResults, setReverseResults] = useState<ComparisonResult[]>([]);
@@ -160,6 +179,7 @@ export default function Comparator({ operators, countries, lang, initialParams }
             lang={lang}
             hasSearched={hasSearched}
             searchParams={currentParams ?? undefined}
+            userCountry={userCountry}
             reverseResults={reverseResults.length > 0 ? reverseResults : undefined}
             reverseOrigin={currentParams?.destination !== 'domestic' ? currentParams?.destination : undefined}
             reverseDestination={currentParams?.origin !== 'all' ? currentParams?.origin : undefined}

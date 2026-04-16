@@ -522,6 +522,26 @@ a:hover {
   display: inline-block;
 }
 
+/* ===== User Country Highlight ===== */
+.result-card--user {
+  border-left-color: var(--color-airmail-blue);
+  background: linear-gradient(135deg, var(--color-white) 0%, #F5F8FC 100%);
+}
+
+.result-card__user-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  background: var(--color-airmail-blue);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
 /* ===== Muted Result Cards (reverse route) ===== */
 .result-card--muted {
   border-left-style: dashed;

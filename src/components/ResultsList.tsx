@@ -9,6 +9,7 @@ interface ResultsListProps {
   lang: Lang;
   hasSearched: boolean;
   searchParams?: SearchParams;
+  userCountry?: string | null;
   reverseResults?: ComparisonResult[];
   reverseOrigin?: string;
   reverseDestination?: string;
@@ -20,6 +21,7 @@ export default function ResultsList({
   lang,
   hasSearched,
   searchParams,
+  userCountry,
   reverseResults,
   reverseOrigin,
   reverseDestination,
@@ -95,6 +97,7 @@ export default function ResultsList({
           result={result}
           countries={countries}
           lang={lang}
+          isUserCountry={userCountry ? result.operator.country === userCountry : false}
         />
       ))}
 

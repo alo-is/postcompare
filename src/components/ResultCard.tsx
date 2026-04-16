@@ -7,9 +7,10 @@ interface ResultCardProps {
   countries: Country[];
   lang: Lang;
   variant?: 'default' | 'muted';
+  isUserCountry?: boolean;
 }
 
-export default function ResultCard({ result, countries, lang, variant = 'default' }: ResultCardProps) {
+export default function ResultCard({ result, countries, lang, variant = 'default', isUserCountry = false }: ResultCardProps) {
   const getCountry = (code: string): Country | undefined =>
     countries.find((c) => c.code === code);
 
@@ -26,7 +27,7 @@ export default function ResultCard({ result, countries, lang, variant = 'default
     : `${originCountry?.flag ?? ''} ${countryName(originCountry)} \u2192 ${destCountry?.flag ?? ''} ${countryName(destCountry)}`;
 
   return (
-    <div className={`result-card ${result.isBestPrice && variant !== 'muted' ? 'result-card--best' : ''} ${variant === 'muted' ? 'result-card--muted' : ''}`}>
+    <div className={`result-card ${result.isBestPrice && variant !== 'muted' ? 'result-card--best' : ''} ${variant === 'muted' ? 'result-card--muted' : ''} ${isUserCountry && variant !== 'muted' ? 'result-card--user' : ''}`}>
       {result.isBestPrice && variant !== 'muted' && (
         <span className="result-card__badge">{t(lang, 'results.best_price')}</span>
       )}
@@ -34,7 +35,14 @@ export default function ResultCard({ result, countries, lang, variant = 'default
       <div className="result-card__operator">
         <span className="result-card__flag">{originCountry?.flag}</span>
         <div>
-          <div className="result-card__name">{result.operator.name}</div>
+          <div className="result-card__name">
+            {result.operator.name}
+            {isUserCountry && variant !== 'muted' && (
+              <span className="result-card__user-badge">
+                {lang === 'fr' ? 'Votre pays' : lang === 'de' ? 'Ihr Land' : 'Your country'}
+              </span>
+            )}
+          </div>
           <div className="result-card__product">{result.productName}</div>
           <div className="result-card__country">{countryName(originCountry)}</div>
         </div>
