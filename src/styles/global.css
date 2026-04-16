@@ -2117,11 +2117,11 @@ a:hover {
 }
 
 .rk-legend__item--cheap::before {
-  background: rgba(45, 106, 79, 0.1);
+  background: rgba(45, 106, 79, 0.35);
 }
 
 .rk-legend__item--expensive::before {
-  background: rgba(155, 35, 53, 0.08);
+  background: rgba(155, 35, 53, 0.25);
 }
 
 /* Airmail separator */
