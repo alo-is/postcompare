@@ -24,10 +24,18 @@ letters:
       max_weight_g: 250
       price_eur: 2.31
       delivery_days: [1, 3]
+    - name: "B-bréf"
+      max_weight_g: 250
+      price_eur: 1.65
+      delivery_days: [2, 5]
     - name: "A-bréf"
       max_weight_g: 500
       price_eur: 3.30
       delivery_days: [1, 3]
+    - name: "B-bréf"
+      max_weight_g: 500
+      price_eur: 2.31
+      delivery_days: [2, 5]
   international:
     zones:
       - name: "Europe"

@@ -10,29 +10,29 @@ operator:
 letters:
   domestic:
     - name: "B-Post"
-      max_weight_g: 20
+      max_weight_g: 100
       price_eur: 0.97
       delivery_days: [2, 3]
       options:
         - name: "Einschreiben"
-          price_eur: 4.85
+          price_eur: 5.63
     - name: "A-Post"
-      max_weight_g: 20
-      price_eur: 1.07
+      max_weight_g: 100
+      price_eur: 1.16
       delivery_days: [1, 1]
       options:
         - name: "Einschreiben"
-          price_eur: 4.85
-    - name: "B-Post"
-      max_weight_g: 100
-      price_eur: 1.55
+          price_eur: 5.63
+    - name: "B-Post Grossbrief"
+      max_weight_g: 1000
+      price_eur: 1.94
       delivery_days: [2, 3]
       options:
         - name: "Einschreiben"
-          price_eur: 4.85
-    - name: "A-Post"
-      max_weight_g: 100
-      price_eur: 1.94
+          price_eur: 5.63
+    - name: "A-Post Grossbrief"
+      max_weight_g: 1000
+      price_eur: 2.43
       delivery_days: [1, 1]
   international:
     zones:
@@ -45,7 +45,7 @@ letters:
             delivery_days: [3, 5]
             options:
               - name: "Einschreiben International"
-                price_eur: 5.82
+                price_eur: 5.63
           - name: "Priority"
             max_weight_g: 100
             price_eur: 2.91
@@ -67,7 +67,7 @@ parcels:
           price_eur: 2.91
     - name: "PostPac Economy"
       max_weight_kg: 5
-      price_eur: 9.70
+      price_eur: 10.19
       delivery_days: [2, 3]
       tracking: true
       options:
@@ -75,12 +75,12 @@ parcels:
           price_eur: 2.91
     - name: "PostPac Economy"
       max_weight_kg: 10
-      price_eur: 11.64
+      price_eur: 12.13
       delivery_days: [2, 3]
       tracking: true
     - name: "PostPac Economy"
       max_weight_kg: 30
-      price_eur: 15.52
+      price_eur: 16.01
       delivery_days: [2, 3]
       tracking: true
   international:

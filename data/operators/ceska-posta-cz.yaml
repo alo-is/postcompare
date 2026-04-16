@@ -5,28 +5,28 @@ operator:
   currency: "CZK"
   website: "https://www.ceskaposta.cz"
   logo: "ceska-posta-cz.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-04-01"
 
 letters:
   domestic:
-    - name: "Obyčejný dopis"
+    - name: "Obyčejné psaní ekonomické"
       max_weight_g: 50
       price_eur: 1.24
-      delivery_days: [2, 3]
+      delivery_days: [2, 5]
       options:
         - name: "Doporučeně"
-          price_eur: 1.40
-    - name: "Obyčejný dopis"
-      max_weight_g: 100
-      price_eur: 1.00
-      delivery_days: [2, 3]
+          price_eur: 3.32
+    - name: "Obyčejné psaní prioritní"
+      max_weight_g: 50
+      price_eur: 1.44
+      delivery_days: [1, 2]
       options:
         - name: "Doporučeně"
-          price_eur: 1.40
-    - name: "Obyčejný dopis"
+          price_eur: 3.52
+    - name: "Obyčejné psaní ekonomické"
       max_weight_g: 500
       price_eur: 1.60
-      delivery_days: [2, 3]
+      delivery_days: [2, 5]
   international:
     zones:
       - name: "Europe"
@@ -34,11 +34,11 @@ letters:
         rates:
           - name: "Dopis do zahraničí"
             max_weight_g: 20
-            price_eur: 1.20
+            price_eur: 2.00
             delivery_days: [3, 7]
             options:
               - name: "Doporučeně do zahraničí"
-                price_eur: 2.00
+                price_eur: 2.40
           - name: "Dopis do zahraničí"
             max_weight_g: 100
             price_eur: 1.80

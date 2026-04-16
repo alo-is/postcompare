@@ -20,14 +20,25 @@ letters:
       max_weight_g: 50
       price_eur: 1.15
       delivery_days: [1, 2]
+      options:
+        - name: "Doporučene"
+          price_eur: 1.70
     - name: "List 2. trieda"
       max_weight_g: 100
       price_eur: 1.20
       delivery_days: [2, 4]
+    - name: "List 1. trieda"
+      max_weight_g: 100
+      price_eur: 1.50
+      delivery_days: [1, 2]
     - name: "List 2. trieda"
       max_weight_g: 500
       price_eur: 2.00
       delivery_days: [2, 4]
+    - name: "List 1. trieda"
+      max_weight_g: 500
+      price_eur: 2.40
+      delivery_days: [1, 2]
   international:
     zones:
       - name: "Europe"

@@ -5,7 +5,7 @@ operator:
   currency: "EUR"
   website: "https://www.posti.fi"
   logo: "posti-fi.svg"
-  last_updated: "2025-05-27"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
@@ -20,14 +20,25 @@ letters:
       max_weight_g: 50
       price_eur: 3.50
       delivery_days: [1, 2]
+      options:
+        - name: "Kirjattu kirje"
+          price_eur: 7.50
     - name: "Kirje 2. luokka"
       max_weight_g: 250
       price_eur: 4.25
       delivery_days: [2, 4]
+    - name: "Kirje 1. luokka"
+      max_weight_g: 250
+      price_eur: 5.25
+      delivery_days: [1, 2]
     - name: "Kirje 2. luokka"
       max_weight_g: 500
       price_eur: 5.50
       delivery_days: [2, 4]
+    - name: "Kirje 1. luokka"
+      max_weight_g: 500
+      price_eur: 6.75
+      delivery_days: [1, 2]
   international:
     zones:
       - name: "Europe"

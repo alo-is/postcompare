@@ -18,6 +18,13 @@ letters:
           price_eur: 2.60
         - name: "Aviso de receção"
           price_eur: 1.27
+    - name: "Correio Azul (prioritário)"
+      max_weight_g: 20
+      price_eur: 1.00
+      delivery_days: [1, 1]
+      options:
+        - name: "Registo"
+          price_eur: 2.60
     - name: "Correio Normal"
       max_weight_g: 50
       price_eur: 0.73
@@ -25,6 +32,10 @@ letters:
       options:
         - name: "Registo"
           price_eur: 2.60
+    - name: "Correio Azul (prioritário)"
+      max_weight_g: 50
+      price_eur: 1.00
+      delivery_days: [1, 1]
     - name: "Correio Normal"
       max_weight_g: 100
       price_eur: 1.27
