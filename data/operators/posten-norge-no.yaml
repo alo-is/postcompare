@@ -33,6 +33,9 @@ letters:
             max_weight_g: 50
             price_eur: 2.38
             delivery_days: [4, 10]
+            options:
+              - name: "Rekommandert internasjonalt"
+                price_eur: 7.65
           - name: "Brev til Europa"
             max_weight_g: 100
             price_eur: 3.91

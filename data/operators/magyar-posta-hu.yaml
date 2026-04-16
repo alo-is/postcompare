@@ -5,25 +5,32 @@ operator:
   currency: "HUF"
   website: "https://www.posta.hu"
   logo: "magyar-posta-hu.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
-    - name: "Belföldi levél"
+    - name: "Belföldi levél (nem elsőbbségi)"
       max_weight_g: 30
-      price_eur: 0.63
+      price_eur: 0.68
       delivery_days: [2, 4]
       options:
         - name: "Ajánlott"
-          price_eur: 1.25
-    - name: "Belföldi levél"
+          price_eur: 1.43
+    - name: "Belföldi levél (elsőbbségi)"
+      max_weight_g: 30
+      price_eur: 0.98
+      delivery_days: [1, 2]
+      options:
+        - name: "Ajánlott"
+          price_eur: 1.43
+    - name: "Belföldi levél (nem elsőbbségi)"
       max_weight_g: 100
       price_eur: 0.88
       delivery_days: [2, 4]
       options:
         - name: "Ajánlott"
-          price_eur: 1.25
-    - name: "Belföldi levél"
+          price_eur: 1.43
+    - name: "Belföldi levél (nem elsőbbségi)"
       max_weight_g: 500
       price_eur: 1.50
       delivery_days: [2, 4]

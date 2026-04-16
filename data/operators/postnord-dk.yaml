@@ -21,6 +21,10 @@ letters:
       max_weight_g: 100
       price_eur: 3.89
       delivery_days: [2, 5]
+    - name: "PLUS Brev (dao)"
+      max_weight_g: 100
+      price_eur: 5.36
+      delivery_days: [1, 2]
     - name: "Brev (dao)"
       max_weight_g: 500
       price_eur: 5.63

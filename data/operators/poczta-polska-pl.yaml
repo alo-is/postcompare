@@ -27,6 +27,10 @@ letters:
       max_weight_g: 500
       price_eur: 1.62
       delivery_days: [3, 5]
+    - name: "List priorytetowy"
+      max_weight_g: 500
+      price_eur: 1.86
+      delivery_days: [1, 2]
   international:
     zones:
       - name: "Europe"
