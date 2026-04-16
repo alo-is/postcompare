@@ -51,9 +51,15 @@ export default function ResultsList({
   // Build descriptive sentence
   const buildDescription = (): string | null => {
     if (!searchParams) return null;
-    const typeLabel = searchParams.type === 'letter'
+    // French needs article: "une lettre" / "un colis"
+    const typeLabelRaw = searchParams.type === 'letter'
       ? t(lang, 'form.letter').toLowerCase()
       : t(lang, 'form.parcel').toLowerCase();
+    const typeLabel = lang === 'fr'
+      ? (searchParams.type === 'letter' ? `une ${typeLabelRaw}` : `un ${typeLabelRaw}`)
+      : lang === 'de'
+        ? (searchParams.type === 'letter' ? `einen ${typeLabelRaw}` : `ein ${typeLabelRaw}`)
+        : `a ${typeLabelRaw}`;
     const weightLabel = searchParams.type === 'letter'
       ? `${searchParams.weight}g`
       : `${searchParams.weight}kg`;
