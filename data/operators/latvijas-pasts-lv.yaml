@@ -5,24 +5,27 @@ operator:
   currency: "EUR"
   website: "https://www.pasts.lv"
   logo: "latvijas-pasts-lv.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
     - name: "Vienkāršā vēstule"
       max_weight_g: 20
-      price_eur: 0.65
+      price_eur: 2.35
       delivery_days: [2, 3]
       options:
         - name: "Ierakstīts"
-          price_eur: 1.90
+          price_eur: 4.35
     - name: "Vienkāršā vēstule"
       max_weight_g: 100
-      price_eur: 0.95
+      price_eur: 2.75
       delivery_days: [2, 3]
+      options:
+        - name: "Ierakstīts"
+          price_eur: 4.75
     - name: "Vienkāršā vēstule"
       max_weight_g: 500
-      price_eur: 1.60
+      price_eur: 3.60
       delivery_days: [2, 3]
   international:
     zones:
@@ -31,18 +34,18 @@ letters:
         rates:
           - name: "Starptautiskā vēstule"
             max_weight_g: 20
-            price_eur: 1.15
+            price_eur: 2.54
             delivery_days: [3, 7]
             options:
               - name: "Ierakstīts starptautisks"
-                price_eur: 2.90
+                price_eur: 5.68
           - name: "Starptautiskā vēstule"
             max_weight_g: 100
-            price_eur: 1.80
+            price_eur: 3.80
             delivery_days: [3, 7]
           - name: "Starptautiskā vēstule"
             max_weight_g: 500
-            price_eur: 3.90
+            price_eur: 5.90
             delivery_days: [3, 7]
 
 parcels:

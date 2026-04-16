@@ -9,18 +9,21 @@ operator:
 
 letters:
   domestic:
-    - name: "Brev Lite"
+    - name: "Brev Lite (format)"
       max_weight_g: 50
       price_eur: 2.38
       delivery_days: [2, 5]
       options:
         - name: "Rekommandert"
           price_eur: 7.65
-    - name: "Brev Stort"
-      max_weight_g: 100
+    - name: "Brev Stort (format)"
+      max_weight_g: 350
       price_eur: 3.91
       delivery_days: [2, 5]
-    - name: "Brev Ekstra Stort"
+      options:
+        - name: "Rekommandert"
+          price_eur: 7.65
+    - name: "Brev Ekstra Stort (format)"
       max_weight_g: 2000
       price_eur: 5.95
       delivery_days: [2, 5]

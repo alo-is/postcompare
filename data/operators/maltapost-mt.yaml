@@ -5,24 +5,24 @@ operator:
   currency: "EUR"
   website: "https://www.maltapost.com"
   logo: "maltapost-mt.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-01-01"
 
 letters:
   domestic:
     - name: "Ordinary letter"
-      max_weight_g: 20
-      price_eur: 0.30
+      max_weight_g: 50
+      price_eur: 0.45
       delivery_days: [1, 2]
       options:
         - name: "Registered"
-          price_eur: 2.20
+          price_eur: 3.40
     - name: "Ordinary letter"
       max_weight_g: 100
-      price_eur: 0.56
+      price_eur: 0.75
       delivery_days: [1, 2]
     - name: "Ordinary letter"
       max_weight_g: 500
-      price_eur: 1.12
+      price_eur: 1.50
       delivery_days: [1, 2]
   international:
     zones:
@@ -30,19 +30,19 @@ letters:
         countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "IS", "LI"]
         rates:
           - name: "International letter"
-            max_weight_g: 20
-            price_eur: 0.59
+            max_weight_g: 50
+            price_eur: 1.50
             delivery_days: [4, 8]
             options:
               - name: "Registered international"
-                price_eur: 3.00
+                price_eur: 3.50
           - name: "International letter"
             max_weight_g: 100
-            price_eur: 1.50
+            price_eur: 1.90
             delivery_days: [4, 8]
           - name: "International letter"
             max_weight_g: 500
-            price_eur: 3.50
+            price_eur: 4.50
             delivery_days: [4, 8]
 
 parcels:
