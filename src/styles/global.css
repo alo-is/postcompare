@@ -455,6 +455,22 @@ a:hover {
   font-size: 0.75rem;
   color: var(--color-ink-faded);
   margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.result-card__national-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--color-paper-dark);
+  border: 1px dashed var(--color-border);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--color-ink-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .result-card__details {

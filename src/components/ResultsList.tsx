@@ -91,15 +91,19 @@ export default function ResultsList({
         <p className="results-description">{description}</p>
       )}
 
-      {results.map((result, index) => (
-        <ResultCard
-          key={`${result.operator.id}-${result.route.origin}-${index}`}
-          result={result}
-          countries={countries}
-          lang={lang}
-          isUserCountry={userCountry ? result.operator.country === userCountry : false}
-        />
-      ))}
+      {results.map((result, index) => {
+        const showNationalBadge = searchParams?.origin !== 'all' && result.route.isDomestic;
+        return (
+          <ResultCard
+            key={`${result.operator.id}-${result.route.origin}-${index}`}
+            result={result}
+            countries={countries}
+            lang={lang}
+            isUserCountry={userCountry ? result.operator.country === userCountry : false}
+            isNationalOperator={showNationalBadge}
+          />
+        );
+      })}
 
       {reverseResults && reverseResults.length > 0 && reverseOrigin && reverseDestination && (
         <div className="reverse-results">

@@ -8,9 +8,10 @@ interface ResultCardProps {
   lang: Lang;
   variant?: 'default' | 'muted';
   isUserCountry?: boolean;
+  isNationalOperator?: boolean;
 }
 
-export default function ResultCard({ result, countries, lang, variant = 'default', isUserCountry = false }: ResultCardProps) {
+export default function ResultCard({ result, countries, lang, variant = 'default', isUserCountry = false, isNationalOperator = false }: ResultCardProps) {
   const getCountry = (code: string): Country | undefined =>
     countries.find((c) => c.code === code);
 
@@ -44,7 +45,14 @@ export default function ResultCard({ result, countries, lang, variant = 'default
             )}
           </div>
           <div className="result-card__product">{result.productName}</div>
-          <div className="result-card__country">{countryName(originCountry)}</div>
+          <div className="result-card__country">
+            {countryName(originCountry)}
+            {isNationalOperator && variant !== 'muted' && (
+              <span className="result-card__national-badge">
+                {lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator'}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
