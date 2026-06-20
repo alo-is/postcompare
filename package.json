@@ -20,7 +20,7 @@
     "@types/react-dom": "^19.2.3",
     "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
-    "astro": "^6.1.10",
+    "astro": "^6.4.6",
     "js-yaml": "^4.1.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
