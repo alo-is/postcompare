@@ -105,3 +105,47 @@ command ran on the host.
 ## Commit
 
 `HEAD` — `fix: refresh verified postal rates`
+
+## Fix round 1 — PostNord unavailability provenance
+
+Added the missing operator-level source proving the end of PostNord Denmark's
+letter service, with the exact official URL, retrieval date `2026-08-10`, and
+effective date `2026-01-01`.
+
+### TDD RED
+
+```sh
+docker run --rm -v "$PWD":/app -v postcompare_2027_node_modules:/app/node_modules -w /app node:22 npm test -- tests/current-rates.test.ts
+```
+
+Result: exit 1; 1 failed and 8 passed. The targeted assertion reported
+`operator.sources` as `undefined` instead of the expected PostNord source.
+
+### GREEN and verification
+
+The same targeted command passed: 1 file and 9 tests passed.
+
+```sh
+docker run --rm -v "$PWD":/app -v postcompare_2027_node_modules:/app/node_modules -w /app node:22 npm test
+```
+
+Result: 5 files and 70 tests passed.
+
+```sh
+docker run --rm -v "$PWD":/app -v postcompare_2027_node_modules:/app/node_modules -w /app node:22 npm run validate
+```
+
+Result: all 32 operator files and postal changes valid. The existing Vite
+migration warning and Docker-local `npx tsx` installation notice were unchanged.
+
+### Files and auto-review
+
+- `data/operators/postnord-dk.yaml`
+- `tests/current-rates.test.ts`
+- This report
+
+`git diff --check` returned no errors. The YAML source fields exactly match the
+review-provided values, the test asserts all four fields, and no rate or
+availability value changed in this round.
+
+Commit: `HEAD` — `fix: cite PostNord letter closure`
