@@ -16,9 +16,6 @@ export interface LetterRate {
   price_eur: number;
   delivery_days: DeliveryDays;
   options?: ServiceOption[];
-  name_translations?: LocalizedText;
-  source?: Source;
-  availability?: Availability;
 }
 
 /** A single rate tier for parcels */
@@ -29,9 +26,6 @@ export interface ParcelRate {
   delivery_days: DeliveryDays;
   tracking: boolean;
   options?: ServiceOption[];
-  name_translations?: LocalizedText;
-  source?: Source;
-  availability?: Availability;
 }
 
 /** International zone grouping countries with shared rates */
@@ -53,6 +47,9 @@ export interface LetterRates {
   international: {
     zones: LetterZone[];
   };
+  available?: boolean;
+  unavailable_since?: string;
+  notice?: LocalizedText;
 }
 
 /** Parcel rates for an operator */
@@ -72,6 +69,7 @@ export interface OperatorInfo {
   website: string;
   logo: string;
   last_updated: string;
+  sources?: DataSource[];
 }
 
 /** Complete operator data as stored in YAML */
@@ -138,6 +136,14 @@ export interface LocalizedText {
 /** Official source for published or announced postal information. */
 export interface Source {
   url: string;
+}
+
+/** An official source associated with an operator dataset. */
+export interface DataSource {
+  title: string;
+  url: string;
+  retrieved_at: string;
+  effective_from?: string;
 }
 
 /** Whether consumer price information can currently be shown. */
