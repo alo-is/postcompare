@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://postcompare.eu/schemas/postal-change.json",
+  "title": "Postal change announcements",
+  "type": "object",
+  "required": ["announcements"],
+  "additionalProperties": false,
+  "properties": {
+    "announcements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/announcement" }
+    }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "required": ["fr", "en", "de"],
+      "additionalProperties": false,
+      "properties": {
+        "fr": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 },
+        "de": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["url"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "change": {
+      "type": "object",
+      "required": ["type", "product", "availability"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["price_change", "product_introduced", "product_changed", "product_removed", "announcement"]
+        },
+        "product": { "$ref": "#/$defs/localizedText" },
+        "availability": {
+          "type": "string",
+          "enum": ["published", "not_published", "upcoming"]
+        },
+        "old_price_eur": { "type": "number", "minimum": 0 },
+        "new_price_eur": { "type": "number", "minimum": 0 },
+        "percentage_change": { "type": "number" },
+        "details": { "$ref": "#/$defs/localizedText" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "price_change" } }, "required": ["type"] },
+          "then": {
+            "properties": {
+              "old_price_eur": true,
+              "new_price_eur": true,
+              "percentage_change": true
+            },
+            "required": ["old_price_eur", "new_price_eur", "percentage_change"]
+          }
+        },
+        {
+          "if": { "required": ["old_price_eur"] },
+          "then": {
+            "properties": { "new_price_eur": true },
+            "required": ["new_price_eur"]
+          }
+        },
+        {
+          "if": { "required": ["new_price_eur"] },
+          "then": {
+            "properties": { "old_price_eur": true },
+            "required": ["old_price_eur"]
+          }
+        }
+      ]
+    },
+    "announcement": {
+      "type": "object",
+      "required": ["country", "operator_id", "status", "effective_date", "source", "changes"],
+      "additionalProperties": false,
+      "properties": {
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "operator_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "status": { "type": "string", "enum": ["confirmed", "preview"] },
+        "effective_date": { "type": ["string", "null"], "format": "date" },
+        "source": { "$ref": "#/$defs/source" },
+        "changes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/change" } }
+      }
+    }
+  }
+}

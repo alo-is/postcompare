@@ -101,7 +101,10 @@
         "max_weight_g": { "type": "number", "exclusiveMinimum": 0 },
         "price_eur": { "type": "number", "minimum": 0 },
         "delivery_days": { "$ref": "#/$defs/deliveryDays" },
-        "options": { "type": "array", "items": { "$ref": "#/$defs/serviceOption" } }
+        "options": { "type": "array", "items": { "$ref": "#/$defs/serviceOption" } },
+        "name_translations": { "$ref": "#/$defs/localizedText" },
+        "source": { "$ref": "#/$defs/source" },
+        "availability": { "$ref": "#/$defs/availability" }
       }
     },
     "parcelRate": {
@@ -114,7 +117,10 @@
         "price_eur": { "type": "number", "minimum": 0 },
         "delivery_days": { "$ref": "#/$defs/deliveryDays" },
         "tracking": { "type": "boolean" },
-        "options": { "type": "array", "items": { "$ref": "#/$defs/serviceOption" } }
+        "options": { "type": "array", "items": { "$ref": "#/$defs/serviceOption" } },
+        "name_translations": { "$ref": "#/$defs/localizedText" },
+        "source": { "$ref": "#/$defs/source" },
+        "availability": { "$ref": "#/$defs/availability" }
       }
     },
     "serviceOption": {
@@ -125,6 +131,28 @@
         "name": { "type": "string", "minLength": 1 },
         "price_eur": { "type": "number", "minimum": 0 }
       }
+    },
+    "localizedText": {
+      "type": "object",
+      "required": ["fr", "en", "de"],
+      "additionalProperties": false,
+      "properties": {
+        "fr": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 },
+        "de": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["url"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "availability": {
+      "type": "string",
+      "enum": ["published", "not_published", "upcoming"]
     },
     "letterZone": {
       "type": "object",

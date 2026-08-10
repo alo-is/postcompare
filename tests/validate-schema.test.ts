@@ -34,3 +34,20 @@ describe('operator YAML schema validation', () => {
     });
   }
 });
+
+describe('postal-change YAML schema validation', () => {
+  const ajv = new Ajv({ allErrors: true, strict: true });
+  addFormats(ajv);
+
+  const schemaPath = path.join(DATA_DIR, 'schema', 'postal-change.schema.json');
+  const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
+  const validate = ajv.compile(schema);
+
+  it('validates the 2027 consumer announcements', () => {
+    const content = fs.readFileSync(path.join(DATA_DIR, 'postal-changes-2027.yaml'), 'utf-8');
+    const valid = validate(yaml.load(content));
+    const errors = validate.errors?.map((error) => `${error.instancePath} ${error.message}`);
+
+    expect(valid, `Schema errors:\n${errors?.join('\n')}`).toBe(true);
+  });
+});
