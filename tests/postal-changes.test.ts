@@ -46,6 +46,14 @@ describe('2027 consumer postal changes', () => {
     }
   });
 
+  it('loads the consultation date for every announcement source', () => {
+    expect(changes.announcements.map(({ source }) => source.retrieved_at)).toEqual([
+      '2026-08-10',
+      '2026-08-10',
+      '2026-08-10',
+    ]);
+  });
+
   it('keeps published price changes arithmetically coherent', () => {
     const priceChanges = changes.announcements.flatMap((announcement) => announcement.changes)
       .filter((change) => change.type === 'price_change');
@@ -95,6 +103,23 @@ describe('2027 consumer postal changes', () => {
     expect(validatePostalChanges(invalidScope)).toBe(false);
     expect(validatePostalChanges(incompleteTranslation)).toBe(false);
     expect(validatePostalChanges(partialHistoricalPrice)).toBe(false);
+  });
+
+  it('requires a valid ISO consultation date on announcement sources', () => {
+    const data = yaml.load(fs.readFileSync(
+      path.join(DATA_DIR, 'postal-changes-2027.yaml'),
+      'utf-8',
+    )) as { announcements: Array<{ source: Record<string, unknown> }> };
+    const withConsultationDate = structuredClone(data);
+    withConsultationDate.announcements[0].source.retrieved_at = '2026-08-10';
+    const missingConsultationDate = structuredClone(withConsultationDate);
+    delete missingConsultationDate.announcements[0].source.retrieved_at;
+    const invalidConsultationDate = structuredClone(withConsultationDate);
+    invalidConsultationDate.announcements[0].source.retrieved_at = '2026-08-40';
+
+    expect(validatePostalChanges(withConsultationDate)).toBe(true);
+    expect(validatePostalChanges(missingConsultationDate)).toBe(false);
+    expect(validatePostalChanges(invalidConsultationDate)).toBe(false);
   });
 
   it('loads the sourced France, Germany, and Denmark announcements with typed fields', () => {

@@ -6,6 +6,7 @@ announcements:
     effective_date: "2027-01-01"
     source:
       url: "https://www.laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027"
+      retrieved_at: "2026-08-10"
     changes:
       - type: "price_change"
         product: { fr: "Lettre verte 20 g", en: "Green letter 20 g", de: "Grüner Brief 20 g" }
@@ -48,6 +49,7 @@ announcements:
     effective_date: "2027-01-01"
     source:
       url: "https://www.deutschepost.de/de/b/briefe-ins-ausland/brief-international2027_Aenderungen.html"
+      retrieved_at: "2026-08-10"
     changes:
       - type: "product_introduced"
         product: { fr: "Midibrief International", en: "Midibrief International", de: "Midibrief International" }
@@ -67,6 +69,7 @@ announcements:
     effective_date: null
     source:
       url: "https://www.postnord.dk/en/business/prices-for-businesses/post2027/"
+      retrieved_at: "2026-08-10"
     changes:
       - type: "announcement"
         product: { fr: "Post 2027", en: "Post 2027", de: "Post 2027" }

@@ -25,10 +25,11 @@
     },
     "source": {
       "type": "object",
-      "required": ["url"],
+      "required": ["url", "retrieved_at"],
       "additionalProperties": false,
       "properties": {
-        "url": { "type": "string", "format": "uri" }
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date" }
       }
     },
     "change": {
