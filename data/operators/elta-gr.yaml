@@ -5,13 +5,17 @@ operator:
   currency: "EUR"
   website: "https://www.elta.gr"
   logo: "elta-gr.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-08-10"
+  sources:
+    - title: "ELTA e-stamp current tariff"
+      url: "https://e-stamp.elta.gr/"
+      retrieved_at: "2026-08-10"
 
 letters:
   domestic:
-    - name: "Απλή επιστολή"
+    - name: "Επιστολή Α προτεραιότητας"
       max_weight_g: 20
-      price_eur: 0.90
+      price_eur: 2.20
       delivery_days: [2, 4]
       options:
         - name: "Συστημένη"

@@ -6,6 +6,10 @@ operator:
   website: "https://www.bpost.be"
   logo: "bpost-be.svg"
   last_updated: "2026-01-01"
+  sources:
+    - title: "bpost tarifs particuliers 2026"
+      url: "https://www.bpost.be/fr/tarifs-particuliers"
+      retrieved_at: "2026-08-10"
 
 letters:
   domestic:
@@ -56,7 +60,7 @@ letters:
         rates:
           - name: "Lettre internationale"
             max_weight_g: 50
-            price_eur: 2.90
+            price_eur: 3.07
             delivery_days: [3, 7]
             options:
               - name: "Recommandé international"

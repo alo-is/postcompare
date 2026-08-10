@@ -5,13 +5,22 @@ operator:
   currency: "EUR"
   website: "https://www.posta.hr"
   logo: "hrvatska-posta-hr.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-05-01"
+  sources:
+    - title: "Hrvatska pošta domestic tariff extract"
+      url: "https://www.posta.hr/UserDocsImages/hp/dokumenti/cjenici/2026/IZVADAK_IZ_CJENIKA_POSTANSKIH_USLUGA_U_UNUTARNJEM_PROMETU_1-5-26..pdf?vel=215700"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-05-01"
+    - title: "Hrvatska pošta ePosta tariff extract"
+      url: "https://www.posta.hr/UserDocsImages/hp/dokumenti/cjenici/2026/Izvadak_iz_cjenika_usluga_servisa_ePosta_1-5-26.pdf"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-05-01"
 
 letters:
   domestic:
     - name: "Pismo"
-      max_weight_g: 20
-      price_eur: 0.63
+      max_weight_g: 50
+      price_eur: 0.72
       delivery_days: [2, 3]
       options:
         - name: "Preporučeno"
@@ -33,8 +42,8 @@ letters:
         countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
           - name: "Međunarodno pismo"
-            max_weight_g: 20
-            price_eur: 1.20
+            max_weight_g: 50
+            price_eur: 1.70
             delivery_days: [3, 7]
             options:
               - name: "Preporučeno međunarodno"
@@ -51,21 +60,10 @@ letters:
 parcels:
   domestic:
     - name: "Paket"
-      max_weight_kg: 0.5
-      price_eur: 2.80
+      max_weight_kg: 2
+      price_eur: 5.96
       delivery_days: [2, 4]
       tracking: true
-      options:
-        - name: "Osiguranje"
-          price_eur: 1.50
-    - name: "Paket"
-      max_weight_kg: 1
-      price_eur: 3.30
-      delivery_days: [2, 4]
-      tracking: true
-      options:
-        - name: "Osiguranje"
-          price_eur: 1.50
     - name: "Paket"
       max_weight_kg: 5
       price_eur: 4.50

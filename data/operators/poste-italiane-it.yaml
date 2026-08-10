@@ -5,7 +5,12 @@ operator:
   currency: "EUR"
   website: "https://www.poste.it"
   logo: "poste-italiane-it.svg"
-  last_updated: "2026-01-01"
+  last_updated: "2026-05-01"
+  sources:
+    - title: "Poste Italiane universal postal service change"
+      url: "https://www.poste.it/variazione-servizio-postale-universale"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-05-01"
 
 letters:
   domestic:
@@ -16,37 +21,18 @@ letters:
       options:
         - name: "Raccomandata"
           price_eur: 3.40
-    - name: "Posta 1 (prioritaire)"
-      max_weight_g: 20
-      price_eur: 3.00
-      delivery_days: [1, 4]
-      options:
-        - name: "Raccomandata"
-          price_eur: 3.40
     - name: "Posta 4 (standard)"
       max_weight_g: 100
       price_eur: 2.95
       delivery_days: [4, 6]
-    - name: "Posta 1 (prioritaire)"
-      max_weight_g: 100
-      price_eur: 3.00
-      delivery_days: [1, 4]
     - name: "Posta 4 (standard)"
       max_weight_g: 500
       price_eur: 5.40
       delivery_days: [4, 6]
-    - name: "Posta 1 (prioritaire)"
-      max_weight_g: 500
-      price_eur: 5.90
-      delivery_days: [1, 4]
     - name: "Posta 4 (standard)"
       max_weight_g: 2000
       price_eur: 7.05
       delivery_days: [4, 6]
-    - name: "Posta 1 (prioritaire)"
-      max_weight_g: 2000
-      price_eur: 7.50
-      delivery_days: [1, 4]
   international:
     zones:
       - name: "Europe"

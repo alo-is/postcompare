@@ -5,13 +5,18 @@ operator:
   currency: "EUR"
   website: "https://www.post.lt"
   logo: "lietuvos-pastas-lt.svg"
-  last_updated: "2025-01-01"
+  last_updated: "2026-07-13"
+  sources:
+    - title: "Lietuvos paštas UPP tariff update"
+      url: "https://www.post.lt/lt/apie-mus/naujienos/nuo-2026-m-liepos-13-d-nauji-upp-tarifai-daugiau-prieinamumo-klientams"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-07-13"
 
 letters:
   domestic:
     - name: "Paprastas laiškas"
-      max_weight_g: 20
-      price_eur: 0.65
+      max_weight_g: 50
+      price_eur: 1.65
       delivery_days: [2, 3]
       options:
         - name: "Registruotas"

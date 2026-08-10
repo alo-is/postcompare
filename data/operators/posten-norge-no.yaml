@@ -6,6 +6,11 @@ operator:
   website: "https://www.posten.no"
   logo: "posten-norge-no.svg"
   last_updated: "2026-02-01"
+  sources:
+    - title: "Posten Norge stamp price list 2026"
+      url: "https://www.posten.no/priser/utskriftsvennlige-prislister-2026/Priser-post-betalt-med-frimerker_01022026.pdf"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-02-01"
 
 letters:
   domestic:
@@ -34,7 +39,7 @@ letters:
         rates:
           - name: "Brev til Europa"
             max_weight_g: 50
-            price_eur: 2.38
+            price_eur: 3.15
             delivery_days: [4, 10]
             options:
               - name: "Rekommandert internasjonalt"
