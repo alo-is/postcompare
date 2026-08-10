@@ -75,7 +75,7 @@
     "letters_unavailable_title": "Service de lettres indisponible",
     "letters_unavailable_short": "Lettres indisponibles",
     "unavailable_since": "Indisponible depuis le {date}",
-    "sources_title": "Sources des tarifs actuels",
+    "sources_title": "Sources consultées pour les mises à jour",
     "source_retrieved": "Consultée le {date}"
   },
   "about": {
@@ -153,11 +153,12 @@
     "product_introduced": "nouveau produit annoncé",
     "product_changed": "produit modifié",
     "product_removed": "produit retiré",
-    "announcement": "annonce officielle"
+    "announcement": "annonce officielle",
+    "methodology": "L’absence d’annonce officielle trouvée au {date} ne garantit pas qu’aucun changement ultérieur ne sera publié."
   },
   "postal_teaser": {
     "title": "Changements annoncés pour 2027",
-    "text": "Consultez les annonces officielles confirmées et les aperçus à venir.",
+    "text": "{count} annonces grand public confirmées. Consultez le bulletin officiel.",
     "link": "Lire le bulletin 2027"
   },
   "footer": {

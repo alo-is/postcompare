@@ -75,7 +75,7 @@
     "letters_unavailable_title": "Briefdienst nicht verfügbar",
     "letters_unavailable_short": "Briefe nicht verfügbar",
     "unavailable_since": "Nicht verfügbar seit {date}",
-    "sources_title": "Quellen der aktuellen Tarife",
+    "sources_title": "Für Aktualisierungen konsultierte Quellen",
     "source_retrieved": "Abgerufen am {date}"
   },
   "about": {
@@ -153,11 +153,12 @@
     "product_introduced": "neues Produkt angekündigt",
     "product_changed": "Produkt geändert",
     "product_removed": "Produkt eingestellt",
-    "announcement": "offizielle Ankündigung"
+    "announcement": "offizielle Ankündigung",
+    "methodology": "Dass bis zum {date} keine offizielle Ankündigung gefunden wurde, garantiert nicht, dass später keine Änderung veröffentlicht wird."
   },
   "postal_teaser": {
     "title": "Angekündigte Änderungen für 2027",
-    "text": "Lesen Sie bestätigte offizielle Ankündigungen und kommende Vorschauen.",
+    "text": "{count} bestätigte Verbraucherankündigungen. Lesen Sie das offizielle Bulletin.",
     "link": "Bulletin 2027 lesen"
   },
   "footer": {

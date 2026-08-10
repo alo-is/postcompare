@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
 import type { OperatorData } from '../src/lib/types';
+import { compare } from '../src/lib/comparison-engine';
+import { loadAllOperators } from '../src/lib/data-loader';
 
 const operatorsDir = path.resolve(process.cwd(), 'data', 'operators');
 
@@ -52,12 +54,18 @@ describe('verified current postal rates', () => {
     }));
   });
 
-  it('uses Posti current domestic and international priority letter prices without inventing higher tiers', () => {
+  it('uses only the verified Posti domestic and international priority letter tiers', () => {
     const posti = loadOperator('posti-fi.yaml');
 
-    expect(posti.letters.domestic.filter((rate) => rate.max_weight_g === 50))
-      .toEqual([expect.objectContaining({ price_eur: 3.00 })]);
-    expect(internationalRate(posti, 'FR', 20)?.price_eur).toBe(3.35);
+    expect(posti.letters.domestic).toEqual([
+      expect.objectContaining({ name: 'Kirje', max_weight_g: 50, price_eur: 3.00 }),
+      expect.objectContaining({ name: 'Kirje', max_weight_g: 250, price_eur: 6.00 }),
+    ]);
+    expect(posti.letters.international.zones[0].rates).toEqual([
+      expect.objectContaining({ name: 'Ulkomaankirje Priority', max_weight_g: 20, price_eur: 3.35 }),
+      expect.objectContaining({ name: 'Ulkomaankirje Priority', max_weight_g: 100, price_eur: 6.70 }),
+      expect.objectContaining({ name: 'Ulkomaankirje Priority', max_weight_g: 500, price_eur: 16.75 }),
+    ]);
     expect(posti.operator.sources).toContainEqual(expect.objectContaining({
       url: 'https://www.posti.fi/en/sending/letters-and-postcards/letter-price-lists',
       effective_from: '2026-06-02',
@@ -142,5 +150,32 @@ describe('verified current postal rates', () => {
       url: 'https://www.post.lt/lt/apie-mus/naujienos/nuo-2026-m-liepos-13-d-nauji-upp-tarifai-daugiau-prieinamumo-klientams',
       effective_from: '2026-07-13',
     }));
+  });
+
+  it.each([
+    { origin: 'GR', type: 'letter' as const, boundary: 20, above: 21, price: 2.20 },
+    { origin: 'LT', type: 'letter' as const, boundary: 50, above: 51, price: 1.65 },
+    { origin: 'HR', type: 'parcel' as const, boundary: 2, above: 2.01, price: 5.96 },
+  ])('stops $origin current $type results at the verified weight boundary', ({
+    origin,
+    type,
+    boundary,
+    above,
+    price,
+  }) => {
+    const operators = loadAllOperators();
+
+    expect(compare(operators, {
+      type,
+      weight: boundary,
+      origin,
+      destination: 'domestic',
+    })).toEqual([expect.objectContaining({ priceEur: price })]);
+    expect(compare(operators, {
+      type,
+      weight: above,
+      origin,
+      destination: 'domestic',
+    })).toEqual([]);
   });
 });

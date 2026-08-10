@@ -4,7 +4,11 @@ import addFormats from 'ajv-formats';
 import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
-import type { PostalChangesData } from '../src/lib/types';
+import type { OperatorData, PostalChangesData } from '../src/lib/types';
+import {
+  validateOperatorRateLists,
+  validatePostalChangeSemantics,
+} from '../src/lib/data-validation';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 
@@ -22,6 +26,7 @@ function main() {
   // Find all operator YAML files
   const operatorsDir = path.join(DATA_DIR, 'operators');
   const files = fs.readdirSync(operatorsDir).filter((f) => f.endsWith('.yaml'));
+  const operators: OperatorData[] = [];
 
   let hasErrors = false;
 
@@ -29,6 +34,7 @@ function main() {
     const filePath = path.join(operatorsDir, file);
     const content = fs.readFileSync(filePath, 'utf-8');
     const data = yaml.load(content);
+    operators.push(data as OperatorData);
 
     const valid = validateOperator(data);
     if (!valid) {
@@ -55,12 +61,7 @@ function main() {
     console.log('✅ postal-changes-2027.yaml');
   }
 
-  const operatorIds = new Set(files.map((file) => {
-    const operator = yaml.load(
-      fs.readFileSync(path.join(operatorsDir, file), 'utf-8'),
-    ) as { operator: { id: string } };
-    return operator.operator.id;
-  }));
+  const operatorIds = new Set(operators.map(({ operator }) => operator.id));
   for (const announcement of postalChanges.announcements) {
     if (!operatorIds.has(announcement.operator_id)) {
       hasErrors = true;
@@ -74,6 +75,29 @@ function main() {
         console.error(`❌ postal-changes-2027.yaml: incoherent percentage for ${change.product.en}`);
       }
     }
+  }
+
+  const sourceDocumentedOperators = operators.filter(
+    ({ operator }) => (operator.sources?.length ?? 0) > 0,
+  );
+  const legacyOperators = operators.filter(
+    ({ operator }) => (operator.sources?.length ?? 0) === 0,
+  );
+  const semanticErrors = [
+    ...validatePostalChangeSemantics(postalChanges, operators),
+    ...sourceDocumentedOperators.flatMap(validateOperatorRateLists),
+  ];
+  for (const error of semanticErrors) {
+    hasErrors = true;
+    console.error(`❌ ${error}`);
+  }
+  console.log(
+    `✅ semantic rate-list invariants (${sourceDocumentedOperators.length} source-documented operators)`,
+  );
+
+  const legacyRateWarnings = legacyOperators.flatMap(validateOperatorRateLists);
+  for (const warning of legacyRateWarnings) {
+    console.warn(`⚠️ legacy rate-list warning (non-blocking, no update source): ${warning}`);
   }
 
   if (hasErrors) {

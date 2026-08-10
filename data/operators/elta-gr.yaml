@@ -20,18 +20,6 @@ letters:
       options:
         - name: "Συστημένη"
           price_eur: 2.50
-    - name: "Απλή επιστολή"
-      max_weight_g: 50
-      price_eur: 0.90
-      delivery_days: [2, 4]
-    - name: "Απλή επιστολή"
-      max_weight_g: 100
-      price_eur: 1.40
-      delivery_days: [2, 4]
-    - name: "Απλή επιστολή"
-      max_weight_g: 500
-      price_eur: 2.30
-      delivery_days: [2, 4]
   international:
     zones:
       - name: "Europe"

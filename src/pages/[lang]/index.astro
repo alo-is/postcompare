@@ -3,7 +3,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroForm from '../../components/HeroForm.astro';
 import { t } from '../../i18n/utils';
-import { loadCountries, loadAllOperators } from '../../lib/data-loader';
+import { loadCountries, loadAllOperators, loadPostalChanges } from '../../lib/data-loader';
 import { localePath } from '../../i18n/utils';
 import type { Lang } from '../../lib/types';
 
@@ -18,6 +18,9 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const countries = loadCountries();
 const operators = loadAllOperators();
+const confirmedConsumerAnnouncements = loadPostalChanges().announcements.filter(
+  ({ scope, status }) => scope === 'consumer' && status === 'confirmed',
+);
 
 // Map country code to operator for links
 const countryToOperator = new Map(operators.map(op => [op.operator.country, op.operator]));
@@ -69,7 +72,7 @@ const homeJsonLd = {
   <aside class="postal-teaser" aria-labelledby="postal-teaser-title">
     <div>
       <h2 id="postal-teaser-title">{t(lang, 'postal_teaser.title')}</h2>
-      <p>{t(lang, 'postal_teaser.text')}</p>
+      <p>{t(lang, 'postal_teaser.text', { count: confirmedConsumerAnnouncements.length })}</p>
     </div>
     <a href={localePath(lang, '/tarifs-2027')}>{t(lang, 'postal_teaser.link')}</a>
   </aside>

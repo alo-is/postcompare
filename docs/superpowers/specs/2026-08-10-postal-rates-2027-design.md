@@ -1,6 +1,6 @@
 # Tarifs postaux européens 2027 — conception hybride
 
-Date : 2026-08-10  
+Date : 2026-08-10
 Statut : approuvé
 
 ## Objectif
@@ -38,7 +38,7 @@ Un fichier séparé `data/postal-changes-2027.yaml`, validé par `data/schema/po
 - un résumé localisé en français, anglais et allemand ;
 - soit des variations chiffrées avec ancien prix, nouveau prix et pourcentage, soit des changements structurels localisés.
 
-La page grand public n'affiche que les annonces de portée `consumer`. Royal Mail Subscription Mail, strictement B2B, reste donc hors de la page publique. Les changements confirmés de La Poste et Deutsche Post sont publiés ; la page de préannonce PostNord Danemark est affichée séparément comme aperçu.
+La page grand public n'affiche que les annonces de portée `consumer`. La préannonce PostNord Danemark est conservée comme donnée de recherche `business`, mais exclue du bulletin, du compteur d'accueil et des alertes opérateur destinés aux particuliers. Royal Mail Subscription Mail, offre spécialisée de courrier en nombre, reste entièrement hors du jeu de données. Les changements confirmés de La Poste et Deutsche Post sont publiés.
 
 ## Chargement et règles métier
 
@@ -56,7 +56,7 @@ La page dédiée comprend :
 
 - une introduction précisant la date de dernière vérification et que les tarifs futurs ne sont pas encore appliqués au comparateur ;
 - un bloc « changements confirmés » avec les hausses françaises chiffrées et les changements structurels allemands ;
-- un bloc « annonces à venir » pour les aperçus, dont le Danemark ;
+- un bloc « annonces à venir » uniquement lorsqu'au moins un aperçu grand public existe ;
 - une source officielle et une date d'effet ou une mention explicite lorsqu'elle n'est pas encore publiée ;
 - une note méthodologique indiquant que l'absence d'annonce trouvée n'est pas une garantie d'absence de changement ultérieur.
 

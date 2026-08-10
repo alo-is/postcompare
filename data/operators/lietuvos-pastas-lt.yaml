@@ -21,14 +21,6 @@ letters:
       options:
         - name: "Registruotas"
           price_eur: 1.80
-    - name: "Paprastas laiškas"
-      max_weight_g: 100
-      price_eur: 0.90
-      delivery_days: [2, 3]
-    - name: "Paprastas laiškas"
-      max_weight_g: 500
-      price_eur: 1.50
-      delivery_days: [2, 3]
   international:
     zones:
       - name: "Europe"
