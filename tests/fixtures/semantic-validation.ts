@@ -17,6 +17,25 @@ export function withConfirmedAnnouncementWithoutDate(
   return fixture;
 }
 
+export function withUnknownAnnouncementOperator(
+  changes: PostalChangesData,
+): PostalChangesData {
+  const fixture = structuredClone(changes);
+  fixture.announcements[0].operator_id = 'unknown-post';
+  return fixture;
+}
+
+export function withIncoherentPercentage(
+  changes: PostalChangesData,
+): PostalChangesData {
+  const fixture = structuredClone(changes);
+  const priceChange = fixture.announcements[0].changes.find(
+    (change) => change.type === 'price_change' && change.old_price_eur !== undefined,
+  )!;
+  priceChange.percentage_change = 99;
+  return fixture;
+}
+
 export function withDecreasingSameProductPrice(
   operator: OperatorData,
 ): OperatorData {

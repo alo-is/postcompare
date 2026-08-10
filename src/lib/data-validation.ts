@@ -24,6 +24,10 @@ export interface OperatorRateListIssues {
   warnings: string[];
 }
 
+export interface SemanticIssues extends OperatorRateListIssues {
+  canReportSuccess: boolean;
+}
+
 export function validatePostalChangeSemantics(
   changes: PostalChangesData,
   operators: OperatorData[],
@@ -33,7 +37,11 @@ export function validatePostalChangeSemantics(
 
   for (const announcement of changes.announcements) {
     const operator = operatorsById.get(announcement.operator_id);
-    if (operator && operator.country !== announcement.country) {
+    if (!operator) {
+      errors.push(
+        `postal-changes-2027.yaml: unknown operator ${announcement.operator_id}`,
+      );
+    } else if (operator.country !== announcement.country) {
       errors.push(
         `postal-changes-2027.yaml: ${announcement.operator_id} country ${announcement.country} does not match operator country ${operator.country}`,
       );
@@ -42,6 +50,23 @@ export function validatePostalChangeSemantics(
       errors.push(
         `postal-changes-2027.yaml: confirmed announcement ${announcement.operator_id} requires an effective date`,
       );
+    }
+    for (const change of announcement.changes) {
+      if (
+        change.type !== 'price_change'
+        || change.old_price_eur === undefined
+        || change.percentage_change === undefined
+      ) {
+        continue;
+      }
+      const expectedPercentage = (
+        (change.new_price_eur - change.old_price_eur) / change.old_price_eur
+      ) * 100;
+      if (Math.abs(expectedPercentage - change.percentage_change) > 0.05) {
+        errors.push(
+          `postal-changes-2027.yaml: incoherent percentage for ${change.product.en}`,
+        );
+      }
     }
   }
 
@@ -115,4 +140,21 @@ export function classifyOperatorRateListIssues(
   }
 
   return issues;
+}
+
+export function classifySemanticIssues(
+  changes: PostalChangesData,
+  operators: OperatorData[],
+): SemanticIssues {
+  const rateListIssues = classifyOperatorRateListIssues(operators);
+  const errors = [
+    ...validatePostalChangeSemantics(changes, operators),
+    ...rateListIssues.errors,
+  ];
+
+  return {
+    errors,
+    warnings: rateListIssues.warnings,
+    canReportSuccess: errors.length === 0,
+  };
 }
