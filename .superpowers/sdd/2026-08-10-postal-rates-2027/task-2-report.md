@@ -149,3 +149,41 @@ review-provided values, the test asserts all four fields, and no rate or
 availability value changed in this round.
 
 Commit: `HEAD` — `fix: cite PostNord letter closure`
+
+## Fix round 2 — Exact official PostNord title
+
+Replaced the shortened English title with the official Danish page title:
+`PostNord leverer sit sidste brev ved udgangen af 2025: Det betyder det for
+dig`. The URL, retrieval/effective dates, rates, and availability metadata were
+not changed.
+
+### TDD RED
+
+```sh
+docker run --rm -v "$PWD":/app -v postcompare_2027_node_modules:/app/node_modules -w /app node:22 npm test -- tests/current-rates.test.ts
+```
+
+Result: exit 1; 1 failed and 8 passed. The diff showed only the expected title
+mismatch between the shortened English value and the exact Danish title.
+
+### GREEN and verification
+
+- Targeted test: 1 file and 9 tests passed.
+- Full test suite: 5 files and 70 tests passed.
+- `npm run validate`: all 32 operator files and postal changes valid.
+
+All npm commands ran in Docker with the `postcompare_2027_node_modules` volume.
+The existing Vite migration warning and Docker-local `npx tsx` installation
+notice were unchanged.
+
+### Files and auto-review
+
+- `data/operators/postnord-dk.yaml`
+- `tests/current-rates.test.ts`
+- This report
+
+`git diff --check` returned no errors. The YAML and assertion use the exact
+review-provided title; URL and dates are byte-for-byte unchanged. No tariff or
+availability field changed.
+
+Commit: `HEAD` — `fix: use official PostNord source title`

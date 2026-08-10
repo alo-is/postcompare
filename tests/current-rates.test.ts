@@ -83,7 +83,7 @@ describe('verified current postal rates', () => {
       notice: expect.any(Object),
     });
     expect(postnord.operator.sources).toEqual(expect.arrayContaining([{
-      title: 'PostNord delivers its final letter at the end of 2025',
+      title: 'PostNord leverer sit sidste brev ved udgangen af 2025: Det betyder det for dig',
       url: 'https://www.postnord.dk/postnord-leverer-sit-sidste-brev-ved-udgangen-af-2025/',
       retrieved_at: '2026-08-10',
       effective_from: '2026-01-01',
