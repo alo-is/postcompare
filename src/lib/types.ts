@@ -150,6 +150,8 @@ export type PostalChangeType =
   | 'product_removed'
   | 'announcement';
 
+export type PostalScope = 'consumer' | 'business';
+
 export interface PostalChange {
   type: PostalChangeType;
   product: LocalizedText;
@@ -163,6 +165,7 @@ export interface PostalChange {
 export interface PostalAnnouncement {
   country: string;
   operator_id: string;
+  scope: PostalScope;
   status: 'confirmed' | 'preview';
   effective_date: string | null;
   source: Source;

@@ -55,7 +55,12 @@ function main() {
     console.log('✅ postal-changes-2027.yaml');
   }
 
-  const operatorIds = new Set(files.map((file) => file.replace('.yaml', '')));
+  const operatorIds = new Set(files.map((file) => {
+    const operator = yaml.load(
+      fs.readFileSync(path.join(operatorsDir, file), 'utf-8'),
+    ) as { operator: { id: string } };
+    return operator.operator.id;
+  }));
   for (const announcement of postalChanges.announcements) {
     if (!operatorIds.has(announcement.operator_id)) {
       hasErrors = true;
