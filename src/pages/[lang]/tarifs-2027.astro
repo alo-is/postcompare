@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localePath, t } from '../../i18n/utils';
+import { loadAllOperators, loadCountries, loadPostalChanges } from '../../lib/data-loader';
+import type { Lang, PostalAnnouncement, PostalChange } from '../../lib/types';
+
+export function getStaticPaths() {
+  return ['fr', 'en', 'de'].map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const changes = loadPostalChanges();
+const operators = loadAllOperators();
+const countries = loadCountries();
+
+const countryName = (countryCode: string) => {
+  const country = countries.find(({ code }) => code === countryCode);
+  return country ? country[`name_${lang}` as const] : countryCode;
+};
+
+const operatorName = (announcement: PostalAnnouncement) =>
+  operators.find(({ operator }) => operator.id === announcement.operator_id)?.operator.name
+  ?? announcement.operator_id;
+
+const formatDate = (date: string) => new Intl.DateTimeFormat(lang, {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${date}T00:00:00Z`));
+
+const formatPrice = (price: number) => new Intl.NumberFormat(lang, {
+  style: 'currency',
+  currency: 'EUR',
+}).format(price);
+
+const changeSummary = (change: PostalChange) => {
+  if (change.old_price_eur !== undefined && change.new_price_eur !== undefined) {
+    return t(lang, 'postal_changes.price_change', {
+      oldPrice: formatPrice(change.old_price_eur),
+      newPrice: formatPrice(change.new_price_eur),
+    });
+  }
+
+  if (change.new_price_eur !== undefined) {
+    return t(lang, 'postal_changes.new_price', { newPrice: formatPrice(change.new_price_eur) });
+  }
+
+  return change.details?.[lang] ?? t(lang, `postal_changes.${change.type}`);
+};
+
+const confirmed = changes.announcements.filter(({ status }) => status === 'confirmed');
+const preview = changes.announcements.filter(({ status }) => status === 'preview');
+---
+
+<BaseLayout
+  title={t(lang, 'postal_changes.title')}
+  description={t(lang, 'postal_changes.intro')}
+  lang={lang}
+>
+  <article class="postal-bulletin">
+    <header class="postal-bulletin__header">
+      <p class="postal-bulletin__eyebrow">PostCompare.eu · 2027</p>
+      <h1>{t(lang, 'postal_changes.title')}</h1>
+      <p>{t(lang, 'postal_changes.intro')}</p>
+    </header>
+
+    <aside class="postal-bulletin__notice" aria-label={t(lang, 'postal_changes.title')}>
+      {t(lang, 'postal_changes.notice')}
+    </aside>
+
+    <section class="postal-bulletin__section" aria-labelledby="confirmed-changes">
+      <h2 id="confirmed-changes">{t(lang, 'postal_changes.confirmed_title')}</h2>
+      <div class="postal-timeline">
+        {confirmed.map((announcement) => (
+          <article class="postal-timeline__entry">
+            <div class="postal-timeline__date">
+              <span class="postal-status postal-status--confirmed">{t(lang, 'postal_changes.confirmed')}</span>
+              <time datetime={announcement.effective_date ?? undefined}>
+                {announcement.effective_date
+                  ? t(lang, 'postal_changes.effective', { date: formatDate(announcement.effective_date) })
+                  : t(lang, 'postal_changes.date_pending')}
+              </time>
+            </div>
+            <div class="postal-timeline__content">
+              <h3>{countryName(announcement.country)} · {operatorName(announcement)}</h3>
+              <ul>
+                {announcement.changes.map((change) => (
+                  <li>
+                    <strong>{change.product[lang]}</strong> — {changeSummary(change)}
+                  </li>
+                ))}
+              </ul>
+              <a href={announcement.source.url} target="_blank" rel="noopener">
+                {t(lang, 'postal_changes.source', { operator: operatorName(announcement) })}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="postal-bulletin__section" aria-labelledby="preview-changes">
+      <h2 id="preview-changes">{t(lang, 'postal_changes.preview_title')}</h2>
+      <div class="postal-timeline">
+        {preview.map((announcement) => (
+          <article class="postal-timeline__entry">
+            <div class="postal-timeline__date">
+              <span class="postal-status postal-status--preview">{t(lang, 'postal_changes.preview')}</span>
+              <time>{t(lang, 'postal_changes.date_pending')}</time>
+            </div>
+            <div class="postal-timeline__content">
+              <h3>{countryName(announcement.country)} · {operatorName(announcement)}</h3>
+              <ul>
+                {announcement.changes.map((change) => (
+                  <li>
+                    <strong>{change.product[lang]}</strong> — {changeSummary(change)}
+                  </li>
+                ))}
+              </ul>
+              <a href={announcement.source.url} target="_blank" rel="noopener">
+                {t(lang, 'postal_changes.source', { operator: operatorName(announcement) })}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <p class="postal-bulletin__back"><a href={localePath(lang, '/')}>{t(lang, 'operator.back_home')}</a></p>
+  </article>
+</BaseLayout>

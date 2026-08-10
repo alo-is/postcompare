@@ -66,6 +66,14 @@ const homeJsonLd = {
     <HeroForm lang={lang} />
   </section>
 
+  <aside class="postal-teaser" aria-labelledby="postal-teaser-title">
+    <div>
+      <h2 id="postal-teaser-title">{t(lang, 'postal_teaser.title')}</h2>
+      <p>{t(lang, 'postal_teaser.text')}</p>
+    </div>
+    <a href={localePath(lang, '/tarifs-2027')}>{t(lang, 'postal_teaser.link')}</a>
+  </aside>
+
   {/* How it works */}
   <section class="how-it-works" aria-label={t(lang, 'how.title')}>
     <h2 class="how-it-works__title">{t(lang, 'how.title')}</h2>

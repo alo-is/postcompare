@@ -8,7 +8,8 @@
     "home": "Vergleich",
     "about": "Über uns",
     "contribute": "Mitmachen",
-    "rankings": "Rangliste"
+    "rankings": "Rangliste",
+    "postal_changes": "Tarife 2027"
   },
   "form": {
     "type": "Sendungsart",
@@ -68,7 +69,14 @@
     "insurance": "Versicherung",
     "tracking_label": "Sendungsverfolgung",
     "signature": "Unterschrift",
-    "from_price": "ab {price} EUR"
+    "from_price": "ab {price} EUR",
+    "postal_alert": "Eine Tarifänderung für 2027 betrifft diesen Betreiber.",
+    "postal_alert_link": "Änderungen 2027 ansehen",
+    "letters_unavailable_title": "Briefdienst nicht verfügbar",
+    "letters_unavailable_short": "Briefe nicht verfügbar",
+    "unavailable_since": "Nicht verfügbar seit {date}",
+    "sources_title": "Quellen der aktuellen Tarife",
+    "source_retrieved": "Abgerufen am {date}"
   },
   "about": {
     "title": "Über PostCompare.eu",
@@ -127,6 +135,29 @@
     "most_expensive": "Die 5 teuersten",
     "cta": "Vergleichen Sie Ihre eigenen Sendungen",
     "days": "T"
+  },
+  "postal_changes": {
+    "title": "Posttarife 2027",
+    "intro": "Bulletin der offiziell angekündigten Änderungen für 2027.",
+    "notice": "Hier angekündigte künftige Preise sind nicht im Vergleich enthalten: Er zeigt weiterhin die aktuell veröffentlichten Tarife.",
+    "confirmed": "Bestätigt",
+    "preview": "Offizielle Vorschau",
+    "confirmed_title": "Bestätigte Änderungen",
+    "preview_title": "In Vorbereitung",
+    "effective": "Gültig ab {date}",
+    "date_pending": "Gültigkeitsdatum noch offen",
+    "source": "Offizielle Quelle von {operator} lesen",
+    "price_change": "von {oldPrice} auf {newPrice}",
+    "new_price": "neuer Preis: {newPrice}",
+    "product_introduced": "neues Produkt angekündigt",
+    "product_changed": "Produkt geändert",
+    "product_removed": "Produkt eingestellt",
+    "announcement": "offizielle Ankündigung"
+  },
+  "postal_teaser": {
+    "title": "Angekündigte Änderungen für 2027",
+    "text": "Lesen Sie bestätigte offizielle Ankündigungen und kommende Vorschauen.",
+    "link": "Bulletin 2027 lesen"
   },
   "footer": {
     "tagline": "Unabhängiger europäischer Postgebührenvergleich",

@@ -2,7 +2,7 @@
 // src/pages/[lang]/operator/[id].astro
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { t, localePath } from '../../../i18n/utils';
-import { loadAllOperators, loadCountries, getOperatorIds } from '../../../lib/data-loader';
+import { loadAllOperators, loadCountries, getOperatorIds, loadPostalChanges } from '../../../lib/data-loader';
 import type { Lang, Country, LetterRate, ParcelRate } from '../../../lib/types';
 
 export function getStaticPaths() {
@@ -28,6 +28,10 @@ if (!operator) {
 }
 
 const info = operator.operator;
+const lettersAvailable = operator.letters.available !== false;
+const postalAnnouncement = loadPostalChanges().announcements.find(
+  ({ operator_id }) => operator_id === info.id,
+);
 
 const getCountry = (code: string): Country | undefined =>
   countries.find((c) => c.code === code);
@@ -40,17 +44,26 @@ const countryName = (code: string): string => {
 
 const operatorCountry = getCountry(info.country);
 
+const formatDate = (date: string) => new Intl.DateTimeFormat(lang, {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${date}T00:00:00Z`));
+
 // Find cheapest rates in each section
-const cheapestDomesticLetter = operator.letters.domestic.reduce(
-  (min, r) => (r.price_eur < min.price_eur ? r : min),
-  operator.letters.domestic[0],
-);
+const cheapestDomesticLetter = lettersAvailable
+  ? operator.letters.domestic.reduce(
+    (min, r) => (r.price_eur < min.price_eur ? r : min),
+    operator.letters.domestic[0],
+  )
+  : undefined;
 const cheapestDomesticParcel = operator.parcels.domestic.reduce(
   (min, r) => (r.price_eur < min.price_eur ? r : min),
   operator.parcels.domestic[0],
 );
 
-const lowestLetterPrice = cheapestDomesticLetter?.price_eur ?? Infinity;
+const lowestLetterPrice = cheapestDomesticLetter?.price_eur;
 const lowestParcelPrice = cheapestDomesticParcel?.price_eur ?? Infinity;
 
 // Build JSON-LD for the operator (Service schema)
@@ -66,12 +79,12 @@ const operatorJsonLd = {
   "areaServed": info.country,
   "serviceType": "Postal Service",
   "offers": [
-    {
+    ...(lowestLetterPrice !== undefined ? [{
       "@type": "Offer",
       "name": "Domestic Letter",
       "priceCurrency": "EUR",
       "price": lowestLetterPrice.toFixed(2),
-    },
+    }] : []),
     {
       "@type": "Offer",
       "name": "Domestic Parcel",
@@ -82,9 +95,9 @@ const operatorJsonLd = {
 };
 
 const operatorDescriptions: Record<string, string> = {
-  fr: `Tarifs ${info.name} : lettres dès ${lowestLetterPrice.toFixed(2)} EUR, colis dès ${lowestParcelPrice.toFixed(2)} EUR. Comparez avec les autres opérateurs postaux européens.`,
-  en: `${info.name} rates: letters from ${lowestLetterPrice.toFixed(2)} EUR, parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
-  de: `${info.name} Tarife: Briefe ab ${lowestLetterPrice.toFixed(2)} EUR, Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
+  fr: `Tarifs ${info.name} : ${lettersAvailable ? `lettres dès ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}colis dès ${lowestParcelPrice.toFixed(2)} EUR. Comparez avec les autres opérateurs postaux européens.`,
+  en: `${info.name} rates: ${lettersAvailable ? `letters from ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
+  de: `${info.name} Tarife: ${lettersAvailable ? `Briefe ab ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
 };
 
 // Helper: check if a letter rate is the cheapest in its group
@@ -131,11 +144,18 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
           </div>
         </div>
         <div class="op-hero__prices">
-          <div class="op-hero__price-card">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
-            <span class="op-hero__price-label">{t(lang, 'form.letter')}</span>
-            <span class="op-hero__price-value">{t(lang, 'operator.from_price', { price: lowestLetterPrice.toFixed(2) })}</span>
-          </div>
+          {lettersAvailable ? (
+            <div class="op-hero__price-card">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span class="op-hero__price-label">{t(lang, 'form.letter')}</span>
+              <span class="op-hero__price-value">{t(lang, 'operator.from_price', { price: lowestLetterPrice!.toFixed(2) })}</span>
+            </div>
+          ) : (
+            <div class="op-hero__price-card op-hero__price-card--unavailable">
+              <span class="op-hero__price-label">{t(lang, 'form.letter')}</span>
+              <span class="op-hero__price-value">{t(lang, 'operator.letters_unavailable_short')}</span>
+            </div>
+          )}
           <div class="op-hero__price-card">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/></svg>
             <span class="op-hero__price-label">{t(lang, 'form.parcel')}</span>
@@ -154,6 +174,15 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
       </a>
     </div>
 
+    {postalAnnouncement && (
+      <aside class="operator-postal-alert" aria-label={t(lang, 'postal_changes.title')}>
+        <p>{t(lang, 'operator.postal_alert')}</p>
+        <a href={localePath(lang, '/tarifs-2027')}>{t(lang, 'operator.postal_alert_link')}</a>
+      </aside>
+    )}
+
+    {lettersAvailable && (
+    <>
     <!-- ====== DOMESTIC LETTERS ====== -->
     <section class="op-section">
       <div class="op-section__header">
@@ -207,7 +236,11 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
 
     <!-- Airmail separator -->
     <div class="op-airmail-sep" aria-hidden="true"></div>
+    </>
+    )}
 
+    {lettersAvailable ? (
+    <>
     <!-- ====== INTERNATIONAL LETTERS ====== -->
     <section class="op-section">
       <div class="op-section__header">
@@ -273,6 +306,24 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
 
     <!-- Airmail separator -->
     <div class="op-airmail-sep" aria-hidden="true"></div>
+    </>
+    ) : (
+      <>
+        <section class="op-section op-section--unavailable">
+          <div class="op-section__header">
+            <div class="op-section__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h2 class="op-section__title">{t(lang, 'operator.letters_unavailable_title')}</h2>
+          </div>
+          <p class="op-unavailable-notice">{operator.letters.notice?.[lang]}</p>
+          {operator.letters.unavailable_since && (
+            <p class="op-unavailable-notice__date">{t(lang, 'operator.unavailable_since', { date: formatDate(operator.letters.unavailable_since) })}</p>
+          )}
+        </section>
+        <div class="op-airmail-sep" aria-hidden="true"></div>
+      </>
+    )}
 
     <!-- ====== DOMESTIC PARCELS ====== -->
     <section class="op-section">
@@ -418,6 +469,20 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
         </div>
       ))}
     </section>
+
+    {info.sources && info.sources.length > 0 && (
+      <section class="operator-sources" aria-labelledby="operator-sources-title">
+        <h2 id="operator-sources-title">{t(lang, 'operator.sources_title')}</h2>
+        <ul>
+          {info.sources.map((source) => (
+            <li>
+              <a href={source.url} target="_blank" rel="noopener">{source.title}</a>
+              <span>{t(lang, 'operator.source_retrieved', { date: formatDate(source.retrieved_at) })}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     <!-- Bottom CTA -->
     <div class="op-bottom-nav">
