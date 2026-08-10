@@ -1,6 +1,7 @@
 announcements:
   - country: "FR"
     operator_id: "la-poste-fr"
+    scope: "consumer"
     status: "confirmed"
     effective_date: "2027-01-01"
     source:
@@ -36,8 +37,13 @@ announcements:
         old_price_eur: 6.11
         new_price_eur: 6.47
         percentage_change: 5.9
+      - type: "price_change"
+        product: { fr: "Lettre internationale 20 g", en: "International letter 20 g", de: "Internationaler Brief 20 g" }
+        availability: "published"
+        new_price_eur: 2.45
   - country: "DE"
     operator_id: "deutsche-post-de"
+    scope: "consumer"
     status: "confirmed"
     effective_date: "2027-01-01"
     source:
@@ -56,6 +62,7 @@ announcements:
         availability: "not_published"
   - country: "DK"
     operator_id: "postnord-dk"
+    scope: "consumer"
     status: "preview"
     effective_date: null
     source:

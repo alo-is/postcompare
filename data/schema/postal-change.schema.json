@@ -54,37 +54,46 @@
         {
           "if": { "properties": { "type": { "const": "price_change" } }, "required": ["type"] },
           "then": {
-            "properties": {
-              "old_price_eur": true,
-              "new_price_eur": true,
-              "percentage_change": true
-            },
-            "required": ["old_price_eur", "new_price_eur", "percentage_change"]
-          }
-        },
-        {
-          "if": { "required": ["old_price_eur"] },
-          "then": {
             "properties": { "new_price_eur": true },
             "required": ["new_price_eur"]
           }
         },
         {
-          "if": { "required": ["new_price_eur"] },
-          "then": {
+          "if": {
             "properties": { "old_price_eur": true },
             "required": ["old_price_eur"]
+          },
+          "then": {
+            "properties": {
+              "new_price_eur": true,
+              "percentage_change": true
+            },
+            "required": ["new_price_eur", "percentage_change"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "percentage_change": true },
+            "required": ["percentage_change"]
+          },
+          "then": {
+            "properties": {
+              "old_price_eur": true,
+              "new_price_eur": true
+            },
+            "required": ["old_price_eur", "new_price_eur"]
           }
         }
       ]
     },
     "announcement": {
       "type": "object",
-      "required": ["country", "operator_id", "status", "effective_date", "source", "changes"],
+      "required": ["country", "operator_id", "scope", "status", "effective_date", "source", "changes"],
       "additionalProperties": false,
       "properties": {
         "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
         "operator_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "scope": { "type": "string", "enum": ["consumer", "business"] },
         "status": { "type": "string", "enum": ["confirmed", "preview"] },
         "effective_date": { "type": ["string", "null"], "format": "date" },
         "source": { "$ref": "#/$defs/source" },
