@@ -82,7 +82,7 @@ La direction visuelle prolonge le système « patrimoine postal » existant : pa
 │ avis : les prix futurs ne sont pas comparés    │
 ├── 01 JAN ─ France ─ changements chiffrés ──────┤
 │           Allemagne ─ changements structurels  │
-├── À VENIR ─ Danemark ─ aperçu officiel ────────┤
+├── À VENIR ─ aperçus grand public ──────────────┤
 └──────────────── méthodologie ───────────────────┘
 ```
 
@@ -95,7 +95,7 @@ Les effets décoratifs restent limités à cette ligne de bulletin et aux filets
 - Le comparateur ignore les lettres PostNord Danemark arrêtées.
 - Les annonces 2027 ne modifient aucun résultat courant.
 - Les trois variantes statiques de la page 2027 sont générées.
-- Les pages France, Allemagne et Danemark présentent la bonne alerte.
+- Les pages des opérateurs ayant une annonce grand public, actuellement France et Allemagne, présentent la bonne alerte ; la page Danemark n'affiche aucune alerte publique.
 - Les commandes npm de validation, test et build sont exécutées exclusivement dans Docker.
 
 ## Hors périmètre

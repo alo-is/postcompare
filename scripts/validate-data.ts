@@ -6,7 +6,7 @@ import path from 'node:path';
 import yaml from 'js-yaml';
 import type { OperatorData, PostalChangesData } from '../src/lib/types';
 import {
-  validateOperatorRateLists,
+  classifyOperatorRateListIssues,
   validatePostalChangeSemantics,
 } from '../src/lib/data-validation';
 
@@ -77,27 +77,22 @@ function main() {
     }
   }
 
-  const sourceDocumentedOperators = operators.filter(
-    ({ operator }) => (operator.sources?.length ?? 0) > 0,
-  );
-  const legacyOperators = operators.filter(
-    ({ operator }) => (operator.sources?.length ?? 0) === 0,
-  );
+  const rateListIssues = classifyOperatorRateListIssues(operators);
   const semanticErrors = [
     ...validatePostalChangeSemantics(postalChanges, operators),
-    ...sourceDocumentedOperators.flatMap(validateOperatorRateLists),
+    ...rateListIssues.errors,
   ];
   for (const error of semanticErrors) {
     hasErrors = true;
     console.error(`❌ ${error}`);
   }
-  console.log(
-    `✅ semantic rate-list invariants (${sourceDocumentedOperators.length} source-documented operators)`,
-  );
-
-  const legacyRateWarnings = legacyOperators.flatMap(validateOperatorRateLists);
-  for (const warning of legacyRateWarnings) {
-    console.warn(`⚠️ legacy rate-list warning (non-blocking, no update source): ${warning}`);
+  for (const warning of rateListIssues.warnings) {
+    console.warn(`⚠️ allowlisted legacy rate-list warning (non-blocking): ${warning}`);
+  }
+  if (semanticErrors.length === 0) {
+    console.log(
+      `✅ semantic rate-list invariants (${operators.length} operators checked, ${rateListIssues.warnings.length} explicit legacy exceptions)`,
+    );
   }
 
   if (hasErrors) {
