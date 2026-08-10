@@ -51,7 +51,7 @@ Ouvrez une [Issue](../../issues/new?template=price-update.yml) en precisant l'op
 
 1. Forkez le depot
 2. Modifiez le fichier YAML dans `data/operators/`
-3. Verifiez le schema : `npm run validate`
+3. Verifiez le schema avec la [commande Docker de validation](#developpement)
 4. Ouvrez une Pull Request
 
 ### Format des donnees
@@ -81,12 +81,34 @@ letters:
 
 ## Developpement
 
+Le projet se lance dans Docker ; aucune installation de Node.js ou de `npm` sur
+l'hote n'est necessaire. Depuis la racine du depot, creez une fois le volume
+qui conserve les dependances entre les conteneurs :
+
 ```bash
-npm install
-npm run dev       # Serveur de dev sur localhost:4321
-npm test          # Tests unitaires
-npm run validate  # Validation des YAML
-npm run build     # Build statique
+docker volume create postcompare_2027_node_modules
+```
+
+Installez ensuite les dependances verrouillees :
+
+```bash
+docker run --rm -v "$PWD:/app" -v postcompare_2027_node_modules:/app/node_modules -w /app node:22-bookworm npm ci
+```
+
+Utilisez les memes montages pour chaque commande de developpement :
+
+```bash
+# Serveur de dev sur http://localhost:4321
+docker run --rm -it -p 4321:4321 -v "$PWD:/app" -v postcompare_2027_node_modules:/app/node_modules -w /app node:22-bookworm npm run dev -- --host 0.0.0.0
+
+# Tests unitaires
+docker run --rm -v "$PWD:/app" -v postcompare_2027_node_modules:/app/node_modules -w /app node:22-bookworm npm test
+
+# Validation des fichiers YAML
+docker run --rm -v "$PWD:/app" -v postcompare_2027_node_modules:/app/node_modules -w /app node:22-bookworm npm run validate
+
+# Build statique
+docker run --rm -v "$PWD:/app" -v postcompare_2027_node_modules:/app/node_modules -w /app node:22-bookworm npm run build
 ```
 
 ## Licence
