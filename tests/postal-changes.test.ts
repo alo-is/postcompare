@@ -15,7 +15,7 @@ const postalChangeSchema = JSON.parse(fs.readFileSync(
 ));
 const validatePostalChanges = ajv.compile(postalChangeSchema);
 
-describe('2027 consumer postal changes', () => {
+describe('2027 postal changes', () => {
   const changes = loadPostalChanges();
 
   it('provides all translations for customer-facing announcements', () => {
@@ -33,9 +33,15 @@ describe('2027 consumer postal changes', () => {
     }
   });
 
-  it('limits this dataset to consumer announcements', () => {
+  it('retains the Denmark business preview as structured research data', () => {
     expect(changes.announcements).toHaveLength(3);
-    expect(changes.announcements.every((announcement) => announcement.scope === 'consumer')).toBe(true);
+    expect(changes.announcements).toContainEqual(expect.objectContaining({
+      country: 'DK',
+      operator_id: 'postnord-dk',
+      scope: 'business',
+      status: 'preview',
+    }));
+    expect(validatePostalChanges(changes)).toBe(true);
   });
 
   it('references operators present in the operator dataset', () => {
@@ -126,7 +132,7 @@ describe('2027 consumer postal changes', () => {
     expect(changes.announcements).toEqual(expect.arrayContaining([
       expect.objectContaining({ country: 'FR', operator_id: 'la-poste-fr', status: 'confirmed', effective_date: '2027-01-01' }),
       expect.objectContaining({ country: 'DE', operator_id: 'deutsche-post-de', status: 'confirmed', effective_date: '2027-01-01' }),
-      expect.objectContaining({ country: 'DK', operator_id: 'postnord-dk', status: 'preview', effective_date: null }),
+      expect.objectContaining({ country: 'DK', operator_id: 'postnord-dk', scope: 'business', status: 'preview', effective_date: null }),
     ]));
   });
 });

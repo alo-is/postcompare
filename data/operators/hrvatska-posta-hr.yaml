@@ -64,24 +64,6 @@ parcels:
       price_eur: 5.96
       delivery_days: [2, 4]
       tracking: true
-    - name: "Paket"
-      max_weight_kg: 5
-      price_eur: 4.50
-      delivery_days: [2, 4]
-      tracking: true
-      options:
-        - name: "Osiguranje"
-          price_eur: 1.50
-    - name: "Paket"
-      max_weight_kg: 10
-      price_eur: 6.00
-      delivery_days: [2, 4]
-      tracking: true
-    - name: "Paket"
-      max_weight_kg: 20
-      price_eur: 8.00
-      delivery_days: [2, 4]
-      tracking: true
   international:
     zones:
       - name: "Europe"

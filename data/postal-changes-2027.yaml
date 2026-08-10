@@ -64,7 +64,7 @@ announcements:
         availability: "not_published"
   - country: "DK"
     operator_id: "postnord-dk"
-    scope: "consumer"
+    scope: "business"
     status: "preview"
     effective_date: null
     source:

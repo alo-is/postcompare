@@ -75,7 +75,7 @@
     "letters_unavailable_title": "Letter service unavailable",
     "letters_unavailable_short": "Letters unavailable",
     "unavailable_since": "Unavailable since {date}",
-    "sources_title": "Current rate sources",
+    "sources_title": "Sources consulted for updates",
     "source_retrieved": "Retrieved {date}"
   },
   "about": {
@@ -153,11 +153,12 @@
     "product_introduced": "new product announced",
     "product_changed": "product changed",
     "product_removed": "product withdrawn",
-    "announcement": "official announcement"
+    "announcement": "official announcement",
+    "methodology": "The absence of an official announcement found as of {date} does not guarantee that no later change will be published."
   },
   "postal_teaser": {
     "title": "Changes announced for 2027",
-    "text": "Browse confirmed official announcements and forthcoming previews.",
+    "text": "{count} confirmed consumer announcements. Read the official bulletin.",
     "link": "Read the 2027 bulletin"
   },
   "footer": {

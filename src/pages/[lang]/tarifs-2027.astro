@@ -10,6 +10,7 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const changes = loadPostalChanges();
+const consumerAnnouncements = changes.announcements.filter(({ scope }) => scope === 'consumer');
 const operators = loadAllOperators();
 const countries = loadCountries();
 
@@ -55,9 +56,9 @@ const changeSummary = (change: PostalChange) => {
   return change.details?.[lang] ?? t(lang, `postal_changes.${change.type}`);
 };
 
-const confirmed = changes.announcements.filter(({ status }) => status === 'confirmed');
-const preview = changes.announcements.filter(({ status }) => status === 'preview');
-const lastVerified = changes.announcements
+const confirmed = consumerAnnouncements.filter(({ status }) => status === 'confirmed');
+const preview = consumerAnnouncements.filter(({ status }) => status === 'preview');
+const lastVerified = consumerAnnouncements
   .map(({ source }) => source.retrieved_at)
   .sort()
   .at(-1);
@@ -84,6 +85,7 @@ const lastVerified = changes.announcements
       {t(lang, 'postal_changes.notice')}
     </aside>
 
+    {confirmed.length > 0 && (
     <section class="postal-bulletin__section" aria-labelledby="confirmed-changes">
       <h2 id="confirmed-changes">{t(lang, 'postal_changes.confirmed_title')}</h2>
       <div class="postal-timeline">
@@ -114,7 +116,9 @@ const lastVerified = changes.announcements
         ))}
       </div>
     </section>
+    )}
 
+    {preview.length > 0 && (
     <section class="postal-bulletin__section" aria-labelledby="preview-changes">
       <h2 id="preview-changes">{t(lang, 'postal_changes.preview_title')}</h2>
       <div class="postal-timeline">
@@ -141,6 +145,13 @@ const lastVerified = changes.announcements
         ))}
       </div>
     </section>
+    )}
+
+    {lastVerified && (
+      <p class="postal-bulletin__methodology">
+        {t(lang, 'postal_changes.methodology', { date: formatDate(lastVerified) })}
+      </p>
+    )}
 
     <p class="postal-bulletin__back"><a href={localePath(lang, '/')}>{t(lang, 'operator.back_home')}</a></p>
   </article>

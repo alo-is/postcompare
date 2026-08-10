@@ -18,22 +18,10 @@ letters:
       max_weight_g: 50
       price_eur: 3.00
       delivery_days: [2, 4]
-    - name: "Kirje 2. luokka"
+    - name: "Kirje"
       max_weight_g: 250
-      price_eur: 4.25
+      price_eur: 6.00
       delivery_days: [2, 4]
-    - name: "Kirje 1. luokka"
-      max_weight_g: 250
-      price_eur: 5.25
-      delivery_days: [1, 2]
-    - name: "Kirje 2. luokka"
-      max_weight_g: 500
-      price_eur: 5.50
-      delivery_days: [2, 4]
-    - name: "Kirje 1. luokka"
-      max_weight_g: 500
-      price_eur: 6.75
-      delivery_days: [1, 2]
   international:
     zones:
       - name: "Europe"
@@ -48,11 +36,11 @@ letters:
                 price_eur: 8.50
           - name: "Ulkomaankirje Priority"
             max_weight_g: 100
-            price_eur: 4.85
+            price_eur: 6.70
             delivery_days: [3, 7]
           - name: "Ulkomaankirje Priority"
             max_weight_g: 500
-            price_eur: 8.50
+            price_eur: 16.75
             delivery_days: [3, 7]
 
 parcels:

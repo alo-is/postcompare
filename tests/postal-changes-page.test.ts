@@ -27,7 +27,7 @@ beforeAll(() => {
 });
 
 describe('2027 postal-change public pages', () => {
-  it('generates the postal bulletin in all three locales with confirmed and preview notices', () => {
+  it('generates the consumer postal bulletin in all three locales without an empty preview section', () => {
     const fr = page('fr/tarifs-2027');
     const en = page('en/tarifs-2027');
     const de = page('de/tarifs-2027');
@@ -41,9 +41,11 @@ describe('2027 postal-change public pages', () => {
     for (const html of [fr, en, de]) {
       expect(html).toContain('2027-01-01');
       expect(html).toMatch(/confirmed|confirmé|bestätigt/i);
-      expect(html).toMatch(/preview|aperçu|vorschau/i);
+      expect(html).not.toContain('id="preview-changes"');
       expect(html).toContain('laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027');
       expect(html).toContain('deutschepost.de/de/b/briefe-ins-ausland');
+      expect(html).not.toContain('postnord.dk/en/business/prices-for-businesses/post2027');
+      expect(html).not.toContain('Post 2027');
     }
   });
 
@@ -64,23 +66,40 @@ describe('2027 postal-change public pages', () => {
       expect(home).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain(`href="/${lang}/tarifs-2027"`);
       expect(germany).toContain(`href="/${lang}/tarifs-2027"`);
-      expect(denmark).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain('operator-postal-alert');
       expect(germany).toContain('operator-postal-alert');
-      expect(denmark).toContain('operator-postal-alert');
+      expect(denmark).not.toContain('operator-postal-alert');
       expect(belgium).not.toContain('operator-postal-alert');
     }
   });
 
-  it('shows a PostNord letter-service notice instead of letter prices and renders current-rate sources', () => {
+  it('shows a PostNord letter-service notice instead of letter prices and labels consulted update sources', () => {
     const denmark = page('en/operator/postnord-dk');
     const belgium = page('en/operator/bpost-be');
 
     expect(denmark).toContain('PostNord letter services are no longer available in Denmark.');
     expect(denmark).not.toContain('from 3.08 EUR');
     expect(denmark).not.toContain('Brev (dao)');
-    expect(belgium).toContain('Current rate sources');
+    expect(belgium).toContain('Sources consulted for updates');
     expect(belgium).toContain('bpost.be');
+  });
+
+  it('states the localized confirmed consumer count on each homepage', () => {
+    expect(page('fr')).toContain('2 annonces grand public confirmées');
+    expect(page('en')).toContain('2 confirmed consumer announcements');
+    expect(page('de')).toContain('2 bestätigte Verbraucherankündigungen');
+  });
+
+  it('adds a localized methodology warning tied to the verification date', () => {
+    expect(page('fr/tarifs-2027')).toContain(
+      'L’absence d’annonce officielle trouvée au 10 août 2026 ne garantit pas qu’aucun changement ultérieur ne sera publié.',
+    );
+    expect(page('en/tarifs-2027')).toContain(
+      'The absence of an official announcement found as of 10 Aug 2026 does not guarantee that no later change will be published.',
+    );
+    expect(page('de/tarifs-2027')).toContain(
+      'Dass bis zum 10. Aug. 2026 keine offizielle Ankündigung gefunden wurde, garantiert nicht, dass später keine Änderung veröffentlicht wird.',
+    );
   });
 
   it('aligns the generated bulletin timeline on one desktop grid without offset padding', () => {

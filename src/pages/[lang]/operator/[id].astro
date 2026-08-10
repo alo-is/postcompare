@@ -30,7 +30,7 @@ if (!operator) {
 const info = operator.operator;
 const lettersAvailable = operator.letters.available !== false;
 const postalAnnouncement = loadPostalChanges().announcements.find(
-  ({ operator_id }) => operator_id === info.id,
+  ({ operator_id, scope }) => operator_id === info.id && scope === 'consumer',
 );
 
 const getCountry = (code: string): Country | undefined =>
