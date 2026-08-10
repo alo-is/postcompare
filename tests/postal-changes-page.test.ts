@@ -47,6 +47,12 @@ describe('2027 postal-change public pages', () => {
     }
   });
 
+  it('shows the latest announcement verification date in each locale', () => {
+    expect(page('fr/tarifs-2027')).toContain('Dernière vérification : 10 août 2026');
+    expect(page('en/tarifs-2027')).toContain('Last verified: 10 Aug 2026');
+    expect(page('de/tarifs-2027')).toContain('Zuletzt geprüft: 10. Aug. 2026');
+  });
+
   it('links the homepage teaser, navigation, and affected operators to the localized bulletin', () => {
     for (const lang of ['fr', 'en', 'de']) {
       const home = page(lang);
