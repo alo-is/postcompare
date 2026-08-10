@@ -8,7 +8,8 @@
     "home": "Comparateur",
     "about": "À propos",
     "contribute": "Contribuer",
-    "rankings": "Classement"
+    "rankings": "Classement",
+    "postal_changes": "Tarifs 2027"
   },
   "form": {
     "type": "Type d'envoi",
@@ -68,7 +69,14 @@
     "insurance": "Assurance",
     "tracking_label": "Suivi",
     "signature": "Signature",
-    "from_price": "dès {price} EUR"
+    "from_price": "dès {price} EUR",
+    "postal_alert": "Une mise à jour tarifaire 2027 concerne cet opérateur.",
+    "postal_alert_link": "Voir les changements 2027",
+    "letters_unavailable_title": "Service de lettres indisponible",
+    "letters_unavailable_short": "Lettres indisponibles",
+    "unavailable_since": "Indisponible depuis le {date}",
+    "sources_title": "Sources des tarifs actuels",
+    "source_retrieved": "Consultée le {date}"
   },
   "about": {
     "title": "À propos de PostCompare.eu",
@@ -127,6 +135,29 @@
     "most_expensive": "Les 5 plus chers",
     "cta": "Comparez vos propres envois",
     "days": "j"
+  },
+  "postal_changes": {
+    "title": "Tarifs postaux 2027",
+    "intro": "Bulletin des changements officiels annoncés pour 2027.",
+    "notice": "Les prix futurs annoncés ici ne sont pas intégrés au comparateur : celui-ci continue d’afficher les tarifs actuellement publiés.",
+    "confirmed": "Confirmé",
+    "preview": "Aperçu officiel",
+    "confirmed_title": "Changements confirmés",
+    "preview_title": "À venir",
+    "effective": "Applicable le {date}",
+    "date_pending": "Date d’effet à confirmer",
+    "source": "Consulter la source officielle de {operator}",
+    "price_change": "de {oldPrice} à {newPrice}",
+    "new_price": "nouveau prix : {newPrice}",
+    "product_introduced": "nouveau produit annoncé",
+    "product_changed": "produit modifié",
+    "product_removed": "produit retiré",
+    "announcement": "annonce officielle"
+  },
+  "postal_teaser": {
+    "title": "Changements annoncés pour 2027",
+    "text": "Consultez les annonces officielles confirmées et les aperçus à venir.",
+    "link": "Lire le bulletin 2027"
   },
   "footer": {
     "tagline": "Comparateur indépendant de tarifs postaux européens",

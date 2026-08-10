@@ -57,6 +57,238 @@
   --perf-color: var(--color-paper);
 }
 
+/* ===== 2027 Postal Bulletin ===== */
+.postal-bulletin {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.postal-bulletin__header {
+  padding-bottom: var(--space-xl);
+  border-bottom: var(--border-dashed);
+}
+
+.postal-bulletin__eyebrow {
+  color: var(--color-brass);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.postal-bulletin__header h1 {
+  margin: var(--space-xs) 0 var(--space-sm);
+  font-size: 2.5rem;
+}
+
+.postal-bulletin__header > p:last-child {
+  color: var(--color-ink-secondary);
+  font-size: 1.05rem;
+}
+
+.postal-bulletin__notice,
+.operator-postal-alert,
+.op-unavailable-notice {
+  border-left: 4px solid var(--color-postal-red);
+  background: var(--color-paper-light);
+  color: var(--color-ink-secondary);
+}
+
+.postal-bulletin__notice {
+  margin: var(--space-xl) 0 var(--space-2xl);
+  padding: var(--space-md) var(--space-lg);
+  font-style: italic;
+}
+
+.postal-bulletin__section + .postal-bulletin__section {
+  margin-top: var(--space-2xl);
+}
+
+.postal-bulletin__section > h2 {
+  margin-bottom: var(--space-lg);
+  font-size: 1.45rem;
+}
+
+.postal-timeline {
+  position: relative;
+  padding-left: 12rem;
+}
+
+.postal-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 10.2rem;
+  border-left: 2px dashed var(--color-border);
+}
+
+.postal-timeline__entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9.2rem 1fr;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-2xl);
+}
+
+.postal-timeline__entry::before {
+  content: '';
+  position: absolute;
+  top: 0.35rem;
+  left: 10.2rem;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--color-airmail-blue);
+  border-radius: 50%;
+  background: var(--color-paper);
+  transform: translateX(-50%);
+}
+
+.postal-timeline__date {
+  grid-column: 1;
+  color: var(--color-ink-faded);
+  font-size: 0.82rem;
+  text-align: right;
+}
+
+.postal-timeline__date time {
+  display: block;
+  margin-top: var(--space-xs);
+}
+
+.postal-timeline__content {
+  grid-column: 2;
+}
+
+.postal-timeline__content h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.postal-timeline__content ul {
+  margin: 0 0 var(--space-md);
+  padding-left: 1.15rem;
+}
+
+.postal-timeline__content li {
+  margin-bottom: var(--space-xs);
+  color: var(--color-ink-secondary);
+}
+
+.postal-timeline__content a,
+.operator-postal-alert a,
+.postal-teaser a,
+.operator-sources a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.postal-status {
+  display: inline-block;
+  padding: 2px 7px;
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.postal-status--confirmed { background: var(--color-postal-red); }
+.postal-status--preview { background: var(--color-airmail-blue); }
+
+.postal-bulletin__back {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: var(--border-dashed);
+}
+
+.postal-teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  max-width: 960px;
+  margin: var(--space-xl) auto 0;
+  padding: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.postal-teaser h2 { font-size: 1.2rem; margin-bottom: var(--space-xs); }
+.postal-teaser p { color: var(--color-ink-secondary); font-size: 0.92rem; }
+
+.operator-postal-alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  margin: 0 0 var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.operator-postal-alert p { margin: 0; }
+
+.op-hero__price-card--unavailable {
+  border-color: var(--color-postal-red);
+}
+
+.op-hero__price-card--unavailable .op-hero__price-value {
+  color: var(--color-postal-red-dark);
+  font-size: 0.82rem;
+}
+
+.op-unavailable-notice {
+  padding: var(--space-lg);
+  font-size: 1rem;
+}
+
+.op-unavailable-notice__date {
+  margin-top: var(--space-sm);
+  color: var(--color-ink-faded);
+  font-size: 0.85rem;
+}
+
+.operator-sources {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: var(--border-dashed);
+}
+
+.operator-sources h2 { font-size: 1.2rem; margin-bottom: var(--space-sm); }
+.operator-sources ul { padding-left: 1.15rem; }
+.operator-sources li { margin-bottom: var(--space-xs); }
+.operator-sources span { margin-left: var(--space-sm); color: var(--color-ink-faded); font-size: 0.82rem; }
+
+*:focus-visible {
+  outline: 3px solid var(--color-brass);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .postal-bulletin { padding: var(--space-2xl) var(--space-md); }
+  .postal-bulletin__header h1 { font-size: 1.9rem; }
+  .postal-timeline { padding-left: 0; }
+  .postal-timeline::before { left: 0.3rem; }
+  .postal-timeline__entry { display: block; padding-left: var(--space-xl); }
+  .postal-timeline__entry::before { left: 0.3rem; }
+  .postal-timeline__date { text-align: left; margin-bottom: var(--space-sm); }
+  .postal-teaser, .operator-postal-alert { align-items: flex-start; flex-direction: column; gap: var(--space-sm); margin-left: var(--space-md); margin-right: var(--space-md); }
+  .operator-sources span { display: block; margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* ===== Reset ===== */
 *, *::before, *::after {
   box-sizing: border-box;

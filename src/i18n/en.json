@@ -8,7 +8,8 @@
     "home": "Comparator",
     "about": "About",
     "contribute": "Contribute",
-    "rankings": "Rankings"
+    "rankings": "Rankings",
+    "postal_changes": "2027 rates"
   },
   "form": {
     "type": "Shipment type",
@@ -68,7 +69,14 @@
     "insurance": "Insurance",
     "tracking_label": "Tracking",
     "signature": "Signature",
-    "from_price": "from {price} EUR"
+    "from_price": "from {price} EUR",
+    "postal_alert": "A 2027 postal-rate update affects this operator.",
+    "postal_alert_link": "View 2027 changes",
+    "letters_unavailable_title": "Letter service unavailable",
+    "letters_unavailable_short": "Letters unavailable",
+    "unavailable_since": "Unavailable since {date}",
+    "sources_title": "Current rate sources",
+    "source_retrieved": "Retrieved {date}"
   },
   "about": {
     "title": "About PostCompare.eu",
@@ -127,6 +135,29 @@
     "most_expensive": "Top 5 most expensive",
     "cta": "Compare your own shipments",
     "days": "d"
+  },
+  "postal_changes": {
+    "title": "2027 postal changes",
+    "intro": "Bulletin of officially announced changes for 2027.",
+    "notice": "Future prices announced here are not included in the comparator: it continues to show currently published rates.",
+    "confirmed": "Confirmed",
+    "preview": "Official preview",
+    "confirmed_title": "Confirmed changes",
+    "preview_title": "Coming up",
+    "effective": "Effective {date}",
+    "date_pending": "Effective date to be confirmed",
+    "source": "Read {operator}’s official source",
+    "price_change": "from {oldPrice} to {newPrice}",
+    "new_price": "new price: {newPrice}",
+    "product_introduced": "new product announced",
+    "product_changed": "product changed",
+    "product_removed": "product withdrawn",
+    "announcement": "official announcement"
+  },
+  "postal_teaser": {
+    "title": "Changes announced for 2027",
+    "text": "Browse confirmed official announcements and forthcoming previews.",
+    "link": "Read the 2027 bulletin"
   },
   "footer": {
     "tagline": "Independent European postal rate comparator",
