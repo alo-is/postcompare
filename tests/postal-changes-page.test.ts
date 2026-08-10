@@ -11,6 +11,14 @@ function page(pathname: string): string {
   return fs.readFileSync(file, 'utf-8');
 }
 
+function generatedStyles(): string {
+  const assets = path.join(DIST_DIR, '_astro');
+  return fs.readdirSync(assets)
+    .filter((file) => file.endsWith('.css'))
+    .map((file) => fs.readFileSync(path.join(assets, file), 'utf-8'))
+    .join('\n');
+}
+
 beforeAll(() => {
   execFileSync(path.join(process.cwd(), 'node_modules/.bin/astro'), ['build'], {
     cwd: process.cwd(),
@@ -27,6 +35,9 @@ describe('2027 postal-change public pages', () => {
     expect(fr).toContain('Tarifs postaux 2027');
     expect(en).toContain('2027 postal changes');
     expect(de).toContain('Posttarife 2027');
+    expect(fr).toContain('celui-ci continue d’afficher les tarifs actuellement publiés.');
+    expect(en).toContain('it continues to show currently published rates.');
+    expect(de).toContain('Er zeigt weiterhin die aktuell veröffentlichten Tarife.');
     for (const html of [fr, en, de]) {
       expect(html).toContain('2027-01-01');
       expect(html).toMatch(/confirmed|confirmé|bestätigt/i);
@@ -42,11 +53,16 @@ describe('2027 postal-change public pages', () => {
       const france = page(`${lang}/operator/la-poste-fr`);
       const germany = page(`${lang}/operator/deutsche-post-de`);
       const denmark = page(`${lang}/operator/postnord-dk`);
+      const belgium = page(`${lang}/operator/bpost-be`);
 
       expect(home).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain(`href="/${lang}/tarifs-2027"`);
       expect(germany).toContain(`href="/${lang}/tarifs-2027"`);
       expect(denmark).toContain(`href="/${lang}/tarifs-2027"`);
+      expect(france).toContain('operator-postal-alert');
+      expect(germany).toContain('operator-postal-alert');
+      expect(denmark).toContain('operator-postal-alert');
+      expect(belgium).not.toContain('operator-postal-alert');
     }
   });
 
@@ -59,5 +75,13 @@ describe('2027 postal-change public pages', () => {
     expect(denmark).not.toContain('Brev (dao)');
     expect(belgium).toContain('Current rate sources');
     expect(belgium).toContain('bpost.be');
+  });
+
+  it('aligns the generated bulletin timeline on one desktop grid without offset padding', () => {
+    const styles = generatedStyles();
+
+    expect(styles).toMatch(/\.postal-timeline\{[^}]*grid-template-columns:9\.2rem minmax\(0,1fr\)/);
+    expect(styles).toMatch(/\.postal-timeline\{[^}]*display:grid/);
+    expect(styles).not.toMatch(/\.postal-timeline\{[^}]*padding-left:12rem/);
   });
 });

@@ -113,7 +113,9 @@
 
 .postal-timeline {
   position: relative;
-  padding-left: 12rem;
+  display: grid;
+  grid-template-columns: 9.2rem minmax(0, 1fr);
+  column-gap: var(--space-xl);
 }
 
 .postal-timeline::before {
@@ -128,8 +130,9 @@
 .postal-timeline__entry {
   position: relative;
   display: grid;
-  grid-template-columns: 9.2rem 1fr;
-  gap: var(--space-lg);
+  grid-column: 1 / -1;
+  grid-template-columns: 9.2rem minmax(0, 1fr);
+  column-gap: var(--space-xl);
   padding-bottom: var(--space-2xl);
 }
 
