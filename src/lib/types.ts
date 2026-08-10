@@ -136,6 +136,7 @@ export interface LocalizedText {
 /** Official source for published or announced postal information. */
 export interface Source {
   url: string;
+  retrieved_at: string;
 }
 
 /** An official source associated with an operator dataset. */
