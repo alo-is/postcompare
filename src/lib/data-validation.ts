@@ -13,6 +13,17 @@ interface RateList {
   weightKey: 'max_weight_g' | 'max_weight_kg';
 }
 
+const ALLOWED_LEGACY_RATE_LIST_ERRORS = new Set([
+  'ceska-posta-cz.yaml: letters.international.Europe Dopis do zahraničí price decreases from 2 to 1.8 as weight increases',
+  'correos-es.yaml: parcels.domestic weights must be non-decreasing',
+  'royal-mail-gb.yaml: parcels.domestic weights must be non-decreasing',
+]);
+
+export interface OperatorRateListIssues {
+  errors: string[];
+  warnings: string[];
+}
+
 export function validatePostalChangeSemantics(
   changes: PostalChangesData,
   operators: OperatorData[],
@@ -88,4 +99,20 @@ export function validateOperatorRateLists(operator: OperatorData): string[] {
   }
 
   return errors;
+}
+
+export function classifyOperatorRateListIssues(
+  operators: OperatorData[],
+): OperatorRateListIssues {
+  const issues: OperatorRateListIssues = { errors: [], warnings: [] };
+
+  for (const error of operators.flatMap(validateOperatorRateLists)) {
+    if (ALLOWED_LEGACY_RATE_LIST_ERRORS.has(error)) {
+      issues.warnings.push(error);
+    } else {
+      issues.errors.push(error);
+    }
+  }
+
+  return issues;
 }

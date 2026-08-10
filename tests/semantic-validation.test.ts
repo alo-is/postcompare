@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { loadAllOperators, loadPostalChanges } from '../src/lib/data-loader';
 import {
+  classifyOperatorRateListIssues,
   validateOperatorRateLists,
   validatePostalChangeSemantics,
 } from '../src/lib/data-validation';
@@ -55,5 +56,28 @@ describe('semantic data validation', () => {
     ];
 
     expect(validateOperatorRateLists(fixture)).toEqual([]);
+  });
+
+  it('blocks a new rate-list violation even when the operator has no sources', () => {
+    const fixture = withDecreasingSameProductPrice(posti);
+    delete fixture.operator.sources;
+
+    expect(classifyOperatorRateListIssues([fixture])).toEqual({
+      errors: [
+        'posti-fi.yaml: letters.domestic Fixture letter price decreases from 2 to 1 as weight increases',
+      ],
+      warnings: [],
+    });
+  });
+
+  it('classifies only the three exact legacy dataset violations as warnings', () => {
+    expect(classifyOperatorRateListIssues(operators)).toEqual({
+      errors: [],
+      warnings: [
+        'ceska-posta-cz.yaml: letters.international.Europe Dopis do zahraničí price decreases from 2 to 1.8 as weight increases',
+        'correos-es.yaml: parcels.domestic weights must be non-decreasing',
+        'royal-mail-gb.yaml: parcels.domestic weights must be non-decreasing',
+      ],
+    });
   });
 });
