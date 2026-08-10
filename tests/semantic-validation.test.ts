@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { loadAllOperators, loadPostalChanges } from '../src/lib/data-loader';
 import {
   classifyOperatorRateListIssues,
+  classifySemanticIssues,
   validateOperatorRateLists,
   validatePostalChangeSemantics,
 } from '../src/lib/data-validation';
@@ -9,6 +10,8 @@ import {
   withAnnouncementCountryMismatch,
   withConfirmedAnnouncementWithoutDate,
   withDecreasingSameProductPrice,
+  withIncoherentPercentage,
+  withUnknownAnnouncementOperator,
   withUnsortedWeights,
 } from './fixtures/semantic-validation';
 
@@ -33,6 +36,30 @@ describe('semantic data validation', () => {
     )).toContain(
       'postal-changes-2027.yaml: confirmed announcement la-poste-fr requires an effective date',
     );
+  });
+
+  it('blocks success when an announcement references an unknown operator', () => {
+    const issues = classifySemanticIssues(
+      withUnknownAnnouncementOperator(changes),
+      operators,
+    );
+
+    expect(issues.errors).toContain(
+      'postal-changes-2027.yaml: unknown operator unknown-post',
+    );
+    expect(issues.canReportSuccess).toBe(false);
+  });
+
+  it('blocks success when a price change has an incoherent percentage', () => {
+    const issues = classifySemanticIssues(
+      withIncoherentPercentage(changes),
+      operators,
+    );
+
+    expect(issues.errors).toContain(
+      'postal-changes-2027.yaml: incoherent percentage for Green letter 20 g',
+    );
+    expect(issues.canReportSuccess).toBe(false);
   });
 
   it('rejects a decreasing price across increasing weights for one product', () => {

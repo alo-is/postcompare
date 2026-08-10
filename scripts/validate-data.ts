@@ -5,10 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
 import type { OperatorData, PostalChangesData } from '../src/lib/types';
-import {
-  classifyOperatorRateListIssues,
-  validatePostalChangeSemantics,
-} from '../src/lib/data-validation';
+import { classifySemanticIssues } from '../src/lib/data-validation';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 
@@ -61,37 +58,17 @@ function main() {
     console.log('✅ postal-changes-2027.yaml');
   }
 
-  const operatorIds = new Set(operators.map(({ operator }) => operator.id));
-  for (const announcement of postalChanges.announcements) {
-    if (!operatorIds.has(announcement.operator_id)) {
-      hasErrors = true;
-      console.error(`❌ postal-changes-2027.yaml: unknown operator ${announcement.operator_id}`);
-    }
-    for (const change of announcement.changes) {
-      if (change.type !== 'price_change') continue;
-      const expectedPercentage = ((change.new_price_eur! - change.old_price_eur!) / change.old_price_eur!) * 100;
-      if (Math.abs(expectedPercentage - change.percentage_change!) > 0.05) {
-        hasErrors = true;
-        console.error(`❌ postal-changes-2027.yaml: incoherent percentage for ${change.product.en}`);
-      }
-    }
-  }
-
-  const rateListIssues = classifyOperatorRateListIssues(operators);
-  const semanticErrors = [
-    ...validatePostalChangeSemantics(postalChanges, operators),
-    ...rateListIssues.errors,
-  ];
-  for (const error of semanticErrors) {
+  const semanticIssues = classifySemanticIssues(postalChanges, operators);
+  for (const error of semanticIssues.errors) {
     hasErrors = true;
     console.error(`❌ ${error}`);
   }
-  for (const warning of rateListIssues.warnings) {
+  for (const warning of semanticIssues.warnings) {
     console.warn(`⚠️ allowlisted legacy rate-list warning (non-blocking): ${warning}`);
   }
-  if (semanticErrors.length === 0) {
+  if (semanticIssues.canReportSuccess) {
     console.log(
-      `✅ semantic rate-list invariants (${operators.length} operators checked, ${rateListIssues.warnings.length} explicit legacy exceptions)`,
+      `✅ semantic rate-list invariants (${operators.length} operators checked, ${semanticIssues.warnings.length} explicit legacy exceptions)`,
     );
   }
 
