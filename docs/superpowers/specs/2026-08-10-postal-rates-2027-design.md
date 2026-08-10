@@ -74,6 +74,20 @@ Les opérateurs concernés affichent une alerte contextuelle vers la page 2027. 
 
 Les statuts ne reposent pas uniquement sur la couleur : chaque carte porte un libellé textuel. Les liens de source ont un intitulé explicite. Les dates utilisent les mêmes données ISO mais sont formatées selon la langue. La hiérarchie visuelle reprend les cartes, bordures et espacements existants sans créer un second système graphique.
 
+La direction visuelle prolonge le système « patrimoine postal » existant : papier `#FAF4E8`, encre `#1A0F07`, rouge postal `#9B2335`, bleu aéropostal `#1E3A5F` et laiton `#B8860B`, avec Playfair Display pour les titres et Source Serif 4 pour le texte. La signature de la page est un bulletin postal daté : une ligne temporelle verticale relie les dates d'effet et transforme les annonces en avis officiels plutôt qu'en cartes marketing génériques.
+
+```text
+┌──────────────── bulletin 2027 ────────────────┐
+│ titre + date de vérification                    │
+│ avis : les prix futurs ne sont pas comparés    │
+├── 01 JAN ─ France ─ changements chiffrés ──────┤
+│           Allemagne ─ changements structurels  │
+├── À VENIR ─ Danemark ─ aperçu officiel ────────┤
+└──────────────── méthodologie ───────────────────┘
+```
+
+Les effets décoratifs restent limités à cette ligne de bulletin et aux filets aéropostaux déjà présents. Le responsive replie la date au-dessus du contenu, conserve un ordre de lecture linéaire, rend le focus clavier visible et respecte `prefers-reduced-motion`.
+
 ## Tests et critères d'acceptation
 
 - Tous les YAML opérateurs et le fichier d'annonces passent leurs schémas.
