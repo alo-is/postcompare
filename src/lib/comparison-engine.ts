@@ -55,6 +55,8 @@ function findRate(
     destCountry === 'domestic' || destCountry === originCountry;
 
   if (params.type === 'letter') {
+    if (operator.letters.available === false) return null;
+
     if (isDomestic) {
       const rate = findLetterRate(operator.letters.domestic, params.weight);
       if (!rate) return null;

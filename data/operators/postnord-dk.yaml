@@ -8,6 +8,12 @@ operator:
   last_updated: "2026-01-01"
 
 letters:
+  available: false
+  unavailable_since: "2026-01-01"
+  notice:
+    fr: "Les services de lettres PostNord ne sont plus disponibles au Danemark."
+    en: "PostNord letter services are no longer available in Denmark."
+    de: "PostNord-Briefdienste sind in Dänemark nicht mehr verfügbar."
   domestic:
     - name: "Brev (dao)"
       max_weight_g: 50

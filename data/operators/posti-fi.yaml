@@ -5,24 +5,19 @@ operator:
   currency: "EUR"
   website: "https://www.posti.fi"
   logo: "posti-fi.svg"
-  last_updated: "2026-01-01"
+  last_updated: "2026-06-02"
+  sources:
+    - title: "Posti letter price lists"
+      url: "https://www.posti.fi/en/sending/letters-and-postcards/letter-price-lists"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-06-02"
 
 letters:
   domestic:
-    - name: "Kirje 2. luokka"
+    - name: "Kirje"
       max_weight_g: 50
-      price_eur: 2.75
+      price_eur: 3.00
       delivery_days: [2, 4]
-      options:
-        - name: "Kirjattu kirje"
-          price_eur: 7.50
-    - name: "Kirje 1. luokka"
-      max_weight_g: 50
-      price_eur: 3.50
-      delivery_days: [1, 2]
-      options:
-        - name: "Kirjattu kirje"
-          price_eur: 7.50
     - name: "Kirje 2. luokka"
       max_weight_g: 250
       price_eur: 4.25
@@ -46,7 +41,7 @@ letters:
         rates:
           - name: "Ulkomaankirje Priority"
             max_weight_g: 20
-            price_eur: 3.05
+            price_eur: 3.35
             delivery_days: [3, 7]
             options:
               - name: "Kirjattu kansainvälinen"
