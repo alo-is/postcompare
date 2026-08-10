@@ -139,6 +139,7 @@
   "postal_changes": {
     "title": "Tarifs postaux 2027",
     "intro": "Bulletin des changements officiels annoncés pour 2027.",
+    "last_verified": "Dernière vérification : {date}",
     "notice": "Les prix futurs annoncés ici ne sont pas intégrés au comparateur : celui-ci continue d’afficher les tarifs actuellement publiés.",
     "confirmed": "Confirmé",
     "preview": "Aperçu officiel",

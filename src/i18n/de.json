@@ -139,6 +139,7 @@
   "postal_changes": {
     "title": "Posttarife 2027",
     "intro": "Bulletin der offiziell angekündigten Änderungen für 2027.",
+    "last_verified": "Zuletzt geprüft: {date}",
     "notice": "Hier angekündigte künftige Preise sind nicht im Vergleich enthalten: Er zeigt weiterhin die aktuell veröffentlichten Tarife.",
     "confirmed": "Bestätigt",
     "preview": "Offizielle Vorschau",

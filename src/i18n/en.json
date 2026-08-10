@@ -139,6 +139,7 @@
   "postal_changes": {
     "title": "2027 postal changes",
     "intro": "Bulletin of officially announced changes for 2027.",
+    "last_verified": "Last verified: {date}",
     "notice": "Future prices announced here are not included in the comparator: it continues to show currently published rates.",
     "confirmed": "Confirmed",
     "preview": "Official preview",

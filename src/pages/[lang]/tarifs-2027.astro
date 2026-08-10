@@ -22,7 +22,13 @@ const operatorName = (announcement: PostalAnnouncement) =>
   operators.find(({ operator }) => operator.id === announcement.operator_id)?.operator.name
   ?? announcement.operator_id;
 
-const formatDate = (date: string) => new Intl.DateTimeFormat(lang, {
+const dateLocales: Record<Lang, string> = {
+  fr: 'fr-FR',
+  en: 'en-GB',
+  de: 'de-DE',
+};
+
+const formatDate = (date: string) => new Intl.DateTimeFormat(dateLocales[lang], {
   day: '2-digit',
   month: 'short',
   year: 'numeric',
@@ -51,6 +57,10 @@ const changeSummary = (change: PostalChange) => {
 
 const confirmed = changes.announcements.filter(({ status }) => status === 'confirmed');
 const preview = changes.announcements.filter(({ status }) => status === 'preview');
+const lastVerified = changes.announcements
+  .map(({ source }) => source.retrieved_at)
+  .sort()
+  .at(-1);
 ---
 
 <BaseLayout
@@ -62,7 +72,12 @@ const preview = changes.announcements.filter(({ status }) => status === 'preview
     <header class="postal-bulletin__header">
       <p class="postal-bulletin__eyebrow">PostCompare.eu · 2027</p>
       <h1>{t(lang, 'postal_changes.title')}</h1>
-      <p>{t(lang, 'postal_changes.intro')}</p>
+      <p class="postal-bulletin__intro">{t(lang, 'postal_changes.intro')}</p>
+      {lastVerified && (
+        <p class="postal-bulletin__verified">
+          {t(lang, 'postal_changes.last_verified', { date: formatDate(lastVerified) })}
+        </p>
+      )}
     </header>
 
     <aside class="postal-bulletin__notice" aria-label={t(lang, 'postal_changes.title')}>
