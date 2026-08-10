@@ -82,6 +82,12 @@ describe('verified current postal rates', () => {
       unavailable_since: '2026-01-01',
       notice: expect.any(Object),
     });
+    expect(postnord.operator.sources).toEqual(expect.arrayContaining([{
+      title: 'PostNord delivers its final letter at the end of 2025',
+      url: 'https://www.postnord.dk/postnord-leverer-sit-sidste-brev-ved-udgangen-af-2025/',
+      retrieved_at: '2026-08-10',
+      effective_from: '2026-01-01',
+    }]));
   });
 
   it('removes discontinued Poste Italiane Posta 1 services but keeps Postamail Internazionale', () => {
