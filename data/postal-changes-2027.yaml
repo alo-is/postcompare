@@ -1,0 +1,67 @@
+announcements:
+  - country: "FR"
+    operator_id: "la-poste-fr"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027"
+    changes:
+      - type: "price_change"
+        product: { fr: "Lettre verte 20 g", en: "Green letter 20 g", de: "Grüner Brief 20 g" }
+        availability: "published"
+        old_price_eur: 1.52
+        new_price_eur: 1.67
+        percentage_change: 9.9
+      - type: "price_change"
+        product: { fr: "Lettre verte suivie", en: "Tracked green letter", de: "Sendungsverfolgter grüner Brief" }
+        availability: "published"
+        old_price_eur: 2.02
+        new_price_eur: 2.17
+        percentage_change: 7.4
+      - type: "price_change"
+        product: { fr: "Services Plus", en: "Services Plus", de: "Services Plus" }
+        availability: "published"
+        old_price_eur: 3.47
+        new_price_eur: 3.67
+        percentage_change: 5.8
+      - type: "price_change"
+        product: { fr: "e-lettre rouge (1 à 3 feuilles)", en: "Red e-letter (1 to 3 sheets)", de: "Roter E-Brief (1 bis 3 Blätter)" }
+        availability: "published"
+        old_price_eur: 1.60
+        new_price_eur: 1.70
+        percentage_change: 6.25
+      - type: "price_change"
+        product: { fr: "Lettre recommandée R1", en: "Registered letter R1", de: "Einschreiben R1" }
+        availability: "published"
+        old_price_eur: 6.11
+        new_price_eur: 6.47
+        percentage_change: 5.9
+  - country: "DE"
+    operator_id: "deutsche-post-de"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.deutschepost.de/de/b/briefe-ins-ausland/brief-international2027_Aenderungen.html"
+    changes:
+      - type: "product_introduced"
+        product: { fr: "Midibrief International", en: "Midibrief International", de: "Midibrief International" }
+        availability: "not_published"
+        details: { fr: "Jusqu’à 500 g et 2 cm", en: "Up to 500 g and 2 cm", de: "Bis 500 g und 2 cm" }
+      - type: "product_changed"
+        product: { fr: "Großbrief International", en: "Großbrief International", de: "Großbrief International" }
+        availability: "not_published"
+        details: { fr: "Jusqu’à 1 kg et 3 cm", en: "Up to 1 kg and 3 cm", de: "Bis 1 kg und 3 cm" }
+      - type: "product_removed"
+        product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
+        availability: "not_published"
+  - country: "DK"
+    operator_id: "postnord-dk"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://www.postnord.dk/en/business/prices-for-businesses/post2027/"
+    changes:
+      - type: "announcement"
+        product: { fr: "Post 2027", en: "Post 2027", de: "Post 2027" }
+        availability: "upcoming"
+        details: { fr: "Produits et prix attendus en octobre 2026", en: "Product and price content expected in October 2026", de: "Produkt- und Preisinhalte werden im Oktober 2026 erwartet" }
