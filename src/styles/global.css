@@ -640,6 +640,10 @@ a:hover {
   margin: 0;
 }
 
+.rate-row p.rate-row__tags {
+  margin-top: 4px;
+}
+
 .rate-row__rank {
   color: var(--color-ink-faded);
   font-size: 0.85rem;
