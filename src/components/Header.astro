@@ -14,8 +14,8 @@ const currentPath = Astro.url.pathname.replace(/^\/(fr|en|de)/, '');
 
 <header class="header" role="banner">
   <div class="header__inner">
-    <a href={localePath(lang, '/')} class="header__logo" aria-label="PostCompare.eu - Home">
-      <img src="/logo.svg" alt="PostCompare.eu" class="header__logo-icon" width="28" height="28" />
+    <a href={localePath(lang, '/')} class="header__logo" aria-label={t(lang, 'meta.home_link_label')}>
+      <img src="/logo.svg" alt={t(lang, 'meta.logo_alt')} class="header__logo-icon" width="28" height="28" />
       PostCompare.eu
     </a>
 

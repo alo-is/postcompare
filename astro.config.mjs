@@ -5,6 +5,8 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   integrations: [react(), sitemap({
+    // The root page only redirects to /fr/ (canonical); keep it out of the sitemap.
+    filter: (page) => new URL(page).pathname !== '/',
     i18n: {
       defaultLocale: 'fr',
       locales: {

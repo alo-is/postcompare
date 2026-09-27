@@ -80,7 +80,7 @@
   },
   "about": {
     "title": "Über PostCompare.eu",
-    "intro": "PostCompare.eu ist ein kostenloser und unabhängiger Vergleich der Postgebühren in Europa.",
+    "intro": "PostCompare.eu ist ein kostenloser und unabhängiger Vergleich der Postgebühren in Europa: Brief- und Paketpreise, national und international, für 32 Länder.",
     "methodology_title": "Methodik",
     "methodology_text": "Die Preise werden manuell von den offiziellen Websites der nationalen Postdienste erhoben. Preise aus Nicht-Eurozone-Ländern werden zum Wechselkurs am Tag der Erhebung in EUR umgerechnet.",
     "neutrality_title": "Neutralität",
@@ -103,7 +103,7 @@
   },
   "hero": {
     "title": "Vergleichen Sie Postgeb\u00fchren aus 32 europ\u00e4ischen L\u00e4ndern",
-    "subtitle": "Kostenlos, unabh\u00e4ngig, Open Source",
+    "subtitle": "Briefmarken-, Brief- und Paketpreise: kostenlos, unabh\u00e4ngig, Open Source",
     "cta": "Preise vergleichen"
   },
   "how": {
@@ -120,7 +120,7 @@
   },
   "rankings": {
     "title": "Rangliste der europ\u00e4ischen Postdienste",
-    "subtitle": "Wer ist am g\u00fcnstigsten? Wer ist am teuersten?",
+    "subtitle": "Wer ist am g\u00fcnstigsten? Wer ist am teuersten? Durchschnittliche Inlandspreise f\u00fcr Briefe und Pakete in 32 europ\u00e4ischen L\u00e4ndern.",
     "letters_title": "Briefrangliste \u2014 Inlandstarif",
     "parcels_title": "Paketrangliste \u2014 Inlandstarif",
     "rank": "Rang",
@@ -138,7 +138,7 @@
   },
   "postal_changes": {
     "title": "Posttarife 2027",
-    "intro": "Bulletin der offiziell angekündigten Änderungen für 2027.",
+    "intro": "Bulletin der offiziell angekündigten Änderungen der europäischen Postunternehmen für 2027: Briefmarken-, Brief- und Paketpreise mit Stichtagen und Quellen.",
     "last_verified": "Zuletzt geprüft: {date}",
     "notice": "Hier angekündigte künftige Preise sind nicht im Vergleich enthalten: Er zeigt weiterhin die aktuell veröffentlichten Tarife.",
     "confirmed": "Bestätigt",
@@ -160,6 +160,28 @@
     "title": "Angekündigte Änderungen für 2027",
     "text": "{count} bestätigte Verbraucherankündigungen. Lesen Sie das offizielle Bulletin.",
     "link": "Bulletin 2027 lesen"
+  },
+  "meta": {
+    "home_title": "Postgebühren in Europa vergleichen",
+    "home_description": "Kostenloser, unabhängiger Vergleich der Postgebühren in Europa: Briefmarken-, Brief- und Paketpreise von 32 nationalen Postunternehmen, von Deutsche Post bis La Poste.",
+    "compare_title": "Porto für Briefe und Pakete in Europa",
+    "compare_heading": "Porto für Briefe und Pakete in Europa vergleichen",
+    "compare_description": "Was kostet ein Brief oder Paket in Europa? Vergleichen Sie die Tarife von 32 Postunternehmen, national oder international, etwa um ein Paket nach Frankreich zu schicken.",
+    "rankings_title": "Rangliste der europäischen Postpreise",
+    "rankings_description": "Europäische Postunternehmen vom günstigsten bis zum teuersten: durchschnittliche Inlandspreise für Briefe und Pakete in 32 Ländern, mit Kaufkraftbereinigung.",
+    "postal_changes_title": "Postgebühren 2027: Briefmarken- und Paketpreise",
+    "postal_changes_description": "Briefmarkenpreise 2027 und neue Postgebühren in Europa: offizielle Änderungen der nationalen Postunternehmen für Briefe und Pakete, mit Stichtagen und Quellen.",
+    "about_description": "Wie PostCompare.eu europäische Postgebühren erhebt: Methodik, Neutralität gegenüber den Postunternehmen und Open-Source-Daten auf GitHub.",
+    "contribute_description": "Helfen Sie, die europäischen Postgebühren auf PostCompare.eu aktuell zu halten: Melden Sie einen falschen Preis oder korrigieren Sie die YAML-Daten auf GitHub.",
+    "operator_title": "{name} ({country}) Tarife: Briefe und Pakete",
+    "operator_description": "{name} ({country}) Tarife: Briefe ab {letter} EUR, Pakete ab {parcel} EUR. Nationale und internationale Preise im Vergleich mit anderen europäischen Postunternehmen.",
+    "operator_description_no_letters": "{name} ({country}) Tarife: Pakete ab {parcel} EUR. Nationale und internationale Preise im Vergleich mit anderen europäischen Postunternehmen.",
+    "breadcrumb_home": "Startseite",
+    "logo_alt": "PostCompare.eu Logo",
+    "home_link_label": "PostCompare.eu – Startseite",
+    "og_image_alt": "PostCompare.eu – Vergleich der Postgebühren in 32 europäischen Ländern",
+    "dataset_name": "Europäische Postgebühren (Briefe und Pakete)",
+    "dataset_description": "Offene Daten zu Brief- und Paketpreisen der nationalen Postunternehmen aus 32 europäischen Ländern (EU, EFTA und Vereinigtes Königreich), erhoben von den offiziellen Websites der Anbieter und als YAML-Dateien auf GitHub veröffentlicht."
   },
   "footer": {
     "tagline": "Unabhängiger europäischer Postgebührenvergleich",

@@ -80,7 +80,7 @@
   },
   "about": {
     "title": "About PostCompare.eu",
-    "intro": "PostCompare.eu is a free and independent comparator for postal rates across Europe.",
+    "intro": "PostCompare.eu is a free and independent comparator for postal rates across Europe: letter and parcel prices, domestic and international, for 32 countries.",
     "methodology_title": "Methodology",
     "methodology_text": "Prices are collected manually from national postal services' official websites. Prices from non-eurozone countries are converted to EUR at the exchange rate on the date of collection.",
     "neutrality_title": "Neutrality",
@@ -103,7 +103,7 @@
   },
   "hero": {
     "title": "Compare postal rates from 32 European countries",
-    "subtitle": "Free, independent, open source",
+    "subtitle": "Stamp, letter and parcel prices: free, independent, open source",
     "cta": "Compare prices"
   },
   "how": {
@@ -120,7 +120,7 @@
   },
   "rankings": {
     "title": "European postal service rankings",
-    "subtitle": "Who is the cheapest? Who is the most expensive?",
+    "subtitle": "Who is the cheapest? Who is the most expensive? Average domestic letter and parcel prices in 32 European countries.",
     "letters_title": "Letter rankings \u2014 Domestic rate",
     "parcels_title": "Parcel rankings \u2014 Domestic rate",
     "rank": "Rank",
@@ -138,7 +138,7 @@
   },
   "postal_changes": {
     "title": "2027 postal changes",
-    "intro": "Bulletin of officially announced changes for 2027.",
+    "intro": "Bulletin of officially announced changes for 2027 from European postal operators: stamp, letter and parcel prices, with effective dates and sources.",
     "last_verified": "Last verified: {date}",
     "notice": "Future prices announced here are not included in the comparator: it continues to show currently published rates.",
     "confirmed": "Confirmed",
@@ -160,6 +160,28 @@
     "title": "Changes announced for 2027",
     "text": "{count} confirmed consumer announcements. Read the official bulletin.",
     "link": "Read the 2027 bulletin"
+  },
+  "meta": {
+    "home_title": "European postal rate comparator",
+    "home_description": "Free, independent comparator of postal rates in Europe: stamp, letter and parcel prices from 32 national postal operators, from Royal Mail to Deutsche Post.",
+    "compare_title": "Letter and parcel postage prices in Europe",
+    "compare_heading": "Compare letter and parcel postage prices in Europe",
+    "compare_description": "How much does it cost to send a letter or parcel in Europe? Compare rates from 32 postal operators, domestic or international, e.g. to send a parcel to Germany.",
+    "rankings_title": "Cheapest European postal services ranked",
+    "rankings_description": "European postal operators ranked from cheapest to most expensive: average domestic letter and parcel prices in 32 countries, with purchasing power adjustment.",
+    "postal_changes_title": "2027 postal rates: stamp and parcel prices",
+    "postal_changes_description": "2027 stamp prices and new postal rates in Europe: official changes announced by national postal operators for letters and parcels, with effective dates and sources.",
+    "about_description": "How PostCompare.eu collects European postal rates: methodology, neutrality towards postal operators and open source data on GitHub.",
+    "contribute_description": "Help keep PostCompare.eu's European postal rates up to date: report an incorrect price or fix the YAML data files on GitHub.",
+    "operator_title": "{name} ({country}) rates: letters and parcels",
+    "operator_description": "{name} ({country}) rates: letters from {letter} EUR, parcels from {parcel} EUR. Domestic and international prices, compared with other European postal operators.",
+    "operator_description_no_letters": "{name} ({country}) rates: parcels from {parcel} EUR. Domestic and international prices, compared with other European postal operators.",
+    "breadcrumb_home": "Home",
+    "logo_alt": "PostCompare.eu logo",
+    "home_link_label": "PostCompare.eu – home",
+    "og_image_alt": "PostCompare.eu – postal rate comparator for 32 European countries",
+    "dataset_name": "European postal rates (letters and parcels)",
+    "dataset_description": "Open data on letter and parcel rates of the national postal operators of 32 European countries (EU, EFTA and United Kingdom), collected from the operators' official websites and published as YAML files on GitHub."
   },
   "footer": {
     "tagline": "Independent European postal rate comparator",
