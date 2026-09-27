@@ -27,7 +27,7 @@ beforeAll(() => {
 });
 
 describe('2027 postal-change public pages', () => {
-  it('generates the consumer postal bulletin in all three locales without an empty preview section', () => {
+  it('generates the consumer postal bulletin in all three locales with consumer previews only', () => {
     const fr = page('fr/tarifs-2027');
     const en = page('en/tarifs-2027');
     const de = page('de/tarifs-2027');
@@ -41,18 +41,22 @@ describe('2027 postal-change public pages', () => {
     for (const html of [fr, en, de]) {
       expect(html).toContain('2027-01-01');
       expect(html).toMatch(/confirmed|confirmé|bestätigt/i);
-      expect(html).not.toContain('id="preview-changes"');
+      expect(html).toContain('id="preview-changes"');
       expect(html).toContain('laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027');
       expect(html).toContain('deutschepost.de/de/b/briefe-ins-ausland');
+      expect(html).toContain('deutschepost.de/de/b/brief-national2027_Aenderungen.html');
+      expect(html).toContain('site.post.ch/fr/notre-profil/actualites/nouveaux-prix-pour-les-lettres-a-partir-de-2027');
+      expect(html).toContain('acm.nl/nl/publicaties/acm-stelt-tariefruimte-voor-universele-postdienst-2027-vast');
+      expect(html).toContain('pasts.lv/pakalpojumi/tarifi-un-informacija/universala-pasta-pakalpojuma-tarifu-izmainas');
       expect(html).not.toContain('postnord.dk/en/business/prices-for-businesses/post2027');
       expect(html).not.toContain('Post 2027');
     }
   });
 
   it('shows the latest announcement verification date in each locale', () => {
-    expect(page('fr/tarifs-2027')).toContain('Dernière vérification : 10 août 2026');
-    expect(page('en/tarifs-2027')).toContain('Last verified: 10 Aug 2026');
-    expect(page('de/tarifs-2027')).toContain('Zuletzt geprüft: 10. Aug. 2026');
+    expect(page('fr/tarifs-2027')).toContain('Dernière vérification : 27 sept. 2026');
+    expect(page('en/tarifs-2027')).toMatch(/Last verified: 27 Sept? 2026/);
+    expect(page('de/tarifs-2027')).toMatch(/Zuletzt geprüft: 27\. Sept?\. 2026/);
   });
 
   it('links the homepage teaser, navigation, and affected operators to the localized bulletin', () => {
@@ -62,12 +66,18 @@ describe('2027 postal-change public pages', () => {
       const germany = page(`${lang}/operator/deutsche-post-de`);
       const denmark = page(`${lang}/operator/postnord-dk`);
       const belgium = page(`${lang}/operator/bpost-be`);
+      const switzerland = page(`${lang}/operator/la-poste-suisse-ch`);
+      const netherlands = page(`${lang}/operator/postnl-nl`);
+      const latvia = page(`${lang}/operator/latvijas-pasts-lv`);
 
       expect(home).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain(`href="/${lang}/tarifs-2027"`);
       expect(germany).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain('operator-postal-alert');
       expect(germany).toContain('operator-postal-alert');
+      expect(switzerland).toContain('operator-postal-alert');
+      expect(netherlands).toContain('operator-postal-alert');
+      expect(latvia).toContain('operator-postal-alert');
       expect(denmark).not.toContain('operator-postal-alert');
       expect(belgium).not.toContain('operator-postal-alert');
     }
@@ -85,20 +95,20 @@ describe('2027 postal-change public pages', () => {
   });
 
   it('states the localized confirmed consumer count on each homepage', () => {
-    expect(page('fr')).toContain('2 annonces grand public confirmées');
-    expect(page('en')).toContain('2 confirmed consumer announcements');
-    expect(page('de')).toContain('2 bestätigte Verbraucherankündigungen');
+    expect(page('fr')).toContain('4 annonces grand public confirmées');
+    expect(page('en')).toContain('4 confirmed consumer announcements');
+    expect(page('de')).toContain('4 bestätigte Verbraucherankündigungen');
   });
 
   it('adds a localized methodology warning tied to the verification date', () => {
     expect(page('fr/tarifs-2027')).toContain(
-      'L’absence d’annonce officielle trouvée au 10 août 2026 ne garantit pas qu’aucun changement ultérieur ne sera publié.',
+      'L’absence d’annonce officielle trouvée au 27 sept. 2026 ne garantit pas qu’aucun changement ultérieur ne sera publié.',
     );
-    expect(page('en/tarifs-2027')).toContain(
-      'The absence of an official announcement found as of 10 Aug 2026 does not guarantee that no later change will be published.',
+    expect(page('en/tarifs-2027')).toMatch(
+      /The absence of an official announcement found as of 27 Sept? 2026 does not guarantee that no later change will be published\./,
     );
-    expect(page('de/tarifs-2027')).toContain(
-      'Dass bis zum 10. Aug. 2026 keine offizielle Ankündigung gefunden wurde, garantiert nicht, dass später keine Änderung veröffentlicht wird.',
+    expect(page('de/tarifs-2027')).toMatch(
+      /Dass bis zum 27\. Sept?\. 2026 keine offizielle Ankündigung gefunden wurde, garantiert nicht, dass später keine Änderung veröffentlicht wird\./,
     );
   });
 
