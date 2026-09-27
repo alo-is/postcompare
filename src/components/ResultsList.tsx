@@ -38,10 +38,6 @@ export default function ResultsList({
   if (!hasSearched) {
     return (
       <div className="results-empty">
-        <svg className="results-empty__icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <path d="m3 7 9 6 9-6" />
-        </svg>
         <h2>{t(lang, 'results.empty_title')}</h2>
         <p>{t(lang, 'results.empty_text')}</p>
       </div>
@@ -51,7 +47,6 @@ export default function ResultsList({
   if (results.length === 0) {
     return (
       <div className="no-results">
-        <div className="no-results__icon">{'\uD83D\uDCED'}</div>
         <p>{t(lang, 'results.no_results')}</p>
       </div>
     );
@@ -106,20 +101,23 @@ export default function ResultsList({
         <p className="results-description">{description}</p>
       )}
 
-      {results.map((result, index) => {
-        const showNationalBadge = searchParams?.origin !== 'all' && result.route.isDomestic;
-        return (
-          <ResultCard
-            key={`${result.operator.id}-${result.route.origin}-${index}`}
-            result={result}
-            countries={countries}
-            lang={lang}
-            isUserCountry={userCountry ? result.operator.country === userCountry : false}
-            isNationalOperator={showNationalBadge}
-            totalResults={results.length}
-          />
-        );
-      })}
+      <ol className="rate-list">
+        {results.map((result, index) => {
+          const showNationalBadge = searchParams?.origin !== 'all' && result.route.isDomestic;
+          return (
+            <ResultCard
+              key={`${result.operator.id}-${result.route.origin}-${index}`}
+              result={result}
+              countries={countries}
+              lang={lang}
+              rank={index + 1}
+              isUserCountry={userCountry ? result.operator.country === userCountry : false}
+              isNationalOperator={showNationalBadge}
+              totalResults={results.length}
+            />
+          );
+        })}
+      </ol>
 
       {reverseResults && reverseResults.length > 0 && reverseOrigin && reverseDestination && (
         <div className="reverse-results">
@@ -131,15 +129,18 @@ export default function ResultsList({
               {t(lang, 'results.results_count', { count: reverseResults.length })}
             </span>
           </div>
-          {reverseResults.map((result, index) => (
-            <ResultCard
-              key={`reverse-${result.operator.id}-${result.route.origin}-${index}`}
-              result={result}
-              countries={countries}
-              lang={lang}
-              variant="muted"
-            />
-          ))}
+          <ol className="rate-list rate-list--muted">
+            {reverseResults.map((result, index) => (
+              <ResultCard
+                key={`reverse-${result.operator.id}-${result.route.origin}-${index}`}
+                result={result}
+                countries={countries}
+                lang={lang}
+                rank={index + 1}
+                variant="muted"
+              />
+            ))}
+          </ol>
         </div>
       )}
     </div>

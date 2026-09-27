@@ -49,8 +49,8 @@
   /* Borders */
   --border-dashed: 2px dashed var(--color-border);
   --border-solid: 1px solid var(--color-border-light);
-  --radius: 8px;
-  --radius-lg: 14px;
+  --radius: 4px;
+  --radius-lg: 6px;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(26, 15, 7, 0.05), 0 1px 3px rgba(26, 15, 7, 0.04);
@@ -583,241 +583,173 @@ a:hover {
   transform: scale(0.98);
 }
 
-/* ===== Result Cards ===== */
+/* ===== Results: rate sheet =====
+   Results read like a printed tariff sheet: one ruled list, ranked rows,
+   right-aligned figures. Emphasis comes from type and colour, not boxes. */
 .results-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--color-border-light);
+  gap: var(--space-xs) var(--space-md);
+  margin-bottom: var(--space-xs);
 }
 
 .results-header h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 .results-count {
   color: var(--color-ink-faded);
   font-size: 0.85rem;
-  font-style: italic;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .results-description {
   color: var(--color-ink-secondary);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   margin-bottom: var(--space-lg);
-  line-height: 1.6;
-  font-style: italic;
-  padding: var(--space-sm) var(--space-md);
-  border-left: 3px solid var(--color-border);
-  background: var(--color-paper-light);
+  max-width: 68ch;
 }
 
-/* Stamp perforation edge effect */
-.result-card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border-light);
-  border-left: 4px solid var(--color-border);
-  padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-xl);
-  margin-bottom: var(--space-md);
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-  transition: box-shadow 0.25s, border-left-color 0.25s;
-  box-shadow: var(--shadow-sm);
-  position: relative;
+.rate-list {
+  list-style: none;
+  border-top: 2px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
 }
 
-.result-card:hover {
-  box-shadow: var(--shadow-md);
-  border-left-color: var(--color-postal-red-light);
+.rate-row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1.1fr) minmax(0, 1.4fr) auto;
+  gap: var(--space-md) var(--space-lg);
+  align-items: baseline;
+  padding: var(--space-md) var(--space-sm);
+  border-top: 1px solid var(--color-border-light);
 }
 
-/* Perforated right edge */
-.result-card::after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  bottom: -1px;
-  width: 12px;
-  background: radial-gradient(
-    circle at right,
-    var(--color-paper) 4px,
-    transparent 4px
-  );
-  background-size: 12px 16px;
-  background-position: right center;
+.rate-row:first-child {
+  border-top: 0;
 }
 
-.result-card--best {
-  border-left: 4px solid var(--color-postal-red);
-  background: linear-gradient(135deg, var(--color-white) 0%, #FFF8F6 100%);
-  box-shadow: var(--shadow-md);
-  position: relative;
+.rate-row:hover {
+  background: var(--color-surface-muted);
 }
 
-.result-card__badge {
-  position: absolute;
-  top: 0;
-  left: -4px;
-  background: var(--color-postal-red);
-  color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 4px 14px 4px 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  /* Ribbon shape */
-  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 50%, 100% 100%, 0 100%);
+.rate-row p {
+  margin: 0;
 }
 
-.result-card__badge--national {
-  background: var(--color-airmail-blue);
-}
-
-/* Extra top padding when badge is present */
-.result-card--best,
-.result-card:has(.result-card__badge) {
-  padding-top: calc(var(--space-lg) + 10px);
-}
-
-.result-card__operator {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  min-width: 180px;
-}
-
-.result-card__flag {
-  font-size: 1.6rem;
-  filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.1));
-}
-
-.result-card__name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.2;
-}
-
-.result-card__product {
+.rate-row__rank {
   color: var(--color-ink-faded);
-  font-size: 0.8rem;
-  font-style: italic;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
 }
 
-.result-card__country {
-  font-size: 0.75rem;
+.rate-row__tags {
+  color: var(--color-airmail-blue);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rate-row__name {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.rate-row__flag {
+  margin-right: 0.4em;
+}
+
+.rate-row__product,
+.rate-row__meta,
+.rate-row__options {
+  color: var(--color-ink-secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.rate-row__route {
+  font-size: 0.92rem;
+}
+
+.rate-row__options {
   color: var(--color-ink-faded);
   margin-top: 2px;
 }
 
-.result-card__details {
-  flex: 1;
+.rate-row__price {
   display: flex;
-  gap: var(--space-xl);
-}
-
-.result-card__route {
-  font-size: 0.82rem;
-  color: var(--color-ink-secondary);
-}
-
-.result-card__delivery {
-  font-size: 0.88rem;
-}
-
-.result-card__tracking {
-  font-size: 0.82rem;
-  color: var(--color-ink-faded);
-}
-
-.result-card__price {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: var(--color-ink);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
   text-align: right;
-  min-width: 100px;
-  line-height: 1.1;
 }
 
-.result-card--best .result-card__price {
-  color: var(--color-postal-red);
-}
-
-.result-card__price-unit {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--color-ink-faded);
-}
-
-.result-card__options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 6px;
-}
-
-.result-card__option {
-  font-size: 0.72rem;
-  padding: 2px 8px;
-  background: var(--color-paper);
-  border: 1px dashed var(--color-border-light);
-  color: var(--color-ink-secondary);
-  white-space: nowrap;
-  font-family: var(--font-body);
-}
-
-.result-card__link {
-  font-size: 0.82rem;
-  color: var(--color-postal-red);
-  margin-top: 4px;
-  font-weight: 600;
-  display: inline-block;
-}
-
-/* ===== User Country Highlight ===== */
-.result-card--user {
-  border-left-color: var(--color-airmail-blue);
-  background: linear-gradient(135deg, var(--color-white) 0%, #F5F8FC 100%);
-}
-
-.result-card__user-badge {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 1px 8px;
-  background: var(--color-airmail-blue);
-  color: var(--color-white);
-  font-family: var(--font-display);
-  font-size: 0.6rem;
+.rate-row__price data {
+  font-size: 1.35rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
-/* ===== Muted Result Cards (reverse route) ===== */
-.result-card--muted {
-  border-left-style: dashed;
-  opacity: 0.55;
+.rate-row__link {
+  font-size: 0.82rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
-.result-card--muted .result-card__price {
-  color: var(--color-ink-faded);
+.rate-row--best .rate-row__rank,
+.rate-row--best .rate-row__tags,
+.rate-row--best .rate-row__price data {
+  color: var(--color-postal-red);
 }
 
-.result-card--muted:hover {
-  opacity: 0.75;
+.rate-row--best {
+  box-shadow: inset 3px 0 0 var(--color-postal-red);
+}
+
+.rate-row--user {
+  background: var(--color-surface-muted);
+}
+
+.rate-list--muted {
+  border-top-width: 1px;
+}
+
+.rate-row--muted,
+.rate-row--muted .rate-row__price data {
+  color: var(--color-ink-secondary);
+}
+
+.rate-row--muted .rate-row__price data {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .reverse-results {
-  margin-top: var(--space-xl);
-  padding-top: var(--space-lg);
-  border-top: var(--border-dashed);
+  margin-top: var(--space-2xl);
+}
+
+.reverse-results .results-header h2 {
+  font-size: 1.15rem;
+}
+
+@media (max-width: 767px) {
+  .rate-row {
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+    gap: var(--space-xs) var(--space-md);
+  }
+
+  .rate-row__what {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
 }
 
 /* ===== Mobile Summary Pills ===== */
@@ -831,14 +763,20 @@ a:hover {
 .mobile-summary__pills {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  gap: var(--space-xs) var(--space-sm);
   align-items: center;
 }
 
+.pill + .pill::before {
+  content: '·';
+  margin-right: var(--space-sm);
+  color: var(--color-ink-faded);
+}
+
 .pill {
-  background: var(--color-white);
-  border: 1px dashed var(--color-border);
-  padding: var(--space-xs) var(--space-md);
+  background: transparent;
+  border: 0;
+  padding: 0;
   font-size: 0.82rem;
   color: var(--color-ink);
   font-family: var(--font-body);
@@ -1019,11 +957,6 @@ a:hover {
   text-align: center;
   padding: var(--space-3xl);
   color: var(--color-ink-faded);
-}
-
-.no-results__icon {
-  font-size: 3rem;
-  margin-bottom: var(--space-md);
 }
 
 /* ===== Hero Section ===== */
@@ -1519,25 +1452,15 @@ a:hover {
 
   .main-content { padding: var(--space-md); }
 
-  .result-card {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: var(--space-lg);
-  }
+  
 
-  .result-card::after { display: none; }
+  
 
-  .result-card__details {
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
+  
 
-  .result-card__price {
-    text-align: left;
-    font-size: 1.8rem;
-  }
+  
 
-  .result-card__operator { min-width: auto; }
+  
 
   /* Hero responsive */
   .hero {
@@ -2511,7 +2434,6 @@ li a:not([class]) {
 .ship-label__lbl,
 .ship-label__header,
 .postal-bulletin__eyebrow,
-.result-card__badge,
 .op-table th,
 .rk-table thead th,
 .op-hero__price-label,
@@ -2522,7 +2444,6 @@ li a:not([class]) {
 }
 
 /* Tabular figures for every price so columns line up */
-.result-card__price,
 .op-table__price,
 .op-hero__price-value,
 .rk-price,
@@ -2542,18 +2463,12 @@ li a:not([class]) {
   font-weight: 600;
   letter-spacing: 0.01em;
   border-radius: var(--radius);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 2px 6px rgba(122, 27, 41, 0.25);
+  box-shadow: none;
 }
 
 .btn-compare:hover,
 .op-cta__btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 6px 14px rgba(122, 27, 41, 0.28);
-}
-
-.btn-compare:active,
-.op-cta__btn:active {
-  transform: translateY(0);
+  background: var(--color-postal-red-dark);
 }
 
 /* Form controls */
@@ -2696,8 +2611,8 @@ li a:not([class]) {
   background: var(--color-surface);
   border: 1px solid var(--color-border-light);
   border-left: 4px solid var(--color-postal-red);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius);
+  box-shadow: none;
   padding: var(--space-lg) var(--space-xl);
   margin-top: var(--space-2xl);
 }
@@ -2706,12 +2621,7 @@ li a:not([class]) {
 .how-it-works__step {
   border-radius: var(--radius-lg);
   padding: var(--space-xl) var(--space-lg);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.how-it-works__step:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
 }
 
 .how-it-works__step p {
@@ -2741,12 +2651,12 @@ li a:not([class]) {
   padding: 12px 14px;
   border-radius: var(--radius);
   text-align: left;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .countries-grid__item--link:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
+  background: var(--color-surface-muted);
 }
 
 .countries-grid__flag {
@@ -2775,7 +2685,7 @@ li a:not([class]) {
     background: var(--color-surface);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
   }
 }
 
@@ -2788,48 +2698,11 @@ li a:not([class]) {
   font-style: normal;
 }
 
-.result-card {
-  border-radius: var(--radius-lg);
-  border-left-width: 5px;
-  align-items: center;
-}
-
-.result-card__name {
-  font-size: 1.15rem;
-}
-
-.result-card__price {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.result-card--best .result-card__price {
-  color: var(--color-postal-red);
-}
-
-.result-card__badge {
-  top: -1px;
-  border-radius: var(--radius-lg) 0 0 0;
-  font-size: 0.72rem;
-}
-
-.result-card__option {
-  border-radius: 999px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.result-card__link {
-  font-weight: 600;
-}
-
 .no-results {
-  background: var(--color-surface);
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-2xl) var(--space-xl);
-  margin-top: var(--space-md);
+  text-align: left;
+  padding: var(--space-lg) 0;
+  border-top: 2px solid var(--color-ink);
+  color: var(--color-ink-secondary);
 }
 
 /* Operator page */
@@ -2924,25 +2797,102 @@ li a:not([class]) {
   white-space: nowrap;
 }
 
+/* Purely decorative postmark removed: it read as filler */
+.hero::before {
+  display: none;
+}
+
+/* "Why compare": editorial columns rather than icon cards */
+.how-it-works {
+  text-align: left;
+  max-width: 1040px;
+}
+
+.how-it-works__title {
+  margin-bottom: var(--space-lg);
+}
+
+.how-it-works__grid {
+  gap: var(--space-2xl);
+  border-top: 2px solid var(--color-ink);
+  padding-top: var(--space-lg);
+}
+
+.how-it-works__step {
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+.how-it-works__step::after {
+  display: none;
+}
+
+.how-it-works__number {
+  display: block;
+  width: auto;
+  height: auto;
+  margin-bottom: var(--space-sm);
+  background: none;
+  color: var(--color-postal-red);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  border-radius: 0;
+}
+
+.how-it-works__step h3 {
+  font-size: 1.15rem;
+}
+
+.how-it-works__step p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.countries-section {
+  text-align: left;
+  max-width: 1040px;
+}
+
+.countries-grid {
+  max-width: none;
+}
+
+/* Letter / parcel switch as one segmented control */
+.type-toggle {
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2px;
+  background: var(--color-paper-light);
+}
+
+.type-toggle__btn {
+  border: 0;
+  background: transparent;
+  min-height: 40px;
+  border-radius: 3px;
+}
+
+.type-toggle__btn--active {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+.type-toggle__btn:hover:not(.type-toggle__btn--active) {
+  color: var(--color-ink);
+}
+
 /* Comparator: prompt shown before the first search */
 .results-empty {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: var(--space-sm);
-  min-height: 320px;
-  padding: var(--space-2xl) var(--space-xl);
-  text-align: center;
-  background: var(--color-surface);
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-lg);
+  padding: var(--space-lg) 0;
+  border-top: 2px solid var(--color-ink);
   color: var(--color-ink-secondary);
-}
-
-.results-empty__icon {
-  color: var(--color-postal-red);
-  opacity: 0.85;
 }
 
 .results-empty h2 {
@@ -2967,9 +2917,7 @@ li a:not([class]) {
     padding: var(--space-lg);
   }
 
-  .result-card__price {
-    font-size: 1.8rem;
-  }
+  
 
   .results-header h2 {
     font-size: 1.4rem;
@@ -3002,22 +2950,20 @@ li a:not([class]) {
 
   /* Hide navigation, form, and interactive elements */
   .header,
-  .footer,
-  .ship-label,
-  .hero-form,
-  .hero::before,
-  .hero::after,
-  .how-it-works,
-  .countries-section,
-  .mobile-summary,
-  .btn-compare,
-  .sidebar,
-  .op-cta,
-  .op-page__nav,
-  .lang-picker,
-  .result-card__link,
-  .result-card::after,
-  .ship-label__hint {
+.footer,
+.ship-label,
+.hero-form,
+.hero::before,
+.hero::after,
+.how-it-works,
+.countries-section,
+.mobile-summary,
+.btn-compare,
+.sidebar,
+.op-cta,
+.op-page__nav,
+.lang-picker,
+.ship-label__hint {
     display: none !important;
   }
 
@@ -3063,44 +3009,17 @@ li a:not([class]) {
     color: #333 !important;
   }
 
-  .result-card {
-    border: 1pt solid #ccc !important;
-    border-left: 3pt solid #999 !important;
-    padding: 8pt 12pt !important;
-    margin-bottom: 6pt !important;
-    page-break-inside: avoid;
-  }
+  
 
-  .result-card--best {
-    border-left-color: black !important;
-  }
+  
 
-  .result-card__badge {
-    background: black !important;
-    color: white !important;
-    font-size: 7pt !important;
-    padding: 1pt 6pt !important;
-    position: static !important;
-    display: inline-block !important;
-    clip-path: none !important;
-    margin-bottom: 4pt !important;
-  }
+  
 
-  .result-card__price {
-    color: black !important;
-    font-size: 14pt !important;
-  }
+  
 
-  .result-card__option {
-    border: 1pt solid #ccc !important;
-    background: none !important;
-    font-size: 7pt !important;
-  }
+  
 
-  .result-card--muted {
-    opacity: 0.7 !important;
-    border-style: dashed !important;
-  }
+  
 
   .reverse-results {
     border-top: 1pt dashed #999 !important;
@@ -3143,8 +3062,7 @@ li a:not([class]) {
     word-break: break-all;
   }
 
-  .op-hero__website::after,
-  .result-card a::after {
+  .op-hero__website::after {
     content: none !important;
   }
 
