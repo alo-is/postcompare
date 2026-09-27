@@ -44,7 +44,9 @@ export default function ResultCard({ result, countries, lang, rank, variant = 'd
     : `${countryName(originCountry)} → ${countryName(destCountry)}`;
 
   const meta = [
-    `${result.deliveryDays[0] === result.deliveryDays[1] ? result.deliveryDays[0] : `${result.deliveryDays[0]}–${result.deliveryDays[1]}`} ${t(lang, 'results.days')}`,
+    result.deliveryDays[0] === result.deliveryDays[1]
+      ? `${result.deliveryDays[0]} ${t(lang, result.deliveryDays[0] === 1 ? 'results.day' : 'results.days')}`
+      : `${result.deliveryDays[0]}–${result.deliveryDays[1]} ${t(lang, 'results.days')}`,
     result.tracking === undefined
       ? null
       : t(lang, result.tracking ? 'results.tracked' : 'results.untracked'),
