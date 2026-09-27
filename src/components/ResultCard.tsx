@@ -64,12 +64,12 @@ export default function ResultCard({ result, countries, lang, rank, variant = 'd
       <span className="rate-row__rank" aria-hidden="true">{String(rank).padStart(2, '0')}</span>
 
       <div className="rate-row__who">
-        {tags.length > 0 && <p className="rate-row__tags">{tags.join(' · ')}</p>}
         <p className="rate-row__name">
           <span className="rate-row__flag" aria-hidden="true">{originCountry?.flag}</span>
           {result.operator.name}
         </p>
         <p className="rate-row__product">{result.productName}</p>
+        {tags.length > 0 && <p className="rate-row__tags">{tags.join(' · ')}</p>}
       </div>
 
       <div className="rate-row__what">
