@@ -1,6 +1,6 @@
 ---
 // src/components/Footer.astro
-import { t } from '../i18n/utils';
+import { t, localePath } from '../i18n/utils';
 import type { Lang } from '../lib/types';
 
 interface Props {
@@ -11,6 +11,13 @@ const { lang } = Astro.props;
 ---
 
 <footer class="footer" role="contentinfo">
+  <nav class="footer__nav" aria-label={t(lang, 'footer.tagline')}>
+    <a href={localePath(lang, '/compare')}>{t(lang, 'nav.home')}</a>
+    <a href={localePath(lang, '/rankings')}>{t(lang, 'nav.rankings')}</a>
+    <a href={localePath(lang, '/tarifs-2027')}>{t(lang, 'nav.postal_changes')}</a>
+    <a href={localePath(lang, '/about')}>{t(lang, 'nav.about')}</a>
+    <a href={localePath(lang, '/contribute')}>{t(lang, 'nav.contribute')}</a>
+  </nav>
   <p>PostCompare.eu — {t(lang, 'footer.tagline')}</p>
   <p>
     <a href="https://github.com/alo-is/postcompare" target="_blank" rel="noopener">
