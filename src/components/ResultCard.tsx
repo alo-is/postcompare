@@ -6,13 +6,20 @@ interface ResultCardProps {
   result: ComparisonResult;
   countries: Country[];
   lang: Lang;
+  rank: number;
   variant?: 'default' | 'muted';
   isUserCountry?: boolean;
   isNationalOperator?: boolean;
   totalResults?: number;
 }
 
-export default function ResultCard({ result, countries, lang, variant = 'default', isUserCountry = false, isNationalOperator = false, totalResults = 2 }: ResultCardProps) {
+const numberLocale: Record<Lang, string> = { fr: 'fr-FR', en: 'en-GB', de: 'de-DE' };
+
+export function formatEur(value: number, lang: Lang): string {
+  return new Intl.NumberFormat(numberLocale[lang], { style: 'currency', currency: 'EUR' }).format(value);
+}
+
+export default function ResultCard({ result, countries, lang, rank, variant = 'default', isUserCountry = false, isNationalOperator = false, totalResults = 2 }: ResultCardProps) {
   const getCountry = (code: string): Country | undefined =>
     countries.find((c) => c.code === code);
 
@@ -24,74 +31,62 @@ export default function ResultCard({ result, countries, lang, variant = 'default
     return country[`name_${lang}` as keyof Country] as string;
   };
 
-  const routeLabel = result.route.isDomestic
-    ? `${t(lang, 'results.domestic_route')} (${originCountry?.flag ?? ''} ${countryName(originCountry)})`
-    : `${originCountry?.flag ?? ''} ${countryName(originCountry)} \u2192 ${destCountry?.flag ?? ''} ${countryName(destCountry)}`;
+  const muted = variant === 'muted';
+  const isBest = result.isBestPrice && totalResults > 1 && !muted;
+
+  const tags: string[] = [];
+  if (isBest) tags.push(t(lang, 'results.best_price'));
+  if (isNationalOperator && !muted) tags.push(lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator');
+  if (isUserCountry && !muted) tags.push(lang === 'fr' ? 'Votre pays' : lang === 'de' ? 'Ihr Land' : 'Your country');
+
+  const route = result.route.isDomestic
+    ? `${t(lang, 'results.domestic_route')} · ${countryName(originCountry)}`
+    : `${countryName(originCountry)} → ${countryName(destCountry)}`;
+
+  const meta = [
+    `${result.deliveryDays[0] === result.deliveryDays[1] ? result.deliveryDays[0] : `${result.deliveryDays[0]}–${result.deliveryDays[1]}`} ${t(lang, 'results.days')}`,
+    result.tracking === undefined
+      ? null
+      : t(lang, result.tracking ? 'results.tracked' : 'results.untracked'),
+  ].filter(Boolean).join(' · ');
+
+  const className = [
+    'rate-row',
+    isBest ? 'rate-row--best' : '',
+    isUserCountry && !muted ? 'rate-row--user' : '',
+    muted ? 'rate-row--muted' : '',
+  ].filter(Boolean).join(' ');
 
   return (
-    <div className={`result-card ${result.isBestPrice && totalResults > 1 && variant !== 'muted' ? 'result-card--best' : ''} ${variant === 'muted' ? 'result-card--muted' : ''} ${isUserCountry && variant !== 'muted' ? 'result-card--user' : ''}`}>
-      {variant !== 'muted' && (result.isBestPrice && totalResults > 1 || isNationalOperator) && (
-        <span className={`result-card__badge ${isNationalOperator && !(result.isBestPrice && totalResults > 1) ? 'result-card__badge--national' : ''}`}>
-          {result.isBestPrice && totalResults > 1
-            ? isNationalOperator
-              ? `${t(lang, 'results.best_price')} · ${lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator'}`
-              : t(lang, 'results.best_price')
-            : lang === 'fr' ? 'Opérateur national' : lang === 'de' ? 'Nationaler Betreiber' : 'National operator'}
-        </span>
-      )}
+    <li className={className}>
+      <span className="rate-row__rank" aria-hidden="true">{String(rank).padStart(2, '0')}</span>
 
-      <div className="result-card__operator">
-        <span className="result-card__flag">{originCountry?.flag}</span>
-        <div>
-          <div className="result-card__name">
-            {result.operator.name}
-            {isUserCountry && variant !== 'muted' && (
-              <span className="result-card__user-badge">
-                {lang === 'fr' ? 'Votre pays' : lang === 'de' ? 'Ihr Land' : 'Your country'}
-              </span>
-            )}
-          </div>
-          <div className="result-card__product">{result.productName}</div>
-          <div className="result-card__country">{countryName(originCountry)}</div>
-        </div>
+      <div className="rate-row__who">
+        {tags.length > 0 && <p className="rate-row__tags">{tags.join(' · ')}</p>}
+        <p className="rate-row__name">
+          <span className="rate-row__flag" aria-hidden="true">{originCountry?.flag}</span>
+          {result.operator.name}
+        </p>
+        <p className="rate-row__product">{result.productName}</p>
       </div>
 
-      <div className="result-card__details">
-        <div>
-          <div className="result-card__route">{routeLabel}</div>
-          <div className="result-card__delivery">
-            {t(lang, 'results.delivery')}: {result.deliveryDays[0]}–{result.deliveryDays[1]}{' '}
-            {t(lang, 'results.days')}
-          </div>
-          {result.tracking !== undefined && (
-            <div className="result-card__tracking">
-              {t(lang, 'results.tracking')}:{' '}
-              {result.tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}
-            </div>
-          )}
-          {result.options && result.options.length > 0 && variant !== 'muted' && (
-            <div className="result-card__options">
-              {result.options.map((opt, i) => (
-                <span key={i} className="result-card__option">
-                  {opt.name} +{opt.price_eur.toFixed(2)}&euro;
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+      <div className="rate-row__what">
+        <p className="rate-row__route">{route}</p>
+        <p className="rate-row__meta">{meta}</p>
+        {result.options && result.options.length > 0 && !muted && (
+          <p className="rate-row__options">
+            {result.options.map((opt) => `${opt.name} +${formatEur(opt.price_eur, lang)}`).join(' · ')}
+          </p>
+        )}
       </div>
 
-      <div className="result-card__price">
-        <div>
-          {result.priceEur.toFixed(2)} <span className="result-card__price-unit">EUR</span>
-        </div>
-        <a
-          className="result-card__link"
-          href={localePath(lang, `/operator/${result.operator.id}`)}
-        >
-          {t(lang, 'results.see_details')} {'\u2192'}
+      <div className="rate-row__price">
+        <data value={result.priceEur.toFixed(2)}>{formatEur(result.priceEur, lang)}</data>
+        <a className="rate-row__link" href={localePath(lang, `/operator/${result.operator.id}`)}>
+          {t(lang, 'results.see_details')}
+          <span className="sr-only"> — {result.operator.name}</span>
         </a>
       </div>
-    </div>
+    </li>
   );
 }

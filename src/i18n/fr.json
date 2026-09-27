@@ -29,6 +29,8 @@
   "results": {
     "title": "Résultats",
     "no_results": "Aucun résultat trouvé pour cette recherche.",
+    "tracked": "Suivi inclus",
+    "untracked": "Sans suivi",
     "empty_title": "Prêt à comparer ?",
     "empty_text": "Choisissez un type d'envoi, un poids et les pays : les tarifs de 32 postes européennes s'affichent ici, du moins cher au plus cher.",
     "best_price": "Meilleur prix",

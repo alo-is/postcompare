@@ -57,26 +57,28 @@ export default function ComparatorForm({
       {/* Type toggle */}
       <div className="form-group">
         <label className="form-label">{t(lang, 'form.type')}</label>
-        <div className="type-toggle">
+        <div className="type-toggle" role="group">
           <button
             type="button"
             className={`type-toggle__btn ${type === 'letter' ? 'type-toggle__btn--active' : ''}`}
+            aria-pressed={type === 'letter'}
             onClick={() => {
               setType('letter');
               setWeight(20);
             }}
           >
-            {'\u2709\uFE0F'} {t(lang, 'form.letter')}
+            {t(lang, 'form.letter')}
           </button>
           <button
             type="button"
             className={`type-toggle__btn ${type === 'parcel' ? 'type-toggle__btn--active' : ''}`}
+            aria-pressed={type === 'parcel'}
             onClick={() => {
               setType('parcel');
               setWeight(1);
             }}
           >
-            {'\uD83D\uDCE6'} {t(lang, 'form.parcel')}
+            {t(lang, 'form.parcel')}
           </button>
         </div>
       </div>

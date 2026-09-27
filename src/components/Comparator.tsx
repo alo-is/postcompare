@@ -134,7 +134,6 @@ export default function Comparator({ operators, countries, lang, initialParams }
         <div className="mobile-summary">
           <div className="mobile-summary__pills">
             <span className="pill">
-              {currentParams.type === 'letter' ? '\u2709\uFE0F' : '\uD83D\uDCE6'}{' '}
               {t(lang, `form.${currentParams.type}`)}
             </span>
             <span className="pill">

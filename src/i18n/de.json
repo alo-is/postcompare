@@ -29,6 +29,8 @@
   "results": {
     "title": "Ergebnisse",
     "no_results": "Keine Ergebnisse für diese Suche gefunden.",
+    "tracked": "Mit Sendungsverfolgung",
+    "untracked": "Ohne Sendungsverfolgung",
     "empty_title": "Bereit zum Vergleichen?",
     "empty_text": "Wählen Sie Sendungsart, Gewicht und Länder: Die Tarife von 32 europäischen Postunternehmen erscheinen hier, vom günstigsten zum teuersten.",
     "best_price": "Bester Preis",

@@ -29,6 +29,8 @@
   "results": {
     "title": "Results",
     "no_results": "No results found for this search.",
+    "tracked": "Tracked",
+    "untracked": "Untracked",
     "empty_title": "Ready to compare?",
     "empty_text": "Pick a shipment type, a weight and the countries: rates from 32 European postal operators appear here, cheapest first.",
     "best_price": "Best price",
