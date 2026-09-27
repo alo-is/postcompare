@@ -13,9 +13,36 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
+
+// Dataset JSON-LD: the open postal-rate data described in the methodology / open source sections
+const datasetJsonLd = {
+  "@type": "Dataset",
+  "name": t(lang, 'meta.dataset_name'),
+  "description": t(lang, 'meta.dataset_description'),
+  "url": new URL(`/${lang}/about/`, Astro.site).href,
+  "sameAs": "https://github.com/alo-is/postcompare/tree/main/data",
+  "inLanguage": lang,
+  "isAccessibleForFree": true,
+  "license": "https://opensource.org/licenses/MIT",
+  "creator": { "@id": new URL('/#organization', Astro.site).href },
+  "publisher": { "@id": new URL('/#organization', Astro.site).href },
+  "spatialCoverage": { "@type": "Place", "name": "Europe (EU27, EFTA, United Kingdom)" },
+  "keywords": ["postal rates", "postage", "letters", "parcels", "Europe", "EUR"],
+  "distribution": [{
+    "@type": "DataDownload",
+    "encodingFormat": "application/yaml",
+    "contentUrl": "https://github.com/alo-is/postcompare/tree/main/data/operators",
+  }],
+};
 ---
 
-<BaseLayout title={t(lang, 'about.title')} lang={lang}>
+<BaseLayout
+  title={t(lang, 'about.title')}
+  description={t(lang, 'meta.about_description')}
+  lang={lang}
+  breadcrumbs={[{ name: t(lang, 'nav.about'), path: '/about' }]}
+  jsonLd={datasetJsonLd}
+>
   <div class="content-page">
     <h1>{t(lang, 'about.title')}</h1>
 
