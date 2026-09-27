@@ -1,22 +1,63 @@
 # PostCompare.eu
 
-> European postal service price comparator. Compare letter and parcel rates across 32 countries.
+> Free, independent and open-source comparator of European postal rates. Compare stamp, letter and parcel prices (domestic and international) of the national postal operators of 32 countries: EU27 + EFTA (CH, NO, IS, LI) + United Kingdom.
 
-## API / Data Access
-The postal rate data is available as YAML files in the open-source repository.
-Each operator has a YAML file at data/operators/{operator-id}.yaml
+Prices are collected manually from the operators' official websites. Prices from non-euro countries are converted to EUR at the exchange rate of the collection date. Displayed prices are indicative: always check the operator's official website.
 
-## Data Format
-Operator files contain: domestic letter rates, international letter rates (by zone), domestic parcel rates, international parcel rates (by zone). All prices in EUR.
+## Pages
 
-## Supported Countries
-EU27 + EFTA (CH, NO, IS, LI) + UK = 32 countries
+Each page exists in French (/fr/), English (/en/) and German (/de/).
 
-## Available Operators
-- La Poste (France) - data/operators/la-poste-fr.yaml
-- Deutsche Post (Germany) - data/operators/deutsche-post-de.yaml
-- Correos (Spain) - data/operators/correos-es.yaml
-- Royal Mail (United Kingdom) - data/operators/royal-mail-gb.yaml
+- [Home](https://www.postcompare.eu/en/): overview and list of the 32 covered countries
+- [Comparator](https://www.postcompare.eu/en/compare/): compare letter or parcel prices by weight, origin and destination country
+- [Rankings](https://www.postcompare.eu/en/rankings/): cheapest and most expensive postal operators (average domestic letter and parcel prices, with purchasing-power adjustment)
+- [2027 postal rates](https://www.postcompare.eu/en/tarifs-2027/): officially announced 2027 changes (stamp, letter and parcel prices) with effective dates and sources
+- [Operator pages](https://www.postcompare.eu/en/operator/la-poste-fr/): detailed rates per operator at /{lang}/operator/{operator-id}/
+- [About](https://www.postcompare.eu/en/about/): methodology and neutrality
+- [Contribute](https://www.postcompare.eu/en/contribute/): how to report or fix a price
+- [Sitemap](https://www.postcompare.eu/sitemap-index.xml)
 
-## Languages
-Available in French (fr), English (en), and German (de).
+## Open data
+
+Source code and data (MIT licence): https://github.com/alo-is/postcompare
+
+- data/operators/{operator-id}.yaml: one file per operator with domestic and international letter rates (by zone) and domestic and international parcel rates (by zone), prices in EUR
+- data/postal-changes-2027.yaml: officially announced 2027 postal rate changes, with sources
+- data/countries.yaml: covered countries (names in fr/en/de)
+- data/exchange-rates.yaml: exchange rates used for non-euro currencies
+- data/price-level-index.yaml: Eurostat price level indices used for purchasing-power adjustment
+
+## Operators
+
+- Austria: Österreichische Post (osterreichische-post-at)
+- Belgium: bpost (bpost-be)
+- Bulgaria: Български пощи (balgarski-poshti-bg)
+- Croatia: Hrvatska pošta (hrvatska-posta-hr)
+- Cyprus: Cyprus Post (cyprus-post-cy)
+- Czechia: Česká pošta (ceska-posta-cz)
+- Denmark: PostNord (postnord-dk)
+- Estonia: Omniva (omniva-ee)
+- Finland: Posti (posti-fi)
+- France: La Poste (la-poste-fr)
+- Germany: Deutsche Post (deutsche-post-de)
+- Greece: ELTA (elta-gr)
+- Hungary: Magyar Posta (magyar-posta-hu)
+- Iceland: Íslandspóstur (islandspostur-is)
+- Ireland: An Post (an-post-ie)
+- Italy: Poste Italiane (poste-italiane-it)
+- Latvia: Latvijas Pasts (latvijas-pasts-lv)
+- Liechtenstein: Liechtenstein Post (liechtenstein-post-li)
+- Lithuania: Lietuvos paštas (lietuvos-pastas-lt)
+- Luxembourg: POST Luxembourg (post-luxembourg-lu)
+- Malta: MaltaPost (maltapost-mt)
+- Netherlands: PostNL (postnl-nl)
+- Norway: Posten Norge (posten-norge-no)
+- Poland: Poczta Polska (poczta-polska-pl)
+- Portugal: CTT (ctt-pt)
+- Romania: Poșta Română (posta-romana-ro)
+- Slovakia: Slovenská pošta (slovenska-posta-sk)
+- Slovenia: Pošta Slovenije (posta-slovenije-si)
+- Spain: Correos (correos-es)
+- Sweden: PostNord (postnord-se)
+- Switzerland: La Poste Suisse (la-poste-suisse-ch)
+- United Kingdom: Royal Mail (royal-mail-gb)

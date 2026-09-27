@@ -76,7 +76,8 @@ const operatorJsonLd = {
     "name": info.name,
     "url": info.website,
   },
-  "areaServed": info.country,
+  "url": new URL(`/${lang}/operator/${info.id}/`, Astro.site).href,
+  "areaServed": { "@type": "Country", "name": countryName(info.country) },
   "serviceType": "Postal Service",
   "offers": [
     ...(lowestLetterPrice !== undefined ? [{
@@ -94,11 +95,18 @@ const operatorJsonLd = {
   ],
 };
 
-const operatorDescriptions: Record<string, string> = {
-  fr: `Tarifs ${info.name} : ${lettersAvailable ? `lettres dès ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}colis dès ${lowestParcelPrice.toFixed(2)} EUR. Comparez avec les autres opérateurs postaux européens.`,
-  en: `${info.name} rates: ${lettersAvailable ? `letters from ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
-  de: `${info.name} Tarife: ${lettersAvailable ? `Briefe ab ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
-};
+const operatorDescription = lettersAvailable
+  ? t(lang, 'meta.operator_description', {
+    name: info.name,
+    country: countryName(info.country),
+    letter: lowestLetterPrice!.toFixed(2),
+    parcel: lowestParcelPrice.toFixed(2),
+  })
+  : t(lang, 'meta.operator_description_no_letters', {
+    name: info.name,
+    country: countryName(info.country),
+    parcel: lowestParcelPrice.toFixed(2),
+  });
 
 // Helper: check if a letter rate is the cheapest in its group
 const isLetterCheapest = (rate: LetterRate, group: LetterRate[]) =>
@@ -109,9 +117,10 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
 ---
 
 <BaseLayout
-  title={t(lang, 'operator.title', { name: info.name })}
-  description={operatorDescriptions[lang]}
+  title={t(lang, 'meta.operator_title', { name: info.name, country: countryName(info.country) })}
+  description={operatorDescription}
   lang={lang}
+  breadcrumbs={[{ name: info.name, path: `/operator/${info.id}` }]}
   jsonLd={operatorJsonLd}
 >
   <article class="op-page" aria-label={info.name}>

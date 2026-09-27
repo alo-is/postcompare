@@ -138,14 +138,16 @@ const rankingsJsonLd = {
   "@type": "WebPage",
   "name": t(lang, 'rankings.title'),
   "description": t(lang, 'rankings.subtitle'),
-  "url": `https://www.postcompare.eu/${lang}/rankings`,
+  "url": new URL(`/${lang}/rankings/`, Astro.site).href,
+  "inLanguage": lang,
 };
 ---
 
 <BaseLayout
-  title={t(lang, 'rankings.title')}
-  description={t(lang, 'rankings.subtitle')}
+  title={t(lang, 'meta.rankings_title')}
+  description={t(lang, 'meta.rankings_description')}
   lang={lang}
+  breadcrumbs={[{ name: t(lang, 'nav.rankings'), path: '/rankings' }]}
   jsonLd={rankingsJsonLd}
 >
   <section class="rk-hero">

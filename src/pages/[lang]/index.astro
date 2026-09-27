@@ -35,7 +35,8 @@ const homeJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "PostCompare.eu",
-  "url": "https://postcompare.eu",
+  "url": new URL(`/${lang}/`, Astro.site).href,
+  "inLanguage": lang,
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",
   "description": t(lang, 'site.description'),
@@ -44,17 +45,12 @@ const homeJsonLd = {
     "price": "0",
     "priceCurrency": "EUR",
   },
-  "featureList": [
-    "Compare postal rates across 32 European countries",
-    "Letter and parcel price comparison",
-    "Domestic and international shipping rates",
-  ],
 };
 ---
 
 <BaseLayout
-  title={t(lang, 'site.tagline')}
-  description={t(lang, 'site.description')}
+  title={t(lang, 'meta.home_title')}
+  description={t(lang, 'meta.home_description')}
   lang={lang}
   jsonLd={homeJsonLd}
 >

@@ -3,20 +3,32 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { languages } from '../i18n/utils';
+import { languages, t } from '../i18n/utils';
 import type { Lang } from '../lib/types';
+
+export interface Breadcrumb {
+  name: string;
+  /** Path without the language prefix, e.g. "/about" */
+  path: string;
+}
 
 interface Props {
   title: string;
-  description?: string;
+  description: string;
   lang: Lang;
-  jsonLd?: Record<string, unknown>;
+  /** Page-specific JSON-LD node(s); merged into the page's @graph */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  /** Trail after the home page; renders a BreadcrumbList when provided */
+  breadcrumbs?: Breadcrumb[];
 }
 
-const { title, description, lang, jsonLd } = Astro.props;
+const { title, description, lang, jsonLd, breadcrumbs } = Astro.props;
 
-const fullTitle = `${title} | PostCompare.eu`;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const site = Astro.site ?? new URL('https://www.postcompare.eu');
+const siteUrl = new URL('/', site).href;
+const fullTitle = title.includes('PostCompare.eu') ? title : `${title} | PostCompare.eu`;
+const canonicalURL = new URL(Astro.url.pathname, site);
+const ogImage = new URL('/og-image.png', site).href;
 
 const localeMap: Record<Lang, string> = {
   fr: 'fr_FR',
@@ -25,20 +37,58 @@ const localeMap: Record<Lang, string> = {
 };
 
 // Build hreflang paths by swapping the lang prefix
-const currentPathWithoutLang = Astro.url.pathname.replace(/^\/(fr|en|de)/, '');
+const currentPathWithoutLang = Astro.url.pathname.replace(/^\/(fr|en|de)(?=\/|$)/, '') || '/';
+const localizedUrl = (l: Lang, path = currentPathWithoutLang) => {
+  const normalized = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+  return new URL(`/${l}${normalized}`, site).href;
+};
 
-// WebSite JSON-LD (always present)
-const websiteJsonLd = {
+const organizationId = `${siteUrl}#organization`;
+const websiteId = `${siteUrl}#website`;
+
+const graph: Record<string, unknown>[] = [
+  {
+    "@type": "Organization",
+    "@id": organizationId,
+    "name": "PostCompare.eu",
+    "url": siteUrl,
+    "logo": new URL('/logo-512.png', site).href,
+    "description": t(lang, 'footer.tagline'),
+    "sameAs": ["https://github.com/alo-is/postcompare"],
+  },
+  {
+    "@type": "WebSite",
+    "@id": websiteId,
+    "name": "PostCompare.eu",
+    "url": siteUrl,
+    "description": t(lang, 'site.description'),
+    "inLanguage": languages,
+    "publisher": { "@id": organizationId },
+  },
+];
+
+if (breadcrumbs && breadcrumbs.length > 0) {
+  const trail = [{ name: t(lang, 'meta.breadcrumb_home'), path: '/' }, ...breadcrumbs];
+  graph.push({
+    "@type": "BreadcrumbList",
+    "itemListElement": trail.map((crumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": crumb.name,
+      "item": localizedUrl(lang, crumb.path),
+    })),
+  });
+}
+
+const pageNodes = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+for (const node of pageNodes) {
+  const { ["@context"]: _context, ...rest } = node;
+  graph.push(rest);
+}
+
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "PostCompare.eu",
-  "url": "https://postcompare.eu",
-  "description": "European postal service price comparator",
-  "inLanguage": [
-    "fr",
-    "en",
-    "de"
-  ],
+  "@graph": graph,
 };
 ---
 
@@ -49,42 +99,49 @@ const websiteJsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={description} />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="theme-color" content="#9B2335" />
 
     {/* Canonical URL */}
     <link rel="canonical" href={canonicalURL.href} />
 
     {/* Hreflang alternate links */}
     {languages.map((l) => (
-      <link rel="alternate" hreflang={l} href={`https://postcompare.eu/${l}${currentPathWithoutLang}`} />
+      <link rel="alternate" hreflang={l} href={localizedUrl(l)} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={`https://postcompare.eu/fr${currentPathWithoutLang}`} />
+    <link rel="alternate" hreflang="x-default" href={localizedUrl('fr')} />
 
     {/* Open Graph */}
     <meta property="og:title" content={fullTitle} />
-    {description && <meta property="og:description" content={description} />}
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={localeMap[lang]} />
+    {languages.filter((l) => l !== lang).map((l) => (
+      <meta property="og:locale:alternate" content={localeMap[l]} />
+    ))}
     <meta property="og:url" content={canonicalURL.href} />
     <meta property="og:site_name" content="PostCompare.eu" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t(lang, 'meta.og_image_alt')} />
 
     {/* Twitter Card */}
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
-    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={t(lang, 'meta.og_image_alt')} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/logo-512.png" />
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link href="https://fonts.bunny.net/css?family=fraunces:600,700,800|inter:400,500,600,700&display=swap" rel="stylesheet" />
 
-    {/* JSON-LD: WebSite schema */}
-    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
-
-    {/* Page-specific JSON-LD */}
-    {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-    )}
+    {/* JSON-LD: Organization, WebSite, breadcrumbs and page-specific nodes */}
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <Header lang={lang} />
