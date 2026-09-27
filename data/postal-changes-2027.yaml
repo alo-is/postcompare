@@ -6,7 +6,7 @@ announcements:
     effective_date: "2027-01-01"
     source:
       url: "https://www.laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027"
-      retrieved_at: "2026-08-10"
+      retrieved_at: "2026-09-27"
     changes:
       - type: "price_change"
         product: { fr: "Lettre verte 20 g", en: "Green letter 20 g", de: "Grüner Brief 20 g" }
@@ -14,6 +14,10 @@ announcements:
         old_price_eur: 1.52
         new_price_eur: 1.67
         percentage_change: 9.9
+      - type: "price_change"
+        product: { fr: "Lettre verte à imprimer 20 g", en: "Print-at-home green letter 20 g", de: "Grüner Brief zum Selbstdrucken 20 g" }
+        availability: "published"
+        new_price_eur: 1.63
       - type: "price_change"
         product: { fr: "Lettre verte suivie", en: "Tracked green letter", de: "Sendungsverfolgter grüner Brief" }
         availability: "published"
@@ -49,7 +53,7 @@ announcements:
     effective_date: "2027-01-01"
     source:
       url: "https://www.deutschepost.de/de/b/briefe-ins-ausland/brief-international2027_Aenderungen.html"
-      retrieved_at: "2026-08-10"
+      retrieved_at: "2026-09-27"
     changes:
       - type: "product_introduced"
         product: { fr: "Midibrief International", en: "Midibrief International", de: "Midibrief International" }
@@ -62,6 +66,102 @@ announcements:
       - type: "product_removed"
         product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
         availability: "not_published"
+  - country: "DE"
+    operator_id: "deutsche-post-de"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.deutschepost.de/de/b/brief-national2027_Aenderungen.html"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "product_changed"
+        product: { fr: "Großbrief (national)", en: "Großbrief (domestic)", de: "Großbrief (national)" }
+        availability: "not_published"
+        details: { fr: "Jusqu’à 1 kg et 3 cm (auparavant 500 g et 2 cm)", en: "Up to 1 kg and 3 cm (previously 500 g and 2 cm)", de: "Bis 1 kg und 3 cm (bisher 500 g und 2 cm)" }
+      - type: "product_changed"
+        product: { fr: "Maxibrief (national)", en: "Maxibrief (domestic)", de: "Maxibrief (national)" }
+        availability: "not_published"
+        details: { fr: "Jusqu’à 2 kg, 38,1 × 30,5 cm et 3 cm d’épaisseur (auparavant 1 kg et 5 cm)", en: "Up to 2 kg, 38.1 × 30.5 cm and 3 cm thick (previously 1 kg and 5 cm)", de: "Bis 2 kg, 38,1 × 30,5 cm und 3 cm Höhe (bisher 1 kg und 5 cm)" }
+      - type: "product_removed"
+        product: { fr: "Maxibrief avec supplément (national)", en: "Maxibrief with surcharge (domestic)", de: "Maxibrief mit Zusatzentgelt (national)" }
+        availability: "not_published"
+  - country: "CH"
+    operator_id: "la-poste-suisse-ch"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://site.post.ch/fr/notre-profil/actualites/nouveaux-prix-pour-les-lettres-a-partir-de-2027"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "price_change"
+        product: { fr: "Lettre Courrier A format standard (CHF 1.20 → 1.40)", en: "A Mail standard letter (CHF 1.20 → 1.40)", de: "A-Post Standardbrief (CHF 1.20 → 1.40)" }
+        availability: "published"
+        old_price_eur: 1.164
+        new_price_eur: 1.358
+        percentage_change: 16.67
+        details: { fr: "CHF 1.20 → CHF 1.40, converti au taux du dépôt de 0,97 EUR/CHF", en: "CHF 1.20 → CHF 1.40, converted at the repository rate of 0.97 EUR/CHF", de: "CHF 1.20 → CHF 1.40, umgerechnet zum Datensatzkurs von 0,97 EUR/CHF" }
+      - type: "price_change"
+        product: { fr: "Lettre Courrier B format standard (CHF 1.00 → 1.10)", en: "B Mail standard letter (CHF 1.00 → 1.10)", de: "B-Post Standardbrief (CHF 1.00 → 1.10)" }
+        availability: "published"
+        old_price_eur: 0.97
+        new_price_eur: 1.067
+        percentage_change: 10.0
+        details: { fr: "CHF 1.00 → CHF 1.10, converti au taux du dépôt de 0,97 EUR/CHF", en: "CHF 1.00 → CHF 1.10, converted at the repository rate of 0.97 EUR/CHF", de: "CHF 1.00 → CHF 1.10, umgerechnet zum Datensatzkurs von 0,97 EUR/CHF" }
+      - type: "product_changed"
+        product: { fr: "Courrier A Plus et Recommandé", en: "A Mail Plus and Registered", de: "A-Post Plus und Einschreiben" }
+        availability: "published"
+        details: { fr: "Supplément relevé de CHF 0.20", en: "Surcharge raised by CHF 0.20", de: "Zuschlag steigt um CHF 0.20" }
+      - type: "product_introduced"
+        product: { fr: "Lettre volumineuse (CHF 4.20)", en: "Bulky letter (CHF 4.20)", de: "Volumenbrief (CHF 4.20)" }
+        availability: "published"
+        new_price_eur: 4.074
+        details: { fr: "CHF 4.20, suivi inclus, converti au taux du dépôt de 0,97 EUR/CHF", en: "CHF 4.20 with tracking, converted at the repository rate of 0.97 EUR/CHF", de: "CHF 4.20 inkl. Sendungsverfolgung, umgerechnet zum Datensatzkurs von 0,97 EUR/CHF" }
+  - country: "NL"
+    operator_id: "postnl-nl"
+    scope: "consumer"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://www.acm.nl/nl/publicaties/acm-stelt-tariefruimte-voor-universele-postdienst-2027-vast"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "announcement"
+        product: { fr: "Plafond tarifaire du service universel 2027", en: "2027 universal postal service tariff ceiling", de: "Tarifobergrenze Universaldienst 2027" }
+        availability: "upcoming"
+        details: { fr: "Le régulateur ACM relève le prix moyen maximal de 3,1882 € (2026) à 3,5929 € (2027) ; PostNL n’a pas encore publié ses prix 2027", en: "Regulator ACM raises the maximum average price from €3.1882 (2026) to €3.5929 (2027); PostNL has not yet published its 2027 prices", de: "Die Regulierungsbehörde ACM hebt den maximalen Durchschnittspreis von 3,1882 € (2026) auf 3,5929 € (2027) an; PostNL hat seine Preise für 2027 noch nicht veröffentlicht" }
+  - country: "LV"
+    operator_id: "latvijas-pasts-lv"
+    scope: "consumer"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://pasts.lv/pakalpojumi/tarifi-un-informacija/universala-pasta-pakalpojuma-tarifu-izmainas"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "price_change"
+        product: { fr: "Lettre simple jusqu’à 20 g (projet, HT)", en: "Standard letter up to 20 g (proposal, excl. VAT)", de: "Einfacher Brief bis 20 g (Entwurf, ohne MwSt.)" }
+        availability: "published"
+        old_price_eur: 2.35
+        new_price_eur: 2.50
+        percentage_change: 6.38
+      - type: "price_change"
+        product: { fr: "Lettre recommandée jusqu’à 20 g (projet, HT)", en: "Registered letter up to 20 g (proposal, excl. VAT)", de: "Einschreiben bis 20 g (Entwurf, ohne MwSt.)" }
+        availability: "published"
+        old_price_eur: 3.79
+        new_price_eur: 4.87
+        percentage_change: 28.5
+      - type: "price_change"
+        product: { fr: "Lettre simple vers l’EEE jusqu’à 20 g (projet, HT)", en: "Standard letter to the EEA up to 20 g (proposal, excl. VAT)", de: "Einfacher Brief in den EWR bis 20 g (Entwurf, ohne MwSt.)" }
+        availability: "published"
+        old_price_eur: 3.00
+        new_price_eur: 3.25
+        percentage_change: 8.33
+      - type: "announcement"
+        product: { fr: "Projet tarifaire 2027", en: "2027 tariff proposal", de: "Tarifentwurf 2027" }
+        availability: "upcoming"
+        details: { fr: "Projet soumis au régulateur SPRK le 31 juillet 2026, en attente d’approbation", en: "Proposal submitted to regulator SPRK on 31 July 2026, pending approval", de: "Am 31. Juli 2026 bei der Regulierungsbehörde SPRK eingereicht, Genehmigung ausstehend" }
   - country: "DK"
     operator_id: "postnord-dk"
     scope: "business"

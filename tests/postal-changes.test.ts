@@ -34,7 +34,7 @@ describe('2027 postal changes', () => {
   });
 
   it('retains the Denmark business preview as structured research data', () => {
-    expect(changes.announcements).toHaveLength(3);
+    expect(changes.announcements).toHaveLength(7);
     expect(changes.announcements).toContainEqual(expect.objectContaining({
       country: 'DK',
       operator_id: 'postnord-dk',
@@ -54,8 +54,12 @@ describe('2027 postal changes', () => {
 
   it('loads the consultation date for every announcement source', () => {
     expect(changes.announcements.map(({ source }) => source.retrieved_at)).toEqual([
-      '2026-08-10',
-      '2026-08-10',
+      '2026-09-27',
+      '2026-09-27',
+      '2026-09-27',
+      '2026-09-27',
+      '2026-09-27',
+      '2026-09-27',
       '2026-08-10',
     ]);
   });
@@ -64,7 +68,7 @@ describe('2027 postal changes', () => {
     const priceChanges = changes.announcements.flatMap((announcement) => announcement.changes)
       .filter((change) => change.type === 'price_change');
 
-    expect(priceChanges).toHaveLength(6);
+    expect(priceChanges).toHaveLength(12);
     for (const change of priceChanges) {
       expect(change.new_price_eur).toBeDefined();
       if (change.old_price_eur !== undefined) {
@@ -128,10 +132,13 @@ describe('2027 postal changes', () => {
     expect(validatePostalChanges(invalidConsultationDate)).toBe(false);
   });
 
-  it('loads the sourced France, Germany, and Denmark announcements with typed fields', () => {
+  it('loads the sourced France, Germany, Switzerland, Netherlands, Latvia, and Denmark announcements with typed fields', () => {
     expect(changes.announcements).toEqual(expect.arrayContaining([
       expect.objectContaining({ country: 'FR', operator_id: 'la-poste-fr', status: 'confirmed', effective_date: '2027-01-01' }),
       expect.objectContaining({ country: 'DE', operator_id: 'deutsche-post-de', status: 'confirmed', effective_date: '2027-01-01' }),
+      expect.objectContaining({ country: 'CH', operator_id: 'la-poste-suisse-ch', scope: 'consumer', status: 'confirmed', effective_date: '2027-01-01' }),
+      expect.objectContaining({ country: 'NL', operator_id: 'postnl-nl', scope: 'consumer', status: 'preview', effective_date: null }),
+      expect.objectContaining({ country: 'LV', operator_id: 'latvijas-pasts-lv', scope: 'consumer', status: 'preview', effective_date: null }),
       expect.objectContaining({ country: 'DK', operator_id: 'postnord-dk', scope: 'business', status: 'preview', effective_date: null }),
     ]));
   });
