@@ -1,4 +1,4 @@
-/* PostCompare.eu — Postal Heritage Design System */
+/* PostCompare.eu — Postal Heritage Design System (modernised 2026) */
 
 /* ===== CSS Custom Properties ===== */
 :root {
@@ -15,16 +15,22 @@
   --color-brass-light: #D4A853;
   --color-brass-muted: #C9B57A;
   --color-ink: #1A0F07;
-  --color-ink-secondary: #5C4A3A;
-  --color-ink-faded: #8A7B6B;
+  --color-ink-secondary: #54463A;
+  --color-ink-faded: #6F6152;
   --color-border: #C9B57A;
   --color-border-light: #DDD0B0;
   --color-white: #FFFFFF;
   --color-stamp-green: #2D6A4F;
+  /* Text-safe brass (AA on paper/white) */
+  --color-brass-text: #8A6408;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #FBF7EE;
+  --color-focus: #1E3A5F;
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-display: 'Fraunces', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-numeric: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -43,13 +49,13 @@
   /* Borders */
   --border-dashed: 2px dashed var(--color-border);
   --border-solid: 1px solid var(--color-border-light);
-  --radius: 4px;
-  --radius-lg: 8px;
+  --radius: 8px;
+  --radius-lg: 14px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(26, 15, 7, 0.06);
-  --shadow-md: 0 4px 12px rgba(26, 15, 7, 0.08);
-  --shadow-lg: 0 8px 32px rgba(26, 15, 7, 0.1);
+  --shadow-sm: 0 1px 2px rgba(26, 15, 7, 0.05), 0 1px 3px rgba(26, 15, 7, 0.04);
+  --shadow-md: 0 2px 4px rgba(26, 15, 7, 0.04), 0 8px 20px rgba(26, 15, 7, 0.07);
+  --shadow-lg: 0 4px 8px rgba(26, 15, 7, 0.04), 0 16px 40px rgba(26, 15, 7, 0.1);
   --shadow-stamp: 2px 2px 0 rgba(26, 15, 7, 0.08);
 
   /* Perforation pattern (stamp edge) */
@@ -70,7 +76,7 @@
 }
 
 .postal-bulletin__eyebrow {
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   font-family: var(--font-display);
   font-size: 0.78rem;
   font-weight: 700;
@@ -201,7 +207,7 @@
   padding: 2px 7px;
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -274,7 +280,7 @@
 .operator-sources span { margin-left: var(--space-sm); color: var(--color-ink-faded); font-size: 0.82rem; }
 
 *:focus-visible {
-  outline: 3px solid var(--color-brass);
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
 
@@ -490,7 +496,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -659,7 +665,7 @@ a:hover {
   background: var(--color-postal-red);
   color: var(--color-white);
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
   padding: 4px 14px 4px 8px;
   text-transform: uppercase;
@@ -757,7 +763,7 @@ a:hover {
 }
 
 .result-card__option {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   padding: 2px 8px;
   background: var(--color-paper);
   border: 1px dashed var(--color-border-light);
@@ -949,7 +955,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 10px var(--space-md);
@@ -982,7 +988,7 @@ a:hover {
 .content-page h2 {
   margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   font-size: 1.3rem;
 }
 
@@ -1048,7 +1054,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 0.55rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(155, 35, 53, 0.06);
@@ -1189,7 +1195,7 @@ a:hover {
 
 .ship-label__arrow {
   font-size: 1.2rem;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
 }
 
 .ship-label__divider {
@@ -1202,7 +1208,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.7rem;
   font-weight: 700;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 6px;
@@ -1373,7 +1379,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-sm);
-  color: var(--color-brass);
+  color: var(--color-brass-text);
 }
 
 .how-it-works__number {
@@ -1684,7 +1690,7 @@ a:hover {
 }
 
 .op-hero__price-card svg {
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   flex-shrink: 0;
 }
 
@@ -1844,7 +1850,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 10px var(--space-md);
@@ -1894,7 +1900,7 @@ a:hover {
   padding: 1px 8px;
   background: var(--color-postal-red);
   color: var(--color-white);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -1989,7 +1995,7 @@ a:hover {
   }
 
   .op-hero__price-label {
-    font-size: 0.65rem;
+    font-size: 0.72rem;
   }
 
   .op-hero__price-value {
@@ -2157,7 +2163,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 10px var(--space-md);
@@ -2366,7 +2372,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 900;
-  color: var(--color-brass);
+  color: var(--color-brass-text);
   margin-left: auto;
 }
 
@@ -2467,6 +2473,514 @@ a:hover {
   .rk-legend {
     flex-direction: column;
     gap: var(--space-xs);
+  }
+}
+
+/* ===== Modern refresh (2026) =====
+   Keeps the postal heritage identity (red / airmail blue / paper) but moves
+   body copy to a sans-serif, raises contrast and adds consistent radii,
+   elevation and interaction states. Placed before the print styles so print
+   overrides still win. */
+
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+}
+
+p a:not([class]),
+li a:not([class]) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+::selection {
+  background: rgba(155, 35, 53, 0.18);
+}
+
+/* Small caps labels read better in the sans body face */
+.form-label,
+.ship-label__lbl,
+.ship-label__header,
+.postal-bulletin__eyebrow,
+.result-card__badge,
+.op-table th,
+.rk-table thead th,
+.op-hero__price-label,
+.rk-stat__label,
+.op-table__badge {
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+}
+
+/* Tabular figures for every price so columns line up */
+.result-card__price,
+.op-table__price,
+.op-hero__price-value,
+.rk-price,
+.rk-price-sm,
+.rk-price-ppp,
+.rk-stat__value,
+.rk-table tbody td {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Buttons */
+.btn-compare,
+.ship-label__submit,
+.op-cta__btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 2px 6px rgba(122, 27, 41, 0.25);
+}
+
+.btn-compare:hover,
+.op-cta__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 6px 14px rgba(122, 27, 41, 0.28);
+}
+
+.btn-compare:active,
+.op-cta__btn:active {
+  transform: translateY(0);
+}
+
+/* Form controls */
+.form-select,
+.form-input,
+.ship-label__input {
+  border-color: var(--color-border);
+  min-height: 44px;
+}
+
+.form-select:focus,
+.form-input:focus,
+.ship-label__input:focus {
+  border-color: var(--color-airmail-blue-light);
+  box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.18);
+}
+
+.type-toggle__btn,
+.ship-label__opt {
+  min-height: 44px;
+  border-radius: var(--radius);
+}
+
+.type-toggle__btn:hover:not(.type-toggle__btn--active) {
+  border-color: var(--color-postal-red-light);
+  color: var(--color-postal-red);
+}
+
+/* Header */
+.header {
+  box-shadow: 0 2px 12px rgba(122, 27, 41, 0.18);
+}
+
+.header__logo {
+  font-size: 1.3rem;
+}
+
+.header__nav a {
+  position: relative;
+  padding: 6px 2px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.header__nav a:not(.lang-picker__link)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brass-light);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.header__nav a:not(.lang-picker__link):hover::after,
+.header__nav a[aria-current='page']::after {
+  transform: scaleX(1);
+}
+
+.header__nav a[aria-current='page'] {
+  color: var(--color-white);
+}
+
+.header__burger {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+}
+
+.header__burger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-picker__link {
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.lang-picker__link--active {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--color-white);
+}
+
+/* Hero */
+.hero {
+  background-image:
+    radial-gradient(ellipse at 15% 0%, rgba(155, 35, 53, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, rgba(30, 58, 95, 0.07) 0%, transparent 55%);
+}
+
+.hero__title {
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.2rem);
+  font-weight: 800;
+  max-width: 760px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.hero__subtitle {
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-secondary);
+}
+
+.ship-label {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.ship-label__header {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 12px var(--space-lg);
+  font-size: 0.8rem;
+}
+
+.ship-label__submit {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  min-height: 52px;
+  font-size: 1.05rem;
+}
+
+/* Perforations were drawn for square corners */
+.ship-label::before,
+.ship-label::after {
+  left: var(--radius-lg);
+  right: var(--radius-lg);
+}
+
+/* 2027 teaser as a proper card */
+.postal-teaser {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-left: 4px solid var(--color-postal-red);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-lg) var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+/* How it works */
+.how-it-works__step {
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-lg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.how-it-works__step:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.how-it-works__step p {
+  font-size: 0.95rem;
+}
+
+.how-it-works__number {
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+.how-it-works__title,
+.countries-section__title {
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+
+/* Countries grid */
+.countries-grid {
+  gap: var(--space-md);
+}
+
+.countries-grid__item {
+  grid-template-columns: 32px 1fr;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.countries-grid__item--link:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.countries-grid__flag {
+  font-size: 1.5rem;
+}
+
+.countries-grid__name {
+  font-size: 0.92rem;
+}
+
+.countries-grid__operator {
+  font-size: 0.78rem;
+}
+
+.countries-section__subtitle {
+  font-style: normal;
+  font-size: 0.98rem;
+}
+
+/* Comparator layout */
+/* Sidebar as a floating card rather than a half-height column */
+@media (min-width: 768px) {
+  .sidebar {
+    margin: var(--space-xl) 0 var(--space-xl) var(--space-lg);
+    top: calc(var(--header-height) + var(--space-lg));
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.results-header h2 {
+  font-size: 1.75rem;
+}
+
+.results-description {
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: normal;
+}
+
+.result-card {
+  border-radius: var(--radius-lg);
+  border-left-width: 5px;
+  align-items: center;
+}
+
+.result-card__name {
+  font-size: 1.15rem;
+}
+
+.result-card__price {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.result-card--best .result-card__price {
+  color: var(--color-postal-red);
+}
+
+.result-card__badge {
+  top: -1px;
+  border-radius: var(--radius-lg) 0 0 0;
+  font-size: 0.72rem;
+}
+
+.result-card__option {
+  border-radius: 999px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.result-card__link {
+  font-weight: 600;
+}
+
+.no-results {
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  margin-top: var(--space-md);
+}
+
+/* Operator page */
+.op-hero {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.op-hero__price-card,
+.op-zone,
+.op-table-wrap,
+.rk-table-wrap,
+.rk-stat {
+  border-radius: var(--radius);
+}
+
+.op-table td,
+.rk-table tbody td {
+  font-size: 0.92rem;
+}
+
+.op-table tbody tr:hover td,
+.rk-table tbody tr:hover td {
+  background: rgba(184, 134, 11, 0.06);
+}
+
+.op-option {
+  border-radius: 999px;
+}
+
+/* Rankings: bigger, sticky-headed tables */
+.rk-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.rk-hero__title {
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+}
+
+.rk-hero__subtitle {
+  font-style: normal;
+}
+
+/* Footer */
+.footer {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.78);
+  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+}
+
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm) var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.footer__nav a {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 500;
+}
+
+.footer__nav a:hover,
+.footer a:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__disclaimer {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rk-td--operator a,
+.rk-country-name {
+  white-space: nowrap;
+}
+
+.results-header {
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.results-count {
+  white-space: nowrap;
+}
+
+/* Comparator: prompt shown before the first search */
+.results-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 320px;
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-ink-secondary);
+}
+
+.results-empty__icon {
+  color: var(--color-postal-red);
+  opacity: 0.85;
+}
+
+.results-empty h2 {
+  font-size: 1.35rem;
+}
+
+.results-empty p {
+  max-width: 420px;
+}
+
+@media (max-width: 767px) {
+  .header__nav--open a {
+    padding: 10px 2px;
+    font-size: 1rem;
+  }
+
+  .header__nav a::after {
+    display: none;
+  }
+
+  .postal-teaser {
+    padding: var(--space-lg);
+  }
+
+  .result-card__price {
+    font-size: 1.8rem;
+  }
+
+  .results-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .countries-grid {
+    gap: var(--space-sm);
+  }
+
+  .countries-grid__item {
+    padding: 10px;
   }
 }
 

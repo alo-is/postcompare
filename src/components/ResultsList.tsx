@@ -36,7 +36,16 @@ export default function ResultsList({
     return countries.find((c) => c.code === code)?.flag ?? '';
   };
   if (!hasSearched) {
-    return null;
+    return (
+      <div className="results-empty">
+        <svg className="results-empty__icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m3 7 9 6 9-6" />
+        </svg>
+        <h2>{t(lang, 'results.empty_title')}</h2>
+        <p>{t(lang, 'results.empty_text')}</p>
+      </div>
+    );
   }
 
   if (results.length === 0) {
