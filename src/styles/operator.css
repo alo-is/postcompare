@@ -63,6 +63,7 @@
 .op-stats { filter: drop-shadow(0 0 0.75px var(--p-line-strong)) drop-shadow(0 1px 1.5px var(--p-line-strong)); }
 .op-stat.stamp {
   border: 0;
+  border-radius: 0;
   padding: var(--s-5) var(--s-5) var(--s-4);
   box-shadow: inset 0 0 0 8px var(--p-card), inset 0 0 0 9px var(--p-line-strong);
 }

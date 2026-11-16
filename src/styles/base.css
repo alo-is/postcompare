@@ -142,6 +142,10 @@ a { color: inherit; }
   color: var(--p-ink);
   border-color: var(--p-line-strong);
 }
+/* Long German labels wrap on a narrow phone instead of widening the page */
+@media (max-width: 479px) {
+  .btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: var(--s-2); }
+}
 .btn svg { flex: none; transition: transform var(--m-out) var(--ease); }
 
 @media (hover: hover) and (pointer: fine) {

@@ -84,7 +84,7 @@
   padding: var(--s-3) var(--s-4);
   min-height: 64px;
 }
-.country-card__text { display: grid; min-width: 0; }
+.country-card__text { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
 .country-grid > li { min-width: 0; }
 .country-card__name { font-weight: 500; line-height: 1.3; hyphens: auto; overflow-wrap: break-word; }
 .country-card__op {

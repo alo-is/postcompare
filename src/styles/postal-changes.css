@@ -156,7 +156,15 @@
 .postmark--pending::after { display: none; }
 
 @media (max-width: 767px) {
-  .postmark { width: 64px; height: 64px; margin: 0 var(--s-8) 0 0; gap: 2px; }
+  /* The ring on the left, the badge and the date stacked beside its waves */
+  .postal-timeline__date {
+    grid-auto-flow: row;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--s-8);
+    row-gap: var(--s-1);
+    align-content: center;
+  }
+  .postmark { grid-row: span 2; width: 64px; height: 64px; margin: 0; gap: 2px; }
   .postmark__year { font-size: var(--t-label); padding-top: 3px; }
   .postmark::after { width: 40px; height: 24px; }
 }
