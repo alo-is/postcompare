@@ -35,3 +35,13 @@ export function formatWeight(lang: Lang, value: number, unit: 'g' | 'kg'): strin
 export function formatDays(days: [number, number] | number[]): string {
   return days[0] === days[1] ? String(days[0]) : `${days[0]}–${days[1]}`;
 }
+
+/** "2026-11-16" -> "16 nov. 2026" (fr), "16 Nov 2026" (en), "16. Nov. 2026" (de) */
+export function formatDate(lang: Lang, isoDate: string): string {
+  return new Intl.DateTimeFormat(locales[lang], {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${isoDate}T00:00:00Z`));
+}

@@ -28,6 +28,7 @@ pnpm-debug.log*
 
 # superpowers
 .superpowers/
+.worktrees/
 
 # claude
 .claude/

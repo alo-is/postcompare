@@ -1,0 +1,410 @@
+announcements:
+  - country: "FR"
+    operator_id: "la-poste-fr"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027"
+      retrieved_at: "2026-08-10"
+    changes:
+      - type: "price_change"
+        product: { fr: "Lettre verte 20 g", en: "Green letter 20 g", de: "Grüner Brief 20 g" }
+        availability: "published"
+        old_price_eur: 1.52
+        new_price_eur: 1.67
+        percentage_change: 9.9
+      - type: "price_change"
+        product: { fr: "Lettre verte suivie", en: "Tracked green letter", de: "Sendungsverfolgter grüner Brief" }
+        availability: "published"
+        old_price_eur: 2.02
+        new_price_eur: 2.17
+        percentage_change: 7.4
+      - type: "price_change"
+        product: { fr: "Services Plus", en: "Services Plus", de: "Services Plus" }
+        availability: "published"
+        old_price_eur: 3.47
+        new_price_eur: 3.67
+        percentage_change: 5.8
+      - type: "price_change"
+        product: { fr: "e-lettre rouge (1 à 3 feuilles)", en: "Red e-letter (1 to 3 sheets)", de: "Roter E-Brief (1 bis 3 Blätter)" }
+        availability: "published"
+        old_price_eur: 1.60
+        new_price_eur: 1.70
+        percentage_change: 6.25
+      - type: "price_change"
+        product: { fr: "Lettre recommandée R1", en: "Registered letter R1", de: "Einschreiben R1" }
+        availability: "published"
+        old_price_eur: 6.11
+        new_price_eur: 6.47
+        percentage_change: 5.9
+      - type: "price_change"
+        product: { fr: "Lettre internationale 20 g", en: "International letter 20 g", de: "Internationaler Brief 20 g" }
+        availability: "published"
+        new_price_eur: 2.45
+  - country: "FR"
+    operator_id: "la-poste-fr"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.arcep.fr/uploads/tx_gsavis/26-1295.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Colissimo ordinaire 0–250 g (hors affranchissement en ligne)", en: "Colissimo standard parcel 0–250 g (excluding online postage)", de: "Colissimo Standardpaket 0–250 g (ohne Online-Frankierung)" }
+        availability: "published"
+        old_price_eur: 5.49
+        new_price_eur: 5.79
+        percentage_change: 5.46
+  - country: "DE"
+    operator_id: "deutsche-post-de"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.deutschepost.de/de/a/aenderungen2027.html"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "announcement"
+        product: { fr: "Approbation réglementaire", en: "Regulatory approval", de: "Regulatorische Genehmigung" }
+        availability: "published"
+        details: { fr: "Prix publiés sous réserve de l’approbation définitive de la Bundesnetzagentur", en: "Prices published subject to final approval by the Bundesnetzagentur", de: "Alle Preise vorbehaltlich der abschließenden Genehmigung durch die Bundesnetzagentur" }
+      - type: "price_change"
+        product: { fr: "Standardbrief jusqu’à 20 g", en: "Standardbrief up to 20 g", de: "Standardbrief bis 20 g" }
+        availability: "published"
+        old_price_eur: 0.95
+        new_price_eur: 1.15
+        percentage_change: 21.05
+      - type: "price_change"
+        product: { fr: "Kompaktbrief jusqu’à 50 g", en: "Kompaktbrief up to 50 g", de: "Kompaktbrief bis 50 g" }
+        availability: "published"
+        old_price_eur: 1.10
+        new_price_eur: 1.25
+        percentage_change: 13.64
+      - type: "price_change"
+        product: { fr: "Großbrief (désormais jusqu’à 1 kg et 3 cm ; jusqu’ici 500 g et 2 cm)", en: "Großbrief (now up to 1 kg and 3 cm; previously 500 g and 2 cm)", de: "Großbrief (neu bis 1.000 g und 3 cm; bisher 500 g und 2 cm)" }
+        availability: "published"
+        old_price_eur: 1.80
+        new_price_eur: 2.35
+        percentage_change: 30.56
+      - type: "price_change"
+        product: { fr: "Maxibrief (désormais jusqu’à 2 kg et 3 cm ; jusqu’ici 1 kg et 5 cm)", en: "Maxibrief (now up to 2 kg and 3 cm; previously 1 kg and 5 cm)", de: "Maxibrief (neu bis 2.000 g und 3 cm; bisher 1.000 g und 5 cm)" }
+        availability: "published"
+        old_price_eur: 2.90
+        new_price_eur: 5.00
+        percentage_change: 72.41
+      - type: "price_change"
+        product: { fr: "Standardbrief International jusqu’à 20 g", en: "Standardbrief International up to 20 g", de: "Standardbrief International bis 20 g" }
+        availability: "published"
+        old_price_eur: 1.25
+        new_price_eur: 1.45
+        percentage_change: 16.0
+      - type: "price_change"
+        product: { fr: "Kompaktbrief International jusqu’à 50 g", en: "Kompaktbrief International up to 50 g", de: "Kompaktbrief International bis 50 g" }
+        availability: "published"
+        old_price_eur: 1.80
+        new_price_eur: 2.10
+        percentage_change: 16.67
+      - type: "price_change"
+        product: { fr: "Midibrief International jusqu’à 500 g et 2 cm (nouveau)", en: "Midibrief International up to 500 g and 2 cm (new)", de: "Midibrief International bis 500 g und 2 cm (neu)" }
+        availability: "published"
+        new_price_eur: 3.80
+      - type: "price_change"
+        product: { fr: "Großbrief International jusqu’à 1 kg et 3 cm (jusqu’ici 500 g, 3,30 €)", en: "Großbrief International up to 1 kg and 3 cm (previously 500 g, €3.30)", de: "Großbrief International bis 1.000 g und 3 cm (bisher bis 500 g, 3,30 €)" }
+        availability: "published"
+        new_price_eur: 6.80
+      - type: "product_removed"
+        product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
+        availability: "published"
+      - type: "price_change"
+        product: { fr: "Supplément Einschreiben International", en: "Einschreiben International surcharge", de: "Einschreiben International (Aufpreis)" }
+        availability: "published"
+        old_price_eur: 3.70
+        new_price_eur: 3.95
+        percentage_change: 6.76
+      - type: "price_change"
+        product: { fr: "DHL Päckchen S au guichet (désormais 1 kg, suivi inclus ; en ligne 4,49 €)", en: "DHL Päckchen S at the counter (now 1 kg, tracking included; online €4.49)", de: "DHL Päckchen S in der Filiale (neu bis 1 kg, mit Sendungsverfolgung; online 4,49 €)" }
+        availability: "published"
+        old_price_eur: 4.19
+        new_price_eur: 5.19
+        percentage_change: 23.87
+      - type: "price_change"
+        product: { fr: "DHL Paket jusqu’à 5 kg au guichet (en ligne inchangé : 7,69 €)", en: "DHL Paket up to 5 kg at the counter (online unchanged: €7.69)", de: "DHL Paket bis 5 kg in der Filiale (online unverändert 7,69 €)" }
+        availability: "published"
+        old_price_eur: 7.69
+        new_price_eur: 8.29
+        percentage_change: 7.8
+      - type: "price_change"
+        product: { fr: "DHL Paket jusqu’à 10 kg au guichet (en ligne 11,49 €)", en: "DHL Paket up to 10 kg at the counter (online €11.49)", de: "DHL Paket bis 10 kg in der Filiale (online 11,49 €)" }
+        availability: "published"
+        old_price_eur: 10.49
+        new_price_eur: 12.49
+        percentage_change: 19.07
+  - country: "DK"
+    operator_id: "postnord-dk"
+    scope: "business"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://www.postnord.dk/en/business/prices-for-businesses/post2027/"
+      retrieved_at: "2026-08-10"
+    changes:
+      - type: "announcement"
+        product: { fr: "Post 2027", en: "Post 2027", de: "Post 2027" }
+        availability: "upcoming"
+        details: { fr: "Produits et prix attendus en octobre 2026", en: "Product and price content expected in October 2026", de: "Produkt- und Preisinhalte werden im Oktober 2026 erwartet" }
+  - country: "CH"
+    operator_id: "la-poste-suisse-ch"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://site.post.ch/de/ueber-uns/anpassung-angebot-briefe-und-pakete"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Courrier A, lettre standard 1–50 g (CHF 1.20 → 1.40 ; jusqu’ici 1–100 g)", en: "A-Mail standard letter 1–50 g (CHF 1.20 → 1.40; previously 1–100 g)", de: "A-Post Standardbrief 1–50 g (CHF 1.20 → 1.40; bisher 1–100 g)" }
+        availability: "published"
+        old_price_eur: 1.164
+        new_price_eur: 1.358
+        percentage_change: 16.67
+      - type: "price_change"
+        product: { fr: "Courrier B, lettre standard 1–50 g (CHF 1.00 → 1.10)", en: "B-Mail standard letter 1–50 g (CHF 1.00 → 1.10)", de: "B-Post Standardbrief 1–50 g (CHF 1.00 → 1.10)" }
+        availability: "published"
+        old_price_eur: 0.97
+        new_price_eur: 1.067
+        percentage_change: 10.0
+      - type: "price_change"
+        product: { fr: "Courrier A, grande lettre 1–1000 g (CHF 2.50 → 2.75)", en: "A-Mail large letter 1–1000 g (CHF 2.50 → 2.75)", de: "A-Post Grossbrief 1–1000 g (CHF 2.50 → 2.75)" }
+        availability: "published"
+        old_price_eur: 2.425
+        new_price_eur: 2.6675
+        percentage_change: 10.0
+      - type: "price_change"
+        product: { fr: "Courrier B, grande lettre 1–1000 g (CHF 2.00 → 2.25)", en: "B-Mail large letter 1–1000 g (CHF 2.00 → 2.25)", de: "B-Post Grossbrief 1–1000 g (CHF 2.00 → 2.25)" }
+        availability: "published"
+        old_price_eur: 1.94
+        new_price_eur: 2.1825
+        percentage_change: 12.5
+      - type: "price_change"
+        product: { fr: "Recommandé jusqu’au format B5 (CHF 6.80 → 7.00)", en: "Registered letter up to B5 (CHF 6.80 → 7.00)", de: "Einschreiben bis Format B5 (CHF 6.80 → 7.00)" }
+        availability: "published"
+        old_price_eur: 6.596
+        new_price_eur: 6.79
+        percentage_change: 2.94
+      - type: "price_change"
+        product: { fr: "Lettre standard internationale Europe 1–20 g (CHF 1.90 → 2.00)", en: "International standard letter Europe 1–20 g (CHF 1.90 → 2.00)", de: "Standardbrief International Europa 1–20 g (CHF 1.90 → 2.00)" }
+        availability: "published"
+        old_price_eur: 1.843
+        new_price_eur: 1.94
+        percentage_change: 5.26
+      - type: "price_change"
+        product: { fr: "Grande lettre internationale Europe 1–100 g (CHF 4.30 → 4.50)", en: "International large letter Europe 1–100 g (CHF 4.30 → 4.50)", de: "Grossbrief International Europa 1–100 g (CHF 4.30 → 4.50)" }
+        availability: "published"
+        old_price_eur: 4.171
+        new_price_eur: 4.365
+        percentage_change: 4.65
+      - type: "product_removed"
+        product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
+        availability: "published"
+        details: { fr: "Format supprimé ; les documents de plus de 1 kg passent par Kleinwaren International", en: "Format withdrawn; documents over 1 kg move to Kleinwaren International", de: "Format aufgehoben; Dokumente über 1 kg als Kleinwaren International" }
+  - country: "LI"
+    operator_id: "liechtenstein-post-li"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://post.li/wp-content/uploads/2026/10/Anpassungen-der-Dienstleistungen-der-Liechtensteinischen-Post-per-01.01.2027.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Courrier A, lettre standard 1–50 g (CHF 1.20 → 1.40 ; jusqu’ici 1–100 g)", en: "A-Mail standard letter 1–50 g (CHF 1.20 → 1.40; previously 1–100 g)", de: "A-Post Standardbrief 1–50 g (CHF 1.20 → 1.40; bisher 1–100 g)" }
+        availability: "published"
+        old_price_eur: 1.164
+        new_price_eur: 1.358
+        percentage_change: 16.67
+      - type: "price_change"
+        product: { fr: "Courrier B, lettre standard 1–50 g (CHF 1.00 → 1.10)", en: "B-Mail standard letter 1–50 g (CHF 1.00 → 1.10)", de: "B-Post Standardbrief 1–50 g (CHF 1.00 → 1.10)" }
+        availability: "published"
+        old_price_eur: 0.97
+        new_price_eur: 1.067
+        percentage_change: 10.0
+      - type: "price_change"
+        product: { fr: "Lettre standard internationale Europe 1–20 g (CHF 1.90 → 2.00)", en: "International standard letter Europe 1–20 g (CHF 1.90 → 2.00)", de: "Standardbrief International Europa 1–20 g (CHF 1.90 → 2.00)" }
+        availability: "published"
+        old_price_eur: 1.843
+        new_price_eur: 1.94
+        percentage_change: 5.26
+      - type: "price_change"
+        product: { fr: "PostPac Economy jusqu’à 2 kg (CHF 8.50 → 9.00)", en: "PostPac Economy up to 2 kg (CHF 8.50 → 9.00)", de: "PostPac Economy bis 2 kg (CHF 8.50 → 9.00)" }
+        availability: "published"
+        old_price_eur: 8.245
+        new_price_eur: 8.73
+        percentage_change: 5.88
+      - type: "price_change"
+        product: { fr: "PostPac Economy jusqu’à 5 kg (CHF 10.00 → 10.50)", en: "PostPac Economy up to 5 kg (CHF 10.00 → 10.50)", de: "PostPac Economy bis 5 kg (CHF 10.00 → 10.50)" }
+        availability: "published"
+        old_price_eur: 9.7
+        new_price_eur: 10.185
+        percentage_change: 5.0
+  - country: "NO"
+    operator_id: "posten-norge-no"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.posten.no/priser-2027/utskriftsvennlige-prislister-2027/Priser-post-betalt-med-frimerker_01012027.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Petite lettre Norvège (NOK 28 → 29)", en: "Small letter, Norway (NOK 28 → 29)", de: "Kleiner Brief Norwegen (NOK 28 → 29)" }
+        availability: "published"
+        old_price_eur: 2.38
+        new_price_eur: 2.465
+        percentage_change: 3.57
+      - type: "price_change"
+        product: { fr: "Grande lettre Norvège (NOK 46 → 49)", en: "Large letter, Norway (NOK 46 → 49)", de: "Großer Brief Norwegen (NOK 46 → 49)" }
+        availability: "published"
+        old_price_eur: 3.91
+        new_price_eur: 4.165
+        percentage_change: 6.52
+      - type: "price_change"
+        product: { fr: "Petite lettre Europe (NOK 37 → 39)", en: "Small letter, Europe (NOK 37 → 39)", de: "Kleiner Brief Europa (NOK 37 → 39)" }
+        availability: "published"
+        old_price_eur: 3.145
+        new_price_eur: 3.315
+        percentage_change: 5.41
+      - type: "price_change"
+        product: { fr: "Grande lettre Europe (NOK 60 → 63)", en: "Large letter, Europe (NOK 60 → 63)", de: "Großer Brief Europa (NOK 60 → 63)" }
+        availability: "published"
+        old_price_eur: 5.1
+        new_price_eur: 5.355
+        percentage_change: 5.0
+      - type: "price_change"
+        product: { fr: "Petite lettre reste du monde (NOK 44 → 47)", en: "Small letter, rest of world (NOK 44 → 47)", de: "Kleiner Brief übrige Welt (NOK 44 → 47)" }
+        availability: "published"
+        old_price_eur: 3.74
+        new_price_eur: 3.995
+        percentage_change: 6.82
+  - country: "AT"
+    operator_id: "osterreichische-post-at"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://assets.post.at/-/media/Dokumente/De/AGB/PPV-Brief-International_01012027.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Brief S international UE, Priority (0–20 g)", en: "International Brief S EU, Priority (0–20 g)", de: "Brief S International EU, PRIORITY (0–20 g)" }
+        availability: "published"
+        old_price_eur: 1.45
+        new_price_eur: 1.50
+        percentage_change: 3.45
+      - type: "price_change"
+        product: { fr: "Brief S international UE, Economy (0–20 g)", en: "International Brief S EU, Economy (0–20 g)", de: "Brief S International EU, ECONOMY (0–20 g)" }
+        availability: "published"
+        old_price_eur: 1.25
+        new_price_eur: 1.30
+        percentage_change: 4.0
+      - type: "price_change"
+        product: { fr: "Brief M international UE, Priority (20–75 g)", en: "International Brief M EU, Priority (20–75 g)", de: "Brief M International EU, PRIORITY (>20–75 g)" }
+        availability: "published"
+        old_price_eur: 2.40
+        new_price_eur: 2.45
+        percentage_change: 2.08
+      - type: "price_change"
+        product: { fr: "Brief L international UE, Priority (jusqu’à 2 kg)", en: "International Brief L EU, Priority (up to 2 kg)", de: "Brief L International EU, PRIORITY (bis 2 kg)" }
+        availability: "published"
+        old_price_eur: 8.45
+        new_price_eur: 8.70
+        percentage_change: 2.96
+      - type: "price_change"
+        product: { fr: "Brief S international monde, Priority (0–20 g)", en: "International Brief S world, Priority (0–20 g)", de: "Brief S International Welt, PRIORITY (0–20 g)" }
+        availability: "published"
+        old_price_eur: 2.20
+        new_price_eur: 2.25
+        percentage_change: 2.27
+  - country: "LV"
+    operator_id: "latvijas-pasts-lv"
+    scope: "consumer"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://pasts.lv/en/services/useful/tariff-project-1"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "announcement"
+        product: { fr: "Projet de tarifs 2027 du service universel", en: "2027 universal service tariff proposal", de: "Tarifentwurf 2027 für den Universaldienst" }
+        availability: "upcoming"
+        details: { fr: "Projet soumis au régulateur SPRK le 31 juillet 2026 ; tarifs non encore approuvés", en: "Proposal submitted to the SPRK regulator on 31 July 2026; tariffs not yet approved", de: "Am 31. Juli 2026 beim Regulierer SPRK eingereicht; Tarife noch nicht genehmigt" }
+  - country: "EE"
+    operator_id: "omniva-ee"
+    scope: "consumer"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://www.omniva.ee/uudised/omniva-3-kvartali-tulemused-rahvusvahelise-transiidi-pakimaht-kasvas-31-baltikumi-pakiturgu-mojutasid-tollimuudatused/?action=article&article_id=786&article_token=news&is_mobile=false"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "announcement"
+        product: { fr: "Tarification 2027 du service postal universel", en: "2027 universal postal service pricing", de: "Preisgestaltung 2027 für den Universalpostdienst" }
+        availability: "upcoming"
+        details: { fr: "Proposition soumise à l’autorité de la concurrence (Konkurentsiamet) en septembre 2026 ; prix non publiés", en: "Proposal submitted to the Competition Authority (Konkurentsiamet) in September 2026; prices not published", de: "Im September 2026 bei der Wettbewerbsbehörde (Konkurentsiamet) eingereicht; Preise nicht veröffentlicht" }
+  - country: "BE"
+    operator_id: "bpost-be"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://press.bpost.be/bpost-past-zijn-tarieven-aan-voor-2027"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Timbre Non Prior, à l’unité (1,72 € par feuille de 10)", en: "Non Prior stamp, single (€1.72 each in a sheet of 10)", de: "Non-Prior-Briefmarke, einzeln (1,72 € im 10er-Bogen)" }
+        availability: "published"
+        new_price_eur: 1.77
+      - type: "price_change"
+        product: { fr: "Timbre Prior, à l’unité (2,68 € par feuille de 5)", en: "Prior stamp, single (€2.68 each in a sheet of 5)", de: "Prior-Briefmarke, einzeln (2,68 € im 5er-Bogen)" }
+        availability: "published"
+        new_price_eur: 2.73
+      - type: "price_change"
+        product: { fr: "Envoi recommandé, tarif résidentiel", en: "Registered item, residential rate", de: "Einschreiben, Privatkundentarif" }
+        availability: "published"
+        new_price_eur: 10.76
+      - type: "price_change"
+        product: { fr: "Envoi normalisé vers l’Europe, à l’unité (3,24 € par feuille de 5)", en: "Standard-size item to Europe, single (€3.24 each in a sheet of 5)", de: "Standardsendung nach Europa, einzeln (3,24 € im 5er-Bogen)" }
+        availability: "published"
+        new_price_eur: 3.36
+      - type: "price_change"
+        product: { fr: "Envoi normalisé vers le reste du monde, à l’unité", en: "Standard-size item to the rest of the world, single", de: "Standardsendung in die übrige Welt, einzeln" }
+        availability: "published"
+        new_price_eur: 3.58
+      - type: "price_change"
+        product: { fr: "bpack 24h", en: "bpack 24h", de: "bpack 24h" }
+        availability: "published"
+        old_price_eur: 8.60
+        new_price_eur: 9.00
+        percentage_change: 4.65
+      - type: "announcement"
+        product: { fr: "Clause d’inflation", en: "Inflation clause", de: "Inflationsklausel" }
+        availability: "published"
+        details: { fr: "Ajustement supplémentaire possible de 3 % maximum en cours d’année 2027 selon l’inflation ; colis internationaux prépayés inchangés", en: "A further adjustment of up to 3% is possible during 2027 depending on inflation; prepaid international parcels unchanged", de: "Je nach Inflation ist 2027 eine weitere Anpassung um höchstens 3 % möglich; vorausbezahlte internationale Pakete unverändert" }
+  - country: "NL"
+    operator_id: "postnl-nl"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://newsroom.postnl.nl/nl-NL/273887-postnl-maakt-nieuwe-postzegelprijs-per-1-januari-2027-bekend/"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Timbre standard, lettre nationale (distribution en 2 jours)", en: "Standard stamp, domestic letter (2-day delivery)", de: "Standardbriefmarke, Inlandsbrief (Zustellung in 2 Tagen)" }
+        availability: "published"
+        new_price_eur: 1.52
+      - type: "announcement"
+        product: { fr: "Priobrief et timbre de deuil prio", en: "Priobrief and priority mourning stamp", de: "Priobrief und Trauerbriefmarke prio" }
+        availability: "published"
+        details: { fr: "Inchangés à 3,95 € et 3,25 €", en: "Unchanged at €3.95 and €3.25", de: "Unverändert bei 3,95 € und 3,25 €" }

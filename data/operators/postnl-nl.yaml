@@ -5,7 +5,12 @@ operator:
   currency: "EUR"
   website: "https://www.postnl.nl"
   logo: "postnl-nl.svg"
-  last_updated: "2026-01-01"
+  last_updated: "2026-07-12"
+  sources:
+    - title: "PostNL international mail EUR1 rates"
+      url: "https://www.postnl.nl/en/sending/letter-or-card/international-mail/"
+      retrieved_at: "2026-08-10"
+      effective_from: "2026-07-12"
 
 letters:
   domestic:
@@ -36,8 +41,34 @@ letters:
       delivery_days: [1, 2]
   international:
     zones:
-      - name: "Europe"
-        countries: ["DE", "FR", "ES", "IT", "BE", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
+      - name: "Europe EUR1"
+        countries: ["BE", "DK", "DE", "FR", "IT", "LU", "AT", "ES", "SE"]
+        rates:
+          - name: "Internationale brief"
+            max_weight_g: 20
+            price_eur: 2.11
+            delivery_days: [3, 7]
+            options:
+              - name: "Aangetekend internationaal"
+                price_eur: 14.20
+          - name: "Internationale brief"
+            max_weight_g: 50
+            price_eur: 4.22
+            delivery_days: [3, 7]
+          - name: "Internationale brief"
+            max_weight_g: 100
+            price_eur: 6.33
+            delivery_days: [3, 7]
+          - name: "Internationale brief"
+            max_weight_g: 350
+            price_eur: 8.44
+            delivery_days: [3, 7]
+          - name: "Internationale brief"
+            max_weight_g: 2000
+            price_eur: 10.55
+            delivery_days: [3, 7]
+      - name: "Europe (existing destinations)"
+        countries: ["PT", "CH", "GB", "IE", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "LV", "EE", "CY", "MT", "IS", "LI"]
         rates:
           - name: "Internationale brief"
             max_weight_g: 20

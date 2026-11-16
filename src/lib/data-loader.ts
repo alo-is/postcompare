@@ -2,7 +2,7 @@
 import yaml from 'js-yaml';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { OperatorData, Country } from './types';
+import type { OperatorData, Country, PostalChangesData } from './types';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 
@@ -62,4 +62,13 @@ export function getOperatorIds(): string[] {
     .readdirSync(operatorsDir)
     .filter((f) => f.endsWith('.yaml'))
     .map((f) => f.replace('.yaml', ''));
+}
+
+/** Load the sourced postal-change announcements for 2027. */
+export function loadPostalChanges(): PostalChangesData {
+  const content = fs.readFileSync(
+    path.join(DATA_DIR, 'postal-changes-2027.yaml'),
+    'utf-8',
+  );
+  return yaml.load(content) as PostalChangesData;
 }

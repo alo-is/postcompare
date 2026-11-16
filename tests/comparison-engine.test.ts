@@ -214,6 +214,25 @@ describe('comparison engine', () => {
   });
 
   describe('edge cases', () => {
+    it('excludes letter services explicitly marked unavailable', () => {
+      const unavailableOperator: OperatorData = {
+        ...laPoste,
+        letters: {
+          ...laPoste.letters,
+          available: false,
+          unavailable_since: '2026-01-01',
+          notice: {
+            fr: 'Service indisponible',
+            en: 'Service unavailable',
+            de: 'Dienst nicht verfügbar',
+          },
+        },
+      };
+      const params: SearchParams = { type: 'letter', weight: 20, origin: 'FR', destination: 'domestic' };
+
+      expect(compare([unavailableOperator], params)).toEqual([]);
+    });
+
     it('returns empty array when no operators cover the destination', () => {
       const params: SearchParams = { type: 'parcel', weight: 1, origin: 'FR', destination: 'JP' };
       const results = compare(operators, params);

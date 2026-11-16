@@ -1,0 +1,169 @@
+---
+// src/pages/[lang]/tarifs-2027.astro — bulletin of officially announced 2027 postal changes
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localePath, t } from '../../i18n/utils';
+import { formatDate, formatPrice } from '../../i18n/format';
+import { loadAllOperators, loadCountries, loadPostalChanges } from '../../lib/data-loader';
+import { consumerAnnouncements as consumerOnly } from '../../lib/postal-changes';
+import type { Lang, PostalAnnouncement, PostalChange } from '../../lib/types';
+
+export function getStaticPaths() {
+  return ['fr', 'en', 'de'].map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const consumerAnnouncements = consumerOnly(loadPostalChanges());
+const operators = loadAllOperators();
+const countries = loadCountries();
+
+const countryName = (countryCode: string) => {
+  const country = countries.find(({ code }) => code === countryCode);
+  return country ? country[`name_${lang}` as const] : countryCode;
+};
+
+const operatorName = (announcement: PostalAnnouncement) =>
+  operators.find(({ operator }) => operator.id === announcement.operator_id)?.operator.name
+  ?? announcement.operator_id;
+
+const percentFormat = new Intl.NumberFormat({ fr: 'fr-FR', en: 'en-GB', de: 'de-DE' }[lang], {
+  style: 'percent',
+  maximumFractionDigits: 1,
+  signDisplay: 'always',
+});
+
+const changeSummary = (change: PostalChange) => {
+  if (change.old_price_eur !== undefined && change.new_price_eur !== undefined) {
+    return t(lang, 'postal_changes.price_change', {
+      oldPrice: formatPrice(lang, change.old_price_eur),
+      newPrice: formatPrice(lang, change.new_price_eur),
+    });
+  }
+  if (change.new_price_eur !== undefined) {
+    return t(lang, 'postal_changes.new_price', { newPrice: formatPrice(lang, change.new_price_eur) });
+  }
+  return change.details?.[lang] ?? t(lang, `postal_changes.${change.type}`);
+};
+
+// Plain announcements (caveats, approvals, unchanged prices) read as notes above the price list.
+const notesOf = (a: PostalAnnouncement) => a.changes.filter((c) => c.type === 'announcement');
+const rowsOf = (a: PostalAnnouncement) => a.changes.filter((c) => c.type !== 'announcement');
+
+const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+
+// One card per operator and status: France has two confirmed sources (La Poste and Arcep).
+const groupBy = (list: PostalAnnouncement[]) => {
+  const groups = new Map<string, PostalAnnouncement[]>();
+  for (const a of list) {
+    const key = `${a.operator_id}|${a.effective_date ?? ''}`;
+    groups.set(key, [...(groups.get(key) ?? []), a]);
+  }
+  return [...groups.values()];
+};
+
+const confirmed = groupBy(consumerAnnouncements.filter(({ status }) => status === 'confirmed'));
+const preview = groupBy(consumerAnnouncements.filter(({ status }) => status === 'preview'));
+const lastVerified = consumerAnnouncements
+  .map(({ source }) => source.retrieved_at)
+  .sort()
+  .at(-1);
+
+const sections = [
+  { id: 'confirmed-changes', title: t(lang, 'postal_changes.confirmed_title'), groups: confirmed, status: 'confirmed' as const },
+  { id: 'preview-changes', title: t(lang, 'postal_changes.preview_title'), groups: preview, status: 'preview' as const },
+].filter((s) => s.groups.length > 0);
+---
+
+<BaseLayout
+  title={t(lang, 'postal_changes.title')}
+  description={t(lang, 'postal_changes.intro')}
+  lang={lang}
+>
+  <article class="wrap postal-page">
+    <header class="page-head">
+      <h1>{t(lang, 'postal_changes.title')}</h1>
+      <p class="page-head__lead">{t(lang, 'postal_changes.intro')}</p>
+      {lastVerified && (
+        <p class="postal-page__verified muted">
+          {t(lang, 'postal_changes.last_verified', { date: formatDate(lang, lastVerified) })}
+        </p>
+      )}
+    </header>
+
+    <aside class="card postal-notice" aria-label={t(lang, 'postal_changes.title')}>
+      <p>{t(lang, 'postal_changes.notice')}</p>
+    </aside>
+
+    {sections.map((section) => (
+      <section class="section" aria-labelledby={section.id}>
+        <h2 id={section.id} class="postal-page__h2">{section.title}</h2>
+        <div class="postal-timeline">
+          {section.groups.map((group) => {
+            const first = group[0];
+            return (
+              <article class="postal-timeline__entry" aria-labelledby={`pc-${first.operator_id}-${section.status}`}>
+                <div class="postal-timeline__date">
+                  {section.status === 'confirmed'
+                    ? <span class="badge badge--accent">{t(lang, 'postal_changes.confirmed')}</span>
+                    : <span class="badge badge--outline">{t(lang, 'postal_changes.preview')}</span>}
+                  <time datetime={first.effective_date ?? undefined}>
+                    {first.effective_date
+                      ? t(lang, 'postal_changes.effective', { date: formatDate(lang, first.effective_date) })
+                      : t(lang, 'postal_changes.date_pending')}
+                  </time>
+                </div>
+
+                <div class="card postal-timeline__content">
+                  <h3 id={`pc-${first.operator_id}-${section.status}`} class="postal-entry__title">
+                    <span class="cc">{first.country}</span>
+                    <span>{countryName(first.country)} · {operatorName(first)}</span>
+                  </h3>
+
+                  {group.map((announcement) => (
+                    <div class="postal-entry__source-block">
+                      {notesOf(announcement).map((note) => (
+                        <p class="postal-entry__note">
+                          <strong>{note.product[lang]}</strong>
+                          <span>{changeSummary(note)}</span>
+                        </p>
+                      ))}
+                      {rowsOf(announcement).length > 0 && (
+                        <ul class="postal-changes">
+                          {rowsOf(announcement).map((change) => (
+                            <li class="postal-changes__row">
+                              <span class="postal-changes__product">{change.product[lang]}</span>
+                              <span class="postal-changes__change">{changeSummary(change)}</span>
+                              <span class="postal-changes__pct num muted">
+                                {change.percentage_change !== undefined ? percentFormat.format(change.percentage_change / 100) : ''}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      <p class="postal-entry__source">
+                        {t(lang, 'ui.source')}:{' '}
+                        <a class="link" href={announcement.source.url} target="_blank" rel="noopener">{hostOf(announcement.source.url)}</a>
+                        <span class="muted"> · {t(lang, 'operator.source_retrieved', { date: formatDate(lang, announcement.source.retrieved_at) })}</span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+
+    {lastVerified && (
+      <p class="postal-page__method muted">
+        {t(lang, 'postal_changes.methodology', { date: formatDate(lang, lastVerified) })}
+      </p>
+    )}
+
+    <p class="postal-page__back">
+      <a class="link" href={localePath(lang, '/compare')}>
+        <span aria-hidden="true">&larr;</span> {t(lang, 'operator.back_home')}
+      </a>
+    </p>
+  </article>
+</BaseLayout>

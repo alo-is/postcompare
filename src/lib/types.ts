@@ -47,6 +47,9 @@ export interface LetterRates {
   international: {
     zones: LetterZone[];
   };
+  available?: boolean;
+  unavailable_since?: string;
+  notice?: LocalizedText;
 }
 
 /** Parcel rates for an operator */
@@ -66,6 +69,7 @@ export interface OperatorInfo {
   website: string;
   logo: string;
   last_updated: string;
+  sources?: DataSource[];
 }
 
 /** Complete operator data as stored in YAML */
@@ -121,3 +125,60 @@ export interface ComparisonResult {
 
 /** Supported languages */
 export type Lang = 'fr' | 'en' | 'de';
+
+/** Text shown in every supported site language. */
+export interface LocalizedText {
+  fr: string;
+  en: string;
+  de: string;
+}
+
+/** Official source for published or announced postal information. */
+export interface Source {
+  url: string;
+  retrieved_at: string;
+}
+
+/** An official source associated with an operator dataset. */
+export interface DataSource {
+  title: string;
+  url: string;
+  retrieved_at: string;
+  effective_from?: string;
+}
+
+/** Whether consumer price information can currently be shown. */
+export type Availability = 'published' | 'not_published' | 'upcoming';
+
+export type PostalChangeType =
+  | 'price_change'
+  | 'product_introduced'
+  | 'product_changed'
+  | 'product_removed'
+  | 'announcement';
+
+export type PostalScope = 'consumer' | 'business';
+
+export interface PostalChange {
+  type: PostalChangeType;
+  product: LocalizedText;
+  availability: Availability;
+  old_price_eur?: number;
+  new_price_eur?: number;
+  percentage_change?: number;
+  details?: LocalizedText;
+}
+
+export interface PostalAnnouncement {
+  country: string;
+  operator_id: string;
+  scope: PostalScope;
+  status: 'confirmed' | 'preview';
+  effective_date: string | null;
+  source: Source;
+  changes: PostalChange[];
+}
+
+export interface PostalChangesData {
+  announcements: PostalAnnouncement[];
+}

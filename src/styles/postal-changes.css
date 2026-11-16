@@ -1,0 +1,113 @@
+/* 2027 postal changes: bulletin page, home teaser, operator-page notices. */
+
+/* ---------- Home teaser ---------- */
+.postal-teaser { padding-top: var(--s-7); }
+.postal-teaser__card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--s-6);
+}
+.postal-teaser__text { display: grid; gap: var(--s-2); justify-items: start; max-width: 62ch; }
+.postal-teaser__text h2 { font-size: 1.5rem; }
+
+/* ---------- Bulletin page ---------- */
+.postal-page { padding-bottom: var(--s-7); }
+.postal-page__verified { font-size: var(--t-small); }
+.postal-notice { max-width: 72ch; }
+.postal-page__h2 { margin-bottom: var(--s-6); }
+
+/* Date column + entries on one grid; each entry spans it with subgrid */
+.postal-timeline {
+  display: grid;
+  grid-template-columns: 9.2rem minmax(0, 1fr);
+  gap: var(--s-5) var(--s-6);
+}
+.postal-timeline__entry {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: start;
+}
+.postal-timeline__date {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--s-4));
+  display: grid;
+  gap: var(--s-2);
+  justify-items: start;
+  padding-top: var(--s-5);
+  font-size: var(--t-small);
+  color: var(--p-muted);
+}
+.postal-timeline__content { display: grid; gap: var(--s-5); padding: var(--s-5) var(--s-6); }
+
+.postal-entry__title { display: flex; align-items: center; gap: var(--s-3); font-size: 1.25rem; }
+.postal-entry__source-block { display: grid; gap: var(--s-3); }
+.postal-entry__source-block + .postal-entry__source-block { margin-top: calc(-1 * var(--s-2)); }
+
+/* Caveats and approvals: an accent rule, never a second hue */
+.postal-entry__note {
+  display: grid;
+  gap: 2px;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-sm);
+  background: var(--p-accent-soft);
+  box-shadow: inset 3px 0 0 var(--p-accent);
+}
+.postal-entry__note strong { font-weight: 500; }
+
+.postal-changes { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--p-line); }
+.postal-changes__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 4.5rem;
+  gap: var(--s-1) var(--s-5);
+  align-items: baseline;
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--p-line);
+  font-size: 0.9375rem;
+}
+.postal-changes__change { max-width: 34ch; font-variant-numeric: tabular-nums; text-align: right; text-wrap: balance; }
+.postal-changes__pct { text-align: right; font-size: var(--t-small); }
+
+.postal-entry__source { font-size: var(--t-small); }
+.postal-page__method { max-width: 72ch; font-size: var(--t-small); }
+.postal-page__back { padding-top: var(--s-5); font-size: var(--t-small); }
+.postal-page__back a { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--ctl-h); }
+
+/* ---------- Operator page ---------- */
+.operator-postal-alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  margin-bottom: var(--s-2);
+  box-shadow: inset 3px 0 0 var(--p-accent);
+}
+.operator-postal-alert p { flex: 1 1 24ch; }
+.operator-postal-alert .link { font-weight: 500; min-height: var(--ctl-h); display: inline-flex; align-items: center; }
+
+.op-stat__none { color: var(--p-muted); font-size: 1.0625rem; }
+.op-unavailable { display: grid; gap: var(--s-2); max-width: 72ch; }
+
+.operator-sources__list { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.operator-sources__list li { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); align-items: baseline; }
+.operator-sources__list .muted { font-size: var(--t-small); }
+
+@media (max-width: 767px) {
+  .postal-timeline { grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+  .postal-timeline__date {
+    position: static;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: start;
+    padding-top: 0;
+  }
+  .postal-timeline__content { padding: var(--s-5); }
+  .postal-changes__row { grid-template-columns: minmax(0, 1fr) auto; }
+  .postal-changes__product { grid-column: 1 / -1; }
+  .postal-changes__change { text-align: left; }
+  .postal-teaser__card { padding: var(--s-5); }
+  .postal-teaser__card .btn { width: 100%; }
+}

@@ -3,8 +3,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import RateTable from '../../../components/RateTable.astro';
 import { t, localePath } from '../../../i18n/utils';
-import { formatPrice } from '../../../i18n/format';
-import { loadAllOperators, loadCountries, getOperatorIds } from '../../../lib/data-loader';
+import { formatDate, formatPrice } from '../../../i18n/format';
+import { loadAllOperators, loadCountries, getOperatorIds, loadPostalChanges } from '../../../lib/data-loader';
 import type { Lang, Country } from '../../../lib/types';
 
 export function getStaticPaths() {
@@ -30,6 +30,10 @@ if (!operator) {
 }
 
 const info = operator.operator;
+const lettersAvailable = operator.letters.available !== false;
+const postalAnnouncement = loadPostalChanges().announcements.find(
+  ({ operator_id, scope }) => operator_id === info.id && scope === 'consumer',
+);
 
 const getCountry = (code: string): Country | undefined =>
   countries.find((c) => c.code === code);
@@ -41,17 +45,19 @@ const countryName = (code: string): string => {
 };
 
 
-// Find cheapest rates in each section
-const cheapestDomesticLetter = operator.letters.domestic.reduce(
-  (min, r) => (r.price_eur < min.price_eur ? r : min),
-  operator.letters.domestic[0],
-);
+// Find cheapest rates in each section (no letter price when the service is withdrawn)
+const cheapestDomesticLetter = lettersAvailable
+  ? operator.letters.domestic.reduce(
+    (min, r) => (r.price_eur < min.price_eur ? r : min),
+    operator.letters.domestic[0],
+  )
+  : undefined;
 const cheapestDomesticParcel = operator.parcels.domestic.reduce(
   (min, r) => (r.price_eur < min.price_eur ? r : min),
   operator.parcels.domestic[0],
 );
 
-const lowestLetterPrice = cheapestDomesticLetter?.price_eur ?? Infinity;
+const lowestLetterPrice = cheapestDomesticLetter?.price_eur;
 const lowestParcelPrice = cheapestDomesticParcel?.price_eur ?? Infinity;
 
 // Build JSON-LD for the operator (Service schema)
@@ -67,12 +73,12 @@ const operatorJsonLd = {
   "areaServed": info.country,
   "serviceType": "Postal Service",
   "offers": [
-    {
+    ...(lowestLetterPrice !== undefined ? [{
       "@type": "Offer",
       "name": "Domestic Letter",
       "priceCurrency": "EUR",
       "price": lowestLetterPrice.toFixed(2),
-    },
+    }] : []),
     {
       "@type": "Offer",
       "name": "Domestic Parcel",
@@ -83,9 +89,9 @@ const operatorJsonLd = {
 };
 
 const operatorDescriptions: Record<string, string> = {
-  fr: `Tarifs ${info.name} : lettres dès ${lowestLetterPrice.toFixed(2)} EUR, colis dès ${lowestParcelPrice.toFixed(2)} EUR. Comparez avec les autres opérateurs postaux européens.`,
-  en: `${info.name} rates: letters from ${lowestLetterPrice.toFixed(2)} EUR, parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
-  de: `${info.name} Tarife: Briefe ab ${lowestLetterPrice.toFixed(2)} EUR, Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
+  fr: `Tarifs ${info.name} : ${lettersAvailable ? `lettres dès ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}colis dès ${lowestParcelPrice.toFixed(2)} EUR. Comparez avec les autres opérateurs postaux européens.`,
+  en: `${info.name} rates: ${lettersAvailable ? `letters from ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}parcels from ${lowestParcelPrice.toFixed(2)} EUR. Compare with other European postal operators.`,
+  de: `${info.name} Tarife: ${lettersAvailable ? `Briefe ab ${lowestLetterPrice!.toFixed(2)} EUR, ` : ''}Pakete ab ${lowestParcelPrice.toFixed(2)} EUR. Vergleichen Sie mit anderen europäischen Postbetreibern.`,
 };
 
 ---
@@ -116,9 +122,13 @@ const operatorDescriptions: Record<string, string> = {
       </div>
 
       <dl class="op-stats">
-        <div class="card op-stat">
+        <div class:list={['card', 'op-stat', { 'op-stat--unavailable': !lettersAvailable }]}>
           <dt>{t(lang, 'form.letter')}</dt>
-          <dd><span class="op-stat__from">{t(lang, 'ui.from')}</span> <span class="num">{formatPrice(lang, lowestLetterPrice)}</span></dd>
+          {lowestLetterPrice !== undefined ? (
+            <dd><span class="op-stat__from">{t(lang, 'ui.from')}</span> <span class="num">{formatPrice(lang, lowestLetterPrice)}</span></dd>
+          ) : (
+            <dd class="op-stat__none">{t(lang, 'operator.letters_unavailable_short')}</dd>
+          )}
         </div>
         <div class="card op-stat">
           <dt>{t(lang, 'form.parcel')}</dt>
@@ -142,6 +152,16 @@ const operatorDescriptions: Record<string, string> = {
       </div>
     </header>
 
+    {postalAnnouncement && (
+      <aside class="card operator-postal-alert" aria-label={t(lang, 'postal_changes.title')}>
+        <span class="badge badge--accent">2027</span>
+        <p>{t(lang, 'operator.postal_alert')}</p>
+        <a class="link" href={localePath(lang, '/tarifs-2027')}>{t(lang, 'operator.postal_alert_link')}</a>
+      </aside>
+    )}
+
+    {lettersAvailable ? (
+    <>
     <section class="section op-section" aria-labelledby="dom-letters">
       <h2 id="dom-letters" class="op-section__title">{t(lang, 'operator.domestic_letters')}</h2>
       <RateTable lang={lang} kind="letter" rates={operator.letters.domestic} labelledby="dom-letters" />
@@ -160,6 +180,20 @@ const operatorDescriptions: Record<string, string> = {
         </div>
       ))}
     </section>
+    </>
+    ) : (
+      <section class="section op-section" aria-labelledby="letters-unavailable">
+        <h2 id="letters-unavailable" class="op-section__title">{t(lang, 'operator.letters_unavailable_title')}</h2>
+        <div class="card op-unavailable">
+          <p class="op-unavailable-notice">{operator.letters.notice?.[lang]}</p>
+          {operator.letters.unavailable_since && (
+            <p class="op-unavailable-notice__date muted">
+              {t(lang, 'operator.unavailable_since', { date: formatDate(lang, operator.letters.unavailable_since) })}
+            </p>
+          )}
+        </div>
+      </section>
+    )}
 
     <section class="section op-section" aria-labelledby="dom-parcels">
       <h2 id="dom-parcels" class="op-section__title">{t(lang, 'operator.domestic_parcels')}</h2>
@@ -179,6 +213,20 @@ const operatorDescriptions: Record<string, string> = {
         </div>
       ))}
     </section>
+
+    {info.sources && info.sources.length > 0 && (
+      <section class="section operator-sources" aria-labelledby="operator-sources-title">
+        <h2 id="operator-sources-title" class="op-section__title">{t(lang, 'operator.sources_title')}</h2>
+        <ul class="operator-sources__list">
+          {info.sources.map((source) => (
+            <li>
+              <a class="link" href={source.url} target="_blank" rel="noopener">{source.title}</a>
+              <span class="muted">{t(lang, 'operator.source_retrieved', { date: formatDate(lang, source.retrieved_at) })}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     <div class="section op-foot btn-row">
       <a href={localePath(lang, `/compare?origin=${info.country}`)} class="btn btn--primary">

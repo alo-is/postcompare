@@ -33,6 +33,10 @@
         "last_updated": {
           "type": "string",
           "format": "date"
+        },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dataSource" }
         }
       }
     },
@@ -57,8 +61,26 @@
               "minItems": 1
             }
           }
+        },
+        "available": { "type": "boolean" },
+        "unavailable_since": { "type": "string", "format": "date" },
+        "notice": { "$ref": "#/$defs/localizedText" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "available": { "const": false } },
+            "required": ["available"]
+          },
+          "then": {
+            "properties": {
+              "unavailable_since": true,
+              "notice": true
+            },
+            "required": ["unavailable_since", "notice"]
+          }
         }
-      }
+      ]
     },
     "parcels": {
       "type": "object",
@@ -124,6 +146,27 @@
       "properties": {
         "name": { "type": "string", "minLength": 1 },
         "price_eur": { "type": "number", "minimum": 0 }
+      }
+    },
+    "localizedText": {
+      "type": "object",
+      "required": ["fr", "en", "de"],
+      "additionalProperties": false,
+      "properties": {
+        "fr": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 },
+        "de": { "type": "string", "minLength": 1 }
+      }
+    },
+    "dataSource": {
+      "type": "object",
+      "required": ["title", "url", "retrieved_at"],
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date" },
+        "effective_from": { "type": "string", "format": "date" }
       }
     },
     "letterZone": {

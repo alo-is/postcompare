@@ -1,0 +1,227 @@
+import { describe, expect, it } from 'vitest';
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'js-yaml';
+import type { OperatorData } from '../src/lib/types';
+import { compare } from '../src/lib/comparison-engine';
+import { loadAllOperators } from '../src/lib/data-loader';
+
+const operatorsDir = path.resolve(process.cwd(), 'data', 'operators');
+
+function loadOperator(filename: string): OperatorData {
+  return yaml.load(
+    fs.readFileSync(path.join(operatorsDir, filename), 'utf-8'),
+  ) as OperatorData;
+}
+
+function domesticRate(operator: OperatorData, maxWeightG: number) {
+  return operator.letters.domestic.find((rate) => rate.max_weight_g === maxWeightG);
+}
+
+function internationalRate(
+  operator: OperatorData,
+  country: string,
+  maxWeightG: number,
+) {
+  return operator.letters.international.zones
+    .find((zone) => zone.countries.includes(country))
+    ?.rates.find((rate) => rate.max_weight_g === maxWeightG);
+}
+
+describe('verified current postal rates', () => {
+  it('uses bpost Europe priority letter rate up to 50g from the 2026 tariff', () => {
+    const bpost = loadOperator('bpost-be.yaml');
+
+    expect(internationalRate(bpost, 'FR', 50)?.price_eur).toBe(3.07);
+    expect(bpost.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.bpost.be/fr/tarifs-particuliers',
+      retrieved_at: '2026-08-10',
+    }));
+  });
+
+  it('uses the verified PostNL EUR1 rates only for explicitly checked destinations', () => {
+    const postnl = loadOperator('postnl-nl.yaml');
+
+    for (const country of ['BE', 'DK', 'DE', 'FR', 'IT', 'LU', 'AT', 'ES', 'SE']) {
+      expect([20, 50, 100, 350, 2000].map(
+        (weight) => internationalRate(postnl, country, weight)?.price_eur,
+      )).toEqual([2.11, 4.22, 6.33, 8.44, 10.55]);
+    }
+    expect(internationalRate(postnl, 'PT', 20)?.price_eur).toBe(1.90);
+    expect(postnl.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.postnl.nl/en/sending/letter-or-card/international-mail/',
+      effective_from: '2026-07-12',
+    }));
+  });
+
+  it('uses only the verified Posti domestic and international priority letter tiers', () => {
+    const posti = loadOperator('posti-fi.yaml');
+
+    expect(posti.letters.domestic).toEqual([
+      expect.objectContaining({ name: 'Kirje', max_weight_g: 50, price_eur: 3.00 }),
+      expect.objectContaining({ name: 'Kirje', max_weight_g: 250, price_eur: 6.00 }),
+    ]);
+    expect(posti.letters.international.zones[0].rates).toEqual([
+      expect.objectContaining({ name: 'Ulkomaankirje Priority', max_weight_g: 20, price_eur: 3.35 }),
+      expect.objectContaining({ name: 'Ulkomaankirje Priority', max_weight_g: 100, price_eur: 6.70 }),
+      expect.objectContaining({ name: 'Ulkomaankirje Priority', max_weight_g: 500, price_eur: 16.75 }),
+    ]);
+    expect(posti.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.posti.fi/en/sending/letters-and-postcards/letter-price-lists',
+      effective_from: '2026-06-02',
+    }));
+  });
+
+  it('uses the converted Posten Norge Europe letter price up to 50g', () => {
+    const posten = loadOperator('posten-norge-no.yaml');
+
+    expect(internationalRate(posten, 'FR', 50)?.price_eur).toBe(3.15);
+    expect(posten.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.posten.no/priser/utskriftsvennlige-prislister-2026/Priser-post-betalt-med-frimerker_01022026.pdf',
+      effective_from: '2026-02-01',
+    }));
+  });
+
+  it('marks all PostNord Denmark letter services unavailable', () => {
+    const postnord = loadOperator('postnord-dk.yaml');
+
+    expect(postnord.letters).toMatchObject({
+      available: false,
+      unavailable_since: '2026-01-01',
+      notice: expect.any(Object),
+    });
+    expect(postnord.operator.sources).toEqual(expect.arrayContaining([{
+      title: 'PostNord leverer sit sidste brev ved udgangen af 2025: Det betyder det for dig',
+      url: 'https://www.postnord.dk/postnord-leverer-sit-sidste-brev-ved-udgangen-af-2025/',
+      retrieved_at: '2026-08-10',
+      effective_from: '2026-01-01',
+    }]));
+  });
+
+  it('removes discontinued Poste Italiane Posta 1 services but keeps Postamail Internazionale', () => {
+    const posteItaliane = loadOperator('poste-italiane-it.yaml');
+
+    expect(posteItaliane.letters.domestic.some((rate) => rate.name.startsWith('Posta 1'))).toBe(false);
+    expect(posteItaliane.letters.international.zones[0].rates.some(
+      (rate) => rate.name === 'Postamail Internazionale',
+    )).toBe(true);
+    expect(posteItaliane.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.poste.it/variazione-servizio-postale-universale',
+      effective_from: '2026-05-01',
+    }));
+  });
+
+  it('uses the ELTA domestic A-priority small-letter rate up to 20g', () => {
+    const elta = loadOperator('elta-gr.yaml');
+    const rate = domesticRate(elta, 20);
+
+    expect(rate).toEqual(expect.objectContaining({
+      name: expect.stringContaining('προτεραιότητας'),
+      price_eur: 2.20,
+    }));
+    expect(elta.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://e-stamp.elta.gr/',
+      retrieved_at: '2026-08-10',
+    }));
+  });
+
+  it('uses the Croatia domestic and international letter rates up to 50g and universal parcel tier up to 2kg', () => {
+    const hrvatskaPosta = loadOperator('hrvatska-posta-hr.yaml');
+
+    expect(domesticRate(hrvatskaPosta, 50)?.price_eur).toBe(0.72);
+    expect(internationalRate(hrvatskaPosta, 'FR', 50)?.price_eur).toBe(1.70);
+    expect(hrvatskaPosta.parcels.domestic.filter((rate) => rate.max_weight_kg <= 2))
+      .toEqual([expect.objectContaining({ max_weight_kg: 2, price_eur: 5.96 })]);
+    expect(hrvatskaPosta.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.posta.hr/UserDocsImages/hp/dokumenti/cjenici/2026/IZVADAK_IZ_CJENIKA_POSTANSKIH_USLUGA_U_UNUTARNJEM_PROMETU_1-5-26..pdf?vel=215700',
+      effective_from: '2026-05-01',
+    }));
+    expect(hrvatskaPosta.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.posta.hr/UserDocsImages/hp/dokumenti/cjenici/2026/Izvadak_iz_cjenika_usluga_servisa_ePosta_1-5-26.pdf',
+      effective_from: '2026-05-01',
+    }));
+  });
+
+  it('uses the Lietuvos paštas domestic letter rate up to 50g', () => {
+    const lietuvosPastas = loadOperator('lietuvos-pastas-lt.yaml');
+
+    expect(domesticRate(lietuvosPastas, 50)?.price_eur).toBe(1.65);
+    expect(lietuvosPastas.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.post.lt/lt/apie-mus/naujienos/nuo-2026-m-liepos-13-d-nauji-upp-tarifai-daugiau-prieinamumo-klientams',
+      effective_from: '2026-07-13',
+    }));
+  });
+
+  it.each([
+    { origin: 'GR', type: 'letter' as const, boundary: 20, above: 21, price: 2.20 },
+    { origin: 'LT', type: 'letter' as const, boundary: 50, above: 51, price: 1.65 },
+    { origin: 'HR', type: 'parcel' as const, boundary: 2, above: 2.01, price: 5.96 },
+  ])('stops $origin current $type results at the verified weight boundary', ({
+    origin,
+    type,
+    boundary,
+    above,
+    price,
+  }) => {
+    const operators = loadAllOperators();
+
+    expect(compare(operators, {
+      type,
+      weight: boundary,
+      origin,
+      destination: 'domestic',
+    })).toEqual([expect.objectContaining({ priceEur: price })]);
+    expect(compare(operators, {
+      type,
+      weight: above,
+      origin,
+      destination: 'domestic',
+    })).toEqual([]);
+  });
+});
+
+describe('current rates verified on 2026-11-16', () => {
+  it('uses the Deutsche Post prices printed as valid until 2026-12-31', () => {
+    const dp = loadOperator('deutsche-post-de.yaml');
+
+    expect(domesticRate(dp, 50)?.price_eur).toBe(1.10);
+    expect(internationalRate(dp, 'FR', 20)?.price_eur).toBe(1.25);
+    expect(internationalRate(dp, 'FR', 500)?.price_eur).toBe(3.30);
+    expect(dp.parcels.domestic.map(({ max_weight_kg, price_eur }) => [max_weight_kg, price_eur]))
+      .toEqual(expect.arrayContaining([[2, 4.19], [5, 7.69], [10, 10.49], [20, 18.99], [31.5, 23.99]]));
+    expect(dp.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.deutschepost.de/de/a/aenderungen2027.html',
+      retrieved_at: '2026-11-16',
+    }));
+  });
+
+  it('uses the Austrian Post PRIORITY international letter formats valid from 2026-09-01', () => {
+    const at = loadOperator('osterreichische-post-at.yaml');
+
+    expect([20, 75, 2000].map((weight) => internationalRate(at, 'DE', weight)?.price_eur))
+      .toEqual([1.45, 2.40, 8.45]);
+  });
+
+  it('uses the Swiss and Liechtenstein Zone 1 letter prices from the official previous-price column', () => {
+    for (const filename of ['la-poste-suisse-ch.yaml', 'liechtenstein-post-li.yaml']) {
+      const operator = loadOperator(filename);
+      expect([20, 100, 500].map((weight) => internationalRate(operator, 'FR', weight)?.price_eur))
+        .toEqual([1.84, 4.17, 11.64]);
+    }
+    const li = loadOperator('liechtenstein-post-li.yaml');
+    expect(li.letters.domestic.map(({ name, max_weight_g, price_eur }) => [name, max_weight_g, price_eur]))
+      .toEqual(expect.arrayContaining([
+        ['A-Post Brief', 20, 1.16],
+        ['B-Post Brief', 20, 0.97],
+        ['A-Post Brief', 100, 1.16],
+      ]));
+    expect(li.parcels.domestic.map(({ max_weight_kg, price_eur }) => [max_weight_kg, price_eur]))
+      .toEqual([[0.5, 8.25], [2, 8.25], [5, 9.70], [10, 11.16]]);
+  });
+
+  it('uses the Posten Norge 2026 domestic Ekstra stort stamp price', () => {
+    const posten = loadOperator('posten-norge-no.yaml');
+
+    expect(domesticRate(posten, 2000)?.price_eur).toBe(5.87);
+  });
+});
