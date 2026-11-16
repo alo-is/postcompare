@@ -1,6 +1,7 @@
 ---
 // src/pages/[lang]/rankings.astro — Composite rankings of European postal services
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Flag from '../../components/Flag.astro';
 import { t, localePath } from '../../i18n/utils';
 import { formatPrice, formatWeight } from '../../i18n/format';
 import { loadCountries, loadAllOperators, loadPriceLevelIndices } from '../../lib/data-loader';
@@ -200,7 +201,7 @@ const rankingsJsonLd = {
                   <tr class={rowClass(rank, tbl.ranking.length)} data-country={e.country}>
                     <td class="is-num rk-rank">{rank}</td>
                     <th scope="row" class="rk-country">
-                      <span class="cc">{e.country}</span>
+                      <Flag code={e.country} />
                       <span>{countryName(e.country)}</span>
                     </th>
                     <td class="rk-operator">

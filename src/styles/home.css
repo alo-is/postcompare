@@ -97,7 +97,6 @@
   .ship-form { padding: var(--s-5); }
   .country-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); }
   .country-card { padding: var(--s-3); gap: var(--s-2); }
-  .country-card .cc { width: 32px; }
   .why-card { padding: var(--s-5); }
 }
 

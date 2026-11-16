@@ -20,7 +20,7 @@
 .rk-table { min-width: 760px; }
 .rk-table .rk-rank { width: 48px; color: var(--p-muted); }
 .rk-table .rk-country { font-weight: 400; white-space: nowrap; }
-.rk-table .rk-country .cc { margin-right: var(--s-3); }
+.rk-table .rk-country .flag { margin-right: var(--s-3); }
 .rk-table .rk-avg { font-weight: 500; }
 .rk-table .rk-operator { white-space: nowrap; }
 

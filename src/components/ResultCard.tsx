@@ -44,7 +44,7 @@ export default function ResultCard({
   return (
     <article className={classes}>
       <div className="result__who">
-        <span className="cc" title={countryName(originCountry)}>{result.route.origin}</span>
+        <img className="flag" src={`/flags/${result.route.origin.toLowerCase()}.svg`} alt={countryName(originCountry)} width={28} height={21} loading="lazy" decoding="async" />
         <div className="result__id">
           <h3 className="result__name">{result.operator.name}</h3>
           <p className="result__product">{result.productName}</p>

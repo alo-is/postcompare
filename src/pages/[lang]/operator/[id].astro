@@ -1,6 +1,7 @@
 ---
 // src/pages/[lang]/operator/[id].astro
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Flag from '../../../components/Flag.astro';
 import RateTable from '../../../components/RateTable.astro';
 import { t, localePath } from '../../../i18n/utils';
 import { formatDate, formatPrice } from '../../../i18n/format';
@@ -111,7 +112,7 @@ const operatorDescriptions: Record<string, string> = {
 
     <header class="op-head">
       <div class="op-head__id">
-        <span class="cc cc--lg">{info.country}</span>
+        <Flag code={info.country} size="lg" />
         <div class="op-head__text">
           <h1>{info.name}</h1>
           <p class="op-head__meta">

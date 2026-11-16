@@ -1,6 +1,7 @@
 ---
 // src/pages/[lang]/tarifs-2027.astro — bulletin of officially announced 2027 postal changes
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Flag from '../../components/Flag.astro';
 import { localePath, t } from '../../i18n/utils';
 import { formatDate, formatPrice } from '../../i18n/format';
 import { loadAllOperators, loadCountries, loadPostalChanges } from '../../lib/data-loader';
@@ -114,7 +115,7 @@ const sections = [
 
                 <div class="card postal-timeline__content">
                   <h3 id={`pc-${first.operator_id}-${section.status}`} class="postal-entry__title">
-                    <span class="cc">{first.country}</span>
+                    <Flag code={first.country} />
                     <span>{countryName(first.country)} · {operatorName(first)}</span>
                   </h3>
 

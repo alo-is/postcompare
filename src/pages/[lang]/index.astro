@@ -1,6 +1,7 @@
 ---
 // src/pages/[lang]/index.astro — Landing page with hero
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Flag from '../../components/Flag.astro';
 import HeroForm from '../../components/HeroForm.astro';
 import { t } from '../../i18n/utils';
 import { loadCountries, loadAllOperators, loadPostalChanges } from '../../lib/data-loader';
@@ -116,7 +117,7 @@ const homeJsonLd = {
             <li>
               {op ? (
                 <a href={localePath(lang, `/operator/${op.id}`)} class="card country-card">
-                  <span class="cc">{c.code}</span>
+                  <Flag code={c.code} />
                   <span class="country-card__text">
                     <span class="country-card__name">{countryName(c.code)}</span>
                     <span class="country-card__op">{op.name}</span>
@@ -124,7 +125,7 @@ const homeJsonLd = {
                 </a>
               ) : (
                 <div class="card country-card">
-                  <span class="cc">{c.code}</span>
+                  <Flag code={c.code} />
                   <span class="country-card__text">
                     <span class="country-card__name">{countryName(c.code)}</span>
                   </span>

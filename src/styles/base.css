@@ -276,17 +276,18 @@ a { color: inherit; }
 .chip .num { color: var(--p-muted); font-size: var(--t-label); }
 .chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 
-.cc {
-  display: inline-grid;
-  place-items: center;
+.flag {
+  display: inline-block;
   flex: none;
-  width: 36px;
-  height: 28px;
-  border-radius: 6px;
+  width: 28px;
+  height: 21px;
+  border-radius: 4px;
+  object-fit: cover;
+  vertical-align: middle;
+  box-shadow: 0 0 0 1px var(--p-line);
   background: var(--p-surface);
-  font: 500 var(--t-label)/1 var(--f-mono);
-  letter-spacing: 0.02em;
 }
+.flag--lg { width: 48px; height: 36px; border-radius: 6px; }
 
 /* ---------- Cards ---------- */
 .card {
