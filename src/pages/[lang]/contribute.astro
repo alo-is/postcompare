@@ -16,28 +16,34 @@ const lang = Astro.params.lang as Lang;
 ---
 
 <BaseLayout title={t(lang, 'contribute.title')} lang={lang}>
-  <div class="content-page">
-    <h1>{t(lang, 'contribute.title')}</h1>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t(lang, 'contribute.title')}</h1>
+      <p class="page-head__lead">{t(lang, 'contribute.intro')}</p>
+    </header>
 
-    <p>{t(lang, 'contribute.intro')}</p>
+    <div class="prose">
+      <h2>{t(lang, 'contribute.report_title')}</h2>
+      <p>{t(lang, 'contribute.report_text')}</p>
+      <p class="prose__action">
+        <a href="https://github.com/alo-is/postcompare/issues/new?template=price-update.yml" target="_blank" rel="noopener" class="btn btn--primary">
+          {t(lang, 'ui.open_issue')}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </p>
 
-    <h2>{t(lang, 'contribute.report_title')}</h2>
-    <p>{t(lang, 'contribute.report_text')}</p>
-    <p>
-      <a href="https://github.com/alo-is/postcompare/issues/new?template=price-update.yml" target="_blank" rel="noopener" class="contribute-link">
-        {lang === 'fr' ? 'Ouvrir une Issue' : lang === 'de' ? 'Issue erstellen' : 'Open an Issue'} &rarr;
-      </a>
-    </p>
+      <h2>{t(lang, 'contribute.fix_title')}</h2>
+      <p>{t(lang, 'contribute.fix_text')}</p>
 
-    <h2>{t(lang, 'contribute.fix_title')}</h2>
-    <p>{t(lang, 'contribute.fix_text')}</p>
-
-    <h2>{t(lang, 'contribute.steps_title')}</h2>
-    <ol>
-      <li>{t(lang, 'contribute.step1')} &mdash; <a href="https://github.com/alo-is/postcompare/fork" target="_blank" rel="noopener">github.com/alo-is/postcompare</a></li>
-      <li>{t(lang, 'contribute.step2')}</li>
-      <li>{t(lang, 'contribute.step3')} &mdash; <code>npm run validate</code></li>
-      <li>{t(lang, 'contribute.step4')}</li>
-    </ol>
+      <h2>{t(lang, 'contribute.steps_title')}</h2>
+      <ol>
+        <li>{t(lang, 'contribute.step1')}: <a href="https://github.com/alo-is/postcompare/fork" target="_blank" rel="noopener">github.com/alo-is/postcompare</a></li>
+        <li>{t(lang, 'contribute.step2')}</li>
+        <li>{t(lang, 'contribute.step3').replace('npm run validate', '').trim()} <code>npm run validate</code></li>
+        <li>{t(lang, 'contribute.step4')}</li>
+      </ol>
+    </div>
   </div>
 </BaseLayout>

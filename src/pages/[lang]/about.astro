@@ -16,18 +16,22 @@ const lang = Astro.params.lang as Lang;
 ---
 
 <BaseLayout title={t(lang, 'about.title')} lang={lang}>
-  <div class="content-page">
-    <h1>{t(lang, 'about.title')}</h1>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t(lang, 'about.title')}</h1>
+      <p class="page-head__lead">{t(lang, 'about.intro')}</p>
+    </header>
 
-    <p>{t(lang, 'about.intro')}</p>
+    <div class="prose">
+      <h2>{t(lang, 'about.methodology_title')}</h2>
+      <p>{t(lang, 'about.methodology_text')}</p>
 
-    <h2>{t(lang, 'about.methodology_title')}</h2>
-    <p>{t(lang, 'about.methodology_text')}</p>
+      <h2>{t(lang, 'about.neutrality_title')}</h2>
+      <p>{t(lang, 'about.neutrality_text')}</p>
 
-    <h2>{t(lang, 'about.neutrality_title')}</h2>
-    <p>{t(lang, 'about.neutrality_text')}</p>
-
-    <h2>{t(lang, 'about.open_source_title')}</h2>
-    <p>{t(lang, 'about.open_source_text')}</p>
+      <h2>{t(lang, 'about.open_source_title')}</h2>
+      <p>{t(lang, 'about.open_source_text')}</p>
+      <p><a href="https://github.com/alo-is/postcompare" target="_blank" rel="noopener">github.com/alo-is/postcompare</a></p>
+    </div>
   </div>
 </BaseLayout>
