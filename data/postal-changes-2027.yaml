@@ -208,3 +208,42 @@ announcements:
         old_price_eur: 3.74
         new_price_eur: 3.995
         percentage_change: 6.82
+  - country: "AT"
+    operator_id: "osterreichische-post-at"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://assets.post.at/-/media/Dokumente/De/AGB/PPV-Brief-International_01012027.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Brief S international UE, Priority (0–20 g)", en: "International Brief S EU, Priority (0–20 g)", de: "Brief S International EU, PRIORITY (0–20 g)" }
+        availability: "published"
+        old_price_eur: 1.45
+        new_price_eur: 1.50
+        percentage_change: 3.45
+      - type: "price_change"
+        product: { fr: "Brief S international UE, Economy (0–20 g)", en: "International Brief S EU, Economy (0–20 g)", de: "Brief S International EU, ECONOMY (0–20 g)" }
+        availability: "published"
+        old_price_eur: 1.25
+        new_price_eur: 1.30
+        percentage_change: 4.0
+      - type: "price_change"
+        product: { fr: "Brief M international UE, Priority (20–75 g)", en: "International Brief M EU, Priority (20–75 g)", de: "Brief M International EU, PRIORITY (>20–75 g)" }
+        availability: "published"
+        old_price_eur: 2.40
+        new_price_eur: 2.45
+        percentage_change: 2.08
+      - type: "price_change"
+        product: { fr: "Brief L international UE, Priority (jusqu’à 2 kg)", en: "International Brief L EU, Priority (up to 2 kg)", de: "Brief L International EU, PRIORITY (bis 2 kg)" }
+        availability: "published"
+        old_price_eur: 8.45
+        new_price_eur: 8.70
+        percentage_change: 2.96
+      - type: "price_change"
+        product: { fr: "Brief S international monde, Priority (0–20 g)", en: "International Brief S world, Priority (0–20 g)", de: "Brief S International Welt, PRIORITY (0–20 g)" }
+        availability: "published"
+        old_price_eur: 2.20
+        new_price_eur: 2.25
+        percentage_change: 2.27
