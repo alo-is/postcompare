@@ -42,11 +42,17 @@ const compareDescriptions: Record<string, string> = {
   description={compareDescriptions[lang]}
   lang={lang}
 >
-  <Comparator
-    client:load
-    operators={operators}
-    countries={countries}
-    lang={lang}
-    initialParams={hasParams ? initialParams : undefined}
-  />
+  <div class="wrap">
+    <header class="page-head page-head--tight">
+      <h1>{t(lang, 'site.tagline')}</h1>
+      <p class="page-head__lead">{t(lang, 'ui.compare_lead')}</p>
+    </header>
+    <Comparator
+      client:load
+      operators={operators}
+      countries={countries}
+      lang={lang}
+      initialParams={hasParams ? initialParams : undefined}
+    />
+  </div>
 </BaseLayout>

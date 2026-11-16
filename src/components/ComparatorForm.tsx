@@ -7,6 +7,8 @@ interface ComparatorFormProps {
   countries: Country[];
   lang: Lang;
   onSearch: (params: SearchParams) => void;
+  /** Called when the visitor presses the submit button (closes the form on mobile). */
+  onDone?: () => void;
   initialParams?: SearchParams;
 }
 
@@ -14,6 +16,7 @@ export default function ComparatorForm({
   countries,
   lang,
   onSearch,
+  onDone,
   initialParams,
 }: ComparatorFormProps) {
   const [type, setType] = useState<ShipmentType>(initialParams?.type ?? 'letter');
@@ -23,11 +26,7 @@ export default function ComparatorForm({
     initialParams?.destination ?? 'domestic',
   );
 
-  const countryName = (code: string): string => {
-    const country = countries.find((c) => c.code === code);
-    if (!country) return code;
-    return country[`name_${lang}` as keyof Country] as string;
-  };
+  const countryName = (c: Country): string => c[`name_${lang}` as keyof Country] as string;
 
   const isFirstRender = useRef(true);
 
@@ -50,100 +49,95 @@ export default function ComparatorForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (weightInvalid) return;
+    onSearch({ type, weight, origin, destination });
+    onDone?.();
+  };
+
+  const selectType = (next: ShipmentType) => {
+    if (next === type) return;
+    setType(next);
+    setWeight(next === 'letter' ? 20 : 1);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* Type toggle */}
-      <div className="form-group">
-        <label className="form-label">{t(lang, 'form.type')}</label>
-        <div className="type-toggle">
-          <button
-            type="button"
-            className={`type-toggle__btn ${type === 'letter' ? 'type-toggle__btn--active' : ''}`}
-            onClick={() => {
-              setType('letter');
-              setWeight(20);
-            }}
-          >
-            {'\u2709\uFE0F'} {t(lang, 'form.letter')}
-          </button>
-          <button
-            type="button"
-            className={`type-toggle__btn ${type === 'parcel' ? 'type-toggle__btn--active' : ''}`}
-            onClick={() => {
-              setType('parcel');
-              setWeight(1);
-            }}
-          >
-            {'\uD83D\uDCE6'} {t(lang, 'form.parcel')}
-          </button>
+    <form className="card ship-form" onSubmit={handleSubmit} noValidate>
+      <h2 className="ship-form__title">{t(lang, 'ui.your_shipment')}</h2>
+
+      <div className="field">
+        <span className="field__label" id="type-label">{t(lang, 'form.type')}</span>
+        <div className="segmented" role="group" aria-labelledby="type-label">
+          {(['letter', 'parcel'] as const).map((value) => (
+            <button
+              key={value}
+              type="button"
+              className="segmented__opt"
+              aria-pressed={type === value}
+              onClick={() => selectType(value)}
+            >
+              {t(lang, `form.${value}`)}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Weight input */}
-      <div className="form-group">
-        <label className="form-label" htmlFor="weight">
+      <div className="field">
+        <label className="field__label" htmlFor="weight">
           {type === 'letter' ? t(lang, 'form.weight_grams') : t(lang, 'form.weight_kg')}
         </label>
-        <input
-          id="weight"
-          type="number"
-          className={`form-input ${weightInvalid ? 'form-input--error' : ''}`}
-          value={weight}
-          onChange={(e) => setWeight(Number(e.target.value))}
-          min={type === 'letter' ? 1 : 0.1}
-          max={type === 'letter' ? 2000 : 50}
-          step={type === 'letter' ? 1 : 0.1}
-        />
+        <div className="unit-input">
+          <input
+            id="weight"
+            type="number"
+            inputMode="decimal"
+            className="input"
+            value={Number.isNaN(weight) ? '' : weight}
+            onChange={(e) => setWeight(e.target.value === '' ? NaN : Number(e.target.value))}
+            min={minWeight}
+            max={type === 'letter' ? 2000 : 50}
+            step={type === 'letter' ? 1 : 0.1}
+            aria-invalid={weightInvalid || undefined}
+            aria-describedby={weightInvalid ? 'weight-error' : undefined}
+          />
+          <span className="unit-input__unit" aria-hidden="true">{type === 'letter' ? 'g' : 'kg'}</span>
+        </div>
         {weightInvalid && (
-          <span className="form-error">
+          <span className="field__error" id="weight-error">
             {t(lang, 'form.weight_error', { min: String(minWeight) })}
           </span>
         )}
       </div>
 
-      {/* Origin country */}
-      <div className="form-group">
-        <label className="form-label" htmlFor="origin">
+      <div className="field">
+        <label className="field__label" htmlFor="origin">
           {t(lang, 'form.origin')}
         </label>
-        <select
-          id="origin"
-          className="form-select"
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
-        >
+        <select id="origin" className="select" value={origin} onChange={(e) => setOrigin(e.target.value)}>
           <option value="all">{t(lang, 'form.all_countries')}</option>
           {countries.map((c) => (
-            <option key={c.code} value={c.code}>
-              {c.flag} {countryName(c.code)}
-            </option>
+            <option key={c.code} value={c.code}>{countryName(c)}</option>
           ))}
         </select>
       </div>
 
-      {/* Destination country */}
-      <div className="form-group">
-        <label className="form-label" htmlFor="destination">
+      <div className="field">
+        <label className="field__label" htmlFor="destination">
           {t(lang, 'form.destination')}
         </label>
         <select
           id="destination"
-          className="form-select"
+          className="select"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
         >
           <option value="domestic">{t(lang, 'form.domestic')}</option>
           {countries.map((c) => (
-            <option key={c.code} value={c.code}>
-              {c.flag} {countryName(c.code)}
-            </option>
+            <option key={c.code} value={c.code}>{countryName(c)}</option>
           ))}
         </select>
       </div>
 
-      <button type="submit" className="btn-compare">
+      <button type="submit" className="btn btn--primary ship-form__submit compare-submit">
         {t(lang, 'form.compare')}
       </button>
     </form>

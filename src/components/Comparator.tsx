@@ -4,6 +4,7 @@ import ComparatorForm from './ComparatorForm';
 import ResultsList from './ResultsList';
 import { compare } from '../lib/comparison-engine';
 import { t } from '../i18n/utils';
+import { formatWeight } from '../i18n/format';
 import type {
   OperatorData,
   Country,
@@ -88,7 +89,6 @@ export default function Comparator({ operators, countries, lang, initialParams }
       setResults(searchResults);
       setHasSearched(true);
       setCurrentParams(params);
-      setMobileFormOpen(false);
 
       // Sync URL params without navigation
       const url = new URL(window.location.href);
@@ -123,36 +123,31 @@ export default function Comparator({ operators, countries, lang, initialParams }
     return country[`name_${lang}` as keyof Country] as string;
   };
 
-  const getCountryFlag = (code: string): string => {
-    return countries.find((c) => c.code === code)?.flag ?? '';
+  const routeLabel = (params: SearchParams): string => {
+    const from = params.origin === 'all' ? t(lang, 'form.all_countries') : getCountryName(params.origin);
+    const to = params.destination === 'domestic' ? t(lang, 'form.domestic') : getCountryName(params.destination);
+    return `${from} \u2192 ${to}`;
   };
 
+  const formCollapsed = hasSearched && !mobileFormOpen;
+
   return (
-    <>
-      {/* Mobile summary bar */}
-      {hasSearched && currentParams && !mobileFormOpen && (
+    <div className="compare-layout">
+      {/* Mobile summary bar: the current search, with a button to edit it */}
+      {formCollapsed && currentParams && (
         <div className="mobile-summary">
-          <div className="mobile-summary__pills">
-            <span className="pill">
-              {currentParams.type === 'letter' ? '\u2709\uFE0F' : '\uD83D\uDCE6'}{' '}
-              {t(lang, `form.${currentParams.type}`)}
+          <p className="mobile-summary__text">
+            <span>{t(lang, `form.${currentParams.type}`)}</span>
+            <span className="num">
+              {formatWeight(lang, currentParams.weight, currentParams.type === 'letter' ? 'g' : 'kg')}
             </span>
-            <span className="pill">
-              {currentParams.weight}
-              {currentParams.type === 'letter' ? 'g' : 'kg'}
-            </span>
-            <span className="pill">
-              {currentParams.origin === 'all'
-                ? t(lang, 'form.all_countries')
-                : `${getCountryFlag(currentParams.origin)} ${getCountryName(currentParams.origin)}`}
-              {' \u2192 '}
-              {currentParams.destination === 'domestic'
-                ? t(lang, 'form.domestic')
-                : `${getCountryFlag(currentParams.destination)} ${getCountryName(currentParams.destination)}`}
-            </span>
-          </div>
+            <span>{routeLabel(currentParams)}</span>
+          </p>
           <button
-            className="mobile-summary__modify"
+            type="button"
+            className="btn btn--secondary mobile-summary__edit"
+            aria-controls="compare-form"
+            aria-expanded="false"
             onClick={() => setMobileFormOpen(true)}
           >
             {t(lang, 'form.modify')}
@@ -160,32 +155,33 @@ export default function Comparator({ operators, countries, lang, initialParams }
         </div>
       )}
 
-      <div className="main-layout">
-        {/* Sidebar form */}
-        <aside className={`sidebar ${hasSearched && !mobileFormOpen ? 'sidebar--collapsed' : ''}`}>
-          <ComparatorForm
-            countries={countries}
-            lang={lang}
-            onSearch={handleSearch}
-            initialParams={currentParams ?? urlSearchParams ?? undefined}
-          />
-        </aside>
+      <aside
+        id="compare-form"
+        className={`compare-layout__form ${formCollapsed ? 'is-collapsed' : ''}`}
+        aria-label={t(lang, 'ui.your_shipment')}
+      >
+        <ComparatorForm
+          countries={countries}
+          lang={lang}
+          onSearch={handleSearch}
+          onDone={() => setMobileFormOpen(false)}
+          initialParams={currentParams ?? urlSearchParams ?? undefined}
+        />
+      </aside>
 
-        {/* Results */}
-        <main className="main-content">
-          <ResultsList
-            results={results}
-            countries={countries}
-            lang={lang}
-            hasSearched={hasSearched}
-            searchParams={currentParams ?? undefined}
-            userCountry={userCountry}
-            reverseResults={reverseResults.length > 0 ? reverseResults : undefined}
-            reverseOrigin={currentParams?.destination !== 'domestic' ? currentParams?.destination : undefined}
-            reverseDestination={currentParams?.origin !== 'all' ? currentParams?.origin : undefined}
-          />
-        </main>
+      <div className="compare-layout__results">
+        <ResultsList
+          results={results}
+          countries={countries}
+          lang={lang}
+          hasSearched={hasSearched}
+          searchParams={currentParams ?? undefined}
+          userCountry={userCountry}
+          reverseResults={reverseResults.length > 0 ? reverseResults : undefined}
+          reverseOrigin={currentParams?.destination !== 'domestic' ? currentParams?.destination : undefined}
+          reverseDestination={currentParams?.origin !== 'all' ? currentParams?.origin : undefined}
+        />
       </div>
-    </>
+    </div>
   );
 }
