@@ -42,6 +42,21 @@ announcements:
         product: { fr: "Lettre internationale 20 g", en: "International letter 20 g", de: "Internationaler Brief 20 g" }
         availability: "published"
         new_price_eur: 2.45
+  - country: "FR"
+    operator_id: "la-poste-fr"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.arcep.fr/uploads/tx_gsavis/26-1295.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Colissimo ordinaire 0–250 g (hors affranchissement en ligne)", en: "Colissimo standard parcel 0–250 g (excluding online postage)", de: "Colissimo Standardpaket 0–250 g (ohne Online-Frankierung)" }
+        availability: "published"
+        old_price_eur: 5.49
+        new_price_eur: 5.79
+        percentage_change: 5.46
   - country: "DE"
     operator_id: "deutsche-post-de"
     scope: "consumer"
