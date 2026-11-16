@@ -3,7 +3,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--nav-h) + var(--s-4)); /* focus and anchors clear the sticky header */
+}
 
 html, body { margin: 0; }
 
@@ -211,8 +215,8 @@ a { color: inherit; }
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  gap: var(--s-1);
-  padding: var(--s-1);
+  gap: 2px;
+  padding: 2px; /* 44px options in a 48px track, level with the fields */
   background: var(--p-surface);
   border-radius: var(--r-sm);
 }
@@ -222,7 +226,7 @@ a { color: inherit; }
   align-items: center;
   justify-content: center;
   gap: var(--s-2);
-  min-height: 40px;
+  min-height: var(--ctl-h);
   padding: 0 var(--s-4);
   border: 0;
   border-radius: 6px;
@@ -366,6 +370,14 @@ a.card {
 .prose p, .prose li { font-size: 1.0625rem; line-height: 1.7; }
 .prose ol { padding-left: 1.25rem; display: grid; gap: var(--s-2); }
 .prose__action { padding-top: var(--s-2); }
+
+@media print {
+  .site-header, .site-footer, .compare-layout__form, .mobile-summary, .btn, .country-hint { display: none !important; }
+  .compare-layout { display: block; }
+  .table-scroll { overflow: visible; border: 0; }
+  .card { break-inside: avoid; }
+  body { background: #fff; color: #000; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }

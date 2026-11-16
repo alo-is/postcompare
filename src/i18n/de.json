@@ -159,7 +159,6 @@
     "ppp_note": "* KKP (Kaufkraftparität): Preis angepasst an die Lebenshaltungskosten jedes Landes. Eine Briefmarke für 1 € in Bulgarien (niedrige Lebenshaltungskosten) belastet das Budget stärker als eine 1-€-Briefmarke in der Schweiz.",
     "source": "Quelle",
     "from": "ab",
-    "zone_countries": "Länder dieser Zone",
-    "scroll_table": "Tabelle seitlich scrollen"
+    "zone_countries": "Länder dieser Zone"
   }
 }

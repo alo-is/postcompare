@@ -199,7 +199,7 @@ main:focus { outline: none; }
 .site-footer__col a {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
+  min-height: var(--ctl-h);
   color: var(--p-inv-ink);
   text-decoration: none;
   text-underline-offset: 4px;

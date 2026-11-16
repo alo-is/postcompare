@@ -68,7 +68,7 @@
   text-align: right;
 }
 .result__amount { font-size: 1.625rem; line-height: 1.1; letter-spacing: -0.03em; }
-.result__link { font-size: var(--t-small); font-weight: 500; min-height: 24px; }
+.result__link { display: inline-flex; align-items: center; min-height: var(--ctl-h); font-size: var(--t-small); font-weight: 500; }
 
 /* Cheapest: accent frame, filled badge, price in the accent */
 .result--best {

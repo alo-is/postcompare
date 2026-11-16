@@ -30,7 +30,8 @@
 
 .country-hint {
   align-self: flex-start;
-  min-height: 32px;
+  margin: calc(-1 * var(--s-2)) 0 calc(-1 * var(--s-3));
+  min-height: var(--ctl-h);
   padding: 0;
   border: 0;
   background: none;

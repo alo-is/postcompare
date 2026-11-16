@@ -20,7 +20,7 @@ const { lang, currentPath } = Astro.props;
         hreflang={l}
         lang={l}
         aria-current={l === lang ? 'true' : undefined}
-        aria-label={languageNames[l]}
+        aria-label={`${languageCodes[l]}, ${languageNames[l]}`}
       >{languageCodes[l]}</a>
     </li>
   ))}

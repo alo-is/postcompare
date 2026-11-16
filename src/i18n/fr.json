@@ -159,7 +159,6 @@
     "ppp_note": "* PPA (parité de pouvoir d'achat) : prix ajusté au coût de la vie de chaque pays. Un timbre à 1 € en Bulgarie (coût de la vie bas) pèse plus dans le budget qu'un timbre à 1 € en Suisse.",
     "source": "Source",
     "from": "dès",
-    "zone_countries": "Pays de la zone",
-    "scroll_table": "Faites défiler le tableau horizontalement"
+    "zone_countries": "Pays de la zone"
   }
 }

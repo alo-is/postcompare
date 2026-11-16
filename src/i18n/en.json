@@ -159,7 +159,6 @@
     "ppp_note": "* PPP (purchasing power parity): price adjusted for each country's cost of living. A €1 stamp in Bulgaria (low cost of living) weighs more on the budget than a €1 stamp in Switzerland.",
     "source": "Source",
     "from": "from",
-    "zone_countries": "Countries in this zone",
-    "scroll_table": "Scroll the table sideways"
+    "zone_countries": "Countries in this zone"
   }
 }
