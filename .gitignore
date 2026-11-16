@@ -34,3 +34,6 @@ pnpm-debug.log*
 
 # docs/superpowers (internal planning)
 docs/superpowers/
+
+# taste-skill screenshots and browser profile
+.taste-skill/
