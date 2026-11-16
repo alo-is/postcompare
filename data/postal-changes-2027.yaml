@@ -247,3 +247,16 @@ announcements:
         old_price_eur: 2.20
         new_price_eur: 2.25
         percentage_change: 2.27
+  - country: "LV"
+    operator_id: "latvijas-pasts-lv"
+    scope: "consumer"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://pasts.lv/en/services/useful/tariff-project-1"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "announcement"
+        product: { fr: "Projet de tarifs 2027 du service universel", en: "2027 universal service tariff proposal", de: "Tarifentwurf 2027 für den Universaldienst" }
+        availability: "upcoming"
+        details: { fr: "Projet soumis au régulateur SPRK le 31 juillet 2026 ; tarifs non encore approuvés", en: "Proposal submitted to the SPRK regulator on 31 July 2026; tariffs not yet approved", de: "Am 31. Juli 2026 beim Regulierer SPRK eingereicht; Tarife noch nicht genehmigt" }
