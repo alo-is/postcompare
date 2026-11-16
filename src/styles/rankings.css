@@ -1,0 +1,61 @@
+/* Rankings: two composite tables with their stats and legend. */
+
+.rk-method { display: grid; gap: var(--s-1); font-size: var(--t-small); color: var(--p-muted); }
+.rk-method__weights { color: var(--p-ink); }
+
+.rk-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4) var(--s-6);
+  margin-bottom: var(--s-5);
+}
+
+.rk-stats { display: flex; gap: var(--s-6); margin: 0; }
+.rk-stats div { display: grid; gap: 2px; }
+.rk-stats dt { font-size: var(--t-label); color: var(--p-muted); }
+.rk-stats dd { margin: 0; font-size: 1.375rem; letter-spacing: -0.03em; }
+
+.rk-table { min-width: 760px; }
+.rk-table .rk-rank { width: 48px; color: var(--p-muted); }
+.rk-table .rk-country { font-weight: 400; white-space: nowrap; }
+.rk-table .rk-country .cc { margin-right: var(--s-3); }
+.rk-table .rk-avg { font-weight: 500; }
+.rk-table .rk-operator { white-space: nowrap; }
+
+/* Top 5: accent tint and marker. Bottom 5: neutral tint. No second hue. */
+.rk-table tr.is-cheap > * { background: var(--p-accent-soft); }
+.rk-table tr.is-cheap > :first-child { box-shadow: inset 3px 0 0 var(--p-accent); color: var(--p-accent); font-weight: 500; }
+.rk-table tr.is-expensive > * { background: var(--p-surface); }
+.rk-table tr.is-expensive > :first-child { box-shadow: inset 3px 0 0 var(--p-muted); }
+.rk-table tr.is-user > * { font-weight: 600; }
+.rk-table tr.is-user .rk-country span:last-child { text-decoration: underline; text-decoration-color: var(--p-accent); text-underline-offset: 4px; }
+
+.rk-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-small);
+  color: var(--p-muted);
+}
+.rk-legend__item { display: inline-flex; align-items: center; gap: var(--s-2); }
+.rk-legend__item::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+.rk-legend__item--cheap::before { background: var(--p-accent-soft); box-shadow: inset 3px 0 0 var(--p-accent); }
+.rk-legend__item--expensive::before { background: var(--p-surface); box-shadow: inset 3px 0 0 var(--p-muted); }
+
+.rk-foot { display: grid; gap: var(--s-6); justify-items: start; }
+.rk-notes { display: grid; gap: var(--s-2); max-width: 72ch; font-size: var(--t-small); color: var(--p-muted); }
+
+@media (max-width: 639px) {
+  .rk-stats dd { font-size: 1.125rem; }
+  .rk-foot .btn { width: 100%; }
+}
