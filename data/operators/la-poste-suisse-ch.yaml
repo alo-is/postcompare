@@ -6,6 +6,10 @@ operator:
   website: "https://www.post.ch"
   logo: "la-poste-suisse-ch.svg"
   last_updated: "2026-01-01"
+  sources:
+    - title: "Post CH price adjustments from 2027-01-01 (current prices: 'Preis bisher' column)"
+      url: "https://site.post.ch/de/ueber-uns/anpassung-angebot-briefe-und-pakete"
+      retrieved_at: "2026-11-16"
 
 letters:
   domestic:
@@ -41,18 +45,18 @@ letters:
         rates:
           - name: "Priority"
             max_weight_g: 20
-            price_eur: 1.94
+            price_eur: 1.84
             delivery_days: [3, 5]
             options:
               - name: "Einschreiben International"
                 price_eur: 5.63
           - name: "Priority"
             max_weight_g: 100
-            price_eur: 2.91
+            price_eur: 4.17
             delivery_days: [3, 5]
           - name: "Priority"
             max_weight_g: 500
-            price_eur: 5.82
+            price_eur: 11.64
             delivery_days: [3, 5]
 
 parcels:
