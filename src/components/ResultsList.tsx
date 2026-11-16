@@ -48,15 +48,15 @@ export default function ResultsList({
   // Build descriptive sentence
   const buildDescription = (): string | null => {
     if (!searchParams) return null;
-    // French needs article: "une lettre" / "un colis"
+    // French and German need the article (de: dative, nouns keep their capital); English strings carry it
     const typeLabelRaw = searchParams.type === 'letter'
       ? t(lang, 'form.letter').toLowerCase()
       : t(lang, 'form.parcel').toLowerCase();
     const typeLabel = lang === 'fr'
       ? (searchParams.type === 'letter' ? `une ${typeLabelRaw}` : `un ${typeLabelRaw}`)
       : lang === 'de'
-        ? (searchParams.type === 'letter' ? `einen ${typeLabelRaw}` : `ein ${typeLabelRaw}`)
-        : `a ${typeLabelRaw}`;
+        ? (searchParams.type === 'letter' ? `einem ${t(lang, 'form.letter')}` : `einem ${t(lang, 'form.parcel')}`)
+        : typeLabelRaw; // the English strings already carry the article
     const weightLabel = formatWeight(lang, searchParams.weight, searchParams.type === 'letter' ? 'g' : 'kg');
 
     if (searchParams.origin === 'all' && searchParams.destination === 'domestic') {
