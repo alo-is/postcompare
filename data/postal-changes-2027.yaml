@@ -130,3 +130,42 @@ announcements:
         product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
         availability: "published"
         details: { fr: "Format supprimé ; les documents de plus de 1 kg passent par Kleinwaren International", en: "Format withdrawn; documents over 1 kg move to Kleinwaren International", de: "Format aufgehoben; Dokumente über 1 kg als Kleinwaren International" }
+  - country: "LI"
+    operator_id: "liechtenstein-post-li"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://post.li/wp-content/uploads/2026/10/Anpassungen-der-Dienstleistungen-der-Liechtensteinischen-Post-per-01.01.2027.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Courrier A, lettre standard 1–50 g (CHF 1.20 → 1.40 ; jusqu’ici 1–100 g)", en: "A-Mail standard letter 1–50 g (CHF 1.20 → 1.40; previously 1–100 g)", de: "A-Post Standardbrief 1–50 g (CHF 1.20 → 1.40; bisher 1–100 g)" }
+        availability: "published"
+        old_price_eur: 1.164
+        new_price_eur: 1.358
+        percentage_change: 16.67
+      - type: "price_change"
+        product: { fr: "Courrier B, lettre standard 1–50 g (CHF 1.00 → 1.10)", en: "B-Mail standard letter 1–50 g (CHF 1.00 → 1.10)", de: "B-Post Standardbrief 1–50 g (CHF 1.00 → 1.10)" }
+        availability: "published"
+        old_price_eur: 0.97
+        new_price_eur: 1.067
+        percentage_change: 10.0
+      - type: "price_change"
+        product: { fr: "Lettre standard internationale Europe 1–20 g (CHF 1.90 → 2.00)", en: "International standard letter Europe 1–20 g (CHF 1.90 → 2.00)", de: "Standardbrief International Europa 1–20 g (CHF 1.90 → 2.00)" }
+        availability: "published"
+        old_price_eur: 1.843
+        new_price_eur: 1.94
+        percentage_change: 5.26
+      - type: "price_change"
+        product: { fr: "PostPac Economy jusqu’à 2 kg (CHF 8.50 → 9.00)", en: "PostPac Economy up to 2 kg (CHF 8.50 → 9.00)", de: "PostPac Economy bis 2 kg (CHF 8.50 → 9.00)" }
+        availability: "published"
+        old_price_eur: 8.245
+        new_price_eur: 8.73
+        percentage_change: 5.88
+      - type: "price_change"
+        product: { fr: "PostPac Economy jusqu’à 5 kg (CHF 10.00 → 10.50)", en: "PostPac Economy up to 5 kg (CHF 10.00 → 10.50)", de: "PostPac Economy bis 5 kg (CHF 10.00 → 10.50)" }
+        availability: "published"
+        old_price_eur: 9.7
+        new_price_eur: 10.185
+        percentage_change: 5.0
