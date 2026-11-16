@@ -1,0 +1,59 @@
+/* Operator detail page: identity, two "from" prices, rate tables by zone. */
+
+.op-page { padding-bottom: var(--s-7); }
+
+.op-back { padding-top: var(--s-6); font-size: var(--t-small); }
+.op-back a { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--ctl-h); }
+
+.op-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'id stats'
+    'actions stats';
+  gap: var(--s-5) var(--s-7);
+  align-items: start;
+  padding-block: var(--s-5) var(--s-7);
+}
+.op-head__id { grid-area: id; display: flex; gap: var(--s-4); align-items: flex-start; }
+.op-head__text { display: grid; gap: var(--s-2); min-width: 0; }
+.op-head__meta { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); color: var(--p-muted); }
+.op-head__actions { grid-area: actions; }
+.cc--lg { width: 52px; height: 40px; font-size: 0.9375rem; margin-top: 6px; }
+
+.op-stats { grid-area: stats; display: grid; grid-template-columns: repeat(2, minmax(160px, 1fr)); gap: var(--s-3); margin: 0; }
+.op-stat { display: grid; gap: var(--s-2); }
+.op-stat dt { font-size: var(--t-small); color: var(--p-muted); }
+.op-stat dd { margin: 0; display: flex; align-items: baseline; gap: var(--s-2); }
+.op-stat__from { color: var(--p-muted); }
+.op-stat .num { font-size: 1.75rem; letter-spacing: -0.03em; }
+
+.op-section__title { margin-bottom: var(--s-5); }
+.op-zone + .op-zone { margin-top: var(--s-6); }
+.op-zone h3 { margin-bottom: var(--s-1); }
+.op-zone__countries { margin-bottom: var(--s-4); font-size: var(--t-small); color: var(--p-muted); max-width: 90ch; }
+
+.op-table { min-width: 720px; }
+.op-table .op-table__product { font-weight: 500; }
+.op-table .op-table__product .badge { margin-left: var(--s-2); vertical-align: 1px; }
+.op-table__days { white-space: nowrap; }
+.op-table__options { margin: 0; padding: 0; list-style: none; min-width: 440px; }
+.op-table .chip { white-space: nowrap; }
+.op-table tr.is-cheapest > * { background: var(--p-accent-soft); }
+.op-table tr.is-cheapest > :first-child { box-shadow: inset 3px 0 0 var(--p-accent); }
+.op-table tr.is-cheapest .op-table__price { color: var(--p-accent); font-weight: 500; }
+
+.op-foot { border-top: 1px solid var(--p-line); }
+
+@media (max-width: 899px) {
+  .op-head { grid-template-columns: 1fr; grid-template-areas: 'id' 'stats' 'actions'; }
+}
+
+@media (max-width: 639px) {
+  .op-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .op-stat { padding: var(--s-4); }
+  .op-stat .num { font-size: 1.375rem; }
+  .op-head__actions .btn,
+  .op-foot .btn { width: 100%; }
+  .cc--lg { width: 44px; height: 34px; margin-top: 2px; }
+}
