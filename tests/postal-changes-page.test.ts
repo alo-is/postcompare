@@ -64,7 +64,7 @@ describe('2027 postal-change public pages', () => {
         expect(html).not.toContain('id="preview-changes"');
       }
       expect(html).toContain('laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027');
-      expect(html).toContain('deutschepost.de/de/b/briefe-ins-ausland');
+      expect(html).toContain('deutschepost.de/de/a/aenderungen2027');
       expect(html).not.toContain('postnord.dk/en/business/prices-for-businesses/post2027');
       expect(html).not.toContain('Post 2027');
     }

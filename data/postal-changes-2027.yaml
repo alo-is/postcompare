@@ -48,20 +48,84 @@ announcements:
     status: "confirmed"
     effective_date: "2027-01-01"
     source:
-      url: "https://www.deutschepost.de/de/b/briefe-ins-ausland/brief-international2027_Aenderungen.html"
+      url: "https://www.deutschepost.de/de/a/aenderungen2027.html"
       retrieved_at: "2026-11-16"
     changes:
-      - type: "product_introduced"
-        product: { fr: "Midibrief International", en: "Midibrief International", de: "Midibrief International" }
-        availability: "not_published"
-        details: { fr: "Jusqu’à 500 g et 2 cm", en: "Up to 500 g and 2 cm", de: "Bis 500 g und 2 cm" }
-      - type: "product_changed"
-        product: { fr: "Großbrief International", en: "Großbrief International", de: "Großbrief International" }
-        availability: "not_published"
-        details: { fr: "Jusqu’à 1 kg et 3 cm", en: "Up to 1 kg and 3 cm", de: "Bis 1 kg und 3 cm" }
+      - type: "announcement"
+        product: { fr: "Approbation réglementaire", en: "Regulatory approval", de: "Regulatorische Genehmigung" }
+        availability: "published"
+        details: { fr: "Prix publiés sous réserve de l’approbation définitive de la Bundesnetzagentur", en: "Prices published subject to final approval by the Bundesnetzagentur", de: "Alle Preise vorbehaltlich der abschließenden Genehmigung durch die Bundesnetzagentur" }
+      - type: "price_change"
+        product: { fr: "Standardbrief jusqu’à 20 g", en: "Standardbrief up to 20 g", de: "Standardbrief bis 20 g" }
+        availability: "published"
+        old_price_eur: 0.95
+        new_price_eur: 1.15
+        percentage_change: 21.05
+      - type: "price_change"
+        product: { fr: "Kompaktbrief jusqu’à 50 g", en: "Kompaktbrief up to 50 g", de: "Kompaktbrief bis 50 g" }
+        availability: "published"
+        old_price_eur: 1.10
+        new_price_eur: 1.25
+        percentage_change: 13.64
+      - type: "price_change"
+        product: { fr: "Großbrief (désormais jusqu’à 1 kg et 3 cm ; jusqu’ici 500 g et 2 cm)", en: "Großbrief (now up to 1 kg and 3 cm; previously 500 g and 2 cm)", de: "Großbrief (neu bis 1.000 g und 3 cm; bisher 500 g und 2 cm)" }
+        availability: "published"
+        old_price_eur: 1.80
+        new_price_eur: 2.35
+        percentage_change: 30.56
+      - type: "price_change"
+        product: { fr: "Maxibrief (désormais jusqu’à 2 kg et 3 cm ; jusqu’ici 1 kg et 5 cm)", en: "Maxibrief (now up to 2 kg and 3 cm; previously 1 kg and 5 cm)", de: "Maxibrief (neu bis 2.000 g und 3 cm; bisher 1.000 g und 5 cm)" }
+        availability: "published"
+        old_price_eur: 2.90
+        new_price_eur: 5.00
+        percentage_change: 72.41
+      - type: "price_change"
+        product: { fr: "Standardbrief International jusqu’à 20 g", en: "Standardbrief International up to 20 g", de: "Standardbrief International bis 20 g" }
+        availability: "published"
+        old_price_eur: 1.25
+        new_price_eur: 1.45
+        percentage_change: 16.0
+      - type: "price_change"
+        product: { fr: "Kompaktbrief International jusqu’à 50 g", en: "Kompaktbrief International up to 50 g", de: "Kompaktbrief International bis 50 g" }
+        availability: "published"
+        old_price_eur: 1.80
+        new_price_eur: 2.10
+        percentage_change: 16.67
+      - type: "price_change"
+        product: { fr: "Midibrief International jusqu’à 500 g et 2 cm (nouveau)", en: "Midibrief International up to 500 g and 2 cm (new)", de: "Midibrief International bis 500 g und 2 cm (neu)" }
+        availability: "published"
+        new_price_eur: 3.80
+      - type: "price_change"
+        product: { fr: "Großbrief International jusqu’à 1 kg et 3 cm (jusqu’ici 500 g, 3,30 €)", en: "Großbrief International up to 1 kg and 3 cm (previously 500 g, €3.30)", de: "Großbrief International bis 1.000 g und 3 cm (bisher bis 500 g, 3,30 €)" }
+        availability: "published"
+        new_price_eur: 6.80
       - type: "product_removed"
         product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
-        availability: "not_published"
+        availability: "published"
+      - type: "price_change"
+        product: { fr: "Supplément Einschreiben International", en: "Einschreiben International surcharge", de: "Einschreiben International (Aufpreis)" }
+        availability: "published"
+        old_price_eur: 3.70
+        new_price_eur: 3.95
+        percentage_change: 6.76
+      - type: "price_change"
+        product: { fr: "DHL Päckchen S au guichet (désormais 1 kg, suivi inclus ; en ligne 4,49 €)", en: "DHL Päckchen S at the counter (now 1 kg, tracking included; online €4.49)", de: "DHL Päckchen S in der Filiale (neu bis 1 kg, mit Sendungsverfolgung; online 4,49 €)" }
+        availability: "published"
+        old_price_eur: 4.19
+        new_price_eur: 5.19
+        percentage_change: 23.87
+      - type: "price_change"
+        product: { fr: "DHL Paket jusqu’à 5 kg au guichet (en ligne inchangé : 7,69 €)", en: "DHL Paket up to 5 kg at the counter (online unchanged: €7.69)", de: "DHL Paket bis 5 kg in der Filiale (online unverändert 7,69 €)" }
+        availability: "published"
+        old_price_eur: 7.69
+        new_price_eur: 8.29
+        percentage_change: 7.8
+      - type: "price_change"
+        product: { fr: "DHL Paket jusqu’à 10 kg au guichet (en ligne 11,49 €)", en: "DHL Paket up to 10 kg at the counter (online €11.49)", de: "DHL Paket bis 10 kg in der Filiale (online 11,49 €)" }
+        availability: "published"
+        old_price_eur: 10.49
+        new_price_eur: 12.49
+        percentage_change: 19.07
   - country: "DK"
     operator_id: "postnord-dk"
     scope: "business"
