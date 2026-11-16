@@ -6,6 +6,11 @@ operator:
   website: "https://www.post.at"
   logo: "osterreichische-post-at.svg"
   last_updated: "2026-02-01"
+  sources:
+    - title: "Österreichische Post Produkt- und Preisverzeichnis Brief International (Ausgabe 3/2026, PRIORITY)"
+      url: "https://assets.post.at/-/media/Dokumente/De/AGB/PPV-Brief-International-01092026.pdf"
+      retrieved_at: "2026-11-16"
+      effective_from: "2026-09-01"
 
 letters:
   domestic:
@@ -39,18 +44,18 @@ letters:
         rates:
           - name: "Brief Europa"
             max_weight_g: 20
-            price_eur: 1.30
+            price_eur: 1.45
             delivery_days: [3, 6]
             options:
               - name: "Einschreiben International"
                 price_eur: 3.90
           - name: "Brief Europa"
-            max_weight_g: 100
+            max_weight_g: 75
             price_eur: 2.40
             delivery_days: [3, 6]
           - name: "Brief Europa"
-            max_weight_g: 500
-            price_eur: 4.50
+            max_weight_g: 2000
+            price_eur: 8.45
             delivery_days: [3, 6]
 
 parcels:
