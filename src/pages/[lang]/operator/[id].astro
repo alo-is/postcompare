@@ -132,7 +132,7 @@ const operatorDescription = lettersAvailable
       </div>
 
       <dl class="op-stats">
-        <div class:list={['card', 'op-stat', { 'op-stat--unavailable': !lettersAvailable }]}>
+        <div class:list={['card', 'op-stat', 'stamp', { 'op-stat--unavailable': !lettersAvailable }]}>
           <dt>{t(lang, 'form.letter')}</dt>
           {lowestLetterPrice !== undefined ? (
             <dd><span class="op-stat__from">{t(lang, 'ui.from')}</span> <span class="num">{formatPrice(lang, lowestLetterPrice)}</span></dd>
@@ -140,7 +140,7 @@ const operatorDescription = lettersAvailable
             <dd class="op-stat__none">{t(lang, 'operator.letters_unavailable_short')}</dd>
           )}
         </div>
-        <div class="card op-stat">
+        <div class="card op-stat stamp">
           <dt>{t(lang, 'form.parcel')}</dt>
           <dd><span class="op-stat__from">{t(lang, 'ui.from')}</span> <span class="num">{formatPrice(lang, lowestParcelPrice)}</span></dd>
         </div>

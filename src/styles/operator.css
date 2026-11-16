@@ -57,3 +57,16 @@
   .op-foot .btn { width: 100%; }
   .op-head .flag--lg { width: 40px; height: 30px; margin-top: 2px; }
 }
+
+/* "From" prices as stamps: perforated edge, a printed frame inside, the
+   price as the denomination. The shadow on the list follows the holes. */
+.op-stats { filter: drop-shadow(0 0 0.75px var(--p-line-strong)) drop-shadow(0 1px 1.5px var(--p-line-strong)); }
+.op-stat.stamp {
+  border: 0;
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  box-shadow: inset 0 0 0 8px var(--p-card), inset 0 0 0 9px var(--p-line-strong);
+}
+.op-stat.stamp .num { color: var(--p-accent); }
+@media (max-width: 639px) {
+  .op-stat.stamp { padding: var(--s-4) var(--s-4) var(--s-3); }
+}

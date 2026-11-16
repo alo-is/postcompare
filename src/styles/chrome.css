@@ -10,6 +10,15 @@ main:focus { outline: none; }
   background: var(--p-bg);
   border-bottom: 1px solid var(--p-line);
 }
+/* Airmail stripe along the top edge, inside --nav-h */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--airmail);
+  pointer-events: none;
+}
 .site-header__bar {
   position: relative;
   display: flex;
@@ -177,7 +186,7 @@ main:focus { outline: none; }
   margin-top: var(--s-7);
   background: var(--p-inv-bg);
   color: var(--p-inv-ink);
-  --p-line: rgb(248 248 248 / 0.14);
+  --p-line: rgb(246 241 230 / 0.14);
 }
 .site-footer__grid {
   display: grid;
@@ -205,7 +214,7 @@ main:focus { outline: none; }
   text-underline-offset: 4px;
 }
 .site-footer__col a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
-.site-footer :focus-visible { outline-color: #5fbf7f; }
+.site-footer :focus-visible { outline-color: var(--p-inv-accent); }
 .site-footer__legal {
   grid-column: 1 / -1;
   display: flex;

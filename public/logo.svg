@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <rect width="48" height="48" rx="11" fill="#1f6b3a"/>
-  <rect x="11" y="15" width="26" height="18" rx="3" fill="none" stroke="#ffffff" stroke-width="2.5"/>
-  <path d="M12.5 17l11.5 8.5 11.5-8.5" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+  <defs><mask id="perf"><rect width="48" height="48" fill="#fff"/><g fill="#000"><circle cx="0" cy="0" r="2.1"/><circle cx="0" cy="48" r="2.1"/><circle cx="48" cy="0" r="2.1"/><circle cx="6" cy="0" r="2.1"/><circle cx="6" cy="48" r="2.1"/><circle cx="0" cy="6" r="2.1"/><circle cx="48" cy="6" r="2.1"/><circle cx="12" cy="0" r="2.1"/><circle cx="12" cy="48" r="2.1"/><circle cx="0" cy="12" r="2.1"/><circle cx="48" cy="12" r="2.1"/><circle cx="18" cy="0" r="2.1"/><circle cx="18" cy="48" r="2.1"/><circle cx="0" cy="18" r="2.1"/><circle cx="48" cy="18" r="2.1"/><circle cx="24" cy="0" r="2.1"/><circle cx="24" cy="48" r="2.1"/><circle cx="0" cy="24" r="2.1"/><circle cx="48" cy="24" r="2.1"/><circle cx="30" cy="0" r="2.1"/><circle cx="30" cy="48" r="2.1"/><circle cx="0" cy="30" r="2.1"/><circle cx="48" cy="30" r="2.1"/><circle cx="36" cy="0" r="2.1"/><circle cx="36" cy="48" r="2.1"/><circle cx="0" cy="36" r="2.1"/><circle cx="48" cy="36" r="2.1"/><circle cx="42" cy="0" r="2.1"/><circle cx="42" cy="48" r="2.1"/><circle cx="0" cy="42" r="2.1"/><circle cx="48" cy="42" r="2.1"/><circle cx="48" cy="48" r="2.1"/></g></mask></defs>
+  <g mask="url(#perf)">
+    <rect width="48" height="48" fill="#1d4f8c"/>
+    <rect x="6.5" y="6.5" width="35" height="35" fill="none" stroke="#fffcf5" stroke-width="1.25"/>
+    <rect x="12" y="15.84" width="24" height="16.32" rx="1.92" fill="none" stroke="#fffcf5" stroke-width="2.4"/>
+    <path d="M13.44 17.28L24 25.3056L34.56 17.28" fill="none" stroke="#fffcf5" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
 </svg>
