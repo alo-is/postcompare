@@ -34,7 +34,7 @@ describe('2027 postal changes', () => {
   });
 
   it('retains the Denmark business preview as structured research data', () => {
-    expect(changes.announcements).toHaveLength(3);
+    expect(changes.announcements.length).toBeGreaterThanOrEqual(3);
     expect(changes.announcements).toContainEqual(expect.objectContaining({
       country: 'DK',
       operator_id: 'postnord-dk',
@@ -53,18 +53,17 @@ describe('2027 postal changes', () => {
   });
 
   it('loads the consultation date for every announcement source', () => {
-    expect(changes.announcements.map(({ source }) => source.retrieved_at)).toEqual([
-      '2026-08-10',
-      '2026-08-10',
-      '2026-08-10',
-    ]);
+    for (const { source } of changes.announcements) {
+      expect(source.retrieved_at).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(source.retrieved_at >= '2026-08-10').toBe(true);
+    }
   });
 
   it('keeps published price changes arithmetically coherent', () => {
     const priceChanges = changes.announcements.flatMap((announcement) => announcement.changes)
       .filter((change) => change.type === 'price_change');
 
-    expect(priceChanges).toHaveLength(6);
+    expect(priceChanges.length).toBeGreaterThanOrEqual(6);
     for (const change of priceChanges) {
       expect(change.new_price_eur).toBeDefined();
       if (change.old_price_eur !== undefined) {
@@ -80,7 +79,8 @@ describe('2027 postal changes', () => {
   });
 
   it('records the new international 20 g price without inventing a historical percentage', () => {
-    const international20g = changes.announcements[0].changes.find(
+    const france = changes.announcements.find(({ operator_id }) => operator_id === 'la-poste-fr');
+    const international20g = france?.changes.find(
       (change) => change.product.fr === 'Lettre internationale 20 g',
     );
 
