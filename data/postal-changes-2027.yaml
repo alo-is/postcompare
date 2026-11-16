@@ -75,3 +75,58 @@ announcements:
         product: { fr: "Post 2027", en: "Post 2027", de: "Post 2027" }
         availability: "upcoming"
         details: { fr: "Produits et prix attendus en octobre 2026", en: "Product and price content expected in October 2026", de: "Produkt- und Preisinhalte werden im Oktober 2026 erwartet" }
+  - country: "CH"
+    operator_id: "la-poste-suisse-ch"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://site.post.ch/de/ueber-uns/anpassung-angebot-briefe-und-pakete"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Courrier A, lettre standard 1–50 g (CHF 1.20 → 1.40 ; jusqu’ici 1–100 g)", en: "A-Mail standard letter 1–50 g (CHF 1.20 → 1.40; previously 1–100 g)", de: "A-Post Standardbrief 1–50 g (CHF 1.20 → 1.40; bisher 1–100 g)" }
+        availability: "published"
+        old_price_eur: 1.164
+        new_price_eur: 1.358
+        percentage_change: 16.67
+      - type: "price_change"
+        product: { fr: "Courrier B, lettre standard 1–50 g (CHF 1.00 → 1.10)", en: "B-Mail standard letter 1–50 g (CHF 1.00 → 1.10)", de: "B-Post Standardbrief 1–50 g (CHF 1.00 → 1.10)" }
+        availability: "published"
+        old_price_eur: 0.97
+        new_price_eur: 1.067
+        percentage_change: 10.0
+      - type: "price_change"
+        product: { fr: "Courrier A, grande lettre 1–1000 g (CHF 2.50 → 2.75)", en: "A-Mail large letter 1–1000 g (CHF 2.50 → 2.75)", de: "A-Post Grossbrief 1–1000 g (CHF 2.50 → 2.75)" }
+        availability: "published"
+        old_price_eur: 2.425
+        new_price_eur: 2.6675
+        percentage_change: 10.0
+      - type: "price_change"
+        product: { fr: "Courrier B, grande lettre 1–1000 g (CHF 2.00 → 2.25)", en: "B-Mail large letter 1–1000 g (CHF 2.00 → 2.25)", de: "B-Post Grossbrief 1–1000 g (CHF 2.00 → 2.25)" }
+        availability: "published"
+        old_price_eur: 1.94
+        new_price_eur: 2.1825
+        percentage_change: 12.5
+      - type: "price_change"
+        product: { fr: "Recommandé jusqu’au format B5 (CHF 6.80 → 7.00)", en: "Registered letter up to B5 (CHF 6.80 → 7.00)", de: "Einschreiben bis Format B5 (CHF 6.80 → 7.00)" }
+        availability: "published"
+        old_price_eur: 6.596
+        new_price_eur: 6.79
+        percentage_change: 2.94
+      - type: "price_change"
+        product: { fr: "Lettre standard internationale Europe 1–20 g (CHF 1.90 → 2.00)", en: "International standard letter Europe 1–20 g (CHF 1.90 → 2.00)", de: "Standardbrief International Europa 1–20 g (CHF 1.90 → 2.00)" }
+        availability: "published"
+        old_price_eur: 1.843
+        new_price_eur: 1.94
+        percentage_change: 5.26
+      - type: "price_change"
+        product: { fr: "Grande lettre internationale Europe 1–100 g (CHF 4.30 → 4.50)", en: "International large letter Europe 1–100 g (CHF 4.30 → 4.50)", de: "Grossbrief International Europa 1–100 g (CHF 4.30 → 4.50)" }
+        availability: "published"
+        old_price_eur: 4.171
+        new_price_eur: 4.365
+        percentage_change: 4.65
+      - type: "product_removed"
+        product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
+        availability: "published"
+        details: { fr: "Format supprimé ; les documents de plus de 1 kg passent par Kleinwaren International", en: "Format withdrawn; documents over 1 kg move to Kleinwaren International", de: "Format aufgehoben; Dokumente über 1 kg als Kleinwaren International" }
