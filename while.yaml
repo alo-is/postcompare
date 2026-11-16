@@ -1,0 +1,6 @@
+apiVersion: while/v1
+project: postcompare
+services:
+  - name: site
+    type: static
+    root: dist
