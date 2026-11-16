@@ -352,3 +352,42 @@ announcements:
         product: { fr: "Tarification 2027 du service postal universel", en: "2027 universal postal service pricing", de: "Preisgestaltung 2027 für den Universalpostdienst" }
         availability: "upcoming"
         details: { fr: "Proposition soumise à l’autorité de la concurrence (Konkurentsiamet) en septembre 2026 ; prix non publiés", en: "Proposal submitted to the Competition Authority (Konkurentsiamet) in September 2026; prices not published", de: "Im September 2026 bei der Wettbewerbsbehörde (Konkurentsiamet) eingereicht; Preise nicht veröffentlicht" }
+  - country: "BE"
+    operator_id: "bpost-be"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://press.bpost.be/bpost-past-zijn-tarieven-aan-voor-2027"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Timbre Non Prior, à l’unité (1,72 € par feuille de 10)", en: "Non Prior stamp, single (€1.72 each in a sheet of 10)", de: "Non-Prior-Briefmarke, einzeln (1,72 € im 10er-Bogen)" }
+        availability: "published"
+        new_price_eur: 1.77
+      - type: "price_change"
+        product: { fr: "Timbre Prior, à l’unité (2,68 € par feuille de 5)", en: "Prior stamp, single (€2.68 each in a sheet of 5)", de: "Prior-Briefmarke, einzeln (2,68 € im 5er-Bogen)" }
+        availability: "published"
+        new_price_eur: 2.73
+      - type: "price_change"
+        product: { fr: "Envoi recommandé, tarif résidentiel", en: "Registered item, residential rate", de: "Einschreiben, Privatkundentarif" }
+        availability: "published"
+        new_price_eur: 10.76
+      - type: "price_change"
+        product: { fr: "Envoi normalisé vers l’Europe, à l’unité (3,24 € par feuille de 5)", en: "Standard-size item to Europe, single (€3.24 each in a sheet of 5)", de: "Standardsendung nach Europa, einzeln (3,24 € im 5er-Bogen)" }
+        availability: "published"
+        new_price_eur: 3.36
+      - type: "price_change"
+        product: { fr: "Envoi normalisé vers le reste du monde, à l’unité", en: "Standard-size item to the rest of the world, single", de: "Standardsendung in die übrige Welt, einzeln" }
+        availability: "published"
+        new_price_eur: 3.58
+      - type: "price_change"
+        product: { fr: "bpack 24h", en: "bpack 24h", de: "bpack 24h" }
+        availability: "published"
+        old_price_eur: 8.60
+        new_price_eur: 9.00
+        percentage_change: 4.65
+      - type: "announcement"
+        product: { fr: "Clause d’inflation", en: "Inflation clause", de: "Inflationsklausel" }
+        availability: "published"
+        details: { fr: "Ajustement supplémentaire possible de 3 % maximum en cours d’année 2027 selon l’inflation ; colis internationaux prépayés inchangés", en: "A further adjustment of up to 3% is possible during 2027 depending on inflation; prepaid international parcels unchanged", de: "Je nach Inflation ist 2027 eine weitere Anpassung um höchstens 3 % möglich; vorausbezahlte internationale Pakete unverändert" }
