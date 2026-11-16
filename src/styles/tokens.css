@@ -1,0 +1,84 @@
+/* Design tokens: one palette, one type pairing, one radius and spacing scale.
+   Light is the default; dark is derived from the inverse tokens. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Palette (light) */
+  --p-bg: #f8f8f8;
+  --p-surface: #eeeeee;
+  --p-card: #ffffff;
+  --p-ink: #0a0a0a;
+  --p-muted: #6a6a6a;          /* 5.1:1 on bg, 4.7:1 on surface */
+  --p-accent: #1f6b3a;         /* 6.1:1 on bg: text, links, focus, fills */
+  --p-accent-ink: #ffffff;     /* label on an accent fill, 6.5:1 */
+  --p-accent-soft: #e8f1eb;    /* cheapest-row tint; muted text stays 4.7:1 */
+  --p-line: rgb(10 10 10 / 0.12);
+  --p-line-strong: rgb(10 10 10 / 0.28);
+
+  /* Inverse band */
+  --p-inv-bg: #0a0a0a;
+  --p-inv-surface: #171717;
+  --p-inv-ink: #f8f8f8;
+  --p-inv-muted: #939393;
+
+  /* Type */
+  --f-sans: 'Onest', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --t-hero: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+  --t-h1: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --t-h2: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  --t-h3: 1.25rem;
+  --t-lead: 1.1875rem;
+  --t-body: 1rem;
+  --t-small: 0.875rem;
+  --t-label: 0.8125rem;
+  --track-display: -0.035em;
+  --track-hero: -0.04em;
+
+  /* Spacing scale: 4 8 12 16 24 32 48 64 96 */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* Radius ("soft") */
+  --r-sm: 8px;      /* controls, fields, buttons */
+  --r-lg: 12px;     /* cards, tables, panels */
+  --r-pill: 999px;  /* badges and chips only */
+
+  /* Layout */
+  --wrap: 1200px;
+  --gut: 24px;
+  --nav-h: 64px;
+  --ctl-h: 44px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --m-in: 150ms;
+  --m-out: 120ms;
+}
+
+@media (min-width: 768px) {
+  :root { --gut: 40px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --p-bg: var(--p-inv-bg);
+    --p-surface: var(--p-inv-surface);
+    --p-card: #111111;
+    --p-ink: var(--p-inv-ink);
+    --p-muted: var(--p-inv-muted);   /* 6.4:1 on bg, 5.8:1 on surface */
+    --p-accent: #5fbf7f;             /* 8.7:1 on bg; #1f6b3a would be 3:1 */
+    --p-accent-ink: #0a0a0a;
+    --p-accent-soft: #13221a;
+    --p-line: rgb(248 248 248 / 0.12);
+    --p-line-strong: rgb(248 248 248 / 0.3);
+  }
+}
