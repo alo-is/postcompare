@@ -184,7 +184,7 @@ a { color: inherit; }
 .select {
   appearance: none;
   padding-right: var(--s-7);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%236a6a6a' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%237a8492' stroke-width='1.5'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--s-4) center;
   text-overflow: ellipsis;
@@ -288,6 +288,27 @@ a { color: inherit; }
   background: var(--p-surface);
 }
 .flag--lg { width: 48px; height: 36px; border-radius: 6px; }
+
+/* ---------- Postal motifs ---------- */
+
+/* Stamp: a perforated edge cut with a mask (holes show whatever is behind,
+   in light and dark). Never on a link or a control: a mask clips focus rings. */
+.stamp {
+  --_hole: #0000 var(--perf-r), #000 calc(var(--perf-r) + 0.5px);
+  border-radius: 0;
+  -webkit-mask:
+    radial-gradient(circle at 50% 0, var(--_hole)) 0 0 / var(--perf-s) 100% round no-repeat,
+    radial-gradient(circle at 50% 100%, var(--_hole)) 0 0 / var(--perf-s) 100% round no-repeat,
+    radial-gradient(circle at 0 50%, var(--_hole)) 0 0 / 100% var(--perf-s) no-repeat round,
+    radial-gradient(circle at 100% 50%, var(--_hole)) 0 0 / 100% var(--perf-s) no-repeat round;
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(circle at 50% 0, var(--_hole)) 0 0 / var(--perf-s) 100% round no-repeat,
+    radial-gradient(circle at 50% 100%, var(--_hole)) 0 0 / var(--perf-s) 100% round no-repeat,
+    radial-gradient(circle at 0 50%, var(--_hole)) 0 0 / 100% var(--perf-s) no-repeat round,
+    radial-gradient(circle at 100% 50%, var(--_hole)) 0 0 / 100% var(--perf-s) no-repeat round;
+  mask-composite: intersect;
+}
 
 /* ---------- Cards ---------- */
 .card {

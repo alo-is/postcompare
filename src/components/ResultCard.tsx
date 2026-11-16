@@ -84,7 +84,7 @@ export default function ResultCard({
       )}
 
       <div className="result__price">
-        {best && <span className="badge badge--accent">{t(lang, 'results.best_price')}</span>}
+        {best && <span className="badge badge--accent badge--stamp stamp">{t(lang, 'results.best_price')}</span>}
         <span className="result__amount num">{formatPrice(lang, result.priceEur)}</span>
         <a className="link result__link" href={localePath(lang, `/operator/${result.operator.id}`)}>
           {t(lang, 'results.see_details')}

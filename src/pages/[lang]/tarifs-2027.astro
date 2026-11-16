@@ -104,6 +104,13 @@ const sections = [
             return (
               <article class="postal-timeline__entry" aria-labelledby={`pc-${first.operator_id}-${section.status}`}>
                 <div class="postal-timeline__date">
+                  {/* Postmark: the date as a cancellation stamp (decorative; the <time> below carries it) */}
+                  <span class:list={['postmark', { 'postmark--pending': !first.effective_date }]} aria-hidden="true">
+                    {first.effective_date
+                      ? <span class="postmark__day num">{first.effective_date.slice(8, 10)}.{first.effective_date.slice(5, 7)}</span>
+                      : <span class="postmark__day num">··.··</span>}
+                    <span class="postmark__year num">{first.effective_date ? first.effective_date.slice(0, 4) : '2027'}</span>
+                  </span>
                   {section.status === 'confirmed'
                     ? <span class="badge badge--accent">{t(lang, 'postal_changes.confirmed')}</span>
                     : <span class="badge badge--outline">{t(lang, 'postal_changes.preview')}</span>}

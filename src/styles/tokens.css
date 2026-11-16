@@ -1,29 +1,44 @@
 /* Design tokens: one palette, one type pairing, one radius and spacing scale.
-   Light is the default; dark is derived from the inverse tokens. */
+   Postal theme: envelope-paper ground, postal-ink navy, airmail blue for every
+   action. Airmail red is a motif colour only (the airmail stripe), never text,
+   links or buttons. No operator's livery (no post-horn yellow, no single red).
+   Light is the default; dark has its own pairs below. Ratios are WCAG 2.x. */
 
 :root {
   color-scheme: light dark;
 
   /* Palette (light) */
-  --p-bg: #f8f8f8;
-  --p-surface: #eeeeee;
-  --p-card: #ffffff;
-  --p-ink: #0a0a0a;
-  --p-muted: #6a6a6a;          /* 5.1:1 on bg, 4.7:1 on surface */
-  --p-accent: #1f6b3a;         /* 6.1:1 on bg: text, links, focus, fills */
-  --p-accent-ink: #ffffff;     /* label on an accent fill, 6.5:1 */
-  --p-accent-soft: #e8f1eb;    /* cheapest-row tint; muted text stays 4.7:1 */
-  --p-line: rgb(10 10 10 / 0.12);
-  --p-line-strong: rgb(10 10 10 / 0.28);
+  --p-bg: #f6f1e6;             /* envelope paper */
+  --p-surface: #ede5d5;        /* manila: table heads, segmented track */
+  --p-card: #fffcf5;           /* letter paper */
+  --p-ink: #111d2c;            /* postal ink: 15.1:1 on bg, 13.6:1 on surface, 16.6:1 on card */
+  --p-muted: #566271;          /* 5.5:1 on bg, 5.0:1 on surface, 6.1:1 on card, 5.1:1 on accent-soft */
+  --p-accent: #1d4f8c;         /* airmail blue: 7.3:1 on bg, 8.0:1 on card, 6.7:1 on accent-soft */
+  --p-accent-ink: #fffcf5;     /* label on an accent fill, 8.0:1 */
+  --p-accent-soft: #e3e9f0;    /* cheapest-row tint; ink 13.9:1, muted 5.1:1 */
+  --p-red: #c23b30;            /* airmail red, motif only (stripe); 4.7:1 on bg */
+  --p-line: rgb(17 29 44 / 0.13);
+  --p-line-strong: rgb(17 29 44 / 0.3);
 
-  /* Inverse band */
-  --p-inv-bg: #0a0a0a;
-  --p-inv-surface: #171717;
-  --p-inv-ink: #f8f8f8;
-  --p-inv-muted: #939393;
+  /* Inverse band (footer) */
+  --p-inv-bg: #111d2c;
+  --p-inv-surface: #1a2637;
+  --p-inv-ink: #f6f1e6;        /* 15.1:1 on inv-bg, 13.6:1 on inv-surface */
+  --p-inv-muted: #a2aab4;      /* 7.2:1 on inv-bg, 6.5:1 on inv-surface */
+  --p-inv-accent: #8db5ea;     /* focus ring on the footer: 8.0:1 on inv-bg */
 
-  /* Type */
-  --f-sans: 'Onest', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Airmail stripe: red, paper, blue, paper at 45 degrees */
+  --airmail: repeating-linear-gradient(
+    -45deg,
+    var(--p-red) 0 9px,
+    transparent 9px 14px,
+    var(--p-accent) 14px 23px,
+    transparent 23px 28px
+  );
+
+  /* Type: Epilogue for words, JetBrains Mono for every price, weight and date
+     (the franking-meter face) */
+  --f-sans: 'Epilogue', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --t-hero: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
   --t-h1: clamp(2rem, 1.5rem + 2vw, 3rem);
@@ -34,7 +49,7 @@
   --t-small: 0.875rem;
   --t-label: 0.8125rem;
   --track-display: -0.035em;
-  --track-hero: -0.04em;
+  --track-hero: -0.045em;
 
   /* Spacing scale: 4 8 12 16 24 32 48 64 96 */
   --s-1: 4px;
@@ -52,10 +67,14 @@
   --r-lg: 12px;     /* cards, tables, panels */
   --r-pill: 999px;  /* badges and chips only */
 
+  /* Stamp perforation: hole radius and pitch (used as a mask) */
+  --perf-r: 3px;
+  --perf-s: 10px;
+
   /* Layout */
   --wrap: 1200px;
   --gut: 24px;
-  --nav-h: 64px;
+  --nav-h: 64px;    /* includes the 4px airmail stripe at the top of the header */
   --ctl-h: 44px;
 
   /* Motion */
@@ -70,15 +89,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --p-bg: var(--p-inv-bg);
-    --p-surface: var(--p-inv-surface);
-    --p-card: #111111;
-    --p-ink: var(--p-inv-ink);
-    --p-muted: var(--p-inv-muted);   /* 6.4:1 on bg, 5.8:1 on surface */
-    --p-accent: #5fbf7f;             /* 8.7:1 on bg; #1f6b3a would be 3:1 */
-    --p-accent-ink: #0a0a0a;
-    --p-accent-soft: #13221a;
-    --p-line: rgb(248 248 248 / 0.12);
-    --p-line-strong: rgb(248 248 248 / 0.3);
+    --p-bg: #0d1520;                 /* night sorting office */
+    --p-surface: #162132;
+    --p-card: #111a28;
+    --p-ink: #f2ece0;                /* 15.6:1 on bg, 13.8:1 on surface, 14.9:1 on card */
+    --p-muted: #a0a9b4;              /* 7.7:1 on bg, 6.8:1 on surface, 7.3:1 on card, 6.4:1 on accent-soft */
+    --p-accent: #8db5ea;             /* 8.7:1 on bg, 8.3:1 on card, 7.2:1 on accent-soft; #1d4f8c would be 2.3:1 */
+    --p-accent-ink: #0d1520;         /* 8.7:1 on the accent */
+    --p-accent-soft: #15263d;
+    --p-red: #e06a60;                /* motif only; 5.6:1 on bg */
+    --p-line: rgb(242 236 224 / 0.13);
+    --p-line-strong: rgb(242 236 224 / 0.3);
+
+    --p-inv-bg: #0d1520;
+    --p-inv-surface: #162132;        /* the footer sits on this in dark */
+    --p-inv-ink: #f2ece0;            /* 13.8:1 on inv-surface */
+    --p-inv-muted: #a0a9b4;          /* 6.8:1 on inv-surface */
+    --p-inv-accent: #8db5ea;         /* 7.7:1 on inv-surface */
   }
 }

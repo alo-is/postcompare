@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#1f6b3a"/>
-  <rect x="6.5" y="9.5" width="19" height="13" rx="2" fill="none" stroke="#ffffff" stroke-width="2"/>
-  <path d="M7.5 11l8.5 6.2 8.5-6.2" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
+  <defs><mask id="perf"><rect width="32" height="32" fill="#fff"/><g fill="#000"><circle cx="0" cy="0" r="1.9"/><circle cx="0" cy="32" r="1.9"/><circle cx="32" cy="0" r="1.9"/><circle cx="6.4" cy="0" r="1.9"/><circle cx="6.4" cy="32" r="1.9"/><circle cx="0" cy="6.4" r="1.9"/><circle cx="32" cy="6.4" r="1.9"/><circle cx="12.8" cy="0" r="1.9"/><circle cx="12.8" cy="32" r="1.9"/><circle cx="0" cy="12.8" r="1.9"/><circle cx="32" cy="12.8" r="1.9"/><circle cx="19.2" cy="0" r="1.9"/><circle cx="19.2" cy="32" r="1.9"/><circle cx="0" cy="19.2" r="1.9"/><circle cx="32" cy="19.2" r="1.9"/><circle cx="25.6" cy="0" r="1.9"/><circle cx="25.6" cy="32" r="1.9"/><circle cx="0" cy="25.6" r="1.9"/><circle cx="32" cy="25.6" r="1.9"/><circle cx="32" cy="32" r="1.9"/></g></mask></defs>
+  <g mask="url(#perf)">
+    <rect width="32" height="32" fill="#1d4f8c"/>
+    <rect x="4.6" y="4.6" width="22.8" height="22.8" fill="none" stroke="#fffcf5" stroke-width="1"/>
+    <rect x="8" y="10.559999999999999" width="16" height="10.88" rx="1.28" fill="none" stroke="#fffcf5" stroke-width="2"/>
+    <path d="M9.2 11.759999999999998L16 16.8704L22.8 11.759999999999998" fill="none" stroke="#fffcf5" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
 </svg>

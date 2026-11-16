@@ -126,3 +126,11 @@
   .mobile-summary__text > span:last-child { flex-basis: 100%; }
   .mobile-summary__edit { flex: none; padding: 0 var(--s-4); }
 }
+
+/* Cheapest: the badge is a small airmail-blue stamp */
+.badge--stamp {
+  --perf-r: 2.5px;
+  --perf-s: 7px;
+  min-height: 32px;
+  padding: 0 var(--s-4);
+}
