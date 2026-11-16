@@ -55,97 +55,65 @@ const homeJsonLd = {
   lang={lang}
   jsonLd={homeJsonLd}
 >
-  {/* Hero section */}
-  <section class="hero">
-    <h1 class="hero__title">
-      {lang === 'fr' ? <>Comparez les tarifs postaux<br />de <strong>32 pays européens</strong></> :
-       lang === 'de' ? <>Vergleichen Sie Postgebühren<br />aus <strong>32 europäischen Ländern</strong></> :
-       <>Compare postal rates<br />from <strong>32 European countries</strong></>}
-    </h1>
-    <p class="hero__subtitle">{t(lang, 'hero.subtitle')}</p>
-    <HeroForm lang={lang} />
-  </section>
-
-  {/* How it works */}
-  <section class="how-it-works" aria-label={t(lang, 'how.title')}>
-    <h2 class="how-it-works__title">{t(lang, 'how.title')}</h2>
-    <div class="how-it-works__grid">
-      <div class="how-it-works__step">
-        <div class="how-it-works__icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <path d="M8 28L20 8L32 28Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/>
-            <line x1="20" y1="15" x2="20" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="20" cy="25.5" r="1.2" fill="currentColor"/>
-          </svg>
-        </div>
-        <span class="how-it-works__number">1</span>
-        <h3>{t(lang, 'how.step1_title')}</h3>
-        <p>{t(lang, 'how.step1_text')}</p>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <h1 class="hero__title" id="hero-title">{t(lang, 'hero.title')}</h1>
+        <p class="hero__lead">{t(lang, 'ui.hero_lead')}</p>
+        <p class="hero__note">{t(lang, 'hero.subtitle')}</p>
       </div>
-      <div class="how-it-works__step">
-        <div class="how-it-works__icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <rect x="4" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-            <path d="M4 10L11 17L18 10" stroke="currentColor" stroke-width="2"/>
-            <rect x="22" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-            <path d="M22 10L29 17L36 10" stroke="currentColor" stroke-width="2"/>
-            <line x1="11" y1="26" x2="11" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="29" y1="24" x2="29" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="6" y1="30" x2="16" y2="30" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="24" y1="30" x2="34" y2="30" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <span class="how-it-works__number">2</span>
-        <h3>{t(lang, 'how.step2_title')}</h3>
-        <p>{t(lang, 'how.step2_text')}</p>
-      </div>
-      <div class="how-it-works__step">
-        <div class="how-it-works__icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="18" r="12" stroke="currentColor" stroke-width="2" fill="none"/>
-            <circle cx="20" cy="18" r="5" stroke="currentColor" stroke-width="2" fill="none"/>
-            <circle cx="20" cy="18" r="1.5" fill="currentColor"/>
-            <line x1="20" y1="6" x2="20" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="20" y1="33" x2="20" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="8" y1="18" x2="5" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="35" y1="18" x2="32" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span class="how-it-works__number">3</span>
-        <h3>{t(lang, 'how.step3_title')}</h3>
-        <p>{t(lang, 'how.step3_text')}</p>
-      </div>
+      <HeroForm lang={lang} />
     </div>
   </section>
 
-  {/* Countries covered */}
-  <section class="countries-section" aria-label={t(lang, 'countries_section.title')}>
-    <h2 class="countries-section__title">{t(lang, 'countries_section.title')}</h2>
-    <p class="countries-section__subtitle">
-      {lang === 'fr' ? 'Cliquez sur un pays pour voir les tarifs détaillés de sa poste nationale.' :
-       lang === 'de' ? 'Klicken Sie auf ein Land, um die detaillierten Tarife seines Postdienstes zu sehen.' :
-       'Click on a country to see the detailed rates of its national postal service.'}
-    </p>
-    <div class="countries-grid">
-      {countries.map((c) => {
-        const op = countryToOperator.get(c.code);
-        return op ? (
-          <a href={localePath(lang, `/operator/${op.id}`)} class="countries-grid__item countries-grid__item--link">
-            <span class="countries-grid__flag">{c.flag}</span>
-            <span class="countries-grid__info">
-              <span class="countries-grid__name">{countryName(c.code)}</span>
-              <span class="countries-grid__operator">{op.name}</span>
-            </span>
-          </a>
-        ) : (
-          <div class="countries-grid__item">
-            <span class="countries-grid__flag">{c.flag}</span>
-            <span class="countries-grid__info">
-              <span class="countries-grid__name">{countryName(c.code)}</span>
-            </span>
-          </div>
-        );
-      })}
+  <section class="section" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="why-title">{t(lang, 'how.title')}</h2>
+      </div>
+      <ol class="why-grid">
+        {[1, 2, 3].map((n) => (
+          <li class="card why-card">
+            <span class="num why-card__n">{String(n).padStart(2, '0')}</span>
+            <h3>{t(lang, `how.step${n}_title`)}</h3>
+            <p>{t(lang, `how.step${n}_text`)}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="countries-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="countries-title">{t(lang, 'countries_section.title')}</h2>
+        <p>{t(lang, 'ui.countries_hint')}</p>
+      </div>
+      <ul class="country-grid">
+        {countries.map((c) => {
+          const op = countryToOperator.get(c.code);
+          return (
+            <li>
+              {op ? (
+                <a href={localePath(lang, `/operator/${op.id}`)} class="card country-card">
+                  <span class="cc">{c.code}</span>
+                  <span class="country-card__text">
+                    <span class="country-card__name">{countryName(c.code)}</span>
+                    <span class="country-card__op">{op.name}</span>
+                  </span>
+                </a>
+              ) : (
+                <div class="card country-card">
+                  <span class="cc">{c.code}</span>
+                  <span class="country-card__text">
+                    <span class="country-card__name">{countryName(c.code)}</span>
+                  </span>
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   </section>
 </BaseLayout>
