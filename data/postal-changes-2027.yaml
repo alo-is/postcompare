@@ -391,3 +391,20 @@ announcements:
         product: { fr: "Clause d’inflation", en: "Inflation clause", de: "Inflationsklausel" }
         availability: "published"
         details: { fr: "Ajustement supplémentaire possible de 3 % maximum en cours d’année 2027 selon l’inflation ; colis internationaux prépayés inchangés", en: "A further adjustment of up to 3% is possible during 2027 depending on inflation; prepaid international parcels unchanged", de: "Je nach Inflation ist 2027 eine weitere Anpassung um höchstens 3 % möglich; vorausbezahlte internationale Pakete unverändert" }
+  - country: "NL"
+    operator_id: "postnl-nl"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://newsroom.postnl.nl/nl-NL/273887-postnl-maakt-nieuwe-postzegelprijs-per-1-januari-2027-bekend/"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Timbre standard, lettre nationale (distribution en 2 jours)", en: "Standard stamp, domestic letter (2-day delivery)", de: "Standardbriefmarke, Inlandsbrief (Zustellung in 2 Tagen)" }
+        availability: "published"
+        new_price_eur: 1.52
+      - type: "announcement"
+        product: { fr: "Priobrief et timbre de deuil prio", en: "Priobrief and priority mourning stamp", de: "Priobrief und Trauerbriefmarke prio" }
+        availability: "published"
+        details: { fr: "Inchangés à 3,95 € et 3,25 €", en: "Unchanged at €3.95 and €3.25", de: "Unverändert bei 3,95 € und 3,25 €" }
