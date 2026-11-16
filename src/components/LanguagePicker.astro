@@ -1,6 +1,6 @@
 ---
 // src/components/LanguagePicker.astro
-import { languages, languageCodes } from '../i18n/utils';
+import { languages, languageCodes, languageNames, t } from '../i18n/utils';
 import type { Lang } from '../lib/types';
 
 interface Props {
@@ -11,18 +11,17 @@ interface Props {
 const { lang, currentPath } = Astro.props;
 ---
 
-<div class="lang-picker">
-  {
-    languages.map((l, i) => (
-      <>
-        {i > 0 && <span class="lang-picker__sep">/</span>}
-        <a
-          href={`/${l}${currentPath || '/'}`}
-          class:list={['lang-picker__link', { 'lang-picker__link--active': l === lang }]}
-        >
-          {languageCodes[l]}
-        </a>
-      </>
-    ))
-  }
-</div>
+<ul class="lang-picker" aria-label={t(lang, 'ui.language')}>
+  {languages.map((l) => (
+    <li>
+      <a
+        href={`/${l}${currentPath || '/'}`}
+        class="lang-picker__link"
+        hreflang={l}
+        lang={l}
+        aria-current={l === lang ? 'true' : undefined}
+        aria-label={languageNames[l]}
+      >{languageCodes[l]}</a>
+    </li>
+  ))}
+</ul>

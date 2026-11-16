@@ -75,8 +75,11 @@ const websiteJsonLd = {
     {description && <meta name="twitter:description" content={description} />}
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link href="https://fonts.bunny.net/css?family=playfair-display:400,400i,700,900|source-serif-4:300,400,600,400i&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400..700&family=JetBrains+Mono:wght@400..500&display=swap" rel="stylesheet" />
 
     {/* JSON-LD: WebSite schema */}
     <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
@@ -88,7 +91,7 @@ const websiteJsonLd = {
   </head>
   <body>
     <Header lang={lang} />
-    <main>
+    <main id="content" tabindex="-1">
       <slot />
     </main>
     <Footer lang={lang} />
