@@ -169,3 +169,42 @@ announcements:
         old_price_eur: 9.7
         new_price_eur: 10.185
         percentage_change: 5.0
+  - country: "NO"
+    operator_id: "posten-norge-no"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.posten.no/priser-2027/utskriftsvennlige-prislister-2027/Priser-post-betalt-med-frimerker_01012027.pdf"
+      retrieved_at: "2026-11-16"
+    changes:
+      - type: "price_change"
+        product: { fr: "Petite lettre Norvège (NOK 28 → 29)", en: "Small letter, Norway (NOK 28 → 29)", de: "Kleiner Brief Norwegen (NOK 28 → 29)" }
+        availability: "published"
+        old_price_eur: 2.38
+        new_price_eur: 2.465
+        percentage_change: 3.57
+      - type: "price_change"
+        product: { fr: "Grande lettre Norvège (NOK 46 → 49)", en: "Large letter, Norway (NOK 46 → 49)", de: "Großer Brief Norwegen (NOK 46 → 49)" }
+        availability: "published"
+        old_price_eur: 3.91
+        new_price_eur: 4.165
+        percentage_change: 6.52
+      - type: "price_change"
+        product: { fr: "Petite lettre Europe (NOK 37 → 39)", en: "Small letter, Europe (NOK 37 → 39)", de: "Kleiner Brief Europa (NOK 37 → 39)" }
+        availability: "published"
+        old_price_eur: 3.145
+        new_price_eur: 3.315
+        percentage_change: 5.41
+      - type: "price_change"
+        product: { fr: "Grande lettre Europe (NOK 60 → 63)", en: "Large letter, Europe (NOK 60 → 63)", de: "Großer Brief Europa (NOK 60 → 63)" }
+        availability: "published"
+        old_price_eur: 5.1
+        new_price_eur: 5.355
+        percentage_change: 5.0
+      - type: "price_change"
+        product: { fr: "Petite lettre reste du monde (NOK 44 → 47)", en: "Small letter, rest of world (NOK 44 → 47)", de: "Kleiner Brief übrige Welt (NOK 44 → 47)" }
+        availability: "published"
+        old_price_eur: 3.74
+        new_price_eur: 3.995
+        percentage_change: 6.82
