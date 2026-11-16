@@ -2,6 +2,7 @@
 import type { ComparisonResult, Country, Lang, SearchParams } from '../lib/types';
 import { t } from '../i18n/utils';
 import ResultCard from './ResultCard';
+import { formatWeight } from '../i18n/format';
 
 interface ResultsListProps {
   results: ComparisonResult[];
@@ -32,21 +33,13 @@ export default function ResultsList({
     return country[`name_${lang}` as keyof Country] as string;
   };
 
-  const getCountryFlag = (code: string): string => {
-    return countries.find((c) => c.code === code)?.flag ?? '';
-  };
   if (!hasSearched) {
-    return (
-      <div className="results-empty">
-        <h2>{t(lang, 'results.empty_title')}</h2>
-        <p>{t(lang, 'results.empty_text')}</p>
-      </div>
-    );
+    return null;
   }
 
   if (results.length === 0) {
     return (
-      <div className="no-results">
+      <div className="card no-results" role="status">
         <p>{t(lang, 'results.no_results')}</p>
       </div>
     );
@@ -55,18 +48,16 @@ export default function ResultsList({
   // Build descriptive sentence
   const buildDescription = (): string | null => {
     if (!searchParams) return null;
-    // French needs article: "une lettre" / "un colis"
+    // French and German need the article (de: dative, nouns keep their capital); English strings carry it
     const typeLabelRaw = searchParams.type === 'letter'
       ? t(lang, 'form.letter').toLowerCase()
       : t(lang, 'form.parcel').toLowerCase();
     const typeLabel = lang === 'fr'
       ? (searchParams.type === 'letter' ? `une ${typeLabelRaw}` : `un ${typeLabelRaw}`)
       : lang === 'de'
-        ? (searchParams.type === 'letter' ? `einen ${typeLabelRaw}` : `ein ${typeLabelRaw}`)
-        : `a ${typeLabelRaw}`;
-    const weightLabel = searchParams.type === 'letter'
-      ? `${searchParams.weight}g`
-      : `${searchParams.weight}kg`;
+        ? (searchParams.type === 'letter' ? `einem ${t(lang, 'form.letter')}` : `einem ${t(lang, 'form.parcel')}`)
+        : typeLabelRaw; // the English strings already carry the article
+    const weightLabel = formatWeight(lang, searchParams.weight, searchParams.type === 'letter' ? 'g' : 'kg');
 
     if (searchParams.origin === 'all' && searchParams.destination === 'domestic') {
       // "domestic across all countries"
@@ -89,59 +80,55 @@ export default function ResultsList({
   const description = buildDescription();
 
   return (
-    <div>
-      <div className="results-header">
+    <div className="results">
+      <div className="results__head">
         <h2>{t(lang, 'results.title')}</h2>
-        <span className="results-count">
+        <span className="results__count" role="status">
           {t(lang, 'results.results_count', { count: results.length })}
         </span>
       </div>
 
-      {description && (
-        <p className="results-description">{description}</p>
-      )}
+      {description && <p className="results__desc">{description}</p>}
 
-      <ol className="rate-list">
+      <ol className="results__list">
         {results.map((result, index) => {
           const showNationalBadge = searchParams?.origin !== 'all' && result.route.isDomestic;
           return (
-            <ResultCard
-              key={`${result.operator.id}-${result.route.origin}-${index}`}
-              result={result}
-              countries={countries}
-              lang={lang}
-              rank={index + 1}
-              isUserCountry={userCountry ? result.operator.country === userCountry : false}
-              isNationalOperator={showNationalBadge}
-              totalResults={results.length}
-            />
+            <li key={`${result.operator.id}-${result.route.origin}-${index}`}>
+              <ResultCard
+                result={result}
+                countries={countries}
+                lang={lang}
+                isUserCountry={userCountry ? result.operator.country === userCountry : false}
+                isNationalOperator={showNationalBadge}
+                isBest={result.isBestPrice && results.length > 1}
+              />
+            </li>
           );
         })}
       </ol>
 
       {reverseResults && reverseResults.length > 0 && reverseOrigin && reverseDestination && (
-        <div className="reverse-results">
-          <div className="results-header">
-            <h2>
-              {t(lang, 'results.reverse_route')} : {getCountryFlag(reverseOrigin)} {getCountryName(reverseOrigin)} {'\u2192'} {getCountryFlag(reverseDestination)} {getCountryName(reverseDestination)}
+        <section className="results results--reverse" aria-labelledby="reverse-title">
+          <div className="results__head">
+            <h2 id="reverse-title">
+              {t(lang, 'results.reverse_route')}
+              <span className="results__route">
+                {getCountryName(reverseOrigin)} {'\u2192'} {getCountryName(reverseDestination)}
+              </span>
             </h2>
-            <span className="results-count">
+            <span className="results__count">
               {t(lang, 'results.results_count', { count: reverseResults.length })}
             </span>
           </div>
-          <ol className="rate-list rate-list--muted">
+          <ol className="results__list">
             {reverseResults.map((result, index) => (
-              <ResultCard
-                key={`reverse-${result.operator.id}-${result.route.origin}-${index}`}
-                result={result}
-                countries={countries}
-                lang={lang}
-                rank={index + 1}
-                variant="muted"
-              />
+              <li key={`reverse-${result.operator.id}-${result.route.origin}-${index}`}>
+                <ResultCard result={result} countries={countries} lang={lang} variant="muted" />
+              </li>
             ))}
           </ol>
-        </div>
+        </section>
       )}
     </div>
   );

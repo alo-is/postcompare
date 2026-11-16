@@ -179,3 +179,49 @@ describe('verified current postal rates', () => {
     })).toEqual([]);
   });
 });
+
+describe('current rates verified on 2026-11-16', () => {
+  it('uses the Deutsche Post prices printed as valid until 2026-12-31', () => {
+    const dp = loadOperator('deutsche-post-de.yaml');
+
+    expect(domesticRate(dp, 50)?.price_eur).toBe(1.10);
+    expect(internationalRate(dp, 'FR', 20)?.price_eur).toBe(1.25);
+    expect(internationalRate(dp, 'FR', 500)?.price_eur).toBe(3.30);
+    expect(dp.parcels.domestic.map(({ max_weight_kg, price_eur }) => [max_weight_kg, price_eur]))
+      .toEqual(expect.arrayContaining([[2, 4.19], [5, 7.69], [10, 10.49], [20, 18.99], [31.5, 23.99]]));
+    expect(dp.operator.sources).toContainEqual(expect.objectContaining({
+      url: 'https://www.deutschepost.de/de/a/aenderungen2027.html',
+      retrieved_at: '2026-11-16',
+    }));
+  });
+
+  it('uses the Austrian Post PRIORITY international letter formats valid from 2026-09-01', () => {
+    const at = loadOperator('osterreichische-post-at.yaml');
+
+    expect([20, 75, 2000].map((weight) => internationalRate(at, 'DE', weight)?.price_eur))
+      .toEqual([1.45, 2.40, 8.45]);
+  });
+
+  it('uses the Swiss and Liechtenstein Zone 1 letter prices from the official previous-price column', () => {
+    for (const filename of ['la-poste-suisse-ch.yaml', 'liechtenstein-post-li.yaml']) {
+      const operator = loadOperator(filename);
+      expect([20, 100, 500].map((weight) => internationalRate(operator, 'FR', weight)?.price_eur))
+        .toEqual([1.84, 4.17, 11.64]);
+    }
+    const li = loadOperator('liechtenstein-post-li.yaml');
+    expect(li.letters.domestic.map(({ name, max_weight_g, price_eur }) => [name, max_weight_g, price_eur]))
+      .toEqual(expect.arrayContaining([
+        ['A-Post Brief', 20, 1.16],
+        ['B-Post Brief', 20, 0.97],
+        ['A-Post Brief', 100, 1.16],
+      ]));
+    expect(li.parcels.domestic.map(({ max_weight_kg, price_eur }) => [max_weight_kg, price_eur]))
+      .toEqual([[0.5, 8.25], [2, 8.25], [5, 9.70], [10, 11.16]]);
+  });
+
+  it('uses the Posten Norge 2026 domestic Ekstra stort stamp price', () => {
+    const posten = loadOperator('posten-norge-no.yaml');
+
+    expect(domesticRate(posten, 2000)?.price_eur).toBe(5.87);
+  });
+});

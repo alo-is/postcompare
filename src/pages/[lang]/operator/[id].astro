@@ -1,9 +1,12 @@
 ---
 // src/pages/[lang]/operator/[id].astro
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Flag from '../../../components/Flag.astro';
+import RateTable from '../../../components/RateTable.astro';
 import { t, localePath } from '../../../i18n/utils';
+import { formatDate, formatPrice } from '../../../i18n/format';
 import { loadAllOperators, loadCountries, getOperatorIds, loadPostalChanges } from '../../../lib/data-loader';
-import type { Lang, Country, LetterRate, ParcelRate } from '../../../lib/types';
+import type { Lang, Country } from '../../../lib/types';
 
 export function getStaticPaths() {
   const langs: Lang[] = ['fr', 'en', 'de'];
@@ -42,16 +45,8 @@ const countryName = (code: string): string => {
   return c[`name_${lang}` as keyof Country] as string;
 };
 
-const operatorCountry = getCountry(info.country);
 
-const formatDate = (date: string) => new Intl.DateTimeFormat(lang, {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric',
-  timeZone: 'UTC',
-}).format(new Date(`${date}T00:00:00Z`));
-
-// Find cheapest rates in each section
+// Find cheapest rates in each section (no letter price when the service is withdrawn)
 const cheapestDomesticLetter = lettersAvailable
   ? operator.letters.domestic.reduce(
     (min, r) => (r.price_eur < min.price_eur ? r : min),
@@ -108,12 +103,6 @@ const operatorDescription = lettersAvailable
     parcel: lowestParcelPrice.toFixed(2),
   });
 
-// Helper: check if a letter rate is the cheapest in its group
-const isLetterCheapest = (rate: LetterRate, group: LetterRate[]) =>
-  rate.price_eur === Math.min(...group.map((r) => r.price_eur));
-
-const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
-  rate.price_eur === Math.min(...group.map((r) => r.price_eur));
 ---
 
 <BaseLayout
@@ -123,386 +112,140 @@ const isParcelCheapest = (rate: ParcelRate, group: ParcelRate[]) =>
   breadcrumbs={[{ name: info.name, path: `/operator/${info.id}` }]}
   jsonLd={operatorJsonLd}
 >
-  <article class="op-page" aria-label={info.name}>
-
-    <!-- Back navigation -->
-    <div class="op-page__nav">
-      <a href={localePath(lang, '/')} class="op-page__back">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        {t(lang, 'operator.back_home')}
+  <article class="wrap op-page">
+    <p class="op-back">
+      <a href={localePath(lang, '/compare')} class="link">
+        <span aria-hidden="true">&larr;</span> {t(lang, 'operator.back_home')}
       </a>
-    </div>
+    </p>
 
-    <!-- Hero Header -->
-    <header class="op-hero">
-      <div class="op-hero__airmail"></div>
-      <div class="op-hero__content">
-        <span class="op-hero__flag">{operatorCountry?.flag}</span>
-        <div class="op-hero__info">
-          <h1 class="op-hero__name">{info.name}</h1>
-          <p class="op-hero__country">{countryName(info.country)}</p>
-          <div class="op-hero__meta">
-            <a href={info.website} target="_blank" rel="noopener" class="op-hero__website">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M9 1h6m0 0v6m0-6L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              {t(lang, 'operator.website')}
-            </a>
-            <span class="op-hero__updated">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              {t(lang, 'operator.last_updated')}: {info.last_updated}
-            </span>
-          </div>
-        </div>
-        <div class="op-hero__prices">
-          {lettersAvailable ? (
-            <div class="op-hero__price-card">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
-              <span class="op-hero__price-label">{t(lang, 'form.letter')}</span>
-              <span class="op-hero__price-value">{t(lang, 'operator.from_price', { price: lowestLetterPrice!.toFixed(2) })}</span>
-            </div>
-          ) : (
-            <div class="op-hero__price-card op-hero__price-card--unavailable">
-              <span class="op-hero__price-label">{t(lang, 'form.letter')}</span>
-              <span class="op-hero__price-value">{t(lang, 'operator.letters_unavailable_short')}</span>
-            </div>
-          )}
-          <div class="op-hero__price-card">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/></svg>
-            <span class="op-hero__price-label">{t(lang, 'form.parcel')}</span>
-            <span class="op-hero__price-value">{t(lang, 'operator.from_price', { price: lowestParcelPrice.toFixed(2) })}</span>
-          </div>
+    <header class="op-head">
+      <div class="op-head__id">
+        <Flag code={info.country} size="lg" />
+        <div class="op-head__text">
+          <h1>{info.name}</h1>
+          <p class="op-head__meta">
+            <span>{countryName(info.country)}</span>
+            <span>{t(lang, 'operator.last_updated')}: <span class="num">{info.last_updated}</span></span>
+          </p>
         </div>
       </div>
-      <div class="op-hero__airmail"></div>
+
+      <dl class="op-stats">
+        <div class:list={['card', 'op-stat', { 'op-stat--unavailable': !lettersAvailable }]}>
+          <dt>{t(lang, 'form.letter')}</dt>
+          {lowestLetterPrice !== undefined ? (
+            <dd><span class="op-stat__from">{t(lang, 'ui.from')}</span> <span class="num">{formatPrice(lang, lowestLetterPrice)}</span></dd>
+          ) : (
+            <dd class="op-stat__none">{t(lang, 'operator.letters_unavailable_short')}</dd>
+          )}
+        </div>
+        <div class="card op-stat">
+          <dt>{t(lang, 'form.parcel')}</dt>
+          <dd><span class="op-stat__from">{t(lang, 'ui.from')}</span> <span class="num">{formatPrice(lang, lowestParcelPrice)}</span></dd>
+        </div>
+      </dl>
+
+      <div class="btn-row op-head__actions">
+        <a href={localePath(lang, `/compare?origin=${info.country}`)} class="btn btn--primary">
+          {t(lang, 'operator.compare_cta')}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href={info.website} target="_blank" rel="noopener" class="btn btn--secondary">
+          {t(lang, 'operator.website')}
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 3H3v10h10v-3M9 2h5v5M14 2L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
     </header>
 
-    <!-- Compare CTA -->
-    <div class="op-cta">
-      <a href={localePath(lang, `/?origin=${info.country}`)} class="op-cta__btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="6" r="2" fill="currentColor"/><circle cx="17" cy="12" r="2" fill="currentColor"/><circle cx="11" cy="18" r="2" fill="currentColor"/></svg>
-        {t(lang, 'operator.compare_cta')}
-      </a>
-    </div>
-
     {postalAnnouncement && (
-      <aside class="operator-postal-alert" aria-label={t(lang, 'postal_changes.title')}>
+      <aside class="card operator-postal-alert" aria-label={t(lang, 'postal_changes.title')}>
+        <span class="badge badge--accent">2027</span>
         <p>{t(lang, 'operator.postal_alert')}</p>
-        <a href={localePath(lang, '/tarifs-2027')}>{t(lang, 'operator.postal_alert_link')}</a>
+        <a class="link" href={localePath(lang, '/tarifs-2027')}>{t(lang, 'operator.postal_alert_link')}</a>
       </aside>
-    )}
-
-    {lettersAvailable && (
-    <>
-    <!-- ====== DOMESTIC LETTERS ====== -->
-    <section class="op-section">
-      <div class="op-section__header">
-        <div class="op-section__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
-        </div>
-        <h2 class="op-section__title">{t(lang, 'operator.domestic_letters')}</h2>
-      </div>
-      <div class="op-table-wrap">
-        <table class="op-table">
-          <thead>
-            <tr>
-              <th>{t(lang, 'operator.product')}</th>
-              <th>{t(lang, 'operator.max_weight')}</th>
-              <th>{t(lang, 'operator.price')}</th>
-              <th>{t(lang, 'operator.delivery')}</th>
-              <th>{t(lang, 'operator.options')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {operator.letters.domestic.map((rate) => (
-              <tr class={isLetterCheapest(rate, operator.letters.domestic) ? 'op-table__row--cheapest' : ''}>
-                <td class="op-table__product">{rate.name}</td>
-                <td>{rate.max_weight_g}g</td>
-                <td class="op-table__price">
-                  {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
-                  {isLetterCheapest(rate, operator.letters.domestic) && (
-                    <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
-                  )}
-                </td>
-                <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-                <td>
-                  {rate.options && rate.options.length > 0 ? (
-                    <div class="op-options">
-                      {rate.options.map((opt) => (
-                        <span class="op-option">
-                          {opt.name} +{opt.price_eur.toFixed(2)} EUR
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <span class="op-table__none">&mdash;</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Airmail separator -->
-    <div class="op-airmail-sep" aria-hidden="true"></div>
-    </>
     )}
 
     {lettersAvailable ? (
     <>
-    <!-- ====== INTERNATIONAL LETTERS ====== -->
-    <section class="op-section">
-      <div class="op-section__header">
-        <div class="op-section__icon op-section__icon--intl">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
-        </div>
-        <h2 class="op-section__title">{t(lang, 'operator.international_letters')}</h2>
-      </div>
-      {operator.letters.international.zones.map((zone) => (
+    <section class="section op-section" aria-labelledby="dom-letters">
+      <h2 id="dom-letters" class="op-section__title">{t(lang, 'operator.domestic_letters')}</h2>
+      <RateTable lang={lang} kind="letter" rates={operator.letters.domestic} labelledby="dom-letters" />
+    </section>
+
+    <section class="section op-section" aria-labelledby="intl-letters">
+      <h2 id="intl-letters" class="op-section__title">{t(lang, 'operator.international_letters')}</h2>
+      {operator.letters.international.zones.map((zone, i) => (
         <div class="op-zone">
-          <div class="op-zone__header">
-            <h3 class="op-zone__title">{t(lang, 'operator.zone')}: {zone.name}</h3>
-            <p class="op-zone__countries">
-              {zone.countries.map((c) => (
-                <span class="op-zone__country">{getCountry(c)?.flag ?? ''} {countryName(c)}</span>
-              ))}
-            </p>
-          </div>
-          <div class="op-table-wrap">
-            <table class="op-table">
-              <thead>
-                <tr>
-                  <th>{t(lang, 'operator.product')}</th>
-                  <th>{t(lang, 'operator.max_weight')}</th>
-                  <th>{t(lang, 'operator.price')}</th>
-                  <th>{t(lang, 'operator.delivery')}</th>
-                  <th>{t(lang, 'operator.options')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {zone.rates.map((rate) => (
-                  <tr class={isLetterCheapest(rate, zone.rates) ? 'op-table__row--cheapest' : ''}>
-                    <td class="op-table__product">{rate.name}</td>
-                    <td>{rate.max_weight_g}g</td>
-                    <td class="op-table__price">
-                      {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
-                      {isLetterCheapest(rate, zone.rates) && (
-                        <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
-                      )}
-                    </td>
-                    <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-                    <td>
-                      {rate.options && rate.options.length > 0 ? (
-                        <div class="op-options">
-                          {rate.options.map((opt) => (
-                            <span class="op-option">
-                              {opt.name} +{opt.price_eur.toFixed(2)} EUR
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <span class="op-table__none">&mdash;</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <h3 id={`intl-letters-${i}`}>{t(lang, 'operator.zone')}: {zone.name}</h3>
+          <p class="op-zone__countries">
+            <span class="sr-only">{t(lang, 'ui.zone_countries')}: </span>
+            {zone.countries.map((c) => countryName(c)).join(', ')}
+          </p>
+          <RateTable lang={lang} kind="letter" rates={zone.rates} labelledby={`intl-letters-${i}`} />
         </div>
       ))}
     </section>
-
-    <!-- Airmail separator -->
-    <div class="op-airmail-sep" aria-hidden="true"></div>
     </>
     ) : (
-      <>
-        <section class="op-section op-section--unavailable">
-          <div class="op-section__header">
-            <div class="op-section__icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4l10 8 10-8" stroke="currentColor" stroke-width="1.5"/></svg>
-            </div>
-            <h2 class="op-section__title">{t(lang, 'operator.letters_unavailable_title')}</h2>
-          </div>
+      <section class="section op-section" aria-labelledby="letters-unavailable">
+        <h2 id="letters-unavailable" class="op-section__title">{t(lang, 'operator.letters_unavailable_title')}</h2>
+        <div class="card op-unavailable">
           <p class="op-unavailable-notice">{operator.letters.notice?.[lang]}</p>
           {operator.letters.unavailable_since && (
-            <p class="op-unavailable-notice__date">{t(lang, 'operator.unavailable_since', { date: formatDate(operator.letters.unavailable_since) })}</p>
+            <p class="op-unavailable-notice__date muted">
+              {t(lang, 'operator.unavailable_since', { date: formatDate(lang, operator.letters.unavailable_since) })}
+            </p>
           )}
-        </section>
-        <div class="op-airmail-sep" aria-hidden="true"></div>
-      </>
+        </div>
+      </section>
     )}
 
-    <!-- ====== DOMESTIC PARCELS ====== -->
-    <section class="op-section">
-      <div class="op-section__header">
-        <div class="op-section__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="11" x2="12" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9.5" y1="13.5" x2="14.5" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <h2 class="op-section__title">{t(lang, 'operator.domestic_parcels')}</h2>
-      </div>
-      <div class="op-table-wrap">
-        <table class="op-table">
-          <thead>
-            <tr>
-              <th>{t(lang, 'operator.product')}</th>
-              <th>{t(lang, 'operator.max_weight')}</th>
-              <th>{t(lang, 'operator.price')}</th>
-              <th>{t(lang, 'operator.delivery')}</th>
-              <th>{t(lang, 'results.tracking')}</th>
-              <th>{t(lang, 'operator.options')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {operator.parcels.domestic.map((rate) => (
-              <tr class={isParcelCheapest(rate, operator.parcels.domestic) ? 'op-table__row--cheapest' : ''}>
-                <td class="op-table__product">{rate.name}</td>
-                <td>{rate.max_weight_kg}kg</td>
-                <td class="op-table__price">
-                  {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
-                  {isParcelCheapest(rate, operator.parcels.domestic) && (
-                    <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
-                  )}
-                </td>
-                <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-                <td>
-                  {rate.tracking ? (
-                    <span class="op-tracking op-tracking--yes">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      {t(lang, 'results.tracking_yes')}
-                    </span>
-                  ) : (
-                    <span class="op-tracking op-tracking--no">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                      {t(lang, 'results.tracking_no')}
-                    </span>
-                  )}
-                </td>
-                <td>
-                  {rate.options && rate.options.length > 0 ? (
-                    <div class="op-options">
-                      {rate.options.map((opt) => (
-                        <span class="op-option">
-                          {opt.name} +{opt.price_eur.toFixed(2)} EUR
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <span class="op-table__none">&mdash;</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <section class="section op-section" aria-labelledby="dom-parcels">
+      <h2 id="dom-parcels" class="op-section__title">{t(lang, 'operator.domestic_parcels')}</h2>
+      <RateTable lang={lang} kind="parcel" rates={operator.parcels.domestic} labelledby="dom-parcels" />
     </section>
 
-    <!-- Airmail separator -->
-    <div class="op-airmail-sep" aria-hidden="true"></div>
-
-    <!-- ====== INTERNATIONAL PARCELS ====== -->
-    <section class="op-section">
-      <div class="op-section__header">
-        <div class="op-section__icon op-section__icon--intl">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="11" x2="12" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9.5" y1="13.5" x2="14.5" y2="13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <h2 class="op-section__title">{t(lang, 'operator.international_parcels')}</h2>
-      </div>
-      {operator.parcels.international.zones.map((zone) => (
+    <section class="section op-section" aria-labelledby="intl-parcels">
+      <h2 id="intl-parcels" class="op-section__title">{t(lang, 'operator.international_parcels')}</h2>
+      {operator.parcels.international.zones.map((zone, i) => (
         <div class="op-zone">
-          <div class="op-zone__header">
-            <h3 class="op-zone__title">{t(lang, 'operator.zone')}: {zone.name}</h3>
-            <p class="op-zone__countries">
-              {zone.countries.map((c) => (
-                <span class="op-zone__country">{getCountry(c)?.flag ?? ''} {countryName(c)}</span>
-              ))}
-            </p>
-          </div>
-          <div class="op-table-wrap">
-            <table class="op-table">
-              <thead>
-                <tr>
-                  <th>{t(lang, 'operator.product')}</th>
-                  <th>{t(lang, 'operator.max_weight')}</th>
-                  <th>{t(lang, 'operator.price')}</th>
-                  <th>{t(lang, 'operator.delivery')}</th>
-                  <th>{t(lang, 'results.tracking')}</th>
-                  <th>{t(lang, 'operator.options')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {zone.rates.map((rate) => (
-                  <tr class={isParcelCheapest(rate, zone.rates) ? 'op-table__row--cheapest' : ''}>
-                    <td class="op-table__product">{rate.name}</td>
-                    <td>{rate.max_weight_kg}kg</td>
-                    <td class="op-table__price">
-                      {rate.price_eur.toFixed(2)} <span class="op-table__currency">EUR</span>
-                      {isParcelCheapest(rate, zone.rates) && (
-                        <span class="op-table__badge">{t(lang, 'operator.cheapest')}</span>
-                      )}
-                    </td>
-                    <td>{rate.delivery_days[0]}&ndash;{rate.delivery_days[1]} {t(lang, 'results.days')}</td>
-                    <td>
-                      {rate.tracking ? (
-                        <span class="op-tracking op-tracking--yes">
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3.5 3.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                          {t(lang, 'results.tracking_yes')}
-                        </span>
-                      ) : (
-                        <span class="op-tracking op-tracking--no">
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                          {t(lang, 'results.tracking_no')}
-                        </span>
-                      )}
-                    </td>
-                    <td>
-                      {rate.options && rate.options.length > 0 ? (
-                        <div class="op-options">
-                          {rate.options.map((opt) => (
-                            <span class="op-option">
-                              {opt.name} +{opt.price_eur.toFixed(2)} EUR
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <span class="op-table__none">&mdash;</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <h3 id={`intl-parcels-${i}`}>{t(lang, 'operator.zone')}: {zone.name}</h3>
+          <p class="op-zone__countries">
+            <span class="sr-only">{t(lang, 'ui.zone_countries')}: </span>
+            {zone.countries.map((c) => countryName(c)).join(', ')}
+          </p>
+          <RateTable lang={lang} kind="parcel" rates={zone.rates} labelledby={`intl-parcels-${i}`} />
         </div>
       ))}
     </section>
 
     {info.sources && info.sources.length > 0 && (
-      <section class="operator-sources" aria-labelledby="operator-sources-title">
-        <h2 id="operator-sources-title">{t(lang, 'operator.sources_title')}</h2>
-        <ul>
+      <section class="section operator-sources" aria-labelledby="operator-sources-title">
+        <h2 id="operator-sources-title" class="op-section__title">{t(lang, 'operator.sources_title')}</h2>
+        <ul class="operator-sources__list">
           {info.sources.map((source) => (
             <li>
-              <a href={source.url} target="_blank" rel="noopener">{source.title}</a>
-              <span>{t(lang, 'operator.source_retrieved', { date: formatDate(source.retrieved_at) })}</span>
+              <a class="link" href={source.url} target="_blank" rel="noopener">{source.title}</a>
+              <span class="muted">{t(lang, 'operator.source_retrieved', { date: formatDate(lang, source.retrieved_at) })}</span>
             </li>
           ))}
         </ul>
       </section>
     )}
 
-    <!-- Bottom CTA -->
-    <div class="op-bottom-nav">
-      <a href={localePath(lang, '/')} class="op-page__back">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        {t(lang, 'operator.back_home')}
-      </a>
-      <a href={localePath(lang, `/?origin=${info.country}`)} class="op-cta__btn op-cta__btn--sm">
+    <div class="section op-foot btn-row">
+      <a href={localePath(lang, `/compare?origin=${info.country}`)} class="btn btn--primary">
         {t(lang, 'operator.compare_cta')}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
+      <a href={localePath(lang, '/rankings')} class="btn btn--secondary">{t(lang, 'nav.rankings')}</a>
     </div>
-
   </article>
 </BaseLayout>

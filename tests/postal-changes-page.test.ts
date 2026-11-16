@@ -2,8 +2,25 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
+import { loadPostalChanges } from '../src/lib/data-loader';
+import { confirmedConsumerCountries } from '../src/lib/postal-changes';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
+const consumerAnnouncements = loadPostalChanges().announcements
+  .filter(({ scope }) => scope === 'consumer');
+const confirmedCountryCount = confirmedConsumerCountries(loadPostalChanges()).length;
+const hasConsumerPreview = consumerAnnouncements.some(({ status }) => status === 'preview');
+const consumerOperatorIds = new Set(consumerAnnouncements.map(({ operator_id }) => operator_id));
+const lastVerified = consumerAnnouncements.map(({ source }) => source.retrieved_at).sort().at(-1)!;
+
+function formatVerifiedDate(locale: string): string {
+  return new Intl.DateTimeFormat(locale, {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${lastVerified}T00:00:00Z`));
+}
 
 function page(pathname: string): string {
   const file = path.join(DIST_DIR, pathname, 'index.html');
@@ -27,7 +44,7 @@ beforeAll(() => {
 });
 
 describe('2027 postal-change public pages', () => {
-  it('generates the consumer postal bulletin in all three locales with consumer previews only', () => {
+  it('generates the consumer postal bulletin in all three locales without an empty preview section', () => {
     const fr = page('fr/tarifs-2027');
     const en = page('en/tarifs-2027');
     const de = page('de/tarifs-2027');
@@ -41,12 +58,16 @@ describe('2027 postal-change public pages', () => {
     for (const html of [fr, en, de]) {
       expect(html).toContain('2027-01-01');
       expect(html).toMatch(/confirmed|confirmé|bestätigt/i);
-      expect(html).toContain('id="preview-changes"');
+      if (hasConsumerPreview) {
+        expect(html).toContain('id="preview-changes"');
+      } else {
+        expect(html).not.toContain('id="preview-changes"');
+      }
       expect(html).toContain('laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027');
-      expect(html).toContain('deutschepost.de/de/b/briefe-ins-ausland');
+      expect(html).toContain('deutschepost.de/de/a/aenderungen2027');
       expect(html).toContain('deutschepost.de/de/b/brief-national2027_Aenderungen.html');
       expect(html).toContain('site.post.ch/fr/notre-profil/actualites/nouveaux-prix-pour-les-lettres-a-partir-de-2027');
-      expect(html).toContain('acm.nl/nl/publicaties/acm-stelt-tariefruimte-voor-universele-postdienst-2027-vast');
+      expect(html).toContain('newsroom.postnl.nl/nl-NL/273887-postnl-maakt-nieuwe-postzegelprijs-per-1-januari-2027-bekend');
       expect(html).toContain('pasts.lv/pakalpojumi/tarifi-un-informacija/universala-pasta-pakalpojuma-tarifu-izmainas');
       expect(html).not.toContain('postnord.dk/en/business/prices-for-businesses/post2027');
       expect(html).not.toContain('Post 2027');
@@ -54,9 +75,9 @@ describe('2027 postal-change public pages', () => {
   });
 
   it('shows the latest announcement verification date in each locale', () => {
-    expect(page('fr/tarifs-2027')).toContain('Dernière vérification : 27 sept. 2026');
-    expect(page('en/tarifs-2027')).toMatch(/Last verified: 27 Sept? 2026/);
-    expect(page('de/tarifs-2027')).toMatch(/Zuletzt geprüft: 27\. Sept?\. 2026/);
+    expect(page('fr/tarifs-2027')).toContain(`Dernière vérification : ${formatVerifiedDate('fr-FR')}`);
+    expect(page('en/tarifs-2027')).toContain(`Last verified: ${formatVerifiedDate('en-GB')}`);
+    expect(page('de/tarifs-2027')).toContain(`Zuletzt geprüft: ${formatVerifiedDate('de-DE')}`);
   });
 
   it('links the homepage teaser, navigation, and affected operators to the localized bulletin', () => {
@@ -78,8 +99,16 @@ describe('2027 postal-change public pages', () => {
       expect(switzerland).toContain('operator-postal-alert');
       expect(netherlands).toContain('operator-postal-alert');
       expect(latvia).toContain('operator-postal-alert');
-      expect(denmark).not.toContain('operator-postal-alert');
-      expect(belgium).not.toContain('operator-postal-alert');
+      if (consumerOperatorIds.has('postnord-dk')) {
+        expect(denmark).toContain('operator-postal-alert');
+      } else {
+        expect(denmark).not.toContain('operator-postal-alert');
+      }
+      if (consumerOperatorIds.has('bpost-be')) {
+        expect(belgium).toContain('operator-postal-alert');
+      } else {
+        expect(belgium).not.toContain('operator-postal-alert');
+      }
     }
   });
 
@@ -94,21 +123,27 @@ describe('2027 postal-change public pages', () => {
     expect(belgium).toContain('bpost.be');
   });
 
-  it('states the localized confirmed consumer count on each homepage', () => {
-    expect(page('fr')).toContain('4 annonces grand public confirmées');
-    expect(page('en')).toContain('4 confirmed consumer announcements');
-    expect(page('de')).toContain('4 bestätigte Verbraucherankündigungen');
+  it('states the localized number of countries with confirmed consumer changes on each homepage', () => {
+    expect(page('fr')).toContain(`Changements grand public confirmés dans ${confirmedCountryCount} pays`);
+    expect(page('en')).toContain(`Confirmed consumer changes in ${confirmedCountryCount} countries`);
+    expect(page('de')).toContain(`Bestätigte Änderungen für Privatkunden in ${confirmedCountryCount} Ländern`);
+  });
+
+  it('shows Deutsche Post\'s Bundesnetzagentur approval caveat in every locale', () => {
+    expect(page('fr/tarifs-2027')).toContain('sous réserve de l’approbation définitive de la Bundesnetzagentur');
+    expect(page('en/tarifs-2027')).toContain('subject to final approval by the Bundesnetzagentur');
+    expect(page('de/tarifs-2027')).toContain('vorbehaltlich der abschließenden Genehmigung durch die Bundesnetzagentur');
   });
 
   it('adds a localized methodology warning tied to the verification date', () => {
     expect(page('fr/tarifs-2027')).toContain(
-      'L’absence d’annonce officielle trouvée au 27 sept. 2026 ne garantit pas qu’aucun changement ultérieur ne sera publié.',
+      `L’absence d’annonce officielle trouvée au ${formatVerifiedDate('fr-FR')} ne garantit pas qu’aucun changement ultérieur ne sera publié.`,
     );
-    expect(page('en/tarifs-2027')).toMatch(
-      /The absence of an official announcement found as of 27 Sept? 2026 does not guarantee that no later change will be published\./,
+    expect(page('en/tarifs-2027')).toContain(
+      `The absence of an official announcement found as of ${formatVerifiedDate('en-GB')} does not guarantee that no later change will be published.`,
     );
-    expect(page('de/tarifs-2027')).toMatch(
-      /Dass bis zum 27\. Sept?\. 2026 keine offizielle Ankündigung gefunden wurde, garantiert nicht, dass später keine Änderung veröffentlicht wird\./,
+    expect(page('de/tarifs-2027')).toContain(
+      `Dass bis zum ${formatVerifiedDate('de-DE')} keine offizielle Ankündigung gefunden wurde, garantiert nicht, dass später keine Änderung veröffentlicht wird.`,
     );
   });
 

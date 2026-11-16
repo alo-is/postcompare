@@ -29,14 +29,9 @@
   "results": {
     "title": "Results",
     "no_results": "No results found for this search.",
-    "tracked": "Tracked",
-    "untracked": "Untracked",
-    "empty_title": "Ready to compare?",
-    "empty_text": "Pick a shipment type, a weight and the countries: rates from 32 European postal operators appear here, cheapest first.",
     "best_price": "Best price",
     "delivery": "Delivery",
     "days": "business days",
-    "day": "business day",
     "tracking": "Tracking",
     "tracking_yes": "Yes",
     "tracking_no": "No",
@@ -51,7 +46,12 @@
     "desc_all_to": "Rates for sending a {weight} {type} to {destination}, from each European country.",
     "desc_domestic": "Rates for sending a {weight} {type} domestically in {origin}.",
     "desc_route": "Rates for sending a {weight} {type} from {origin} to {destination}.",
-    "desc_from_operator": "from"
+    "desc_from_operator": "from",
+    "tracked": "Tracked",
+    "untracked": "Untracked",
+    "empty_title": "Ready to compare?",
+    "empty_text": "Pick a shipment type, a weight and the countries: rates from 32 European postal operators appear here, cheapest first.",
+    "day": "business day"
   },
   "operator": {
     "title": "{name} rates",
@@ -114,11 +114,11 @@
   "how": {
     "title": "Why compare?",
     "step1_title": "Surprising price gaps",
-    "step1_text": "For the same 20g letter, prices range from \u20ac0.40 to over \u20ac3 depending on the country. Same for parcels: up to 3x difference.",
+    "step1_text": "For the same 20g letter, prices range from €0.40 to over €3 depending on the country. Same for parcels: up to 3x difference.",
     "step2_title": "Equivalent services",
-    "step2_text": "All national postal services offer similar products: standard letters, tracked parcels, registered mail. Only the price changes \u2014 sometimes dramatically.",
+    "step2_text": "All national postal services offer similar products: standard letters, tracked parcels, registered mail. Only the price changes — sometimes dramatically.",
     "step3_title": "Transparent and independent",
-    "step3_text": "Data collected from each postal service\u2019s official website. No ads, no commercial partnerships. Open source."
+    "step3_text": "Data collected from each postal service’s official website. No ads, no commercial partnerships. Open source."
   },
   "countries_section": {
     "title": "32 countries covered"
@@ -126,8 +126,8 @@
   "rankings": {
     "title": "European postal service rankings",
     "subtitle": "Who is the cheapest? Who is the most expensive? Average domestic letter and parcel prices in 32 European countries.",
-    "letters_title": "Letter rankings \u2014 Domestic rate",
-    "parcels_title": "Parcel rankings \u2014 Domestic rate",
+    "letters_title": "Letter rankings — Domestic rate",
+    "parcels_title": "Parcel rankings — Domestic rate",
     "rank": "Rank",
     "country": "Country",
     "operator": "Operator",
@@ -163,8 +163,40 @@
   },
   "postal_teaser": {
     "title": "Changes announced for 2027",
-    "text": "{count} confirmed consumer announcements. Read the official bulletin.",
+    "text": "Confirmed consumer changes in {count} countries. Read the official bulletin.",
     "link": "Read the 2027 bulletin"
+  },
+  "footer": {
+    "tagline": "Independent European postal rate comparator",
+    "open_source": "Open source project",
+    "disclaimer": "Prices shown are indicative and may be inaccurate. Always verify on the operator's official website."
+  },
+  "ui": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "main_nav": "Main navigation",
+    "language": "Language",
+    "footer_site": "Site",
+    "footer_project": "Project",
+    "report_price": "Report a wrong price",
+    "hero_lead": "Letters and parcels, domestic and international: the official rates of each national postal service, converted to euros and sorted from cheapest to most expensive.",
+    "your_shipment": "Your shipment",
+    "use_country": "Choose {country}",
+    "countries_hint": "Each country links to the full rate card of its national postal service.",
+    "compare_lead": "Choose the shipment type, weight and route. Results update with every change.",
+    "national_operator": "National operator",
+    "your_country": "Your country",
+    "open_issue": "Open an issue on GitHub",
+    "rankings_method": "Ranked by average rank across four weights per shipment type.",
+    "letters": "Letters",
+    "parcels": "Parcels",
+    "avg_short": "Avg.",
+    "ppp_short": "PPP*",
+    "ppp_note": "* PPP (purchasing power parity): price adjusted for each country's cost of living. A €1 stamp in Bulgaria (low cost of living) weighs more on the budget than a €1 stamp in Switzerland.",
+    "source": "Source",
+    "from": "from",
+    "zone_countries": "Countries in this zone"
   },
   "meta": {
     "home_title": "European postal rate comparator",
@@ -187,10 +219,5 @@
     "og_image_alt": "PostCompare.eu – postal rate comparator for 32 European countries",
     "dataset_name": "European postal rates (letters and parcels)",
     "dataset_description": "Open data on letter and parcel rates of the national postal operators of 32 European countries (EU, EFTA and United Kingdom), collected from the operators' official websites and published as YAML files on GitHub."
-  },
-  "footer": {
-    "tagline": "Independent European postal rate comparator",
-    "open_source": "Open source project",
-    "disclaimer": "Prices shown are indicative and may be inaccurate. Always verify on the operator's official website."
   }
 }

@@ -1,15 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <!-- Stamp border -->
-  <rect x="2" y="2" width="44" height="44" rx="3" fill="#FEFCF3" stroke="#9B2335" stroke-width="1.5" stroke-dasharray="4 2.5"/>
-  <!-- Envelope body -->
-  <rect x="7" y="13" width="34" height="22" rx="2" fill="#FEFCF3" stroke="#9B2335" stroke-width="1.5"/>
-  <!-- Red flap fill -->
-  <path d="M8.5 13.5L24 25.5 39.5 13.5" fill="#9B2335" opacity="0.85"/>
-  <!-- Flap stroke -->
-  <path d="M7 14l17 12 17-12" fill="none" stroke="#9B2335" stroke-width="1.5" stroke-linejoin="round"/>
-  <!-- Bottom fold accents -->
-  <path d="M7 34l9-8" fill="none" stroke="#9B2335" stroke-width="0.8" opacity="0.25"/>
-  <path d="M41 34l-9-8" fill="none" stroke="#9B2335" stroke-width="0.8" opacity="0.25"/>
-  <!-- PC initials (stamp style) -->
-  <text x="24" y="33" text-anchor="middle" font-family="Georgia, serif" font-size="8" font-weight="700" fill="#9B2335" opacity="0.5">PC</text>
+  <rect width="48" height="48" rx="11" fill="#1f6b3a"/>
+  <rect x="11" y="15" width="26" height="18" rx="3" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M12.5 17l11.5 8.5 11.5-8.5" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
 </svg>

@@ -10,37 +10,80 @@ interface Props {
 
 const { lang } = Astro.props;
 const currentPath = Astro.url.pathname.replace(/^\/(fr|en|de)/, '');
-const isCurrent = (path: string) => currentPath.replace(/\/$/, '') === path ? 'page' : undefined;
+
+// Main navigation. To add a page, add one entry here (path + i18n key under `nav`).
+const links = [
+  { path: '/compare', key: 'nav.home' },
+  { path: '/rankings', key: 'nav.rankings' },
+  { path: '/tarifs-2027', key: 'nav.postal_changes' },
+  { path: '/about', key: 'nav.about' },
+  { path: '/contribute', key: 'nav.contribute' },
+];
+
+const isCurrent = (path: string) =>
+  currentPath === path || currentPath === `${path}/` || currentPath.startsWith(`${path}/`);
 ---
 
-<header class="header" role="banner">
-  <div class="header__inner">
-    <a href={localePath(lang, '/')} class="header__logo" aria-label={t(lang, 'meta.home_link_label')}>
-      <img src="/logo.svg" alt={t(lang, 'meta.logo_alt')} class="header__logo-icon" width="28" height="28" />
-      PostCompare.eu
+<header class="site-header">
+  <div class="wrap site-header__bar">
+    <a class="skip-link" href="#content">{t(lang, 'ui.skip')}</a>
+
+    <a href={localePath(lang, '/')} class="brand" aria-label={t(lang, 'meta.home_link_label')}>
+      <img src="/logo.svg" alt="" class="brand__mark" width="28" height="28" />
+      <span class="brand__name">PostCompare<span class="muted">.eu</span></span>
     </a>
 
-    <button class="header__burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu" id="burger-btn">
-      &#9776;
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      data-label-open={t(lang, 'ui.menu')}
+      data-label-close={t(lang, 'ui.close')}
+    >
+      <span class="menu-toggle__label">{t(lang, 'ui.menu')}</span>
+      <span class="menu-toggle__icon" aria-hidden="true"></span>
     </button>
 
-    <nav class="header__nav" id="nav-menu" aria-label="Main navigation">
-      <a href={localePath(lang, '/compare')} aria-current={isCurrent('/compare')} aria-label={t(lang, 'nav.home')}>{t(lang, 'nav.home')}</a>
-      <a href={localePath(lang, '/about')} aria-current={isCurrent('/about')} aria-label={t(lang, 'nav.about')}>{t(lang, 'nav.about')}</a>
-      <a href={localePath(lang, '/rankings')} aria-current={isCurrent('/rankings')} aria-label={t(lang, 'nav.rankings')}>{t(lang, 'nav.rankings')}</a>
-      <a href={localePath(lang, '/tarifs-2027')} aria-current={isCurrent('/tarifs-2027')} aria-label={t(lang, 'nav.postal_changes')}>{t(lang, 'nav.postal_changes')}</a>
-      <a href={localePath(lang, '/contribute')} aria-current={isCurrent('/contribute')} aria-label={t(lang, 'nav.contribute')}>{t(lang, 'nav.contribute')}</a>
+    <nav class="site-nav" id="site-nav" aria-label={t(lang, 'ui.main_nav')}>
+      <ul class="site-nav__list">
+        {links.map((l) => (
+          <li>
+            <a
+              href={localePath(lang, l.path)}
+              class="site-nav__link"
+              aria-current={isCurrent(l.path) ? 'page' : undefined}
+            >{t(lang, l.key)}</a>
+          </li>
+        ))}
+      </ul>
       <LanguagePicker lang={lang} currentPath={currentPath} />
     </nav>
   </div>
 </header>
 
 <script>
-  const burger = document.getElementById('burger-btn');
-  const nav = document.getElementById('nav-menu');
-  burger?.addEventListener('click', () => {
-    nav?.classList.toggle('header__nav--open');
-    const expanded = burger.getAttribute('aria-expanded') === 'true';
-    burger.setAttribute('aria-expanded', String(!expanded));
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('site-nav');
+  const label = toggle?.querySelector('.menu-toggle__label');
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !nav) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    nav.classList.toggle('is-open', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    if (label) label.textContent = (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? '';
+  };
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  nav?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setOpen(false);
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
 </script>

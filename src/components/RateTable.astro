@@ -1,0 +1,67 @@
+---
+// src/components/RateTable.astro — one operator rate table (letters or parcels)
+import { t } from '../i18n/utils';
+import { daysKey, formatDays, formatPrice, formatSurcharge, formatWeight } from '../i18n/format';
+import type { Lang, LetterRate, ParcelRate } from '../lib/types';
+
+interface Props {
+  lang: Lang;
+  kind: 'letter' | 'parcel';
+  rates: (LetterRate | ParcelRate)[];
+  /** id of the heading that names this table */
+  labelledby: string;
+}
+
+const { lang, kind, rates, labelledby } = Astro.props;
+const lowest = Math.min(...rates.map((r) => r.price_eur));
+
+const maxWeight = (r: LetterRate | ParcelRate) =>
+  kind === 'letter'
+    ? formatWeight(lang, (r as LetterRate).max_weight_g, 'g')
+    : formatWeight(lang, (r as ParcelRate).max_weight_kg, 'kg');
+---
+
+<div class="table-scroll" role="region" aria-labelledby={labelledby} tabindex="0">
+  <table class="table op-table">
+    <thead>
+      <tr>
+        <th scope="col">{t(lang, 'operator.product')}</th>
+        <th scope="col" class="is-num">{t(lang, 'operator.max_weight')}</th>
+        <th scope="col" class="is-num">{t(lang, 'operator.price')}</th>
+        <th scope="col">{t(lang, 'operator.delivery')}</th>
+        {kind === 'parcel' && <th scope="col">{t(lang, 'results.tracking')}</th>}
+        <th scope="col">{t(lang, 'operator.options')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rates.map((rate) => {
+        const cheapest = rate.price_eur === lowest;
+        return (
+          <tr class={cheapest ? 'is-cheapest' : undefined}>
+            <th scope="row" class="op-table__product">
+              {rate.name}
+              {cheapest && <span class="badge badge--accent">{t(lang, 'operator.cheapest')}</span>}
+            </th>
+            <td class="is-num">{maxWeight(rate)}</td>
+            <td class="is-num op-table__price">{formatPrice(lang, rate.price_eur)}</td>
+            <td class="op-table__days"><span class="num">{formatDays(rate.delivery_days)}</span> {t(lang, daysKey(rate.delivery_days))}</td>
+            {kind === 'parcel' && (
+              <td>{(rate as ParcelRate).tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}</td>
+            )}
+            <td>
+              {rate.options && rate.options.length > 0 ? (
+                <ul class="chips op-table__options">
+                  {rate.options.map((opt) => (
+                    <li class="chip">{opt.name} <span class="num">{formatSurcharge(lang, opt.price_eur)}</span></li>
+                  ))}
+                </ul>
+              ) : (
+                <span class="muted">&mdash;</span>
+              )}
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

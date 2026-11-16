@@ -1,0 +1,128 @@
+/* Comparator page: form column, results list, reverse route. */
+
+.page-head--tight { padding-block: var(--s-7) var(--s-6); }
+
+.compare-layout {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: var(--s-7);
+  align-items: start;
+}
+.compare-layout__form {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--s-5));
+}
+.compare-submit { display: none; }
+.mobile-summary { display: none; }
+
+/* ---------- Results ---------- */
+.results { display: grid; gap: var(--s-4); container-type: inline-size; }
+.results__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+}
+.results__count { font-size: var(--t-small); color: var(--p-muted); }
+.results__desc { color: var(--p-muted); max-width: 62ch; }
+.results__route { display: block; margin-top: var(--s-1); font-size: var(--t-lead); color: var(--p-muted); letter-spacing: -0.01em; }
+.results__list { display: grid; gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+
+.results--reverse { margin-top: var(--s-7); padding-top: var(--s-7); border-top: 1px solid var(--p-line); }
+
+.no-results { color: var(--p-muted); text-align: center; padding: var(--s-7) var(--s-5); }
+
+/* ---------- Result card ---------- */
+.result {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto;
+  grid-template-areas:
+    'who facts price'
+    'opts opts price';
+  gap: var(--s-3) var(--s-6);
+  align-items: start;
+  padding: var(--s-5);
+}
+.result__who { grid-area: who; display: flex; gap: var(--s-3); align-items: flex-start; min-width: 0; }
+.result__id { display: grid; gap: 2px; min-width: 0; }
+.result__name { font-size: 1.0625rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.35; }
+.result__product { color: var(--p-muted); font-size: var(--t-small); }
+.result__tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: var(--s-2); }
+
+.result__facts { grid-area: facts; display: grid; gap: var(--s-1); font-size: 0.9375rem; min-width: 0; }
+.result__facts dl { display: flex; flex-wrap: wrap; gap: 2px var(--s-4); margin: 0; }
+.result__fact { display: flex; flex-wrap: wrap; gap: 0 var(--s-2); }
+.result__fact dt { color: var(--p-muted); }
+.result__fact dt::after { content: ':'; }
+.result__fact dd { margin: 0; }
+
+.result__options { grid-area: opts; margin: 0; padding: 0 0 0 48px; list-style: none; }
+
+.result__price {
+  grid-area: price;
+  display: grid;
+  justify-items: end;
+  align-content: start;
+  gap: var(--s-2);
+  text-align: right;
+}
+.result__amount { font-size: 1.625rem; line-height: 1.1; letter-spacing: -0.03em; }
+.result__link { display: inline-flex; align-items: center; min-height: var(--ctl-h); font-size: var(--t-small); font-weight: 500; }
+
+/* Cheapest: accent frame, filled badge, price in the accent */
+.result--best {
+  border-color: var(--p-accent);
+  box-shadow: inset 0 0 0 1px var(--p-accent);
+}
+.result--best .result__amount { color: var(--p-accent); font-weight: 500; }
+
+/* Reverse route: compact rows */
+.result--compact {
+  padding: var(--s-4) var(--s-5);
+  grid-template-areas: 'who facts price';
+}
+.result--compact .result__amount { font-size: 1.25rem; }
+
+@container (max-width: 620px) {
+  .result,
+  .result--compact {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'who price'
+      'facts facts'
+      'opts opts';
+    gap: var(--s-3) var(--s-4);
+  }
+  .result__facts { padding-top: var(--s-3); border-top: 1px solid var(--p-line); }
+  .result__options { padding-left: 0; }
+}
+
+/* ---------- Mobile: summary bar + collapsible form ---------- */
+@media (max-width: 899px) {
+  .compare-layout { grid-template-columns: 1fr; gap: var(--s-5); }
+  .compare-layout__form { position: static; }
+  .compare-layout__form.is-collapsed { display: none; }
+  .compare-submit { display: inline-flex; }
+
+  .mobile-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding: var(--s-3) var(--s-3) var(--s-3) var(--s-4);
+    background: var(--p-card);
+    border: 1px solid var(--p-line);
+    border-radius: var(--r-lg);
+  }
+  .mobile-summary__text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--s-2);
+    min-width: 0;
+    font-size: 0.9375rem;
+  }
+  .mobile-summary__text > span:nth-child(2)::before { content: '\00b7'; margin-right: var(--s-2); color: var(--p-muted); }
+  .mobile-summary__text > span:last-child { flex-basis: 100%; }
+  .mobile-summary__edit { flex: none; padding: 0 var(--s-4); }
+}

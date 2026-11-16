@@ -1,7 +1,9 @@
 ---
 // src/pages/[lang]/rankings.astro — Composite rankings of European postal services
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Flag from '../../components/Flag.astro';
 import { t, localePath } from '../../i18n/utils';
+import { formatPrice, formatWeight } from '../../i18n/format';
 import { loadCountries, loadAllOperators, loadPriceLevelIndices } from '../../lib/data-loader';
 import { compare } from '../../lib/comparison-engine';
 import type { Lang, ComparisonResult } from '../../lib/types';
@@ -26,8 +28,6 @@ const countryName = (code: string): string => {
   if (!c) return code;
   return c[`name_${lang}` as keyof typeof c] as string;
 };
-const countryFlag = (code: string): string =>
-  countries.find((c) => c.code === code)?.flag ?? '';
 
 // --- Composite letter ranking (20g, 50g, 100g, 200g) ---
 const letterWeights = [20, 50, 100, 200];
@@ -116,22 +116,26 @@ function medianOf(entries: CompositeEntry[]): number {
   return sorted.length % 2 !== 0 ? sorted[mid].avgPrice : (sorted[mid - 1].avgPrice + sorted[mid].avgPrice) / 2;
 }
 
-// --- Medal ---
-function medal(rank: number): string {
-  if (rank === 1) return '\u{1F947}';
-  if (rank === 2) return '\u{1F948}';
-  if (rank === 3) return '\u{1F949}';
-  return '';
-}
 function rowClass(rank: number, total: number): string {
-  if (rank <= 5) return 'rk-row--cheap';
-  if (rank > total - 5) return 'rk-row--expensive';
+  if (rank <= 5) return 'is-cheap';
+  if (rank > total - 5) return 'is-expensive';
   return '';
 }
 
-// --- i18n labels ---
-const letterWeightLabels = letterWeights.map(w => `${w}g`);
-const parcelWeightLabels = parcelWeights.map(w => `${w}kg`);
+const tables = [
+  {
+    id: 'letters',
+    title: t(lang, 'rankings.letters_title'),
+    ranking: letterRanking,
+    weights: letterWeights.map((w) => formatWeight(lang, w, 'g')),
+  },
+  {
+    id: 'parcels',
+    title: t(lang, 'rankings.parcels_title'),
+    ranking: parcelRanking,
+    weights: parcelWeights.map((w) => formatWeight(lang, w, 'kg')),
+  },
+];
 
 const rankingsJsonLd = {
   "@context": "https://schema.org",
@@ -150,181 +154,97 @@ const rankingsJsonLd = {
   breadcrumbs={[{ name: t(lang, 'nav.rankings'), path: '/rankings' }]}
   jsonLd={rankingsJsonLd}
 >
-  <section class="rk-hero">
-    <h1 class="rk-hero__title">{t(lang, 'rankings.title')}</h1>
-    <p class="rk-hero__subtitle">{t(lang, 'rankings.subtitle')}</p>
-  </section>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t(lang, 'rankings.title')}</h1>
+      <p class="page-head__lead">{t(lang, 'rankings.subtitle')}</p>
+      <p class="rk-method">
+        {t(lang, 'ui.rankings_method')}
+        <span class="rk-method__weights">
+          {t(lang, 'ui.letters')}: <span class="num">{tables[0].weights.join(', ')}</span>
+          <span aria-hidden="true"> · </span>
+          {t(lang, 'ui.parcels')}: <span class="num">{tables[1].weights.join(', ')}</span>
+        </span>
+      </p>
+    </header>
 
-  <div class="rk-page">
-    <p class="rk-methodology">
-      {lang === 'fr' ? 'Classement basé sur la moyenne des rangs pour les poids : ' :
-       lang === 'de' ? 'Rangliste basierend auf dem Durchschnittsrang für Gewichte: ' :
-       'Ranking based on average rank across weights: '}
-      <strong>
-        {lang === 'fr' ? `Lettres : ${letterWeightLabels.join(', ')} — Colis : ${parcelWeightLabels.join(', ')}` :
-         lang === 'de' ? `Briefe: ${letterWeightLabels.join(', ')} — Pakete: ${parcelWeightLabels.join(', ')}` :
-         `Letters: ${letterWeightLabels.join(', ')} — Parcels: ${parcelWeightLabels.join(', ')}`}
-      </strong>
-    </p>
-
-    {/* ====== Letters composite ranking ====== */}
-    <section class="rk-section" aria-label={t(lang, 'rankings.letters_title')}>
-      <div class="rk-section__header">
-        <div class="rk-section__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 8 10-8"/>
-          </svg>
+    {tables.map((tbl) => (
+      <section class="section rk-section" aria-labelledby={`rk-${tbl.id}`}>
+        <div class="rk-section__head">
+          <h2 id={`rk-${tbl.id}`}>{tbl.title}</h2>
+          <dl class="rk-stats">
+            <div>
+              <dt>{t(lang, 'rankings.median')}</dt>
+              <dd class="num">{formatPrice(lang, medianOf(tbl.ranking))}</dd>
+            </div>
+            <div>
+              <dt>{t(lang, 'rankings.average')}</dt>
+              <dd class="num">{formatPrice(lang, avgOf(tbl.ranking))}</dd>
+            </div>
+          </dl>
         </div>
-        <h2 class="rk-section__title">{t(lang, 'rankings.letters_title')}</h2>
-      </div>
 
-      <div class="rk-table-wrap">
-        <table class="rk-table">
-          <thead>
-            <tr>
-              <th class="rk-th--rank">#</th>
-              <th>{t(lang, 'rankings.country')}</th>
-              <th>{t(lang, 'rankings.operator')}</th>
-              {letterWeightLabels.map(w => <th class="rk-th--price">{w}</th>)}
-              <th class="rk-th--price">{lang === 'fr' ? 'Moy.' : lang === 'de' ? 'Ø' : 'Avg.'}</th>
-              <th class="rk-th--price rk-th--ppp">{lang === 'fr' ? 'PPA*' : lang === 'de' ? 'KKP*' : 'PPP*'}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {letterRanking.map((e, i) => {
-              const rank = i + 1;
-              return (
-                <tr class={`rk-row ${rowClass(rank, letterRanking.length)}`} data-country={e.country}>
-                  <td class="rk-td--rank"><span class="rk-rank">{medal(rank)} {rank}</span></td>
-                  <td class="rk-td--country">
-                    <span class="rk-flag">{countryFlag(e.country)}</span>
-                    <span class="rk-country-name">{countryName(e.country)}</span>
-                  </td>
-                  <td class="rk-td--operator">
-                    <a href={localePath(lang, `/operator/${e.operatorId}`)}>{e.operatorName}</a>
-                  </td>
-                  {e.prices.map(p => (
-                    <td class="rk-td--price"><span class="rk-price-sm">{p.price.toFixed(2)}&euro;</span></td>
-                  ))}
-                  {/* Fill missing tiers */}
-                  {Array.from({ length: letterWeights.length - e.prices.length }).map(() => (
-                    <td class="rk-td--price"><span class="rk-price-na">—</span></td>
-                  ))}
-                  <td class="rk-td--price"><span class="rk-price">{e.avgPrice.toFixed(2)}&nbsp;&euro;</span></td>
-                  <td class="rk-td--price rk-td--ppp"><span class="rk-price-ppp">{e.avgPricePPP.toFixed(2)}&nbsp;&euro;</span></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="rk-stats">
-        <div class="rk-stat">
-          <span class="rk-stat__label">{t(lang, 'rankings.median')}</span>
-          <span class="rk-stat__value">{medianOf(letterRanking).toFixed(2)}&nbsp;&euro;</span>
+        <div class="table-scroll" role="region" aria-labelledby={`rk-${tbl.id}`} tabindex="0">
+          <table class="table rk-table">
+            <thead>
+              <tr>
+                <th scope="col" class="is-num rk-rank">#</th>
+                <th scope="col">{t(lang, 'rankings.country')}</th>
+                <th scope="col">{t(lang, 'rankings.operator')}</th>
+                {tbl.weights.map((w) => <th scope="col" class="is-num">{w}</th>)}
+                <th scope="col" class="is-num">{t(lang, 'ui.avg_short')}</th>
+                <th scope="col" class="is-num">{t(lang, 'ui.ppp_short')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tbl.ranking.map((e, i) => {
+                const rank = i + 1;
+                return (
+                  <tr class={rowClass(rank, tbl.ranking.length)} data-country={e.country}>
+                    <td class="is-num rk-rank">{rank}</td>
+                    <th scope="row" class="rk-country">
+                      <Flag code={e.country} />
+                      <span>{countryName(e.country)}</span>
+                    </th>
+                    <td class="rk-operator">
+                      <a href={localePath(lang, `/operator/${e.operatorId}`)}>{e.operatorName}</a>
+                    </td>
+                    {e.prices.map((p) => <td class="is-num">{formatPrice(lang, p.price)}</td>)}
+                    {Array.from({ length: tbl.weights.length - e.prices.length }).map(() => (
+                      <td class="is-num muted">&mdash;</td>
+                    ))}
+                    <td class="is-num rk-avg">{formatPrice(lang, e.avgPrice)}</td>
+                    <td class="is-num muted">{formatPrice(lang, e.avgPricePPP)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-        <div class="rk-stat">
-          <span class="rk-stat__label">{t(lang, 'rankings.average')}</span>
-          <span class="rk-stat__value">{avgOf(letterRanking).toFixed(2)}&nbsp;&euro;</span>
-        </div>
-      </div>
 
-      <div class="rk-legend">
-        <span class="rk-legend__item rk-legend__item--cheap">{t(lang, 'rankings.cheapest')}</span>
-        <span class="rk-legend__item rk-legend__item--expensive">{t(lang, 'rankings.most_expensive')}</span>
-      </div>
-    </section>
+        <ul class="rk-legend">
+          <li class="rk-legend__item rk-legend__item--cheap">{t(lang, 'rankings.cheapest')}</li>
+          <li class="rk-legend__item rk-legend__item--expensive">{t(lang, 'rankings.most_expensive')}</li>
+        </ul>
+      </section>
+    ))}
 
-    <div class="rk-airmail-sep" aria-hidden="true"></div>
-
-    {/* ====== Parcels composite ranking ====== */}
-    <section class="rk-section" aria-label={t(lang, 'rankings.parcels_title')}>
-      <div class="rk-section__header">
-        <div class="rk-section__icon rk-section__icon--parcel">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
-          </svg>
-        </div>
-        <h2 class="rk-section__title">{t(lang, 'rankings.parcels_title')}</h2>
-      </div>
-
-      <div class="rk-table-wrap">
-        <table class="rk-table">
-          <thead>
-            <tr>
-              <th class="rk-th--rank">#</th>
-              <th>{t(lang, 'rankings.country')}</th>
-              <th>{t(lang, 'rankings.operator')}</th>
-              {parcelWeightLabels.map(w => <th class="rk-th--price">{w}</th>)}
-              <th class="rk-th--price">{lang === 'fr' ? 'Moy.' : lang === 'de' ? 'Ø' : 'Avg.'}</th>
-              <th class="rk-th--price rk-th--ppp">{lang === 'fr' ? 'PPA*' : lang === 'de' ? 'KKP*' : 'PPP*'}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {parcelRanking.map((e, i) => {
-              const rank = i + 1;
-              return (
-                <tr class={`rk-row ${rowClass(rank, parcelRanking.length)}`} data-country={e.country}>
-                  <td class="rk-td--rank"><span class="rk-rank">{medal(rank)} {rank}</span></td>
-                  <td class="rk-td--country">
-                    <span class="rk-flag">{countryFlag(e.country)}</span>
-                    <span class="rk-country-name">{countryName(e.country)}</span>
-                  </td>
-                  <td class="rk-td--operator">
-                    <a href={localePath(lang, `/operator/${e.operatorId}`)}>{e.operatorName}</a>
-                  </td>
-                  {e.prices.map(p => (
-                    <td class="rk-td--price"><span class="rk-price-sm">{p.price.toFixed(2)}&euro;</span></td>
-                  ))}
-                  {Array.from({ length: parcelWeights.length - e.prices.length }).map(() => (
-                    <td class="rk-td--price"><span class="rk-price-na">—</span></td>
-                  ))}
-                  <td class="rk-td--price"><span class="rk-price">{e.avgPrice.toFixed(2)}&nbsp;&euro;</span></td>
-                  <td class="rk-td--price rk-td--ppp"><span class="rk-price-ppp">{e.avgPricePPP.toFixed(2)}&nbsp;&euro;</span></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="rk-stats">
-        <div class="rk-stat">
-          <span class="rk-stat__label">{t(lang, 'rankings.median')}</span>
-          <span class="rk-stat__value">{medianOf(parcelRanking).toFixed(2)}&nbsp;&euro;</span>
-        </div>
-        <div class="rk-stat">
-          <span class="rk-stat__label">{t(lang, 'rankings.average')}</span>
-          <span class="rk-stat__value">{avgOf(parcelRanking).toFixed(2)}&nbsp;&euro;</span>
-        </div>
-      </div>
-
-      <div class="rk-legend">
-        <span class="rk-legend__item rk-legend__item--cheap">{t(lang, 'rankings.cheapest')}</span>
-        <span class="rk-legend__item rk-legend__item--expensive">{t(lang, 'rankings.most_expensive')}</span>
-      </div>
-    </section>
-
-    <div class="rk-cta">
-      <a href={localePath(lang, '/compare')} class="op-cta__btn">
-        {t(lang, 'rankings.cta')} &rarr;
+    <section class="section rk-foot">
+      <a href={localePath(lang, '/compare')} class="btn btn--primary">
+        {t(lang, 'rankings.cta')}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
-    </div>
-
-    <footer class="rk-footnote">
-      <p>
-        {lang === 'fr' ? '* PPA (Parité de Pouvoir d\'Achat) : prix ajusté au coût de la vie de chaque pays. Un timbre à 1€ en Bulgarie (coût de la vie bas) pèse plus dans le budget qu\'un timbre à 1€ en Suisse.' :
-         lang === 'de' ? '* KKP (Kaufkraftparität): Preis angepasst an die Lebenshaltungskosten jedes Landes. Eine Briefmarke für 1€ in Bulgarien (niedrige Lebenshaltungskosten) belastet das Budget stärker als eine 1€-Briefmarke in der Schweiz.' :
-         '* PPP (Purchasing Power Parity): price adjusted for each country\'s cost of living. A €1 stamp in Bulgaria (low cost of living) weighs more on the budget than a €1 stamp in Switzerland.'}
-      </p>
-      <p class="rk-footnote__source">
-        {lang === 'fr' ? 'Source : ' : lang === 'de' ? 'Quelle: ' : 'Source: '}
-        <a href={pliData.source_url} target="_blank" rel="noopener">{pliData.source}</a>
-        {` (${pliData.year})`}
-      </p>
-    </footer>
+      <div class="rk-notes">
+        <p>{t(lang, 'ui.ppp_note')}</p>
+        <p>
+          {t(lang, 'ui.source')}:{' '}
+          <a class="link" href={pliData.source_url} target="_blank" rel="noopener">{pliData.source}</a>
+          {` (${pliData.year})`}
+        </p>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
@@ -340,7 +260,7 @@ const rankingsJsonLd = {
     }
     if (!code) return;
     document.querySelectorAll(`tr[data-country="${code}"]`).forEach(row => {
-      row.classList.add('rk-row--user');
+      row.classList.add('is-user');
     });
   })();
 </script>

@@ -1,0 +1,20 @@
+---
+// Drapeau SVG local (public/flags, flag-icons, MIT). Décoratif par défaut :
+// le nom du pays est toujours écrit à côté ; passer `label` sinon.
+interface Props {
+  code: string;
+  size?: 'md' | 'lg';
+  label?: string;
+}
+const { code, size = 'md', label = '' } = Astro.props;
+const [w, h] = size === 'lg' ? [48, 36] : [28, 21];
+---
+<img
+  class:list={['flag', size === 'lg' && 'flag--lg']}
+  src={`/flags/${code.toLowerCase()}.svg`}
+  alt={label}
+  width={w}
+  height={h}
+  loading="lazy"
+  decoding="async"
+/>

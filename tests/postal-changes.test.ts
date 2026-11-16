@@ -5,6 +5,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
 import { loadAllOperators, loadPostalChanges } from '../src/lib/data-loader';
+import { confirmedConsumerCountries } from '../src/lib/postal-changes';
+import type { PostalAnnouncement } from '../src/lib/types';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const ajv = new Ajv({ allErrors: true, strict: true });
@@ -34,7 +36,8 @@ describe('2027 postal changes', () => {
   });
 
   it('retains the Denmark business preview as structured research data', () => {
-    expect(changes.announcements).toHaveLength(7);
+    // Reconciled dataset (origin 2026-09-27 + feat/redesign 2026-11-16): 15 announcements.
+    expect(changes.announcements).toHaveLength(15);
     expect(changes.announcements).toContainEqual(expect.objectContaining({
       country: 'DK',
       operator_id: 'postnord-dk',
@@ -53,14 +56,26 @@ describe('2027 postal changes', () => {
   });
 
   it('loads the consultation date for every announcement source', () => {
+    for (const { source } of changes.announcements) {
+      expect(source.retrieved_at).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(source.retrieved_at >= '2026-08-10').toBe(true);
+    }
     expect(changes.announcements.map(({ source }) => source.retrieved_at)).toEqual([
-      '2026-09-27',
-      '2026-09-27',
-      '2026-09-27',
-      '2026-09-27',
-      '2026-09-27',
-      '2026-09-27',
-      '2026-08-10',
+      '2026-09-27', // FR La Poste
+      '2026-11-16', // FR Arcep
+      '2026-11-16', // DE Deutsche Post (aenderungen2027)
+      '2026-09-27', // DE national page (Maxibrief mit Zusatzentgelt)
+      '2026-08-10', // DK business preview
+      '2026-11-16', // CH (de page)
+      '2026-09-27', // CH (fr news page)
+      '2026-11-16', // LI
+      '2026-11-16', // NO
+      '2026-11-16', // AT
+      '2026-11-16', // LV (en tariff project)
+      '2026-09-27', // LV (draft prices)
+      '2026-11-16', // EE
+      '2026-11-16', // BE
+      '2026-11-16', // NL
     ]);
   });
 
@@ -68,7 +83,7 @@ describe('2027 postal changes', () => {
     const priceChanges = changes.announcements.flatMap((announcement) => announcement.changes)
       .filter((change) => change.type === 'price_change');
 
-    expect(priceChanges).toHaveLength(12);
+    expect(priceChanges).toHaveLength(52);
     for (const change of priceChanges) {
       expect(change.new_price_eur).toBeDefined();
       if (change.old_price_eur !== undefined) {
@@ -84,7 +99,8 @@ describe('2027 postal changes', () => {
   });
 
   it('records the new international 20 g price without inventing a historical percentage', () => {
-    const international20g = changes.announcements[0].changes.find(
+    const france = changes.announcements.find(({ operator_id }) => operator_id === 'la-poste-fr');
+    const international20g = france?.changes.find(
       (change) => change.product.fr === 'Lettre internationale 20 g',
     );
 
@@ -137,9 +153,55 @@ describe('2027 postal changes', () => {
       expect.objectContaining({ country: 'FR', operator_id: 'la-poste-fr', status: 'confirmed', effective_date: '2027-01-01' }),
       expect.objectContaining({ country: 'DE', operator_id: 'deutsche-post-de', status: 'confirmed', effective_date: '2027-01-01' }),
       expect.objectContaining({ country: 'CH', operator_id: 'la-poste-suisse-ch', scope: 'consumer', status: 'confirmed', effective_date: '2027-01-01' }),
-      expect.objectContaining({ country: 'NL', operator_id: 'postnl-nl', scope: 'consumer', status: 'preview', effective_date: null }),
+      // PostNL published its 2027 prices (2026-11-16), superseding the ACM ceiling preview.
+      expect.objectContaining({ country: 'NL', operator_id: 'postnl-nl', scope: 'consumer', status: 'confirmed', effective_date: '2027-01-01' }),
       expect.objectContaining({ country: 'LV', operator_id: 'latvijas-pasts-lv', scope: 'consumer', status: 'preview', effective_date: null }),
       expect.objectContaining({ country: 'DK', operator_id: 'postnord-dk', scope: 'business', status: 'preview', effective_date: null }),
     ]));
+  });
+});
+
+describe('confirmedConsumerCountries (home teaser count)', () => {
+  const announcement = (overrides: Partial<PostalAnnouncement>): PostalAnnouncement => ({
+    country: 'FR',
+    operator_id: 'la-poste-fr',
+    scope: 'consumer',
+    status: 'confirmed',
+    effective_date: '2027-01-01',
+    source: { url: 'https://example.org', retrieved_at: '2026-11-16' },
+    changes: [],
+    ...overrides,
+  });
+
+  it('counts a country with several confirmed sources once', () => {
+    const countries = confirmedConsumerCountries({
+      announcements: [
+        announcement({}),
+        announcement({ source: { url: 'https://www.arcep.fr/x.pdf', retrieved_at: '2026-11-16' } }),
+        announcement({ country: 'DE', operator_id: 'deutsche-post-de' }),
+      ],
+    });
+    expect(countries).toEqual(['FR', 'DE']);
+  });
+
+  it('ignores previews and business-only announcements', () => {
+    const countries = confirmedConsumerCountries({
+      announcements: [
+        announcement({ country: 'LV', operator_id: 'latvijas-pasts-lv', status: 'preview' }),
+        announcement({ country: 'DK', operator_id: 'postnord-dk', scope: 'business' }),
+      ],
+    });
+    expect(countries).toEqual([]);
+  });
+
+  it('counts France once in the real data even though it has two confirmed announcements', () => {
+    const data = loadPostalChanges();
+    const frenchConfirmed = data.announcements.filter(
+      ({ country, scope, status }) => country === 'FR' && scope === 'consumer' && status === 'confirmed',
+    );
+    const countries = confirmedConsumerCountries(data);
+    expect(frenchConfirmed.length).toBeGreaterThan(1);
+    expect(countries.filter((c) => c === 'FR')).toHaveLength(1);
+    expect(new Set(countries).size).toBe(countries.length);
   });
 });

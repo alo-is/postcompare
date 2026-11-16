@@ -23,20 +23,15 @@
     "all_countries": "Alle Länder",
     "domestic": "Inland (gleiches Land)",
     "compare": "Vergleichen",
-    "weight_error": "Gewicht muss gr\u00f6\u00dfer als {min} sein",
+    "weight_error": "Gewicht muss größer als {min} sein",
     "modify": "Ändern"
   },
   "results": {
     "title": "Ergebnisse",
     "no_results": "Keine Ergebnisse für diese Suche gefunden.",
-    "tracked": "Mit Sendungsverfolgung",
-    "untracked": "Ohne Sendungsverfolgung",
-    "empty_title": "Bereit zum Vergleichen?",
-    "empty_text": "Wählen Sie Sendungsart, Gewicht und Länder: Die Tarife von 32 europäischen Postunternehmen erscheinen hier, vom günstigsten zum teuersten.",
     "best_price": "Bester Preis",
     "delivery": "Lieferung",
     "days": "Werktage",
-    "day": "Werktag",
     "tracking": "Sendungsverfolgung",
     "tracking_yes": "Ja",
     "tracking_no": "Nein",
@@ -51,7 +46,12 @@
     "desc_all_to": "Tarife für den Versand von {type} ({weight}) nach {destination}, aus jedem europäischen Land.",
     "desc_domestic": "Tarife für den Versand von {type} ({weight}) im Inland in {origin}.",
     "desc_route": "Tarife für den Versand von {type} ({weight}) von {origin} nach {destination}.",
-    "desc_from_operator": "aus"
+    "desc_from_operator": "aus",
+    "tracked": "Mit Sendungsverfolgung",
+    "untracked": "Ohne Sendungsverfolgung",
+    "empty_title": "Bereit zum Vergleichen?",
+    "empty_text": "Wählen Sie Sendungsart, Gewicht und Länder: Die Tarife von 32 europäischen Postunternehmen erscheinen hier, vom günstigsten zum teuersten.",
+    "day": "Werktag"
   },
   "operator": {
     "title": "Tarife {name}",
@@ -107,27 +107,27 @@
     "step4": "Öffnen Sie einen Pull Request mit der Quelle Ihrer Daten"
   },
   "hero": {
-    "title": "Vergleichen Sie Postgeb\u00fchren aus 32 europ\u00e4ischen L\u00e4ndern",
-    "subtitle": "Briefmarken-, Brief- und Paketpreise: kostenlos, unabh\u00e4ngig, Open Source",
+    "title": "Vergleichen Sie Postgebühren aus 32 europäischen Ländern",
+    "subtitle": "Briefmarken-, Brief- und Paketpreise: kostenlos, unabhängig, Open Source",
     "cta": "Preise vergleichen"
   },
   "how": {
     "title": "Warum vergleichen?",
-    "step1_title": "\u00dcberraschende Preisunterschiede",
-    "step1_text": "F\u00fcr denselben 20g-Brief variieren die Preise von 0,40\u20ac bis \u00fcber 3\u20ac je nach Land. Bei Paketen: bis zu dreifache Unterschiede.",
+    "step1_title": "Überraschende Preisunterschiede",
+    "step1_text": "Für denselben 20g-Brief variieren die Preise von 0,40€ bis über 3€ je nach Land. Bei Paketen: bis zu dreifache Unterschiede.",
     "step2_title": "Vergleichbare Leistungen",
-    "step2_text": "Alle nationalen Postdienste bieten \u00e4hnliche Produkte: Standardbriefe, verfolgte Pakete, Einschreiben. Nur der Preis \u00e4ndert sich \u2014 manchmal drastisch.",
-    "step3_title": "Transparent und unabh\u00e4ngig",
+    "step2_text": "Alle nationalen Postdienste bieten ähnliche Produkte: Standardbriefe, verfolgte Pakete, Einschreiben. Nur der Preis ändert sich — manchmal drastisch.",
+    "step3_title": "Transparent und unabhängig",
     "step3_text": "Daten von den offiziellen Websites jedes Postdienstes erhoben. Keine Werbung, keine kommerziellen Partnerschaften. Open Source."
   },
   "countries_section": {
-    "title": "32 abgedeckte L\u00e4nder"
+    "title": "32 abgedeckte Länder"
   },
   "rankings": {
-    "title": "Rangliste der europ\u00e4ischen Postdienste",
-    "subtitle": "Wer ist am g\u00fcnstigsten? Wer ist am teuersten? Durchschnittliche Inlandspreise f\u00fcr Briefe und Pakete in 32 europ\u00e4ischen L\u00e4ndern.",
-    "letters_title": "Briefrangliste \u2014 Inlandstarif",
-    "parcels_title": "Paketrangliste \u2014 Inlandstarif",
+    "title": "Rangliste der europäischen Postdienste",
+    "subtitle": "Wer ist am günstigsten? Wer ist am teuersten? Durchschnittliche Inlandspreise für Briefe und Pakete in 32 europäischen Ländern.",
+    "letters_title": "Briefrangliste — Inlandstarif",
+    "parcels_title": "Paketrangliste — Inlandstarif",
     "rank": "Rang",
     "country": "Land",
     "operator": "Betreiber",
@@ -136,7 +136,7 @@
     "delivery": "Lieferzeit",
     "median": "Medianpreis",
     "average": "Durchschnittspreis",
-    "cheapest": "Die 5 g\u00fcnstigsten",
+    "cheapest": "Die 5 günstigsten",
     "most_expensive": "Die 5 teuersten",
     "cta": "Vergleichen Sie Ihre eigenen Sendungen",
     "days": "T"
@@ -163,8 +163,40 @@
   },
   "postal_teaser": {
     "title": "Angekündigte Änderungen für 2027",
-    "text": "{count} bestätigte Verbraucherankündigungen. Lesen Sie das offizielle Bulletin.",
+    "text": "Bestätigte Änderungen für Privatkunden in {count} Ländern. Lesen Sie das offizielle Bulletin.",
     "link": "Bulletin 2027 lesen"
+  },
+  "footer": {
+    "tagline": "Unabhängiger europäischer Postgebührenvergleich",
+    "open_source": "Open-Source-Projekt",
+    "disclaimer": "Die angezeigten Preise sind indikativ und können ungenau sein. Überprüfen Sie immer auf der offiziellen Website des Betreibers."
+  },
+  "ui": {
+    "skip": "Zum Inhalt springen",
+    "menu": "Menü",
+    "close": "Schließen",
+    "main_nav": "Hauptnavigation",
+    "language": "Sprache",
+    "footer_site": "Website",
+    "footer_project": "Projekt",
+    "report_price": "Falschen Preis melden",
+    "hero_lead": "Briefe und Pakete, national und international: die offiziellen Tarife jeder nationalen Post, in Euro umgerechnet und vom günstigsten zum teuersten sortiert.",
+    "your_shipment": "Ihre Sendung",
+    "use_country": "{country} wählen",
+    "countries_hint": "Jedes Land führt zur vollständigen Preisliste seiner nationalen Post.",
+    "compare_lead": "Wählen Sie Sendungsart, Gewicht und Strecke. Die Ergebnisse aktualisieren sich bei jeder Änderung.",
+    "national_operator": "Nationaler Betreiber",
+    "your_country": "Ihr Land",
+    "open_issue": "Issue auf GitHub erstellen",
+    "rankings_method": "Rangfolge nach dem Durchschnittsrang über vier Gewichte je Sendungsart.",
+    "letters": "Briefe",
+    "parcels": "Pakete",
+    "avg_short": "Ø",
+    "ppp_short": "KKP*",
+    "ppp_note": "* KKP (Kaufkraftparität): Preis angepasst an die Lebenshaltungskosten jedes Landes. Eine Briefmarke für 1 € in Bulgarien (niedrige Lebenshaltungskosten) belastet das Budget stärker als eine 1-€-Briefmarke in der Schweiz.",
+    "source": "Quelle",
+    "from": "ab",
+    "zone_countries": "Länder dieser Zone"
   },
   "meta": {
     "home_title": "Postgebühren in Europa vergleichen",
@@ -187,10 +219,5 @@
     "og_image_alt": "PostCompare.eu – Vergleich der Postgebühren in 32 europäischen Ländern",
     "dataset_name": "Europäische Postgebühren (Briefe und Pakete)",
     "dataset_description": "Offene Daten zu Brief- und Paketpreisen der nationalen Postunternehmen aus 32 europäischen Ländern (EU, EFTA und Vereinigtes Königreich), erhoben von den offiziellen Websites der Anbieter und als YAML-Dateien auf GitHub veröffentlicht."
-  },
-  "footer": {
-    "tagline": "Unabhängiger europäischer Postgebührenvergleich",
-    "open_source": "Open-Source-Projekt",
-    "disclaimer": "Die angezeigten Preise sind indikativ und können ungenau sein. Überprüfen Sie immer auf der offiziellen Website des Betreibers."
   }
 }

@@ -1,0 +1,229 @@
+/* Site chrome: header, navigation, mobile menu, language picker, footer. */
+
+main:focus { outline: none; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--p-bg);
+  border-bottom: 1px solid var(--p-line);
+}
+.site-header__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  height: var(--nav-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: var(--ctl-h);
+  margin: 0;
+  color: var(--p-ink);
+  text-decoration: none;
+  font-size: 1.1875rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.brand__mark { width: 28px; height: 28px; }
+
+/* ---------- Navigation ---------- */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  margin-left: auto;
+}
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ctl-h);
+  padding: 0 var(--s-3);
+  color: var(--p-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--m-out) var(--ease);
+}
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  left: var(--s-3);
+  right: var(--s-3);
+  bottom: 8px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--m-out) var(--ease);
+}
+.site-nav__link:hover { color: var(--p-ink); transition-duration: var(--m-in); }
+.site-nav__link:hover::after { transform: scaleX(1); transition-duration: var(--m-in); }
+.site-nav__link[aria-current='page'] { color: var(--p-ink); }
+.site-nav__link[aria-current='page']::after {
+  height: 2px;
+  bottom: 0;
+  background: var(--p-accent);
+  transform: scaleX(1);
+}
+
+/* Language picker: three codes in one segmented control */
+.lang-picker {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 2px;
+  list-style: none;
+  border: 1px solid var(--p-line);
+  border-radius: var(--r-sm);
+}
+.lang-picker__link {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 38px;
+  border-radius: 6px;
+  color: var(--p-muted);
+  font: 500 var(--t-label)/1 var(--f-mono);
+  text-decoration: none;
+  transition: background-color var(--m-out) var(--ease), color var(--m-out) var(--ease);
+}
+.lang-picker__link:hover { color: var(--p-ink); background: var(--p-surface); }
+.lang-picker__link[aria-current='true'] { color: var(--p-bg); background: var(--p-ink); }
+
+/* ---------- Menu button and full-screen sheet (under 1024px) ---------- */
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: var(--ctl-h);
+  margin-left: auto;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--p-line-strong);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--p-ink);
+  font: 500 0.9375rem/1 var(--f-sans);
+  cursor: pointer;
+}
+.menu-toggle__icon,
+.menu-toggle__icon::before {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform var(--m-out) var(--ease);
+}
+.menu-toggle__icon { position: relative; transform: translateY(-3px); }
+.menu-toggle__icon::before { content: ''; position: absolute; top: 6px; }
+.menu-toggle[aria-expanded='true'] .menu-toggle__icon { transform: translateY(0) rotate(45deg); }
+.menu-toggle[aria-expanded='true'] .menu-toggle__icon::before { transform: translateY(-6px) rotate(-90deg); }
+
+@media (max-width: 1023px) {
+  .menu-toggle { display: inline-flex; }
+
+  .site-nav {
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    z-index: 19;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--s-6);
+    margin: 0;
+    padding: var(--s-3) var(--gut) var(--s-7);
+    background: var(--p-bg);
+    overflow-y: auto;
+  }
+  .site-nav.is-open { display: flex; }
+  .menu-open, .menu-open body { overflow: hidden; }
+
+  .site-nav__list { flex-direction: column; align-items: stretch; gap: 0; }
+  .site-nav__link {
+    width: 100%;
+    min-height: 56px;
+    padding: 0;
+    border-bottom: 1px solid var(--p-line);
+    font-size: 1.375rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--p-ink);
+  }
+  .site-nav__link::after { display: none; }
+  .site-nav__link[aria-current='page'] { color: var(--p-accent); }
+
+  .lang-picker { align-self: flex-start; }
+  .lang-picker__link { min-width: 56px; min-height: 44px; }
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: var(--s-7);
+  background: var(--p-inv-bg);
+  color: var(--p-inv-ink);
+  --p-line: rgb(248 248 248 / 0.14);
+}
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--s-6) var(--s-5);
+  padding-block: var(--s-8) var(--s-6);
+}
+.site-footer .brand { color: var(--p-inv-ink); }
+.site-footer .muted { color: var(--p-inv-muted); }
+.site-footer__tagline { margin-top: var(--s-3); color: var(--p-inv-muted); max-width: 40ch; }
+.site-footer__head {
+  margin-bottom: var(--s-3);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--p-inv-muted);
+}
+.site-footer ul { margin: 0; padding: 0; list-style: none; }
+.site-footer__col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ctl-h);
+  color: var(--p-inv-ink);
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+.site-footer__col a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.site-footer :focus-visible { outline-color: #5fbf7f; }
+.site-footer__legal {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-5);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--p-line);
+  font-size: var(--t-small);
+  color: var(--p-inv-muted);
+}
+.site-footer__legal span:last-child { max-width: 70ch; }
+
+@media (max-width: 767px) {
+  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+  .site-footer__about { grid-column: 1 / -1; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .site-footer { background: var(--p-inv-surface); }
+}
