@@ -1,7 +1,7 @@
 ---
 // src/components/RateTable.astro — one operator rate table (letters or parcels)
 import { t } from '../i18n/utils';
-import { formatDays, formatPrice, formatSurcharge, formatWeight } from '../i18n/format';
+import { daysKey, formatDays, formatPrice, formatSurcharge, formatWeight } from '../i18n/format';
 import type { Lang, LetterRate, ParcelRate } from '../lib/types';
 
 interface Props {
@@ -44,7 +44,7 @@ const maxWeight = (r: LetterRate | ParcelRate) =>
             </th>
             <td class="is-num">{maxWeight(rate)}</td>
             <td class="is-num op-table__price">{formatPrice(lang, rate.price_eur)}</td>
-            <td class="op-table__days"><span class="num">{formatDays(rate.delivery_days)}</span> {t(lang, 'results.days')}</td>
+            <td class="op-table__days"><span class="num">{formatDays(rate.delivery_days)}</span> {t(lang, daysKey(rate.delivery_days))}</td>
             {kind === 'parcel' && (
               <td>{(rate as ParcelRate).tracking ? t(lang, 'results.tracking_yes') : t(lang, 'results.tracking_no')}</td>
             )}

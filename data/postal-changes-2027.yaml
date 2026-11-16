@@ -6,7 +6,7 @@ announcements:
     effective_date: "2027-01-01"
     source:
       url: "https://www.laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027"
-      retrieved_at: "2026-08-10"
+      retrieved_at: "2026-09-27"
     changes:
       - type: "price_change"
         product: { fr: "Lettre verte 20 g", en: "Green letter 20 g", de: "Grüner Brief 20 g" }
@@ -14,6 +14,10 @@ announcements:
         old_price_eur: 1.52
         new_price_eur: 1.67
         percentage_change: 9.9
+      - type: "price_change"
+        product: { fr: "Lettre verte à imprimer 20 g", en: "Print-at-home green letter 20 g", de: "Grüner Brief zum Selbstdrucken 20 g" }
+        availability: "published"
+        new_price_eur: 1.63
       - type: "price_change"
         product: { fr: "Lettre verte suivie", en: "Tracked green letter", de: "Sendungsverfolgter grüner Brief" }
         availability: "published"
@@ -141,6 +145,18 @@ announcements:
         old_price_eur: 10.49
         new_price_eur: 12.49
         percentage_change: 19.07
+  - country: "DE"
+    operator_id: "deutsche-post-de"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://www.deutschepost.de/de/b/brief-national2027_Aenderungen.html"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "product_removed"
+        product: { fr: "Maxibrief avec supplément (national)", en: "Maxibrief with surcharge (domestic)", de: "Maxibrief mit Zusatzentgelt (national)" }
+        availability: "not_published"
   - country: "DK"
     operator_id: "postnord-dk"
     scope: "business"
@@ -209,6 +225,24 @@ announcements:
         product: { fr: "Maxibrief International", en: "Maxibrief International", de: "Maxibrief International" }
         availability: "published"
         details: { fr: "Format supprimé ; les documents de plus de 1 kg passent par Kleinwaren International", en: "Format withdrawn; documents over 1 kg move to Kleinwaren International", de: "Format aufgehoben; Dokumente über 1 kg als Kleinwaren International" }
+  - country: "CH"
+    operator_id: "la-poste-suisse-ch"
+    scope: "consumer"
+    status: "confirmed"
+    effective_date: "2027-01-01"
+    source:
+      url: "https://site.post.ch/fr/notre-profil/actualites/nouveaux-prix-pour-les-lettres-a-partir-de-2027"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "product_changed"
+        product: { fr: "Courrier A Plus et Recommandé", en: "A Mail Plus and Registered", de: "A-Post Plus und Einschreiben" }
+        availability: "published"
+        details: { fr: "Supplément relevé de CHF 0.20", en: "Surcharge raised by CHF 0.20", de: "Zuschlag steigt um CHF 0.20" }
+      - type: "product_introduced"
+        product: { fr: "Lettre volumineuse (CHF 4.20)", en: "Bulky letter (CHF 4.20)", de: "Volumenbrief (CHF 4.20)" }
+        availability: "published"
+        new_price_eur: 4.074
+        details: { fr: "CHF 4.20, suivi inclus, converti au taux du dépôt de 0,97 EUR/CHF", en: "CHF 4.20 with tracking, converted at the repository rate of 0.97 EUR/CHF", de: "CHF 4.20 inkl. Sendungsverfolgung, umgerechnet zum Datensatzkurs von 0,97 EUR/CHF" }
   - country: "LI"
     operator_id: "liechtenstein-post-li"
     scope: "consumer"
@@ -339,6 +373,33 @@ announcements:
         product: { fr: "Projet de tarifs 2027 du service universel", en: "2027 universal service tariff proposal", de: "Tarifentwurf 2027 für den Universaldienst" }
         availability: "upcoming"
         details: { fr: "Projet soumis au régulateur SPRK le 31 juillet 2026 ; tarifs non encore approuvés", en: "Proposal submitted to the SPRK regulator on 31 July 2026; tariffs not yet approved", de: "Am 31. Juli 2026 beim Regulierer SPRK eingereicht; Tarife noch nicht genehmigt" }
+  - country: "LV"
+    operator_id: "latvijas-pasts-lv"
+    scope: "consumer"
+    status: "preview"
+    effective_date: null
+    source:
+      url: "https://pasts.lv/pakalpojumi/tarifi-un-informacija/universala-pasta-pakalpojuma-tarifu-izmainas"
+      retrieved_at: "2026-09-27"
+    changes:
+      - type: "price_change"
+        product: { fr: "Lettre simple jusqu’à 20 g (projet, HT)", en: "Standard letter up to 20 g (proposal, excl. VAT)", de: "Einfacher Brief bis 20 g (Entwurf, ohne MwSt.)" }
+        availability: "published"
+        old_price_eur: 2.35
+        new_price_eur: 2.50
+        percentage_change: 6.38
+      - type: "price_change"
+        product: { fr: "Lettre recommandée jusqu’à 20 g (projet, HT)", en: "Registered letter up to 20 g (proposal, excl. VAT)", de: "Einschreiben bis 20 g (Entwurf, ohne MwSt.)" }
+        availability: "published"
+        old_price_eur: 3.79
+        new_price_eur: 4.87
+        percentage_change: 28.5
+      - type: "price_change"
+        product: { fr: "Lettre simple vers l’EEE jusqu’à 20 g (projet, HT)", en: "Standard letter to the EEA up to 20 g (proposal, excl. VAT)", de: "Einfacher Brief in den EWR bis 20 g (Entwurf, ohne MwSt.)" }
+        availability: "published"
+        old_price_eur: 3.00
+        new_price_eur: 3.25
+        percentage_change: 8.33
   - country: "EE"
     operator_id: "omniva-ee"
     scope: "consumer"

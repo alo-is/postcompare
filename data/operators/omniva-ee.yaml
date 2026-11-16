@@ -5,21 +5,21 @@ operator:
   currency: "EUR"
   website: "https://www.omniva.ee"
   logo: "omniva-ee.svg"
-  last_updated: "2026-07-01"
+  last_updated: "2026-10-01"
+  sources:
+    - title: "Omniva — Postiteenuste uus hinnakiri alates 1. oktoobrist (01.09.2026)"
+      url: "https://www.omniva.ee/uudised/postiteenuste-uus-hinnakiri-alates-1-oktoobrist/"
+      retrieved_at: "2026-09-27"
 
 letters:
   domestic:
     - name: "Tavaline kiri"
       max_weight_g: 250
-      price_eur: 1.80
-      delivery_days: [2, 3]
+      price_eur: 2.10
+      delivery_days: [3, 3]
       options:
         - name: "Tähitud"
-          price_eur: 7.70
-    - name: "Tavaline kiri (kiirkiri)"
-      max_weight_g: 250
-      price_eur: 3.10
-      delivery_days: [1, 1]
+          price_eur: 6.30
   international:
     zones:
       - name: "Europe"
@@ -27,19 +27,11 @@ letters:
         rates:
           - name: "Rahvusvaheline kiri"
             max_weight_g: 20
-            price_eur: 3.50
+            price_eur: 4.30
             delivery_days: [3, 7]
             options:
               - name: "Tähitud rahvusvaheline"
-                price_eur: 8.00
-          - name: "Rahvusvaheline kiri"
-            max_weight_g: 100
-            price_eur: 3.50
-            delivery_days: [3, 7]
-          - name: "Rahvusvaheline kiri"
-            max_weight_g: 500
-            price_eur: 5.50
-            delivery_days: [3, 7]
+                price_eur: 5.40
 
 parcels:
   domestic:

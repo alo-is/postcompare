@@ -65,6 +65,10 @@ describe('2027 postal-change public pages', () => {
       }
       expect(html).toContain('laposte.fr/tarifs-postaux-courrier-lettres-timbres-2027');
       expect(html).toContain('deutschepost.de/de/a/aenderungen2027');
+      expect(html).toContain('deutschepost.de/de/b/brief-national2027_Aenderungen.html');
+      expect(html).toContain('site.post.ch/fr/notre-profil/actualites/nouveaux-prix-pour-les-lettres-a-partir-de-2027');
+      expect(html).toContain('newsroom.postnl.nl/nl-NL/273887-postnl-maakt-nieuwe-postzegelprijs-per-1-januari-2027-bekend');
+      expect(html).toContain('pasts.lv/pakalpojumi/tarifi-un-informacija/universala-pasta-pakalpojuma-tarifu-izmainas');
       expect(html).not.toContain('postnord.dk/en/business/prices-for-businesses/post2027');
       expect(html).not.toContain('Post 2027');
     }
@@ -83,12 +87,18 @@ describe('2027 postal-change public pages', () => {
       const germany = page(`${lang}/operator/deutsche-post-de`);
       const denmark = page(`${lang}/operator/postnord-dk`);
       const belgium = page(`${lang}/operator/bpost-be`);
+      const switzerland = page(`${lang}/operator/la-poste-suisse-ch`);
+      const netherlands = page(`${lang}/operator/postnl-nl`);
+      const latvia = page(`${lang}/operator/latvijas-pasts-lv`);
 
       expect(home).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain(`href="/${lang}/tarifs-2027"`);
       expect(germany).toContain(`href="/${lang}/tarifs-2027"`);
       expect(france).toContain('operator-postal-alert');
       expect(germany).toContain('operator-postal-alert');
+      expect(switzerland).toContain('operator-postal-alert');
+      expect(netherlands).toContain('operator-postal-alert');
+      expect(latvia).toContain('operator-postal-alert');
       if (consumerOperatorIds.has('postnord-dk')) {
         expect(denmark).toContain('operator-postal-alert');
       } else {

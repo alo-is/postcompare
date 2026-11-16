@@ -45,3 +45,8 @@ export function formatDate(lang: Lang, isoDate: string): string {
     timeZone: 'UTC',
   }).format(new Date(`${isoDate}T00:00:00Z`));
 }
+
+/** i18n key for the unit after a delivery window: "1 business day" vs "1–2 / 2 business days" */
+export function daysKey(days: [number, number] | number[]): 'results.day' | 'results.days' {
+  return days[0] === 1 && days[1] === 1 ? 'results.day' : 'results.days';
+}

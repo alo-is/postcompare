@@ -23,7 +23,7 @@
     "all_countries": "Tous les pays",
     "domestic": "National (même pays)",
     "compare": "Comparer",
-    "weight_error": "Le poids doit \u00eatre sup\u00e9rieur \u00e0 {min}",
+    "weight_error": "Le poids doit être supérieur à {min}",
     "modify": "Modifier"
   },
   "results": {
@@ -46,7 +46,12 @@
     "desc_all_to": "Tarifs pour envoyer {type} de {weight} vers {destination}, depuis chaque pays européen.",
     "desc_domestic": "Tarifs pour envoyer {type} de {weight} en national en {origin}.",
     "desc_route": "Tarifs pour envoyer {type} de {weight} depuis {origin} vers {destination}.",
-    "desc_from_operator": "depuis"
+    "desc_from_operator": "depuis",
+    "tracked": "Suivi inclus",
+    "untracked": "Sans suivi",
+    "empty_title": "Prêt à comparer ?",
+    "empty_text": "Choisissez un type d'envoi, un poids et les pays : les tarifs de 32 postes européennes s'affichent ici, du moins cher au plus cher.",
+    "day": "jour ouvrable"
   },
   "operator": {
     "title": "Tarifs {name}",
@@ -80,7 +85,7 @@
   },
   "about": {
     "title": "À propos de PostCompare.eu",
-    "intro": "PostCompare.eu est un comparateur gratuit et indépendant des tarifs postaux en Europe.",
+    "intro": "PostCompare.eu est un comparateur gratuit et indépendant des tarifs postaux en Europe : prix des lettres et des colis, en national comme à l'international, pour 32 pays.",
     "methodology_title": "Méthodologie",
     "methodology_text": "Les prix sont collectés manuellement depuis les sites officiels des postes nationales. Les prix des pays hors zone euro sont convertis en EUR au taux de change du jour de la collecte.",
     "neutrality_title": "Neutralité",
@@ -102,34 +107,34 @@
     "step4": "Ouvrez une Pull Request avec la source de vos données"
   },
   "hero": {
-    "title": "Comparez les tarifs postaux de 32 pays europ\u00e9ens",
-    "subtitle": "Gratuit, ind\u00e9pendant, open source",
+    "title": "Comparez les tarifs postaux de 32 pays européens",
+    "subtitle": "Prix du timbre, des lettres et des colis : gratuit, indépendant, open source",
     "cta": "Comparer les prix"
   },
   "how": {
     "title": "Pourquoi comparer ?",
-    "step1_title": "Des \u00e9carts de prix surprenants",
-    "step1_text": "Pour une m\u00eame lettre de 20g, les prix varient de 0,40\u20ac \u00e0 plus de 3\u20ac selon les pays. M\u00eame constat pour les colis : du simple au triple.",
-    "step2_title": "Des prestations \u00e9quivalentes",
-    "step2_text": "Toutes les postes nationales offrent des services similaires : lettre standard, colis suivi, recommand\u00e9. Seul le prix change, parfois drastiquement.",
-    "step3_title": "Transparent et ind\u00e9pendant",
-    "step3_text": "Donn\u00e9es collect\u00e9es depuis les sites officiels de chaque poste. Aucune publicit\u00e9, aucun partenariat commercial. Open source."
+    "step1_title": "Des écarts de prix surprenants",
+    "step1_text": "Pour une même lettre de 20g, les prix varient de 0,40€ à plus de 3€ selon les pays. Même constat pour les colis : du simple au triple.",
+    "step2_title": "Des prestations équivalentes",
+    "step2_text": "Toutes les postes nationales offrent des services similaires : lettre standard, colis suivi, recommandé. Seul le prix change, parfois drastiquement.",
+    "step3_title": "Transparent et indépendant",
+    "step3_text": "Données collectées depuis les sites officiels de chaque poste. Aucune publicité, aucun partenariat commercial. Open source."
   },
   "countries_section": {
     "title": "32 pays couverts"
   },
   "rankings": {
-    "title": "Classement des postes europ\u00e9ennes",
-    "subtitle": "Qui est le moins cher ? Qui est le plus cher ?",
-    "letters_title": "Classement lettres \u2014 Tarif national",
-    "parcels_title": "Classement colis \u2014 Tarif national",
+    "title": "Classement des postes européennes",
+    "subtitle": "Qui est le moins cher ? Qui est le plus cher ? Prix moyens des lettres et colis nationaux dans 32 pays européens.",
+    "letters_title": "Classement lettres — Tarif national",
+    "parcels_title": "Classement colis — Tarif national",
     "rank": "Rang",
     "country": "Pays",
-    "operator": "Op\u00e9rateur",
+    "operator": "Opérateur",
     "product": "Produit",
     "price": "Prix",
-    "delivery": "D\u00e9lai",
-    "median": "Prix m\u00e9dian",
+    "delivery": "Délai",
+    "median": "Prix médian",
     "average": "Prix moyen",
     "cheapest": "Les 5 moins chers",
     "most_expensive": "Les 5 plus chers",
@@ -138,7 +143,7 @@
   },
   "postal_changes": {
     "title": "Tarifs postaux 2027",
-    "intro": "Bulletin des changements officiels annoncés pour 2027.",
+    "intro": "Bulletin des changements officiels annoncés pour 2027 par les postes européennes : prix du timbre, des lettres et des colis, avec dates d’effet et sources.",
     "last_verified": "Dernière vérification : {date}",
     "notice": "Les prix futurs annoncés ici ne sont pas intégrés au comparateur : celui-ci continue d’afficher les tarifs actuellement publiés.",
     "confirmed": "Confirmé",
@@ -168,7 +173,6 @@
   },
   "ui": {
     "skip": "Aller au contenu",
-    "home": "accueil",
     "menu": "Menu",
     "close": "Fermer",
     "main_nav": "Navigation principale",
@@ -193,5 +197,27 @@
     "source": "Source",
     "from": "dès",
     "zone_countries": "Pays de la zone"
+  },
+  "meta": {
+    "home_title": "Comparateur de tarifs postaux en Europe",
+    "home_description": "Comparateur gratuit et indépendant des tarifs postaux en Europe : prix du timbre, des lettres et des colis de 32 postes nationales, de La Poste à Deutsche Post.",
+    "compare_title": "Prix d'une lettre ou d'un colis en Europe",
+    "compare_heading": "Comparer le prix d'une lettre ou d'un colis en Europe",
+    "compare_description": "Combien coûte l'envoi d'une lettre ou d'un colis en Europe ? Comparez les tarifs de 32 postes, en national ou à l'international, par exemple pour envoyer un colis en Allemagne.",
+    "rankings_title": "Classement des prix des postes européennes",
+    "rankings_description": "Classement des postes européennes de la moins chère à la plus chère : prix moyens des lettres et colis nationaux dans 32 pays, avec ajustement au pouvoir d'achat.",
+    "postal_changes_title": "Tarifs postaux 2027 : prix du timbre et des colis",
+    "postal_changes_description": "Prix du timbre 2027 et nouveaux tarifs postaux en Europe : changements officiels annoncés par les postes nationales pour les lettres et les colis, avec dates d'effet et sources.",
+    "about_description": "Comment PostCompare.eu collecte les tarifs postaux européens : méthodologie, neutralité vis-à-vis des opérateurs et données open source sur GitHub.",
+    "contribute_description": "Aidez à tenir à jour les tarifs postaux européens de PostCompare.eu : signalez un prix incorrect ou corrigez les fichiers de données YAML sur GitHub.",
+    "operator_title": "Tarifs {name} ({country}) : lettres et colis",
+    "operator_description": "Tarifs {name} ({country}) : lettres dès {letter} EUR, colis dès {parcel} EUR. Prix nationaux et internationaux, comparés aux autres postes européennes.",
+    "operator_description_no_letters": "Tarifs {name} ({country}) : colis dès {parcel} EUR. Prix nationaux et internationaux, comparés aux autres postes européennes.",
+    "breadcrumb_home": "Accueil",
+    "logo_alt": "Logo PostCompare.eu",
+    "home_link_label": "PostCompare.eu – accueil",
+    "og_image_alt": "PostCompare.eu – comparateur de tarifs postaux dans 32 pays européens",
+    "dataset_name": "Tarifs postaux européens (lettres et colis)",
+    "dataset_description": "Données ouvertes des tarifs des lettres et des colis des postes nationales de 32 pays européens (UE, AELE et Royaume-Uni), collectées depuis les sites officiels des opérateurs et publiées au format YAML sur GitHub."
   }
 }

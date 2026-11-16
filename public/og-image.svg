@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Source of og-image.png (rendered with Onest and JetBrains Mono at 1200x630) -->
+  <rect width="1200" height="630" fill="#f8f8f8"/>
+  <g transform="translate(80 72)">
+    <rect width="48" height="48" rx="11" fill="#1f6b3a"/>
+    <rect x="11" y="15" width="26" height="18" rx="3" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <path d="M12.5 17l11.5 8.5 11.5-8.5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+  </g>
+  <text x="144" y="108" font-family="Onest, system-ui, sans-serif" font-size="34" font-weight="500" letter-spacing="-1" fill="#0a0a0a">PostCompare<tspan fill="#6a6a6a">.eu</tspan></text>
+  <rect x="80" y="150" width="1040" height="1" fill="#0a0a0a" fill-opacity="0.12"/>
+  <text font-family="Onest, system-ui, sans-serif" font-size="84" letter-spacing="-3.4" fill="#0a0a0a">
+    <tspan x="80" y="284">Postal rates in 32</tspan>
+    <tspan x="80" y="370">European countries</tspan>
+  </text>
+  <text x="80" y="550" font-family="Onest, system-ui, sans-serif" font-size="26" fill="#6a6a6a">Letters and parcels · Tarifs postaux · Postgebühren</text>
+  <text x="1120" y="504" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="26" fill="#0a0a0a">FR · DE · EN</text>
+  <text x="1120" y="550" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="26" font-weight="500" fill="#1f6b3a">open source</text>
+</svg>

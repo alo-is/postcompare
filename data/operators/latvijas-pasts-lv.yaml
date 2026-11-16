@@ -5,7 +5,14 @@ operator:
   currency: "EUR"
   website: "https://www.pasts.lv"
   logo: "latvijas-pasts-lv.svg"
-  last_updated: "2026-01-01"
+  last_updated: "2026-09-27"
+  sources:
+    - title: "Latvijas Pasts — Pasta pakalpojumu tarifi (tarifu grāmata, SPRK lēmums Nr. 117, 27.11.2025)"
+      url: "https://pasts.lv/media/491/download/Tarifu_Gramata.pdf?inline=1"
+      retrieved_at: "2026-09-27"
+    - title: "Latvijas Pasts — UPP tarifu projekts 2027 (spēkā esošie tarifi)"
+      url: "https://pasts.lv/pakalpojumi/tarifi-un-informacija/universala-pasta-pakalpojuma-tarifu-izmainas"
+      retrieved_at: "2026-09-27"
 
 letters:
   domestic:
@@ -15,37 +22,55 @@ letters:
       delivery_days: [2, 3]
       options:
         - name: "Ierakstīts"
-          price_eur: 4.35
+          price_eur: 1.44
     - name: "Vienkāršā vēstule"
       max_weight_g: 100
-      price_eur: 2.75
+      price_eur: 2.60
       delivery_days: [2, 3]
       options:
         - name: "Ierakstīts"
-          price_eur: 4.75
+          price_eur: 1.44
     - name: "Vienkāršā vēstule"
       max_weight_g: 500
-      price_eur: 3.60
+      price_eur: 4.20
       delivery_days: [2, 3]
   international:
     zones:
-      - name: "Europe"
-        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "CH", "GB", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "EE", "CY", "MT", "IS", "LI"]
+      - name: "EEZ"
+        countries: ["DE", "FR", "ES", "IT", "BE", "NL", "PT", "AT", "IE", "LU", "SE", "DK", "NO", "FI", "PL", "CZ", "RO", "HU", "GR", "BG", "HR", "SK", "SI", "LT", "EE", "CY", "MT", "IS", "LI"]
         rates:
           - name: "Starptautiskā vēstule"
             max_weight_g: 20
-            price_eur: 2.54
+            price_eur: 3.00
             delivery_days: [3, 7]
             options:
               - name: "Ierakstīts starptautisks"
-                price_eur: 5.68
+                price_eur: 3.55
           - name: "Starptautiskā vēstule"
             max_weight_g: 100
-            price_eur: 3.80
+            price_eur: 3.85
             delivery_days: [3, 7]
           - name: "Starptautiskā vēstule"
             max_weight_g: 500
-            price_eur: 5.90
+            price_eur: 5.76
+            delivery_days: [3, 7]
+      - name: "Pārējā pasaule"
+        countries: ["CH", "GB"]
+        rates:
+          - name: "Starptautiskā vēstule"
+            max_weight_g: 20
+            price_eur: 4.41
+            delivery_days: [3, 7]
+            options:
+              - name: "Ierakstīts starptautisks"
+                price_eur: 2.93
+          - name: "Starptautiskā vēstule"
+            max_weight_g: 100
+            price_eur: 5.36
+            delivery_days: [3, 7]
+          - name: "Starptautiskā vēstule"
+            max_weight_g: 500
+            price_eur: 7.61
             delivery_days: [3, 7]
 
 parcels:

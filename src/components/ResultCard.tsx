@@ -1,7 +1,7 @@
 // src/components/ResultCard.tsx
 import type { ComparisonResult, Country, Lang } from '../lib/types';
 import { t, localePath } from '../i18n/utils';
-import { formatDays, formatPrice, formatSurcharge } from '../i18n/format';
+import { daysKey, formatDays, formatPrice, formatSurcharge } from '../i18n/format';
 
 interface ResultCardProps {
   result: ComparisonResult;
@@ -62,7 +62,7 @@ export default function ResultCard({
         <dl>
           <div className="result__fact">
             <dt>{t(lang, 'results.delivery')}</dt>
-            <dd><span className="num">{formatDays(result.deliveryDays)}</span> {t(lang, 'results.days')}</dd>
+            <dd><span className="num">{formatDays(result.deliveryDays)}</span> {t(lang, daysKey(result.deliveryDays))}</dd>
           </div>
           {result.tracking !== undefined && (
             <div className="result__fact">
