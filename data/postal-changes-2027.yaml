@@ -49,7 +49,7 @@ announcements:
     effective_date: "2027-01-01"
     source:
       url: "https://www.deutschepost.de/de/b/briefe-ins-ausland/brief-international2027_Aenderungen.html"
-      retrieved_at: "2026-08-10"
+      retrieved_at: "2026-11-16"
     changes:
       - type: "product_introduced"
         product: { fr: "Midibrief International", en: "Midibrief International", de: "Midibrief International" }
