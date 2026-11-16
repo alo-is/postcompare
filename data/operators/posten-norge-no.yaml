@@ -30,7 +30,7 @@ letters:
           price_eur: 7.65
     - name: "Brev Ekstra Stort (format)"
       max_weight_g: 2000
-      price_eur: 5.95
+      price_eur: 5.87
       delivery_days: [2, 5]
   international:
     zones:
