@@ -1,5 +1,5 @@
 // src/components/Comparator.tsx
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import ComparatorForm from './ComparatorForm';
 import ResultsList from './ResultsList';
 import { compare } from '../lib/comparison-engine';
@@ -59,8 +59,14 @@ function getParamsFromURL(): SearchParams | undefined {
 }
 
 export default function Comparator({ operators, countries, lang, initialParams }: ComparatorProps) {
-  // Read URL params client-side (works on F5 refresh), fallback to server-side props
-  const urlSearchParams: SearchParams | undefined = getParamsFromURL()
+  // The page is static: the server render (and the first client render) cannot see the
+  // query string. Read it only after mount, then remount the form with it, so hydration
+  // matches the server HTML (React #418 otherwise).
+  const [mounted, setMounted] = useState(false);
+  const [paramsAtLoad] = useState(getParamsFromURL); // captured before any search rewrites the URL
+  useEffect(() => setMounted(true), []);
+
+  const urlSearchParams: SearchParams | undefined = (mounted ? paramsAtLoad : undefined)
     ?? (initialParams
       ? {
           type: (initialParams.type === 'letter' || initialParams.type === 'parcel'
@@ -161,11 +167,12 @@ export default function Comparator({ operators, countries, lang, initialParams }
         aria-label={t(lang, 'ui.your_shipment')}
       >
         <ComparatorForm
+          key={mounted ? 'client' : 'server'}
           countries={countries}
           lang={lang}
           onSearch={handleSearch}
           onDone={() => setMobileFormOpen(false)}
-          initialParams={currentParams ?? urlSearchParams ?? undefined}
+          initialParams={urlSearchParams}
         />
       </aside>
 
