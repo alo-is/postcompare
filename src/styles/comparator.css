@@ -45,8 +45,8 @@
   padding: var(--s-5);
 }
 .result__who { grid-area: who; display: flex; gap: var(--s-3); align-items: flex-start; min-width: 0; }
-.result__id { display: grid; gap: 2px; min-width: 0; }
-.result__name { font-size: 1.0625rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.35; }
+.result__id { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; min-width: 0; }
+.result__name { font-size: 1.0625rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.35; hyphens: auto; overflow-wrap: break-word; }
 .result__product { color: var(--p-muted); font-size: var(--t-small); }
 .result__tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: var(--s-2); }
 
