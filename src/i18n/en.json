@@ -91,7 +91,9 @@
     "neutrality_title": "Neutrality",
     "neutrality_text": "This site is purely informational. We have no commercial relationship with any of the listed postal operators.",
     "open_source_title": "Open Source",
-    "open_source_text": "The source code and data are available on GitHub. Contributions are welcome."
+    "open_source_text": "The source code and data are available on GitHub. Contributions are welcome.",
+    "hosting_title": "Hosting",
+    "hosting_text": "The site is hosted in France by while.sh, on Nextmap servers."
   },
   "contribute": {
     "title": "Contribute to PostCompare.eu",
@@ -169,7 +171,8 @@
   "footer": {
     "tagline": "Independent European postal rate comparator",
     "open_source": "Open source project",
-    "disclaimer": "Prices shown are indicative and may be inaccurate. Always verify on the operator's official website."
+    "disclaimer": "Prices shown are indicative and may be inaccurate. Always verify on the operator's official website.",
+    "hosted_by": "Hosted in France by"
   },
   "ui": {
     "skip": "Skip to content",
