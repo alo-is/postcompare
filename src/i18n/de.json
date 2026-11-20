@@ -91,7 +91,9 @@
     "neutrality_title": "Neutralität",
     "neutrality_text": "Diese Website ist rein informativ. Wir haben keine geschäftliche Beziehung zu den aufgelisteten Postbetreibern.",
     "open_source_title": "Open Source",
-    "open_source_text": "Der Quellcode und die Daten sind auf GitHub verfügbar. Beiträge sind willkommen."
+    "open_source_text": "Der Quellcode und die Daten sind auf GitHub verfügbar. Beiträge sind willkommen.",
+    "hosting_title": "Hosting",
+    "hosting_text": "Die Website wird in Frankreich von while.sh auf Servern von Nextmap gehostet."
   },
   "contribute": {
     "title": "Zu PostCompare.eu beitragen",
@@ -169,7 +171,8 @@
   "footer": {
     "tagline": "Unabhängiger europäischer Postgebührenvergleich",
     "open_source": "Open-Source-Projekt",
-    "disclaimer": "Die angezeigten Preise sind indikativ und können ungenau sein. Überprüfen Sie immer auf der offiziellen Website des Betreibers."
+    "disclaimer": "Die angezeigten Preise sind indikativ und können ungenau sein. Überprüfen Sie immer auf der offiziellen Website des Betreibers.",
+    "hosted_by": "Gehostet in Frankreich von"
   },
   "ui": {
     "skip": "Zum Inhalt springen",

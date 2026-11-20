@@ -91,7 +91,9 @@
     "neutrality_title": "Neutralité",
     "neutrality_text": "Ce site est purement informatif. Nous n'avons aucune relation commerciale avec les opérateurs postaux listés.",
     "open_source_title": "Open Source",
-    "open_source_text": "Le code source et les données sont disponibles sur GitHub. Les contributions sont bienvenues."
+    "open_source_text": "Le code source et les données sont disponibles sur GitHub. Les contributions sont bienvenues.",
+    "hosting_title": "Hébergement",
+    "hosting_text": "Le site est hébergé en France par while.sh, sur des serveurs Nextmap."
   },
   "contribute": {
     "title": "Contribuer à PostCompare.eu",
@@ -169,7 +171,8 @@
   "footer": {
     "tagline": "Comparateur indépendant de tarifs postaux européens",
     "open_source": "Projet open source",
-    "disclaimer": "Les prix affichés sont indicatifs et peuvent être inexacts. Vérifiez toujours sur le site officiel de l'opérateur."
+    "disclaimer": "Les prix affichés sont indicatifs et peuvent être inexacts. Vérifiez toujours sur le site officiel de l'opérateur.",
+    "hosted_by": "Hébergé en France par"
   },
   "ui": {
     "skip": "Aller au contenu",
