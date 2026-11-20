@@ -5,3 +5,7 @@ services:
     type: static
     root: dist
     domains: [www.postcompare.eu]
+telemetry:
+  uptime:
+    path: /fr/
+    interval_seconds: 60
